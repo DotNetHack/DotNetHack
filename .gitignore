@@ -1,0 +1,24 @@
+# GitIgnore for DotNetHack
+*/bin/*.*
+*/bin/**/*
+*/obj/**/*
+*/bin
+*/obj
+
+# ReSharper files
+_ReSharper.*/*
+_ReSharper.*/**/*
+*.resharper.user
+
+# Visual Studio files
+*.Publish.xml
+*.suo
+*.sln.cache
+*.csproj.user
+App_Data
+
+# MonoDevelop files
+*.pidb
+*.usertasks
+*.userprefs
+*.trx

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DotNetHack.Game.LocationExtensions">
+    <Position X="0.5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Game.DistantLocation">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Game\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Game.Location" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEwACAAgAAAAAAAAAAAAAAAAgAZAA=</HashCode>
+      <FileName>Game\Location.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DotNetHack.Game.Player">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAIAAAQAAAAAAAAAAAAAiAAAAAA=</HashCode>
+      <FileName>Game\Player.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Location" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DotNetHack.Game.DungeonExtensions">
+    <Position X="0.5" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Game\Dungeon.cs</FileName>
+      <NewMemberFileName>Game\DungeonLevel.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Game.Items.Containers.LockBox" Collapsed="true">
+    <Position X="5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Items\Containers\LockBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Game.Interfaces.LootContainer">
+    <Position X="5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAACAAAAAAABAQAAAAAAAAAAAAAAABQAAA=</HashCode>
+      <FileName>Game\Items\Containers\LootContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Game.Items.Currency" Collapsed="true">
+    <Position X="7.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Items\Currency.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Game.Items.Item">
+    <Position X="6" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAIAAAQAAAAAAAAAAAAAiAAAAAA=</HashCode>
+      <FileName>Game\Items\Item.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DotNetHack.Game.Items.Equipment.Weapons.Weapon">
+    <Position X="9.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAACAAAAEAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Game\Items\Equipment\Weapons\Weapon.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="WeaponProperties" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DotNetHack.Game.Items.Gems.Gem" Collapsed="true">
+    <Position X="0.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Items\Gems\Gem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Game.Items.Gems.GemRuby" Collapsed="true">
+    <Position X="0.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Items\Gems\GemRuby.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Game.Items.Magical.Scroll">
+    <Position X="13.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Items\Magical\Scroll.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Game.Items.Magical.Tome">
+    <Position X="13.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Items\Magical\Tome.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Game.Items.Potions.Potion" Collapsed="true">
+    <Position X="2.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Game\Items\Potions\Potion.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DotNetHack.Game.GameEngine">
+    <Position X="6.75" Y="1.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="DotNetHack.Game.GameEngine.EngineRunFlags" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Game\GameEngine.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAAAQI=</HashCode>
+      <FileName>Game\GameEngine.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Player" />
+    </ShowAsAssociation>
+  </Class>
+  <Struct Name="DotNetHack.Game.Items.Equipment.Weapons.WeaponProperties">
+    <Position X="12.75" Y="10" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Game\Items\Equipment\Weapons\WeaponProperties.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="DotNetHack.Game.Items.Equipment.Armor.ArmorLocation" Collapsed="true">
+    <Position X="13.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAEAAACAQIAEEAAAAAAAAAAAAAAAQAAAAAAEAAA=</HashCode>
+      <FileName>Game\Items\Equipment\Armor\ArmorLocation.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DotNetHack.Game.Items.Equipment.Armor.ArmorType" Collapsed="true">
+    <Position X="15.25" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAQAAAAgAAAEAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Game\Items\Equipment\Armor\ArmorType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DotNetHack.Game.Items.Equipment.Material" Collapsed="true">
+    <Position X="18.75" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAIAAAAAAgAAAAAAAAAAAAAAAIAAEAAgAAAAAAE=</HashCode>
+      <FileName>Game\Items\Equipment\Material.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DotNetHack.Game.Items.Equipment.Quality" Collapsed="true">
+    <Position X="13.5" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAEAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Items\Equipment\Quality.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DotNetHack.Game.Items.Equipment.Weapons.WeaponType" Collapsed="true">
+    <Position X="17" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAhEwAABgCABBIEAABAAAAECAIIIAEEAgAAAQSKIAAE=</HashCode>
+      <FileName>Game\Items\Equipment\Weapons\WeaponType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DotNetHack.Game.Items.Potions.PotionType" Collapsed="true">
+    <Position X="13.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Game\Items\Potions\PotionType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

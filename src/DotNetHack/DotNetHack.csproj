@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0C36C4DD-060F-4E4F-A0A3-EFF2B8FD33BA}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DotNetHack</RootNamespace>
+    <AssemblyName>DotNetHack</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DNHackException.cs" />
+    <Compile Include="Game\Dungeon.cs" />
+    <Compile Include="Game\Dice.cs" />
+    <Compile Include="Game\IDungeonLevel.cs" />
+    <Compile Include="Game\Interfaces\IArmor.cs" />
+    <Compile Include="Game\Items\Containers\LootContainer.cs" />
+    <Compile Include="Game\Interfaces\IMonster.cs" />
+    <Compile Include="Game\Interfaces\ITome.cs" />
+    <Compile Include="Game\Interfaces\ITool.cs" />
+    <Compile Include="Game\Interfaces\IWand.cs" />
+    <Compile Include="Game\Items\Containers\LockBox.cs" />
+    <Compile Include="Game\Items\Equipment\Armor\ArmorType.cs" />
+    <Compile Include="Game\Items\Equipment\Material.cs" />
+    <Compile Include="Game\Items\Equipment\Quality.cs" />
+    <Compile Include="Game\Items\Equipment\Weapons\WeaponProperties.cs" />
+    <Compile Include="Game\Items\Equipment\Weapons\WeaponType.cs" />
+    <Compile Include="Game\Items\Equipment\Armor\ArmorLocation.cs" />
+    <Compile Include="Game\Items\Gems\Gem.cs" />
+    <Compile Include="Game\Items\Gems\GemRuby.cs" />
+    <Compile Include="Game\Items\Currency.cs" />
+    <Compile Include="Game\Items\Item.cs" />
+    <Compile Include="Game\Items\Equipment\Weapons\Weapon.cs" />
+    <Compile Include="Game\Items\Magical\Scroll.cs" />
+    <Compile Include="Game\Items\Magical\Tome.cs" />
+    <Compile Include="Game\Items\Potions\Potion.cs" />
+    <Compile Include="Game\Items\Potions\PotionType.cs" />
+    <Compile Include="Game\Monsters\Monster.cs" />
+    <Compile Include="Game\Door.cs" />
+    <Compile Include="Game\TileFlags.cs" />
+    <Compile Include="Game\World.cs" />
+    <Compile Include="Game\Colour.cs" />
+    <Compile Include="UI\Display.cs" />
+    <Compile Include="EntryPoint.cs" />
+    <Compile Include="Game\GameEngine.cs" />
+    <Compile Include="UI\Graphics.cs" />
+    <Compile Include="UI\Menu.cs" />
+    <Compile Include="Game\Interfaces\IDrawable.cs" />
+    <Compile Include="Game\Interfaces\IHasLocation.cs" />
+    <Compile Include="Game\Location.cs" />
+    <Compile Include="UI\Symbols.cs" />
+    <Compile Include="Game\Interfaces\IConsumable.cs" />
+    <Compile Include="Game\Interfaces\IEquipment.cs" />
+    <Compile Include="Game\Interfaces\IFood.cs" />
+    <Compile Include="Game\Interfaces\IGlyph.cs" />
+    <Compile Include="Game\Interfaces\IHasCharges.cs" />
+    <Compile Include="Game\Interfaces\IHasCondition.cs" />
+    <Compile Include="Game\Interfaces\IHasUses.cs" />
+    <Compile Include="Game\Interfaces\IItem.cs" />
+    <Compile Include="Game\Interfaces\IMagical.cs" />
+    <Compile Include="Game\Interfaces\IPotion.cs" />
+    <Compile Include="Game\Interfaces\IReadable.cs" />
+    <Compile Include="Game\Interfaces\IScroll.cs" />
+    <Compile Include="Game\Interfaces\IWeapon.cs" />
+    <Compile Include="Utility\LockFile.cs" />
+    <Compile Include="Game\Player.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuntimeEnviornment.cs" />
+    <Compile Include="Game\Speech.cs" />
+    <Compile Include="Game\Tile.cs" />
+    <Compile Include="Game\TileType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Game\Items\Food\" />
+    <Folder Include="Game\Monsters\AI\" />
+    <Folder Include="Game\Quests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UML\Concrete.cd" />
+    <None Include="UML\Interfaces.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

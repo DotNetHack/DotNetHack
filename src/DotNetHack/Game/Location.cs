@@ -65,6 +65,11 @@ namespace DotNetHack.Game
         /// <summary>
         /// Location
         /// </summary>
+        public Location() { }
+
+        /// <summary>
+        /// Location
+        /// </summary>
         /// <param name="d">The plane or dungeon on which this 2 dimensional location exists</param>
         /// <param name="x">X-Coordinate</param>
         /// <param name="y">Y-Coordinate</param>
@@ -98,22 +103,22 @@ namespace DotNetHack.Game
 
         public static bool operator >(Location a, Location b)
         {
-            return (a.X > b.X && a.Y > b.Y);
+            return (a.X > b.X || a.Y > b.Y);
         }
 
         public static bool operator >=(Location a, Location b)
         {
-            return (a.X >= b.X && a.Y >= b.Y);
+            return (a.X >= b.X || a.Y >= b.Y);
         }
 
         public static bool operator <(Location a, Location b)
         {
-            return (a.X < b.X && a.Y < b.Y);
+            return (a.X < b.X || a.Y < b.Y);
         }
 
         public static bool operator <=(Location a, Location b)
         {
-            return (a.X <= b.X && a.Y <= b.Y);
+            return (a.X <= b.X || a.Y <= b.Y);
         }
 
         /// <summary>

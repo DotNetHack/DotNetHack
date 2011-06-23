@@ -23,7 +23,6 @@ namespace DotNetHack.Game
             Time = 0L;
             Player = aPlayer;
             CurrentMap = aStartDungeon;
-            aPlayer.Location = new Location(5, 5);
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace DotNetHack.Game
             {
 
             redo_input:
-
+                Graphics.CursorToLocation(1, 1); // So as not to pile up blanks.
                 ConsoleKeyInfo input = Console.ReadKey();
                 Location UnitMovement = new Location(0, 0);
                 switch (input.Key)
@@ -78,8 +77,6 @@ namespace DotNetHack.Game
 
                 Player.Draw();
 
-                Graphics.CursorToLocation(1, 1);
-
                 ++Time;
             }
         }
@@ -109,7 +106,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// Player
         /// </summary>
-        private Player Player { get; set; }
+        public Player Player { get; private set; }
 
         /// <summary>
         /// 

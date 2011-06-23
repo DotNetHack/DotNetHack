@@ -71,7 +71,7 @@ namespace DotNetHack.Editor
 
             Refresh();
 
-            CurrentMap = new Dungeon(Console.WindowWidth, Console.WindowHeight);
+            CurrentMap = new Dungeon(Console.WindowWidth, Console.WindowHeight - Dungeon.Y_OFFSET);
 
             x = 5;
             y = 5;
@@ -110,6 +110,8 @@ namespace DotNetHack.Editor
                         ShowStatusMessage("Editor Mode: " + Mode + "     ");
                         break;
                 }
+
+                Graphics.CursorToLocation(new Location(1, 1));
             }
         }
 
@@ -183,8 +185,9 @@ namespace DotNetHack.Editor
                     if (File.Exists(loadFile))
                         if (YesNo("Are you sure you want to load " + loadFile + "? "))
                         {
-                            Refresh();
+                            // Refresh();
                             CurrentMap = Dungeon.Load(loadFile);
+                            CurrentMap.ClearBuffer();
                         }
                     break;
                 case ConsoleKey.F3:
@@ -282,6 +285,10 @@ namespace DotNetHack.Editor
                     ShowStatusMessage(string.Format("Running {0}", d));
                     GameEngine g = new GameEngine(new Player("Editor", new Location(x, y)), d);
                     g.Run(GameEngine.EngineRunFlags.EDITOR | GameEngine.EngineRunFlags.DEBUG);
+                    x = g.Player.Location.X;    // Drop in to last location.
+                    y = g.Player.Location.Y;    // Drop in to last location.
+                    CurrentMap.ClearBuffer();
+                    
                     break;
                 case ConsoleKey.L:
                     {
@@ -492,11 +499,23 @@ namespace DotNetHack.Editor
                     }); break;
             }
 
+            if (x < 0)
+                x++;
+            if (y < 0)
+                y++;
+            if (x >= CurrentMap.Width)
+                x--;
+            if (y >= CurrentMap.Height)
+                y--;
 
+            Location lNewLocation = new Location(x, y);
+
+#if DEBUG
+            ShowStatusMessage(new Location(x, y).ToString());
+#endif
             CurrentMap.Render(new Location(x, y));
             Graphics.CursorToLocation(x, y);
             Console.Write('#');
-            Graphics.CursorToLocation(new Location(1, 1));
         }
 
 

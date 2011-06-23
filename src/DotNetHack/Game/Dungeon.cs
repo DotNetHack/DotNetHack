@@ -55,41 +55,29 @@ namespace DotNetHack.Game
         public Dungeon(int w, int h)
         {
             Width = w;
-            Height = h - Y_OFFSET;
+            Height = h;
 
             MapData = new MapTile[w, h];
             RenderBuffer = new MapTile[w, h];
 
             IterXY(delegate(int x, int y)
             {
-                char xx = '.';
-
-                if (h == 0)
-                    xx = '0';
-                if (w == 0)
-                    xx = '0';
-
-                if (h == UI.Graphics.ScreenCenter.Y)
-                    xx = 'Y';
-                if (w == UI.Graphics.ScreenCenter.X)
-                    xx = 'X';
-
-                if (x == Width - 5)
-                    xx = 'W';
-                if (y == Height - 5)
-                    xx = 'H';
-
                 MapData[x, y] = new MapTile(new Location(x, y))
                 {
                     TileType = TileType.FLOOR,
                     C = Colour.Standard,
-                    G = xx,
+                    G = '.',
                 };
+            });
 
-                RenderBuffer[x, y] = new MapTile(x, y)
-                {
-                    G = ' ',
-                };
+            ClearBuffer();
+        }
+
+        public void ClearBuffer() 
+        {
+            IterXY(delegate(int x, int y) 
+            {
+                RenderBuffer[x, y] = new MapTile(x, y) { G = ' ' };
             });
         }
 
@@ -112,8 +100,8 @@ namespace DotNetHack.Game
 
         void IterXY(IterMapTiles aMapIterator)
         {
-            for (int x = 0; x < Width - 1; ++x)
-                for (int y = 0; y < Height - 1; ++y)
+            for (int x = 0; x < Width; ++x)
+                for (int y = 0; y < Height; ++y)
                     aMapIterator(x, y);
         }
 
@@ -127,12 +115,17 @@ namespace DotNetHack.Game
 
         public bool CheckBounds(Location l) 
         {
-            return (l.X > 0 && l.Y > 0 && l.X < Width && l.Y < Height);
+            Location lLowerRight = new Location(Width, Height);
+            if (l < Location.Origin)
+                return false;
+            else if (l >= lLowerRight)
+                return false;
+            return true;
         }
 
-        public int Width { get; set; }
+        public int Width { get; private set; }
 
-        public int Height { get; set; }
+        public int Height { get; private set; }
 
         public MapTile[,] MapData { get; set; }
 
@@ -141,6 +134,12 @@ namespace DotNetHack.Game
 
         [XmlIgnore]
         IGlyph[,] RenderBuffer { get; set; }
+
+        /// <summary>
+        /// ToString
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString() { return MapFile; }
 
         public const int Y_OFFSET = 2;
 

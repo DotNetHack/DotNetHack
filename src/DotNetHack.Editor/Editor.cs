@@ -25,6 +25,7 @@ namespace DotNetHack.Editor
     {
         // static World World;
         static Dungeon CurrentMap;
+        static Tile CurrentTile;
 
         static int x = 1;
         static int y = 1;
@@ -41,6 +42,18 @@ namespace DotNetHack.Editor
         }
 
         /// <summary>
+        /// LOCATION 0: Olde tile
+        /// LOCATION 1: New tile
+        /// 
+        /// LOCATION 2: Olde Tile
+        /// LOCATION 3: New tile
+        /// 
+        /// etc ...
+        /// </summary>
+        static Stack<MapTile> MapTileUndoStack = new Stack<MapTile>();
+        static Stack<MapTile> MapTileRedoStack = new Stack<MapTile>();
+
+        /// <summary>
         /// SetTile
         /// </summary>
         /// <param name="x">X-Coord</param>
@@ -48,15 +61,19 @@ namespace DotNetHack.Editor
         /// <param name="aTile">The name of the tile.</param>
         public static void SetTile(int x, int y, Tile aTile)
         {
+            CurrentTile = aTile;
+
             if (aTile.C.Equals(Colour.Void))
                 aTile.C = Colour.Standard;
 
+            MapTileUndoStack.Push(CurrentMap.MapData[x, y]);
             CurrentMap.SetMapTile(new MapTile(new Location(x, y))
             {
                 C = aTile.C,
                 G = aTile.G,
                 TileType = aTile.TileType,
             });
+            MapTileUndoStack.Push(CurrentMap.MapData[x, y]);
         }
 
         /// <summary>
@@ -169,6 +186,54 @@ namespace DotNetHack.Editor
                 case ConsoleKey.DownArrow:
                     y++;
                     break;
+
+                // CTRL-Z for UNDO last op
+                case ConsoleKey.Z:
+                    {
+                        if (input.Modifiers == ConsoleModifiers.Control)
+                        {
+                            if (MapTileUndoStack.Count <= 1)
+                            {
+                                ShowStatusMessage("           Cannot Undo!");
+                                break;
+                            }
+                            // New olde
+                            var newTile = MapTileUndoStack.Pop();
+                            var oldeTile = MapTileUndoStack.Pop();
+
+                            // Olde new
+                            MapTileRedoStack.Push(newTile);
+                            MapTileRedoStack.Push(oldeTile);
+
+                            Location l = newTile.Location;
+                            CurrentMap.MapData[l.X, l.Y] = oldeTile;
+                        }
+                        break;
+                    }
+                case ConsoleKey.Y:
+                    {
+
+                        if (input.Modifiers == ConsoleModifiers.Control)
+                        {
+                            if (MapTileRedoStack.Count <= 1)
+                            {
+                                ShowStatusMessage("          Cannot Redo!");
+                                break;
+                            }
+
+                            // New olde
+                            var newTile = MapTileRedoStack.Pop();
+                            var oldeTile = MapTileRedoStack.Pop();
+
+                            // Olde new
+                            MapTileUndoStack.Push(newTile);
+                            MapTileUndoStack.Push(oldeTile);
+
+                            Location l = newTile.Location;
+                            CurrentMap.MapData[l.X, l.Y] = oldeTile;
+                        }
+                        break;
+                    }
                 case ConsoleKey.Escape:
                     if (YesNo("Are you sure? "))
                         done = true;
@@ -211,15 +276,22 @@ namespace DotNetHack.Editor
                         catch { goto bad_input; }
                     }
                     break;
+                // NOTE: OemPeriod can be used to write the last tile used again 
+                // but in a different location.
+                case ConsoleKey.OemPeriod:
+                    if (CurrentTile != null)
+                        CurrentMap.SetMapTile(new MapTile(x, y, CurrentTile));
+                    break;
                 case ConsoleKey.T:
                     if (input.Modifiers == ConsoleModifiers.Shift)
                     {
                         Menu.MenuAction mActionGrass = new Menu.MenuAction()
                         {
-                            Action = delegate(object k) 
+                            Action = delegate(object k)
                             {
                                 // CurrentMap
-                                CurrentMap.SetAllTiles(new Tile() { 
+                                CurrentMap.SetAllTiles(new Tile()
+                                {
                                     C = Colour.Grass,
                                     G = '.',
                                     TileType = TileType.GRASS,
@@ -524,7 +596,7 @@ namespace DotNetHack.Editor
                             });
                             break;
                     } break;
-                case ConsoleKey.OemPeriod:
+                case ConsoleKey.OemPlus:
                     SetTile(x, y, new Tile()
                     {
                         G = '.',

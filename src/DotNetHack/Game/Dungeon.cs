@@ -64,9 +64,9 @@ namespace DotNetHack.Game
             {
                 MapData[x, y] = new MapTile(new Location(x, y))
                 {
-                    TileType = TileType.NOTHING,
+                    TileType = TileType.FLOOR,
                     C = Colour.Standard,
-                    G = ' ',
+                    G = '.',
                 };
             });
 

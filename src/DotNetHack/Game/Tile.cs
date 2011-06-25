@@ -22,6 +22,14 @@ namespace DotNetHack.Game
             : base()
         { Location = new Location(x, y); }
 
+        public MapTile(int x, int y, Tile aTile)
+            : this(x, y) 
+        {
+            TileType = aTile.TileType;
+            G = aTile.G;
+            C = aTile.C;
+        }
+
         public Location Location { get; set; }
 
         public bool Equals(MapTile other)

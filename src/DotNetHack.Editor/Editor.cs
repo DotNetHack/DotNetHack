@@ -212,12 +212,37 @@ namespace DotNetHack.Editor
                     }
                     break;
                 case ConsoleKey.T:
-                    SetTile(x, y, new Tile()
+                    if (input.Modifiers == ConsoleModifiers.Shift)
                     {
-                        C = Colour.Grass,
-                        TileType = TileType.TREE,
-                        G = Symbols.TAU
-                    });
+                        Menu.MenuAction mActionGrass = new Menu.MenuAction()
+                        {
+                            Action = delegate(object k) 
+                            {
+                                // CurrentMap
+                                CurrentMap.SetAllTiles(new Tile() { 
+                                    C = Colour.Grass,
+                                    G = '.',
+                                    TileType = TileType.GRASS,
+                                });
+                            },
+                            ActionKey = ConsoleKey.D1,
+                            Name = "Grass",
+                        };
+
+                        List<Menu.MenuAction> mActions = new List<Menu.MenuAction>();
+                        mActions.Add(mActionGrass);
+                        Menu m = new Menu("Clear Map With?", mActions.ToArray());
+                        m.Show(5, 5);
+                        m.Exec(Console.ReadKey());
+                        CurrentMap.ClearBuffer();
+                    }
+                    else
+                        SetTile(x, y, new Tile()
+                        {
+                            C = Colour.Grass,
+                            TileType = TileType.TREE,
+                            G = Symbols.TAU
+                        });
                     break;
                 case ConsoleKey.W:
                     if (input.Modifiers == ConsoleModifiers.Shift)
@@ -252,6 +277,14 @@ namespace DotNetHack.Editor
                             });
                         break;
                     }
+                case ConsoleKey.R:
+                    SetTile(x, y, new Tile()
+                    {
+                        C = Colour.Road,
+                        TileType = TileType.ROAD,
+                        G = Symbols.FILL_LIGHT,
+                    });
+                    break;
                 case ConsoleKey.M:
                     {
                         SetTile(x, y, new Tile()
@@ -288,7 +321,7 @@ namespace DotNetHack.Editor
                     x = g.Player.Location.X;    // Drop in to last location.
                     y = g.Player.Location.Y;    // Drop in to last location.
                     CurrentMap.ClearBuffer();
-                    
+
                     break;
                 case ConsoleKey.L:
                     {

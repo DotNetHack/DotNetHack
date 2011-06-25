@@ -64,18 +64,18 @@ namespace DotNetHack.Game
             {
                 MapData[x, y] = new MapTile(new Location(x, y))
                 {
-                    TileType = TileType.FLOOR,
+                    TileType = TileType.NOTHING,
                     C = Colour.Standard,
-                    G = '.',
+                    G = ' ',
                 };
             });
 
             ClearBuffer();
         }
 
-        public void ClearBuffer() 
+        public void ClearBuffer()
         {
-            IterXY(delegate(int x, int y) 
+            IterXY(delegate(int x, int y)
             {
                 RenderBuffer[x, y] = new MapTile(x, y) { G = ' ' };
             });
@@ -98,6 +98,20 @@ namespace DotNetHack.Game
             RenderBuffer[l.X, l.Y].G = '\0';
         }
 
+        public void SetAllTiles(Tile aTile)
+        {
+            IterXY(delegate(int x, int y)
+            {
+                if (MapData[x, y].TileType == TileType.NOTHING)
+                    MapData[x, y] = new MapTile(x, y)
+                    {
+                        C = aTile.C,
+                        G = aTile.G,
+                        TileType = aTile.TileType,
+                    };
+            });
+        }
+
         void IterXY(IterMapTiles aMapIterator)
         {
             for (int x = 0; x < Width; ++x)
@@ -113,7 +127,7 @@ namespace DotNetHack.Game
 
         public Tile GetTile(int x, int y) { return (Tile)MapData[x, y]; }
 
-        public bool CheckBounds(Location l) 
+        public bool CheckBounds(Location l)
         {
             Location lLowerRight = new Location(Width, Height);
             if (l < Location.Origin)

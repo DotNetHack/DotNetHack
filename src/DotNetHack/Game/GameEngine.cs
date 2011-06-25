@@ -6,6 +6,7 @@ using System.Text;
 using DotNetHack;
 using DotNetHack.UI;
 using DotNetHack.Game.Interfaces;
+using DotNetHack.Game.Affects;
 
 namespace DotNetHack.Game
 {
@@ -83,6 +84,21 @@ namespace DotNetHack.Game
 
         public void Update()
         {
+            // WARNING
+            #region Experimental Code Section 
+
+            var affPestilence = new Affects.Affect(Affects.AffectType.Disease, 5);
+
+            affPestilence.Modifiers = AffectModifiers.Pestilence;
+
+            Player.AffectStack.Push(affPestilence);
+
+            Player.ResistanceStack.Push(new Affects.AffectResistance(Affects.AffectType.Disease, 20));
+
+            Player.ApplyAffects();
+
+            #endregion
+
             /*
             foreach (var m in World.Monsters)
             {

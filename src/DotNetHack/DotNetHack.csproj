@@ -44,6 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DNHackException.cs" />
+    <Compile Include="Game\Actor.cs" />
+    <Compile Include="Game\Affects\AffectModifiers.cs" />
+    <Compile Include="Game\Affects\AffectResistance.cs" />
+    <Compile Include="Game\Affects\Affects.cs" />
+    <Compile Include="Game\Affects\AffectType.cs" />
     <Compile Include="Game\Dungeon.cs" />
     <Compile Include="Game\Dice.cs" />
     <Compile Include="Game\IDungeonLevel.cs" />

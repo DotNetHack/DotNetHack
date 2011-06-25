@@ -10,7 +10,7 @@ namespace DotNetHack.Game
     /// <summary>
     /// Player
     /// </summary>
-    public class Player : IDrawable
+    public class Player : Actor, IDrawable
     {
         /// <summary>
         /// Player
@@ -26,6 +26,7 @@ namespace DotNetHack.Game
         /// <param name="aPlayerName"></param>
         /// <param name="aLocation"></param>
         public Player(string aPlayerName, Location aLocation)
+            : base()
         {
             G = '@';
             Name = aPlayerName;

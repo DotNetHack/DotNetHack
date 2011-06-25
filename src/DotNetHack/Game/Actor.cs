@@ -9,7 +9,7 @@ namespace DotNetHack.Game
     /// <summary>
     /// Actor
     /// </summary>
-    public class Actor
+    public abstract class Actor
     {
         public Actor()
 

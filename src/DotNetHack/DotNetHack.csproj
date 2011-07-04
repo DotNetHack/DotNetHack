@@ -76,6 +76,7 @@
     <Compile Include="Game\Items\Potions\PotionType.cs" />
     <Compile Include="Game\Monsters\Monster.cs" />
     <Compile Include="Game\Door.cs" />
+    <Compile Include="Game\Stats.cs" />
     <Compile Include="Game\TileFlags.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Game\Colour.cs" />

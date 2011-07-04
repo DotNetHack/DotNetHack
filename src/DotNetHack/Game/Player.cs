@@ -18,7 +18,8 @@ namespace DotNetHack.Game
         /// <param name="aPlayerName"></param>
         public Player(string aPlayerName)
             : this(aPlayerName, UI.Graphics.ScreenCenter)
-        { }
+        {
+        }
 
         /// <summary>
         /// Player
@@ -32,6 +33,16 @@ namespace DotNetHack.Game
             Name = aPlayerName;
             Location = aLocation;
             C = new Colour() { FG = ConsoleColor.Gray };
+            Stats = new Stats()
+            {
+                Agility = 2,
+                Charisma = 4,
+                Endurance = 6,
+                Intelligence = 7,
+                Luck = 4,
+                Perception = 2,
+                Strength = 4,
+            };
         }
 
         /// <summary>

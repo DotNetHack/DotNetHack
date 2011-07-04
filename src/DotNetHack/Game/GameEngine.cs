@@ -84,6 +84,8 @@ namespace DotNetHack.Game
 
         public void Update()
         {
+            UI.Graphics.Display.ShowStatsBar(Player.Stats);
+
             // WARNING
             #region Experimental Code Section 
 

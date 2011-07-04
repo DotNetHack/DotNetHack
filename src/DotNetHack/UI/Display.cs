@@ -78,6 +78,16 @@ namespace DotNetHack.UI
         /// </summary>
         public static class Display
         {
+            public static void ShowStatsBar(Stats aStats)
+            {
+                string strStats =
+                    string.Format("Str:{0} Per:{1} End:{2} Chr:{3} Int:{4} Agi:{5} Luck:{6}",
+                    aStats.Strength, aStats.Perception, aStats.Endurance, aStats.Charisma,
+                    aStats.Intelligence, aStats.Agility, aStats.Luck);
+                Console.SetCursorPosition(0, Console.WindowHeight - 1);
+                Console.Write(strStats);
+            }
+
             /// <summary>
             /// Box
             /// </summary>

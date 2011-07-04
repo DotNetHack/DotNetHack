@@ -11,6 +11,6 @@ namespace DotNetHack.Game.Interfaces
     public interface ITool : IItem, IHasUses
     {
         void Use();
-        void Apply(IItem item);
+        void Apply(IItem[] items);
     }
 }

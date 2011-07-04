@@ -81,5 +81,21 @@ namespace DotNetHack.Game
         /// Color
         /// </summary>
         public Colour C { get; set; }
+
+        /// <summary>
+        /// EmptyTile has standard colour, a '.' as the Glyph and Nothing as the TileType.
+        /// </summary>
+        public static Tile EmptyTile 
+        {
+            get 
+            {
+                return new Tile() 
+                {
+                    C = Colour.Standard,
+                    G = '.',
+                    TileType = TileType.NOTHING,
+                };
+            }
+        }
     }
 }

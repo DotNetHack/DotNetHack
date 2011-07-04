@@ -22,7 +22,19 @@ namespace DotNetHack.Game
                 affect.ApplyTo(this);
         }
 
+        /// <summary>
+        /// The resistances this actor has at the moment.
+        /// </summary>
         public Stack<AffectResistance> ResistanceStack = new Stack<AffectResistance>();
+
+        /// <summary>
+        /// The affects that are currently applied to this actor
+        /// </summary>
         public Stack<Affect> AffectStack = new Stack<Affect>();
+
+        /// <summary>
+        /// Stats for this Actor
+        /// </summary>
+        public Stats Stats { get; set; }
     }
 }

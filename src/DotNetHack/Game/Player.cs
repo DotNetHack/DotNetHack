@@ -61,6 +61,11 @@ namespace DotNetHack.Game
         public Location Location { get; set; }
 
         /// <summary>
+        /// DLV
+        /// </summary>
+        public int DungeonLevel { get; set; }
+
+        /// <summary>
         /// Draw
         /// </summary>
         public void Draw() { UI.Graphics.Draw(this); }
@@ -69,5 +74,7 @@ namespace DotNetHack.Game
         /// Color
         /// </summary>
         public Colour C { get; set; }
+
+        
     }
 }

@@ -62,6 +62,7 @@
     <Compile Include="Game\Items\Equipment\Armor\ArmorType.cs" />
     <Compile Include="Game\Items\Equipment\Material.cs" />
     <Compile Include="Game\Items\Equipment\Quality.cs" />
+    <Compile Include="Game\Items\Equipment\Tools\MortarAndPestle.cs" />
     <Compile Include="Game\Items\Equipment\Tools\Tool.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\WeaponProperties.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\WeaponType.cs" />

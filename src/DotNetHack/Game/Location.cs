@@ -38,21 +38,51 @@ namespace DotNetHack.Game
     }
 
     /// <summary>
-    /// FarLocation
+    /// DistantLocation
     /// </summary>
     [Serializable]
     public class DistantLocation : Location
     {
         /// <summary>
-        /// FarLocation
+        /// DistantLocation
         /// </summary>
-        public DistantLocation(Dungeon aDungeon, int x, int y)
-            : base(x, y) { Plane = aDungeon; }
+        public DistantLocation(int x, int y, int d)
+            : base(x, y) { D = d; }
 
         /// <summary>
         /// The Dungeon or Plane
         /// </summary>
-        public Dungeon Plane { get; set; }
+        public int D { get; set; }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Location2I
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public Location2I(int x, int y) { X = x; Y = y; }
+
+        /// <summary>
+        /// Y-Coordinate
+        /// <value>Gets or Sets the X-Coordinate of this location.</value>
+        /// </summary>
+        public int X { get; set; }
+
+        /// <summary>
+        /// X-Coordinate
+        /// <value>Gets or Sets the Y-Coordinate of this location.</value>
+        /// </summary>
+        public int Y { get; set; }
+
+        /// <summary>
+        /// The Origin is the location (0,0)
+        /// </summary>
+        public static readonly Location2I Origin = new Location2I(0, 0);
     }
 
     /// <summary>
@@ -89,6 +119,11 @@ namespace DotNetHack.Game
         /// <value>Gets or Sets the Y-Coordinate of this location.</value>
         /// </summary>
         public int Y { get; set; }
+
+        /// <summary>
+        /// Dungeon level
+        /// </summary>
+        public int D { get; set; }
 
         /// <summary>
         /// Location

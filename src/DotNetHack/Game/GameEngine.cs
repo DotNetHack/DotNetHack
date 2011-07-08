@@ -19,7 +19,7 @@ namespace DotNetHack.Game
         /// GameEngine
         /// </summary>
         /// <param name="aPlayer"></param>
-        public GameEngine(Player aPlayer, Dungeon aStartDungeon)
+        public GameEngine(Player aPlayer, Dungeon3 aStartDungeon)
         {
             Time = 0L;
             Player = aPlayer;
@@ -31,6 +31,8 @@ namespace DotNetHack.Game
         /// </summary>
         public void Run(EngineRunFlags aFlags)
         {
+            Graphics.ShowGraphicsInfo();
+            
             // set engine run flags
             RunFlags = aFlags;
 
@@ -65,7 +67,9 @@ namespace DotNetHack.Game
                 }
                 if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
                     goto redo_input;
-                Tile nPlayerTile = CurrentMap.GetTile(Player.Location + UnitMovement);
+
+
+                Tile nPlayerTile = CurrentMap.GetTile(Player.Location + UnitMovement, Player.DungeonLevel);
                 if (nPlayerTile != null)
                     if (nPlayerTile.TileType == TileType.WALL)
                         goto redo_input;
@@ -74,7 +78,7 @@ namespace DotNetHack.Game
 
                 Update();
 
-                CurrentMap.Render(Player.Location);
+                CurrentMap.DungeonRenderer.Render(Player.Location, 0);
 
                 Player.Draw();
 
@@ -87,7 +91,7 @@ namespace DotNetHack.Game
             UI.Graphics.Display.ShowStatsBar(Player.Stats);
 
             // WARNING
-            #region Experimental Code Section 
+            #region Experimental Code Section
 
             var affPestilence = new Affects.Affect(Affects.AffectType.Disease, 5);
 
@@ -100,6 +104,19 @@ namespace DotNetHack.Game
             Player.ApplyAffects();
 
             #endregion
+
+
+#if OBSOLETE
+            foreach (var iItem in CurrentMap.Items)
+            {
+                if (iItem.Location.Equals(Player.Location))
+                {
+                    Console.SetCursorPosition(0, Console.WindowHeight - 3);
+                    Console.Write(iItem.Name);
+                }
+            }
+#endif
+
 
             /*
             foreach (var m in World.Monsters)
@@ -134,7 +151,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// CurrentMap
         /// </summary>
-        private Dungeon CurrentMap { get; set; }
+        private Dungeon3 CurrentMap { get; set; }
 
         /// <summary>
         /// RunFlags

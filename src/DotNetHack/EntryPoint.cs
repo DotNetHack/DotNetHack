@@ -22,12 +22,14 @@ namespace DotNetHack
             // Initialize graphics
             UI.Graphics.Initialize();
 
+            Dungeon3 d = new Dungeon3(UI.Graphics.ScreenWidth, 
+                UI.Graphics.ScreenHeight, 10);
+
             // Create a new game engine
-            GameEngine g = new GameEngine(new Player("pete"),
-                Dungeon.Load("test"));
+            GameEngine g = new GameEngine(new Player("pete"), d);
 
             // Run
-            GameEngine.EngineRunFlags runFlags = 
+            GameEngine.EngineRunFlags runFlags =
                 GameEngine.EngineRunFlags.NORMAL;
 
             // If runtime is setup for debug, set the run flags
@@ -35,7 +37,6 @@ namespace DotNetHack
                 runFlags |= GameEngine.EngineRunFlags.DEBUG;
 
             g.Run(runFlags);
-            
         }
     }
 }

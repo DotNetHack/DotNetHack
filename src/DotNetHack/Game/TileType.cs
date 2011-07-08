@@ -22,6 +22,6 @@ namespace DotNetHack.Game
         WATER,
         FIELD,
         GRAVE,
-        ROAD
+        ROAD, 
     }
 }

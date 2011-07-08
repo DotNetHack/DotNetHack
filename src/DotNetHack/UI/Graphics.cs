@@ -54,6 +54,16 @@ namespace DotNetHack.UI
             }
         }
 
+        /// <summary>
+        /// The width of the screen.
+        /// </summary>
+        public static int ScreenWidth { get { return Console.WindowWidth; } }
+
+        /// <summary>
+        /// The height of the screen.
+        /// </summary>
+        public static int ScreenHeight { get { return Console.WindowHeight; } }
+
         public static void Clear()
         {
             Console.Clear();

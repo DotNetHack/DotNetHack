@@ -13,6 +13,30 @@ using System.Xml.Serialization;
 namespace DotNetHack.Game
 {
     /// <summary>
+    /// DungeonExtensions
+    /// </summary>
+    public static class DungeonExtensions
+    {
+        /// <summary>
+        /// SaveAs
+        /// </summary>
+        public static bool SaveAs(this Dungeon3 aLevel, string aMapFile)
+        {
+            try
+            {
+                // Create a new binary formatter
+                BinaryFormatter binFormatter = new BinaryFormatter();
+
+                using (FileStream tmpRawStream = File.Open(aMapFile, FileMode.CreateNew))
+                    binFormatter.Serialize(tmpRawStream, aLevel);
+
+                return true;
+            }
+            catch { return false; }
+        }
+    }
+
+    /// <summary>
     /// Dungeon3 is an experimental dungeon that has a third dimension.
     /// </summary>
     public class Dungeon3
@@ -43,6 +67,9 @@ namespace DotNetHack.Game
             {
                 SetTile(x, y, depth, Tile.EmptyTile);
             });
+
+            // Create a new dungeon renderer using this as the dungeon.
+            DungeonRenderer = new DungeonRenderer(this);
         }
 
         #endregion
@@ -76,6 +103,18 @@ namespace DotNetHack.Game
         #region Public Facing Methods
 
         /// <summary>
+        /// Load
+        /// </summary>
+        /// <param name="aMapFile">The map file to load.</param>
+        /// <returns></returns>
+        public static Dungeon3 Load(string aMapFile)
+        {
+            BinaryFormatter binFormatter = new BinaryFormatter();
+            using (FileStream tmpRawStream = File.Open(aMapFile, FileMode.Open))
+                return (Dungeon3)binFormatter.Deserialize(tmpRawStream);
+        }
+
+        /// <summary>
         /// Returns the specified tile.
         /// </summary>
         /// <param name="x">The x-coordinate of the tile to get.</param>
@@ -83,6 +122,14 @@ namespace DotNetHack.Game
         /// <param name="d">The dungeon level of the tile to get.</param>
         /// <returns></returns>
         public Tile GetTile(int x, int y, int d) { return MapData[x, y, d]; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="l"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        public Tile GetTile(Location l, int d) { return GetTile(l.X, l.Y, d); }
 
         /// <summary>
         /// SetTile will set the passed tile at the passed location parameters.
@@ -93,9 +140,29 @@ namespace DotNetHack.Game
         /// <param name="aTile">The tile object to set at the location.</param>
         public void SetTile(int x, int y, int d, Tile aTile) { MapData[x, y, d] = aTile; }
 
+        /// <summary>
+        /// CheckBounds
+        /// </summary>
+        /// <param name="l"></param>
+        /// <returns></returns>
+        public bool CheckBounds(Location l)
+        {
+            Location lLowerRight = new Location(DungeonWidth, DungeonHeight);
+            if (l < Location.Origin)
+                return false;
+            else if (l >= lLowerRight)
+                return false;
+            return true;
+        }
+
         #endregion
 
         #region Public Facing Properties
+
+        /// <summary>
+        /// Used specificially to render this dungeon
+        /// </summary>
+        public DungeonRenderer DungeonRenderer { get; set; }
 
         /// <summary>
         /// The height of this dungeon.
@@ -128,6 +195,7 @@ namespace DotNetHack.Game
         /// DungeonLocation is a location that specifically refers to a 
         /// location inside of a dungeon that has depth.
         /// </summary>
+        [Serializable]
         public class DungeonLocation
         {
             /// <summary>
@@ -159,38 +227,68 @@ namespace DotNetHack.Game
     }
 
     /// <summary>
-    /// DungeonExtensions
+    /// DungeonRenderer
     /// </summary>
-    public static class DungeonExtensions
+    public class DungeonRenderer
     {
-        /// <summary>
-        /// SaveAs
-        /// </summary>
-        public static bool SaveAs(this Dungeon aLevel, string aMapFile)
+        public DungeonRenderer(Dungeon3 aDungeon)
         {
-            try
+            RenderDungeon = aDungeon;               // must be set first
+            RenderBuffer = new Tile[Width, Height];
+            ClearBuffer();
+        }
+
+        delegate void IterXYDelegate(int x, int y);
+
+        void IterateXY(IterXYDelegate aMapIterator)
+        {
+            for (int x = 0; x < Width; ++x)
+                for (int y = 0; y < Height; ++y)
+                    aMapIterator(x, y);
+        }
+
+        public void ClearBuffer()
+        {
+            IterateXY(delegate(int x, int y)
             {
-                // Create a new binary formatter
-                BinaryFormatter binFormatter = new BinaryFormatter();
-
-                using (FileStream tmpRawStream = File.Open(aMapFile, FileMode.CreateNew))
-                    binFormatter.Serialize(tmpRawStream, aLevel);
-
-                return true;
-            }
-            catch { return false; }
-            finally { aLevel.MapFile = aMapFile; }
+                RenderBuffer[x, y] = new MapTile(x, y) { G = ' ' };
+            });
         }
 
-        /// <summary>
-        /// Save
-        /// </summary>
-        /// <param name="aLevel"></param>
-        /// <returns></returns>
-        public static bool Save(this Dungeon aLevel)
+        public void Render(Player aPlayer)
         {
-            return aLevel.SaveAs(aLevel.MapFile);
+            Render(aPlayer.Location, aPlayer.DungeonLevel);
         }
+
+        public void Render(Location l, int d)
+        {
+            IterateXY(delegate(int x, int y)
+            {
+                if (RenderBuffer[x, y].G != RenderDungeon.MapData[x, y, d].G)
+                {
+                    UI.Graphics.CursorToLocation(x, y);
+                    RenderDungeon.MapData[x, y, d].C.Set();
+                    Console.Write(RenderDungeon.MapData[x, y, d].G);
+                    RenderBuffer[x, y].G = RenderDungeon.MapData[x, y, d].G;
+                    UI.Graphics.CursorToLocation(x, y);
+                }
+            });
+
+            RenderBuffer[l.X, l.Y].G = '\0';
+        }
+
+        IEnumerable<IGlyph> DungeonLevelGlyphs()
+        {
+            for (int x = 0; x < Width; ++x)
+                for (int y = 0; y < Height; ++y)
+                    yield return RenderBuffer[x, y];
+        }
+
+        public int Width { get { return RenderDungeon.DungeonWidth; } }
+        public int Height { get { return RenderDungeon.DungeonHeight; } }
+
+        IGlyph[,] RenderBuffer { get; set; }
+        Dungeon3 RenderDungeon { get; set; }
     }
 
     [Serializable]

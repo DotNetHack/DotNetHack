@@ -149,14 +149,21 @@ namespace DotNetHack.Game
         public void SetTile(int x, int y, int d, Tile aTile) { MapData[x, y, d] = aTile; }
 
         /// <summary>
+        /// SetTile will set the passed tile at the passed location parameters.
+        /// </summary>
+        /// <param name="l">l3i to set</param>
+        /// <param name="aTile">tile to set</param>
+        public void SetTile(Location3i l, Tile aTile) { MapData[l.X, l.Y, l.D] = aTile; }
+
+        /// <summary>
         /// CheckBounds
         /// </summary>
         /// <param name="l"></param>
         /// <returns></returns>
-        public bool CheckBounds(Location2i l)
+        public bool CheckBounds(Location3i l)
         {
-            Location2i lLowerRight = new Location2i(DungeonWidth, DungeonHeight);
-            if (l < Location2i.Origin2i)
+            Location3i lLowerRight = Location3i.GetNew(DungeonWidth, DungeonHeight, DungeonDepth);
+            if (l < Location3i.Origin3i)
                 return false;
             else if (l >= lLowerRight)
                 return false;
@@ -263,25 +270,34 @@ namespace DotNetHack.Game
             });
         }
 
-        public void Render(Player aPlayer)
+        public void Render(IHasLocation aHasLoc)
         {
-            Render(aPlayer.Location, aPlayer.DungeonLevel);
+            Render(aHasLoc.Location);
         }
 
-        public void Render(Location2i l, int d)
+        public void Render(Location3i l)
         {
             IterateXY(delegate(int x, int y)
             {
-                if (RenderBuffer[x, y].G != RenderDungeon.MapData[x, y, d].G)
+                if (RenderBuffer[x, y].G != RenderDungeon.MapData[x, y, l.D].G)
                 {
                     UI.Graphics.CursorToLocation(x, y);
-                    RenderDungeon.MapData[x, y, d].C.Set();
-                    Console.Write(RenderDungeon.MapData[x, y, d].G);
-                    RenderBuffer[x, y].G = RenderDungeon.MapData[x, y, d].G;
+                    RenderDungeon.MapData[x, y, l.D].C.Set();
+                    Console.Write(RenderDungeon.MapData[x, y, l.D].G);
+                    RenderBuffer[x, y].G = RenderDungeon.MapData[x, y, l.D].G;
                     UI.Graphics.CursorToLocation(x, y);
                 }
             });
 
+            ClearLocation(l);
+        }
+
+        /// <summary>
+        /// Clears a render buffer location.
+        /// </summary>
+        /// <param name="l"></param>
+        public void ClearLocation(Location2i l)
+        {
             RenderBuffer[l.X, l.Y].G = '\0';
         }
 

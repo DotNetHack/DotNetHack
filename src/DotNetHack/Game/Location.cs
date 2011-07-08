@@ -40,8 +40,17 @@ namespace DotNetHack.Game
     /// <summary>
     /// Location3i
     /// </summary>
+    [Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public class Location3i : Location2i
     {
+        /// <summary>
+        /// supports serialization
+        /// </summary>
+        public Location3i()
+            : base()
+        { }
+
         /// <summary>
         /// Location3i
         /// </summary>
@@ -72,15 +81,83 @@ namespace DotNetHack.Game
         {
             return Location3i.GetNew(a.X + b.X, a.Y + b.Y, a.D + b.D);
         }
+
+        /// <summary>
+        /// Returns a new 3i with passed params
+        /// </summary>
+        /// <param name="x">x-coord</param>
+        /// <param name="y">y-coord</param>
+        /// <param name="d">z-coord</param>
+        /// <returns>Returns a new 3i with passed params</returns>
+        public static Location3i GetNew(int x, int y, int d) { return new Location3i(x, y, d); }
+
+        /// <summary>
+        /// less than
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator <(Location3i a, Location3i b)
+        {
+            return a.X < b.X || a.Y < b.Y || a.D < b.D;
+        }
+
+        /// <summary>
+        /// less than or equal to
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator <=(Location3i a, Location3i b)
+        {
+            return a.X <= b.X || a.Y <= b.Y || a.D <= b.D;
+        }
+
+        /// <summary>
+        /// greater than or equal to
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator >=(Location3i a, Location3i b)
+        {
+            return a.X >= b.X || a.Y >= b.Y || a.D >= b.D;
+        }
+
+        /// <summary>
+        /// g
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator >(Location3i a, Location3i b)
+        {
+            return a.X > b.X || a.Y > b.Y || a.D > b.D;
+        }
+
+        /// <summary>
+        /// ToString
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("({0},{1},{2})", X, Y, D);
+        }
     }
 
     /// <summary>
     /// Location2I
     /// </summary>
+    [Serializable]
     public class Location2i
     {
         /// <summary>
-        /// 
+        /// Supports serialization
+        /// </summary>
+        public Location2i() { }
+
+        /// <summary>
+        /// supports serialization.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -98,7 +175,13 @@ namespace DotNetHack.Game
         /// </summary>
         public int Y { get; set; }
 
-        public static Location3i GetNew(int x, int y, int d) { return new Location3i(x, y, d); }
+        /// <summary>
+        /// Returns a new 2i with passed parameters
+        /// </summary>
+        /// <param name="x">x-coord</param>
+        /// <param name="y">y-coord</param>
+        /// <returns>new 2i w/ passed params</returns>
+        public static Location2i GetNew(int x, int y) { return new Location2i(x, y); }
 
         /// <summary>
         /// TwoD
@@ -163,6 +246,15 @@ namespace DotNetHack.Game
         public static bool operator <=(Location2i a, Location2i b)
         {
             return (a.X <= b.X || a.Y <= b.Y);
+        }
+
+        /// <summary>
+        /// ToString
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("({0},{1})", X, Y);
         }
     }
 

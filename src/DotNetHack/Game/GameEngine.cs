@@ -77,7 +77,7 @@ namespace DotNetHack.Game
 
                 Update();
 
-                CurrentMap.DungeonRenderer.Render(Player.Location, 0);
+                CurrentMap.DungeonRenderer.Render(Player);
 
                 Player.Draw();
 

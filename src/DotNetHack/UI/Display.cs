@@ -34,7 +34,7 @@ namespace DotNetHack.UI
                 int mTitleLength = aTitle.Length;
                 int mMessageLength = aMessage.Length;
 
-                Location mBoxLocation = Graphics.ScreenCenter;
+                Location2i mBoxLocation = Graphics.ScreenCenter;
 
                 if (aTitle.Length > mMessageLength)
                     mBoxWidth += mTitleLength;
@@ -51,7 +51,7 @@ namespace DotNetHack.UI
 
                 mBoxLocation.X++;
 
-                Location tmpLoc = mBoxLocation;
+                Location2i tmpLoc = mBoxLocation;
 
                 Console.SetCursorPosition(mBoxLocation.X, mBoxLocation.Y + 2);
                 Console.Write(spacer);

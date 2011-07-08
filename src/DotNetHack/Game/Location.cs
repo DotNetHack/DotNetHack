@@ -31,41 +31,60 @@ namespace DotNetHack.Game
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static double Distance(this Location a, Location b)
+        public static double Distance(this Location2i a, Location2i b)
         {
             return Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2));
         }
     }
 
     /// <summary>
-    /// DistantLocation
+    /// Location3i
     /// </summary>
-    [Serializable]
-    public class DistantLocation : Location
+    public class Location3i : Location2i
     {
         /// <summary>
-        /// DistantLocation
+        /// Location3i
         /// </summary>
-        public DistantLocation(int x, int y, int d)
-            : base(x, y) { D = d; }
+        /// <param name="x">The x-coord</param>
+        /// <param name="y">The y-coord</param>
+        /// <param name="d">The z-coord</param>
+        public Location3i(int x, int y, int d)
+            : base(x, y)
+        { D = d; }
 
         /// <summary>
-        /// The Dungeon or Plane
+        /// D
         /// </summary>
         public int D { get; set; }
+
+        /// <summary>
+        /// Origin3i
+        /// </summary>
+        public static readonly Location3i Origin3i = new Location3i(0, 0, 0);
+
+        /// <summary>
+        ///+
+        /// </summary>
+        /// <param name="a">LHS</param>
+        /// <param name="b">RHS</param>
+        /// <returns>Adds the two locations together.</returns>
+        public static Location3i operator +(Location3i a, Location3i b)
+        {
+            return Location3i.GetNew(a.X + b.X, a.Y + b.Y, a.D + b.D);
+        }
     }
 
     /// <summary>
-    /// 
+    /// Location2I
     /// </summary>
-    public class Location2I
+    public class Location2i
     {
         /// <summary>
         /// 
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public Location2I(int x, int y) { X = x; Y = y; }
+        public Location2i(int x, int y) { X = x; Y = y; }
 
         /// <summary>
         /// Y-Coordinate
@@ -79,12 +98,75 @@ namespace DotNetHack.Game
         /// </summary>
         public int Y { get; set; }
 
+        public static Location3i GetNew(int x, int y, int d) { return new Location3i(x, y, d); }
+
+        /// <summary>
+        /// TwoD
+        /// </summary>
+        public Location2i TwoD { get { return new Location2i(X, Y); } }
+
         /// <summary>
         /// The Origin is the location (0,0)
         /// </summary>
-        public static readonly Location2I Origin = new Location2I(0, 0);
+        public static readonly Location2i Origin2i = new Location2i(0, 0);
+
+        /// <summary>
+        /// +
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static Location2i operator +(Location2i a, Location2i b)
+        {
+            return new Location2i(a.X + b.X, a.Y + b.Y);
+        }
+
+        /// <summary>
+        /// >
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator >(Location2i a, Location2i b)
+        {
+            return (a.X > b.X || a.Y > b.Y);
+        }
+
+        /// <summary>
+        /// >=
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator >=(Location2i a, Location2i b)
+        {
+            return (a.X >= b.X || a.Y >= b.Y);
+        }
+
+        /// <summary>
+        /// <
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator <(Location2i a, Location2i b)
+        {
+            return (a.X < b.X || a.Y < b.Y);
+        }
+
+        /// <summary>
+        /// <=
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator <=(Location2i a, Location2i b)
+        {
+            return (a.X <= b.X || a.Y <= b.Y);
+        }
     }
 
+#if OBSOLETE
     /// <summary>
     /// Location is a location in the cartesian plane.
     /// </summary>
@@ -103,9 +185,9 @@ namespace DotNetHack.Game
         /// <param name="d">The plane or dungeon on which this 2 dimensional location exists</param>
         /// <param name="x">X-Coordinate</param>
         /// <param name="y">Y-Coordinate</param>
-        public Location(int x, int y)
+        public Location(int x, int y, int d)
         {
-            X = x; Y = y;
+            X = x; Y = y; D = d;
         }
 
         /// <summary>
@@ -133,7 +215,7 @@ namespace DotNetHack.Game
         /// <returns></returns>
         public static Location operator +(Location a, Location b)
         {
-            return new Location(a.X + b.X, a.Y + b.Y);
+            return new Location(a.X + b.X, a.Y + b.Y, 0);
         }
 
         public static bool operator >(Location a, Location b)
@@ -180,4 +262,5 @@ namespace DotNetHack.Game
             return string.Format("({0},{1})", X, Y);
         }
     }
+#endif
 }

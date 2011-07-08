@@ -10,7 +10,7 @@ namespace DotNetHack.Game.Monsters
     public class Monster : IMonster, IEquatable<Monster>
     {
         public Monster() { }
-        public Monster(string aName, char aChar, Location aLocation)
+        public Monster(string aName, char aChar, Location3i aLocation)
         {
             Name = aName;
             Location = aLocation;
@@ -28,7 +28,7 @@ namespace DotNetHack.Game.Monsters
         /// </summary>
         public Colour C { get; set; }
 
-        public Location Location { get; set; }
+        public Location3i Location { get; set; }
 
         public bool Equals(Monster other) { return other.Location == Location; }
     }

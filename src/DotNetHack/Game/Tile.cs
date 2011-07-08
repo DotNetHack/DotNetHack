@@ -8,19 +8,21 @@ using DotNetHack.UI;
 
 namespace DotNetHack.Game
 {
+
+#if OBSOLETE
     /// <summary>
     /// MapTile
     /// </summary>
     [Serializable]
     public class MapTile : Tile, IHasLocation, IEquatable<MapTile>
     {
-        public MapTile(Location aTileLocation)
+        public MapTile(Location3i aTileLocation)
             : base()
         { Location = aTileLocation; }
 
         public MapTile(int x, int y)
             : base()
-        { Location = new Location(x, y); }
+        { Location = new Location3i(x, y); }
 
         public MapTile(int x, int y, Tile aTile)
             : this(x, y) 
@@ -47,6 +49,8 @@ namespace DotNetHack.Game
             return base.Equals(obj);
         }
     }
+
+#endif
 
     /// <summary>
     /// Tile
@@ -98,4 +102,5 @@ namespace DotNetHack.Game
             }
         }
     }
+
 }

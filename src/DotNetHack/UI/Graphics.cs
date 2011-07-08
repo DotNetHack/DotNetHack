@@ -45,11 +45,11 @@ namespace DotNetHack.UI
         /// ScreenCenter
         /// <value>The location of the center of the screen.</value>
         /// </summary>
-        public static Location ScreenCenter
+        public static Location2i ScreenCenter
         {
             get 
             {
-                return new Location(Console.WindowWidth / 2, 
+                return new Location2i(Console.WindowWidth / 2, 
                     Console.WindowHeight / 2);
             }
         }
@@ -90,7 +90,7 @@ namespace DotNetHack.UI
         /// CursorToLocation brings the cursor to the specified location.
         /// </summary>
         /// <param name="aLocation">The location to bring the cursor to.</param>
-        public static void CursorToLocation(Location aLocation) 
+        public static void CursorToLocation(Location2i aLocation) 
         {
             CursorToLocation(aLocation.X, aLocation.Y);
         }

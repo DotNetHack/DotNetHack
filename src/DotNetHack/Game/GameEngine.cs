@@ -32,7 +32,7 @@ namespace DotNetHack.Game
         public void Run(EngineRunFlags aFlags)
         {
             Graphics.ShowGraphicsInfo();
-            
+
             // set engine run flags
             RunFlags = aFlags;
 
@@ -48,7 +48,7 @@ namespace DotNetHack.Game
             redo_input:
                 Graphics.CursorToLocation(1, 1); // So as not to pile up blanks.
                 ConsoleKeyInfo input = Console.ReadKey();
-                Location UnitMovement = new Location(0, 0);
+                Location3i UnitMovement = new Location3i(0, 0, 0);
                 switch (input.Key)
                 {
                     default:
@@ -68,8 +68,7 @@ namespace DotNetHack.Game
                 if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
                     goto redo_input;
 
-
-                Tile nPlayerTile = CurrentMap.GetTile(Player.Location + UnitMovement, Player.DungeonLevel);
+                Tile nPlayerTile = CurrentMap.GetTile(((Location2i)Player.Location + UnitMovement), Player.DungeonLevel);
                 if (nPlayerTile != null)
                     if (nPlayerTile.TileType == TileType.WALL)
                         goto redo_input;
@@ -86,25 +85,10 @@ namespace DotNetHack.Game
             }
         }
 
+
         public void Update()
         {
             UI.Graphics.Display.ShowStatsBar(Player.Stats);
-
-            // WARNING
-            #region Experimental Code Section
-
-            var affPestilence = new Affects.Affect(Affects.AffectType.Disease, 5);
-
-            affPestilence.Modifiers = AffectModifiers.Pestilence;
-
-            Player.AffectStack.Push(affPestilence);
-
-            Player.ResistanceStack.Push(new Affects.AffectResistance(Affects.AffectType.Disease, 20));
-
-            Player.ApplyAffects();
-
-            #endregion
-
 
 #if OBSOLETE
             foreach (var iItem in CurrentMap.Items)

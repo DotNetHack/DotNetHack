@@ -8,13 +8,15 @@ namespace DotNetHack.Editor
     /// <summary>
     /// DNH Editor (2nd) Revision
     /// </summary>
-    class Editor
+    public class Editor
     {
+
         /// <summary>
         /// Main
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
-        { }
+        {
+        }
     }
 }

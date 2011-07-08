@@ -129,7 +129,15 @@ namespace DotNetHack.Game
         /// <param name="l"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        public Tile GetTile(Location l, int d) { return GetTile(l.X, l.Y, d); }
+        public Tile GetTile(Location3i l) { return GetTile(l.X, l.Y, l.D); }
+
+        /// <summary>
+        /// GetTile
+        /// </summary>
+        /// <param name="l"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        public Tile GetTile(Location2i l, int d) { return MapData[l.X, l.Y, d]; }
 
         /// <summary>
         /// SetTile will set the passed tile at the passed location parameters.
@@ -145,10 +153,10 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="l"></param>
         /// <returns></returns>
-        public bool CheckBounds(Location l)
+        public bool CheckBounds(Location2i l)
         {
-            Location lLowerRight = new Location(DungeonWidth, DungeonHeight);
-            if (l < Location.Origin)
+            Location2i lLowerRight = new Location2i(DungeonWidth, DungeonHeight);
+            if (l < Location2i.Origin2i)
                 return false;
             else if (l >= lLowerRight)
                 return false;
@@ -251,7 +259,7 @@ namespace DotNetHack.Game
         {
             IterateXY(delegate(int x, int y)
             {
-                RenderBuffer[x, y] = new MapTile(x, y) { G = ' ' };
+                RenderBuffer[x, y] = new Tile() { G = ' ', TileType = TileType.NOTHING };
             });
         }
 
@@ -260,7 +268,7 @@ namespace DotNetHack.Game
             Render(aPlayer.Location, aPlayer.DungeonLevel);
         }
 
-        public void Render(Location l, int d)
+        public void Render(Location2i l, int d)
         {
             IterateXY(delegate(int x, int y)
             {
@@ -291,6 +299,7 @@ namespace DotNetHack.Game
         Dungeon3 RenderDungeon { get; set; }
     }
 
+#if OBSOLETE
     [Serializable]
     public class Dungeon
     {
@@ -306,7 +315,7 @@ namespace DotNetHack.Game
 
             IterXY(delegate(int x, int y)
             {
-                MapData[x, y] = new MapTile(new Location(x, y))
+                MapData[x, y] = new MapTile(new Location2i(x, y))
                 {
                     TileType = TileType.FLOOR,
                     C = Colour.Standard,
@@ -382,10 +391,10 @@ namespace DotNetHack.Game
 
         public Tile GetTile(int x, int y) { return (Tile)MapData[x, y]; }
 
-        public bool CheckBounds(Location l)
+        public bool CheckBounds(Location2i l)
         {
-            Location lLowerRight = new Location(Width, Height);
-            if (l < Location.Origin)
+            Location2i lLowerRight = new Location2i(Width, Height);
+            if (l < Location2i.Origin2i)
                 return false;
             else if (l >= lLowerRight)
                 return false;
@@ -426,4 +435,5 @@ namespace DotNetHack.Game
                 return (Dungeon)binFormatter.Deserialize(tmpRawStream);
         }
     }
+#endif
 }

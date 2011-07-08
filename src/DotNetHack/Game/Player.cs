@@ -17,7 +17,7 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="aPlayerName"></param>
         public Player(string aPlayerName)
-            : this(aPlayerName, UI.Graphics.ScreenCenter)
+            : this(aPlayerName, new Location3i(0, 0, 0))
         {
         }
 
@@ -26,7 +26,7 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="aPlayerName"></param>
         /// <param name="aLocation"></param>
-        public Player(string aPlayerName, Location aLocation)
+        public Player(string aPlayerName, Location3i aLocation)
             : base()
         {
             G = '@';
@@ -58,12 +58,12 @@ namespace DotNetHack.Game
         /// <summary>
         /// Location
         /// </summary>
-        public Location Location { get; set; }
+        public Location3i Location { get; set; }
 
         /// <summary>
         /// DLV
         /// </summary>
-        public int DungeonLevel { get; set; }
+        public int DungeonLevel { get { return Location.D; } }
 
         /// <summary>
         /// Draw
@@ -74,7 +74,5 @@ namespace DotNetHack.Game
         /// Color
         /// </summary>
         public Colour C { get; set; }
-
-        
     }
 }

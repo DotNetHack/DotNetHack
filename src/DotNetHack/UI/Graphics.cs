@@ -64,10 +64,20 @@ namespace DotNetHack.UI
         /// </summary>
         public static int ScreenHeight { get { return Console.WindowHeight; } }
 
-        public static void Clear()
+        /// <summary>
+        /// Clear
+        /// </summary>
+        public static void Clear(Colour aColour)
         {
+            Console.BackgroundColor = aColour.FG;
+            Console.ForegroundColor = aColour.BG;
             Console.Clear();
         }
+
+        /// <summary>
+        /// Clear
+        /// </summary>
+        public static void Clear() { Clear(Colour.Standard); }
 
         /// <summary>
         /// Draw

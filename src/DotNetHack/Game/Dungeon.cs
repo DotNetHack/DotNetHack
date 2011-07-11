@@ -20,25 +20,21 @@ namespace DotNetHack.Game
         /// <summary>
         /// SaveAs
         /// </summary>
-        public static bool SaveAs(this Dungeon3 aLevel, string aMapFile)
+        public static void SaveAs(this Dungeon3 aLevel, string aMapFile)
         {
-            try
-            {
-                // Create a new binary formatter
-                BinaryFormatter binFormatter = new BinaryFormatter();
-
-                using (FileStream tmpRawStream = File.Open(aMapFile, FileMode.CreateNew))
-                    binFormatter.Serialize(tmpRawStream, aLevel);
-
-                return true;
-            }
-            catch { return false; }
+            string fullPath = Path.Combine(R.WorkingDirectory,
+                aMapFile + Dungeon3.DungeonExtension);
+            // Create a new binary formatter
+            BinaryFormatter binFormatter = new BinaryFormatter();
+            using (FileStream tmpRawStream = File.Open(fullPath, FileMode.OpenOrCreate))
+                binFormatter.Serialize(tmpRawStream, aLevel);
         }
     }
 
     /// <summary>
     /// Dungeon3 is an experimental dungeon that has a third dimension.
     /// </summary>
+    [Serializable]
     public class Dungeon3
     {
         #region Constructors
@@ -102,15 +98,20 @@ namespace DotNetHack.Game
 
         #region Public Facing Methods
 
+        public void Render(Location3i aLoc) { DungeonRenderer.Render(aLoc); }
+
         /// <summary>
         /// Load
         /// </summary>
         /// <param name="aMapFile">The map file to load.</param>
         /// <returns></returns>
+        /// <exception cref="IOException"></exception>
         public static Dungeon3 Load(string aMapFile)
         {
+            string fullPath = Path.Combine(R.WorkingDirectory,
+                aMapFile + DungeonExtension);
             BinaryFormatter binFormatter = new BinaryFormatter();
-            using (FileStream tmpRawStream = File.Open(aMapFile, FileMode.Open))
+            using (FileStream tmpRawStream = File.Open(fullPath, FileMode.Open))
                 return (Dungeon3)binFormatter.Deserialize(tmpRawStream);
         }
 
@@ -124,7 +125,7 @@ namespace DotNetHack.Game
         public Tile GetTile(int x, int y, int d) { return MapData[x, y, d]; }
 
         /// <summary>
-        /// 
+        /// GetTile
         /// </summary>
         /// <param name="l"></param>
         /// <param name="d"></param>
@@ -177,6 +178,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// Used specificially to render this dungeon
         /// </summary>
+        [XmlIgnore]
         public DungeonRenderer DungeonRenderer { get; set; }
 
         /// <summary>
@@ -239,13 +241,25 @@ namespace DotNetHack.Game
         }
 
         #endregion
+
+        #region Constants
+        /// <summary>
+        /// DungeonExtension
+        /// </summary>
+        public const string DungeonExtension = ".dungeon";
+        #endregion
     }
 
     /// <summary>
     /// DungeonRenderer
     /// </summary>
+    [Serializable()]
     public class DungeonRenderer
     {
+        /// <summary>
+        /// DungeonRenderer
+        /// </summary>
+        /// <param name="aDungeon"></param>
         public DungeonRenderer(Dungeon3 aDungeon)
         {
             RenderDungeon = aDungeon;               // must be set first
@@ -253,8 +267,17 @@ namespace DotNetHack.Game
             ClearBuffer();
         }
 
+        /// <summary>
+        /// IterXYDelegate
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         delegate void IterXYDelegate(int x, int y);
 
+        /// <summary>
+        /// IterateXY
+        /// </summary>
+        /// <param name="aMapIterator"></param>
         void IterateXY(IterXYDelegate aMapIterator)
         {
             for (int x = 0; x < Width; ++x)
@@ -262,19 +285,37 @@ namespace DotNetHack.Game
                     aMapIterator(x, y);
         }
 
+        /// <summary>
+        /// ClearBuffer
+        /// </summary>
         public void ClearBuffer()
         {
             IterateXY(delegate(int x, int y)
             {
-                RenderBuffer[x, y] = new Tile() { G = ' ', TileType = TileType.NOTHING };
+                RenderBuffer[x, y] = new Tile() { G = '\0', TileType = TileType.NOTHING };
             });
         }
 
-        public void Render(IHasLocation aHasLoc)
+        /// <summary>
+        /// HardRefresh
+        /// </summary>
+        /// <param name="l"></param>
+        public void HardRefresh(Location3i l)
         {
-            Render(aHasLoc.Location);
+            IterateXY(delegate(int x, int y)
+            {
+                UI.Graphics.CursorToLocation(x, y);
+                RenderDungeon.MapData[x, y, l.D].C.Set();
+                Console.Write(RenderDungeon.MapData[x, y, l.D].G);
+                RenderBuffer[x, y].G = RenderDungeon.MapData[x, y, l.D].G;
+                UI.Graphics.CursorToLocation(x, y);
+            });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="l"></param>
         public void Render(Location3i l)
         {
             IterateXY(delegate(int x, int y)
@@ -301,6 +342,10 @@ namespace DotNetHack.Game
             RenderBuffer[l.X, l.Y].G = '\0';
         }
 
+        /// <summary>
+        /// DungeonLevelGlyphs enumerable
+        /// </summary>
+        /// <returns></returns>
         IEnumerable<IGlyph> DungeonLevelGlyphs()
         {
             for (int x = 0; x < Width; ++x)
@@ -308,7 +353,14 @@ namespace DotNetHack.Game
                     yield return RenderBuffer[x, y];
         }
 
+        /// <summary>
+        /// DungeonWidth
+        /// </summary>
         public int Width { get { return RenderDungeon.DungeonWidth; } }
+
+        /// <summary>
+        /// DungeonHeight
+        /// </summary>
         public int Height { get { return RenderDungeon.DungeonHeight; } }
 
         IGlyph[,] RenderBuffer { get; set; }

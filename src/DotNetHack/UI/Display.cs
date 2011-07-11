@@ -21,6 +21,13 @@ namespace DotNetHack.UI
             /// </summary>
             /// <param name="aTitle">The title of the message box</param>
             /// <param name="aMessage">The message</param>
+            public static void Show(string aTitle, Exception ex) { Show(aTitle, ex.Message); }
+
+            /// <summary>
+            /// Show
+            /// </summary>
+            /// <param name="aTitle">The title of the message box</param>
+            /// <param name="aMessage">The message</param>
             public static void Show(string aTitle, string aMessage)
             {
                 const int WIDTH_OFFSET = 2;
@@ -96,7 +103,7 @@ namespace DotNetHack.UI
             /// <param name="y">Y-Coord</param>
             public static void Box(Menu aMenu, int x, int y)
             {
-                int w = 0; int h = 0;
+                int w = aMenu.Title.Length; int h = 0;
                 int max_name_length = 0;
                 foreach (var action in aMenu.MenuActions)
                     if (action.Name.Length > max_name_length)

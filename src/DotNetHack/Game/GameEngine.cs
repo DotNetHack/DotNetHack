@@ -77,7 +77,7 @@ namespace DotNetHack.Game
 
                 Update();
 
-                CurrentMap.DungeonRenderer.Render(Player);
+                CurrentMap.Render(Player.Location);
 
                 Player.Draw();
 
@@ -127,10 +127,6 @@ namespace DotNetHack.Game
         /// </summary>
         public Player Player { get; private set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        // private Dictionary<DistantLocation, IItem> Items { get; set; }
 
         /// <summary>
         /// CurrentMap

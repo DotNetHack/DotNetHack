@@ -22,6 +22,9 @@ namespace DotNetHack.Game
         WATER,
         FIELD,
         GRAVE,
-        ROAD, 
+        ROAD,
+        HOME,
+        STAIRS_UP,
+        STAIRS_DOWN,
     }
 }

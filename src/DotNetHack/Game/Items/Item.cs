@@ -21,7 +21,7 @@ namespace DotNetHack.Game.Items
         /// <param name="aGlyph">The glyph used to represent the item on screen.</param>
         /// <param name="aColor">The color of the item.</param>
         /// <param name="aLocation">The location of the item</param>
-        public Item(string aName, char aGlyph, Colour aColor, Location aLocation)
+        public Item(string aName, char aGlyph, Colour aColor, Location3i aLocation)
         {
             Name = aName;               // Set the name of the item
             G = aGlyph;                 // Set the glyph
@@ -56,7 +56,7 @@ namespace DotNetHack.Game.Items
         /// <summary>
         /// Location
         /// </summary>
-        public Location Location { get; set; }
+        public Location3i Location { get; set; }
 
         /// <summary>
         /// Draw

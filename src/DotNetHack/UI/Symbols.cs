@@ -28,6 +28,118 @@ namespace DotNetHack.UI
         public const char AT_SYMBOL = '@';
 
         /// <summary>
+        /// ↓
+        /// </summary>
+        public const char ARROW_DOWN = '↓';
+
+        /// <summary>
+        /// ▲
+        /// </summary>
+        public const char ARROW_UP = '↑';
+
+        /// <summary>
+        /// ♥
+        /// </summary>
+        public const char HEART = '♥';
+
+        /// <summary>
+        /// ♦
+        /// </summary>
+        public const char DIAMOND = '♦';
+
+
+        /// <summary>
+        /// ♣
+        /// </summary>
+        public const char CLUB = '♣';
+
+        /// <summary>
+        /// ○
+        /// </summary>
+        public const char CIRCLE = '○';
+
+        /// <summary>
+        /// ♂
+        /// </summary>
+        public const char MARS = '♂';
+
+
+        /// <summary>
+        /// ♀
+        /// </summary>
+        public const char VENUS = '♀';
+
+        /// <summary>
+        /// §
+        /// </summary>
+        public const char SECTION = '§';
+
+        /// <summary>
+        /// ♪
+        /// </summary>
+        public const char MUSIC_1 = '♪';
+
+        /// <summary>
+        /// ♫
+        /// </summary>
+        public const char MUSIC_2 = '♫';
+
+        /// <summary>
+        /// ☼
+        /// </summary>
+        public const char SUN = '☼';
+
+        /// <summary>
+        /// α
+        /// </summary>
+        public const char ALPHA = 'α';
+
+        /// <summary>
+        /// ß
+        /// </summary>
+        public const char ESZETT = 'ß';
+
+        /// <summary>
+        /// π
+        /// </summary>
+        public const char PI = 'π';
+
+        /// <summary>
+        /// Σ
+        /// </summary>
+        public const char SUM = 'Σ';
+
+        /// <summary>
+        /// σ
+        /// </summary>
+        public const char RO = 'σ';
+
+        /// <summary>
+        /// ∞
+        /// </summary>
+        public const char INFINITY = '∞';
+
+        /// <summary>
+        /// Ω
+        /// </summary>
+        public const char OMEGA = 'Ω';
+
+        /// <summary>
+        /// █
+        /// </summary>
+        public const char SOLID = '█';
+
+        /// <summary>
+        /// µ
+        /// </summary>
+        public const char MU = 'µ';
+
+        /// <summary>
+        /// ≈
+        /// </summary>
+        public const char ALMOST_EQUAL = '≈';
+
+        /// <summary>
         /// ╋
         /// </summary>
         public const char W_THICK_4_WAY_JUNCTION = '╋';
@@ -223,5 +335,10 @@ namespace DotNetHack.UI
         /// »
         /// </summary>
         public const char CHEVRON_RIGHT = '»';
+
+        /// <summary>
+        /// «
+        /// </summary>
+        public const char CHEVRON_LEFT = '«';
     }
 }

@@ -5,6 +5,6 @@ namespace DotNetHack.Game
     interface IDungeonLevel
     {
         string MapFile { get; set; }
-        void Render(Location aLocation);
+        void Render(Location2i aLocation);
     }
 }

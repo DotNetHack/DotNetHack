@@ -15,7 +15,7 @@ namespace DotNetHack.Game.Items.Containers
         /// LockBox
         /// </summary>
         /// <param name="aIsLocked">Is this lockbox actually locked?</param>
-        public LockBox(bool aIsLocked, Location aLocation)
+        public LockBox(bool aIsLocked, Location3i aLocation)
             : base("lockbox") 
         {
             IsLocked = aIsLocked;

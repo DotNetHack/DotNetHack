@@ -21,6 +21,13 @@ namespace DotNetHack.UI
             /// </summary>
             /// <param name="aTitle">The title of the message box</param>
             /// <param name="aMessage">The message</param>
+            public static void Show(string aTitle, Exception ex) { Show(aTitle, ex.Message); }
+
+            /// <summary>
+            /// Show
+            /// </summary>
+            /// <param name="aTitle">The title of the message box</param>
+            /// <param name="aMessage">The message</param>
             public static void Show(string aTitle, string aMessage)
             {
                 const int WIDTH_OFFSET = 2;
@@ -34,7 +41,7 @@ namespace DotNetHack.UI
                 int mTitleLength = aTitle.Length;
                 int mMessageLength = aMessage.Length;
 
-                Location mBoxLocation = Graphics.ScreenCenter;
+                Location2i mBoxLocation = Graphics.ScreenCenter;
 
                 if (aTitle.Length > mMessageLength)
                     mBoxWidth += mTitleLength;
@@ -51,7 +58,7 @@ namespace DotNetHack.UI
 
                 mBoxLocation.X++;
 
-                Location tmpLoc = mBoxLocation;
+                Location2i tmpLoc = mBoxLocation;
 
                 Console.SetCursorPosition(mBoxLocation.X, mBoxLocation.Y + 2);
                 Console.Write(spacer);
@@ -78,6 +85,16 @@ namespace DotNetHack.UI
         /// </summary>
         public static class Display
         {
+            public static void ShowStatsBar(Stats aStats)
+            {
+                string strStats =
+                    string.Format("Str:{0} Per:{1} End:{2} Chr:{3} Int:{4} Agi:{5} Luck:{6}",
+                    aStats.Strength, aStats.Perception, aStats.Endurance, aStats.Charisma,
+                    aStats.Intelligence, aStats.Agility, aStats.Luck);
+                Console.SetCursorPosition(0, Console.WindowHeight - 1);
+                Console.Write(strStats);
+            }
+
             /// <summary>
             /// Box
             /// </summary>
@@ -86,7 +103,7 @@ namespace DotNetHack.UI
             /// <param name="y">Y-Coord</param>
             public static void Box(Menu aMenu, int x, int y)
             {
-                int w = 0; int h = 0;
+                int w = aMenu.Title.Length; int h = 0;
                 int max_name_length = 0;
                 foreach (var action in aMenu.MenuActions)
                     if (action.Name.Length > max_name_length)

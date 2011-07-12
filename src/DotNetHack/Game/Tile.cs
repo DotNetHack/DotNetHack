@@ -8,19 +8,29 @@ using DotNetHack.UI;
 
 namespace DotNetHack.Game
 {
+
+#if OBSOLETE
     /// <summary>
     /// MapTile
     /// </summary>
     [Serializable]
     public class MapTile : Tile, IHasLocation, IEquatable<MapTile>
     {
-        public MapTile(Location aTileLocation)
+        public MapTile(Location3i aTileLocation)
             : base()
         { Location = aTileLocation; }
 
         public MapTile(int x, int y)
             : base()
-        { Location = new Location(x, y); }
+        { Location = new Location3i(x, y); }
+
+        public MapTile(int x, int y, Tile aTile)
+            : this(x, y) 
+        {
+            TileType = aTile.TileType;
+            G = aTile.G;
+            C = aTile.C;
+        }
 
         public Location Location { get; set; }
 
@@ -39,6 +49,8 @@ namespace DotNetHack.Game
             return base.Equals(obj);
         }
     }
+
+#endif
 
     /// <summary>
     /// Tile
@@ -73,5 +85,22 @@ namespace DotNetHack.Game
         /// Color
         /// </summary>
         public Colour C { get; set; }
+
+        /// <summary>
+        /// EmptyTile has standard colour, a '.' as the Glyph and Nothing as the TileType.
+        /// </summary>
+        public static Tile EmptyTile 
+        {
+            get 
+            {
+                return new Tile() 
+                {
+                    C = Colour.Standard,
+                    G = '.',
+                    TileType = TileType.NOTHING,
+                };
+            }
+        }
     }
+
 }

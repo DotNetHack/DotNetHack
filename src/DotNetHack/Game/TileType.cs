@@ -21,5 +21,10 @@ namespace DotNetHack.Game
         MOUNTAIN,
         WATER,
         FIELD,
+        GRAVE,
+        ROAD,
+        HOME,
+        STAIRS_UP,
+        STAIRS_DOWN,
     }
 }

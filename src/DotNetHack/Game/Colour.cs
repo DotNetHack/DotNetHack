@@ -18,8 +18,9 @@ namespace DotNetHack.Game
     /// Colour
     /// </summary>
     [Serializable]
-    public struct Colour : IEquatable<Colour>
+    public class Colour : IEquatable<Colour>
     {
+        public Colour() { }
         public Colour(ConsoleColor aFG)
             : this(aFG, ConsoleColor.Black)
         { }
@@ -28,6 +29,16 @@ namespace DotNetHack.Game
         {
             FG = aFG;
             BG = aBG;
+        }
+
+        public void SetBG(ConsoleColor aBG)
+        {
+            BG = aBG;
+        }
+
+        public void SetFG(ConsoleColor aFG)
+        {
+            FG = aFG;
         }
 
         public ConsoleColor FG;

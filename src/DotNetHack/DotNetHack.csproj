@@ -44,6 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DNHackException.cs" />
+    <Compile Include="Game\Actor.cs" />
+    <Compile Include="Game\Affects\AffectModifiers.cs" />
+    <Compile Include="Game\Affects\AffectResistance.cs" />
+    <Compile Include="Game\Affects\Affects.cs" />
+    <Compile Include="Game\Affects\AffectType.cs" />
     <Compile Include="Game\Dungeon.cs" />
     <Compile Include="Game\Dice.cs" />
     <Compile Include="Game\IDungeonLevel.cs" />
@@ -57,6 +62,8 @@
     <Compile Include="Game\Items\Equipment\Armor\ArmorType.cs" />
     <Compile Include="Game\Items\Equipment\Material.cs" />
     <Compile Include="Game\Items\Equipment\Quality.cs" />
+    <Compile Include="Game\Items\Equipment\Tools\MortarAndPestle.cs" />
+    <Compile Include="Game\Items\Equipment\Tools\Tool.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\WeaponProperties.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\WeaponType.cs" />
     <Compile Include="Game\Items\Equipment\Armor\ArmorLocation.cs" />
@@ -71,6 +78,7 @@
     <Compile Include="Game\Items\Potions\PotionType.cs" />
     <Compile Include="Game\Monsters\Monster.cs" />
     <Compile Include="Game\Door.cs" />
+    <Compile Include="Game\Stats.cs" />
     <Compile Include="Game\TileFlags.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Game\Colour.cs" />
@@ -106,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Game\Items\Food\" />
+    <Folder Include="Game\Items\Herbs\" />
     <Folder Include="Game\Monsters\AI\" />
     <Folder Include="Game\Quests\" />
   </ItemGroup>

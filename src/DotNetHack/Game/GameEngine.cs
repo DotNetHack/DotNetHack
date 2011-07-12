@@ -6,6 +6,7 @@ using System.Text;
 using DotNetHack;
 using DotNetHack.UI;
 using DotNetHack.Game.Interfaces;
+using DotNetHack.Game.Affects;
 
 namespace DotNetHack.Game
 {
@@ -18,12 +19,11 @@ namespace DotNetHack.Game
         /// GameEngine
         /// </summary>
         /// <param name="aPlayer"></param>
-        public GameEngine(Player aPlayer, Dungeon aStartDungeon)
+        public GameEngine(Player aPlayer, Dungeon3 aStartDungeon)
         {
             Time = 0L;
             Player = aPlayer;
             CurrentMap = aStartDungeon;
-            aPlayer.Location = new Location(5, 5);
         }
 
         /// <summary>
@@ -31,6 +31,8 @@ namespace DotNetHack.Game
         /// </summary>
         public void Run(EngineRunFlags aFlags)
         {
+            Graphics.ShowGraphicsInfo();
+
             // set engine run flags
             RunFlags = aFlags;
 
@@ -44,9 +46,10 @@ namespace DotNetHack.Game
             {
 
             redo_input:
-
+                Graphics.CursorToLocation(1, 1); // So as not to pile up blanks.
                 ConsoleKeyInfo input = Console.ReadKey();
-                Location UnitMovement = new Location(0, 0);
+                Location3i UnitMovement = new Location3i(0, 0, 0);
+                Tile nPlayerTile = CurrentMap.GetTile(Player.Location);
                 switch (input.Key)
                 {
                     default:
@@ -59,17 +62,24 @@ namespace DotNetHack.Game
                         UnitMovement.Y--; break;
                     case ConsoleKey.DownArrow:
                         UnitMovement.Y++; break;
+                    case ConsoleKey.OemPeriod:
+                        if (nPlayerTile.TileType == TileType.STAIRS_UP)
+                            UnitMovement.D--; break;
+                    case ConsoleKey.OemComma:
+                        if (nPlayerTile.TileType == TileType.STAIRS_DOWN)
+                            UnitMovement.D++; break;
                     case ConsoleKey.Escape:
                         done = true;
                         break;
                 }
+
                 if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
                     goto redo_input;
-                Tile nPlayerTile = CurrentMap.GetTile(Player.Location + UnitMovement);
-                if (nPlayerTile != null)
-                    if (nPlayerTile.TileType == TileType.WALL)
-                        goto redo_input;
+                Tile nMoveToTile = CurrentMap.GetTile(Player.Location + UnitMovement);
+                if (nMoveToTile.TileType == TileType.WALL)
+                    goto redo_input;
 
+                // Apply the unit movement.
                 Player.Location += UnitMovement;
 
                 Update();
@@ -78,14 +88,27 @@ namespace DotNetHack.Game
 
                 Player.Draw();
 
-                Graphics.CursorToLocation(1, 1);
-
                 ++Time;
             }
         }
 
+
         public void Update()
         {
+            UI.Graphics.Display.ShowStatsBar(Player.Stats);
+
+#if OBSOLETE
+            foreach (var iItem in CurrentMap.Items)
+            {
+                if (iItem.Location.Equals(Player.Location))
+                {
+                    Console.SetCursorPosition(0, Console.WindowHeight - 3);
+                    Console.Write(iItem.Name);
+                }
+            }
+#endif
+
+
             /*
             foreach (var m in World.Monsters)
             {
@@ -109,17 +132,13 @@ namespace DotNetHack.Game
         /// <summary>
         /// Player
         /// </summary>
-        private Player Player { get; set; }
+        public Player Player { get; private set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        // private Dictionary<DistantLocation, IItem> Items { get; set; }
 
         /// <summary>
         /// CurrentMap
         /// </summary>
-        private Dungeon CurrentMap { get; set; }
+        private Dungeon3 CurrentMap { get; set; }
 
         /// <summary>
         /// RunFlags

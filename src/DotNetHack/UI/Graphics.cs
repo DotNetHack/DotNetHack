@@ -45,19 +45,39 @@ namespace DotNetHack.UI
         /// ScreenCenter
         /// <value>The location of the center of the screen.</value>
         /// </summary>
-        public static Location ScreenCenter
+        public static Location2i ScreenCenter
         {
             get 
             {
-                return new Location(Console.WindowWidth / 2, 
+                return new Location2i(Console.WindowWidth / 2, 
                     Console.WindowHeight / 2);
             }
         }
 
-        public static void Clear()
+        /// <summary>
+        /// The width of the screen.
+        /// </summary>
+        public static int ScreenWidth { get { return Console.WindowWidth; } }
+
+        /// <summary>
+        /// The height of the screen.
+        /// </summary>
+        public static int ScreenHeight { get { return Console.WindowHeight; } }
+
+        /// <summary>
+        /// Clear
+        /// </summary>
+        public static void Clear(Colour aColour)
         {
+            Console.BackgroundColor = aColour.FG;
+            Console.ForegroundColor = aColour.BG;
             Console.Clear();
         }
+
+        /// <summary>
+        /// Clear
+        /// </summary>
+        public static void Clear() { Clear(Colour.Standard); }
 
         /// <summary>
         /// Draw
@@ -80,7 +100,7 @@ namespace DotNetHack.UI
         /// CursorToLocation brings the cursor to the specified location.
         /// </summary>
         /// <param name="aLocation">The location to bring the cursor to.</param>
-        public static void CursorToLocation(Location aLocation) 
+        public static void CursorToLocation(Location2i aLocation) 
         {
             CursorToLocation(aLocation.X, aLocation.Y);
         }

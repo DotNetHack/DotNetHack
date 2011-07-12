@@ -14,6 +14,6 @@ namespace DotNetHack.Game.Interfaces
         /// <summary>
         /// Location
         /// </summary>
-        Location Location { get; set; }
+        Location3i Location { get; set; }
     }
 }

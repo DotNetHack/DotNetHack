@@ -192,10 +192,10 @@ namespace DotNetHack.Editor
 
                     #region Map Load/Save Commands
                     /**
-                     * Load
+                     * Save
                      */
-                    case ConsoleKey.A:
-                        if (ConsoleModifiers.Control == (inkey.Modifiers | ConsoleModifiers.Control))
+                    case ConsoleKey.F2:
+                        if (ConsoleModifiers.Control == inkey.Modifiers)
                         {
                             if (CurrentMapFileName == null)
                             {
@@ -210,10 +210,10 @@ namespace DotNetHack.Editor
                         }
                         break;
                     /**
-                     * Save
+                     * Load
                      */
-                    case ConsoleKey.O:
-                        if (ConsoleModifiers.Control == (inkey.Modifiers | ConsoleModifiers.Control))
+                    case ConsoleKey.F3:
+                        if (ConsoleModifiers.Control == inkey.Modifiers)
                         {
                             UI.Graphics.CursorToLocation(1, 1);
                             Console.Write("Load Dungeon: ");

@@ -49,6 +49,7 @@ namespace DotNetHack.Game
                 Graphics.CursorToLocation(1, 1); // So as not to pile up blanks.
                 ConsoleKeyInfo input = Console.ReadKey();
                 Location3i UnitMovement = new Location3i(0, 0, 0);
+                Tile nPlayerTile = CurrentMap.GetTile(Player.Location);
                 switch (input.Key)
                 {
                     default:
@@ -61,18 +62,24 @@ namespace DotNetHack.Game
                         UnitMovement.Y--; break;
                     case ConsoleKey.DownArrow:
                         UnitMovement.Y++; break;
+                    case ConsoleKey.OemPeriod:
+                        if (nPlayerTile.TileType == TileType.STAIRS_UP)
+                            UnitMovement.D--; break;
+                    case ConsoleKey.OemComma:
+                        if (nPlayerTile.TileType == TileType.STAIRS_DOWN)
+                            UnitMovement.D++; break;
                     case ConsoleKey.Escape:
                         done = true;
                         break;
                 }
+
                 if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
                     goto redo_input;
+                Tile nMoveToTile = CurrentMap.GetTile(Player.Location + UnitMovement);
+                if (nMoveToTile.TileType == TileType.WALL)
+                    goto redo_input;
 
-                Tile nPlayerTile = CurrentMap.GetTile(((Location2i)Player.Location + UnitMovement), Player.DungeonLevel);
-                if (nPlayerTile != null)
-                    if (nPlayerTile.TileType == TileType.WALL)
-                        goto redo_input;
-
+                // Apply the unit movement.
                 Player.Location += UnitMovement;
 
                 Update();

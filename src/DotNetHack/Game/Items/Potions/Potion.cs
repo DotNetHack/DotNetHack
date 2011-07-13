@@ -9,12 +9,11 @@ namespace DotNetHack.Game.Items.Potions
     /// <summary>
     /// Potion
     /// </summary>
-    public class Potion : Item, IPotion
+    public class Potion: Item, IPotion
     {
-        public Potion(string aName, Colour aColor)
-            : base(aName, '!', aColor)
-        { }
+        public Potion(PotionType aType, string aName, Colour aColor)
+            : base(aName, '!', aColor) { PotionType = aType; }
 
-        public void Quaff() { return; }
+        public PotionType PotionType { get; set; }
     }
 }

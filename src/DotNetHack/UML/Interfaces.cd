@@ -45,7 +45,7 @@
   <Interface Name="DotNetHack.Game.Interfaces.IGlyph" Collapsed="true">
     <Position X="9" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAA=</HashCode>
       <FileName>Game\Interfaces\IGlyph.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -107,14 +107,6 @@
   </Interface>
   <Interface Name="DotNetHack.Game.Interfaces.IScroll" Collapsed="true">
     <Position X="10.25" Y="9.75" Width="1.5" />
-    <InheritanceLine Type="DotNetHack.Game.Interfaces.IReadable" ManuallyRouted="true">
-      <Path>
-        <Point X="12.25" Y="12.75" />
-        <Point X="12.25" Y="11.721" />
-        <Point X="11" Y="11.721" />
-        <Point X="11" Y="10.62" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Game\Interfaces\IScroll.cs</FileName>

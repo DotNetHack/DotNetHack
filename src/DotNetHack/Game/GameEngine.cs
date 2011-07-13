@@ -42,6 +42,7 @@ namespace DotNetHack.Game
             // set to true for exit.
             bool done = false;
 
+
             while (!done)
             {
 
@@ -91,7 +92,6 @@ namespace DotNetHack.Game
                 ++Time;
             }
         }
-
 
         public void Update()
         {

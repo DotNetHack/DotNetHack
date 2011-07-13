@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using DotNetHack.Game.Interfaces;
+using DotNetHack.Game.Events;
 
 namespace DotNetHack.Game
 {
@@ -17,9 +18,7 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="aPlayerName"></param>
         public Player(string aPlayerName)
-            : this(aPlayerName, new Location3i(0, 0, 0))
-        {
-        }
+            : this(aPlayerName, new Location3i(0, 0, 0)) { }
 
         /// <summary>
         /// Player

@@ -42,12 +42,16 @@ namespace DotNetHack.Editor
         /// <param name="c">colour = standard.</param>
         static void SetTile(TileType t, char g, Colour c)
         {
-            CurrentMap.SetTile(CurrentLocation, new Tile()
+            var tmpSetTile = new Tile()
             {
                 G = g,
                 TileType = t,
                 C = c ?? Colour.Standard,
-            });
+            };
+
+            // Store the previous tile.
+            CurrentMap.SetTile(CurrentLocation, tmpSetTile);
+            PreviousTile = tmpSetTile;
         }
 
         /// <summary>
@@ -126,12 +130,8 @@ namespace DotNetHack.Editor
 
                     // Add a new basic wall tile.
                     case ConsoleKey.Enter:
-                        CurrentMap.SetTile(CurrentLocation, new Tile()
-                        {
-                            G = '#',
-                            TileType = TileType.WALL,
-                            C = Colour.Standard,
-                        });
+                        if (PreviousTile != null)
+                            SetTile(PreviousTile.TileType, PreviousTile.G, PreviousTile.C);
                         break;
 
                     // Add a stairs-up tile.
@@ -139,9 +139,18 @@ namespace DotNetHack.Editor
                         SetTile(TileType.STAIRS_UP, Symbols.ARROW_UP, Colour.Standard);
                         break;
 
+                    // Allow for deltion
+                    case ConsoleKey.Delete:
+                        SetTile(TileType.NOTHING, '.', Colour.Standard);
+                        break;
+
+                    case ConsoleKey.A:
+                        SetTile(TileType.ALTAR, '_', Colour.Standard);
+                        break;
+
                     // Add stairs down tile.
                     case ConsoleKey.OemComma:
-                        SetTile(TileType.STAIRS_DOWN, Symbols.ARROW_DOWN, Colour.Standard);
+                        SetTile(TileType.STAIRS_DOWN, Symbols.MOD_EQUAL, Colour.Standard);
                         break;
 
                     // wall
@@ -156,24 +165,14 @@ namespace DotNetHack.Editor
                         SetTile(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
                         break;
 
-                    /// field
-                    case ConsoleKey.F:
-                        SetTile(TileType.FIELD, Symbols.FILL_LIGHT, Colour.Field);
-                        break;
-
                     // road
                     case ConsoleKey.R:
-                        SetTile(TileType.ROAD, Symbols.FILL_HEAVY, Colour.Road);
-                        break;
-
-                    // gress
-                    case ConsoleKey.G:
-                        SetTile(TileType.GRASS, Symbols.FILL_LIGHT, Colour.Grass);
+                        SetTile(TileType.ROAD, Symbols.FILL_LIGHT, Colour.Road);
                         break;
 
                     // tree.
                     case ConsoleKey.T:
-                        SetTile(TileType.TREE, 'T', Colour.Grass);
+                        SetTile(TileType.TREE, 'T', Colour.CurrentColour);
                         break;
 
                     // mountain
@@ -184,6 +183,45 @@ namespace DotNetHack.Editor
                     // home
                     case ConsoleKey.H:
                         SetTile(TileType.HOME, '⌂', Colour.CurrentColour);
+                        break;
+
+                    // gress
+                    case ConsoleKey.G:
+                        switch (inkey.Modifiers)
+                        {
+                            default:
+                                SetTile(TileType.GRASS, Symbols.FILL_LIGHT, Colour.Grass);
+                                break;
+                            case ConsoleModifiers.Shift:
+                                SetTile(TileType.GRAVE, Symbols.SMALL_T, Colour.Grave);
+                                break;
+                        }
+                        break;
+
+                    // bridge horizontal, bridge vertical
+                    case ConsoleKey.B:
+                        switch (inkey.Modifiers)
+                        {
+                            default:
+                                SetTile(TileType.BRIDGE, Symbols.W_DBL_HORIZONTAL, Colour.Road);
+                                break;
+                            case ConsoleModifiers.Shift:
+                                SetTile(TileType.BRIDGE, Symbols.W_DBL_VERTICAL, Colour.Road);
+                                break;
+                        }
+                        break;
+
+                    // field, fountain
+                    case ConsoleKey.F:
+                        switch (inkey.Modifiers)
+                        {
+                            default:
+                                SetTile(TileType.FIELD, Symbols.FILL_LIGHT, Colour.Field);
+                                break;
+                            case ConsoleModifiers.Shift:
+                                SetTile(TileType.FOUNTAIN, Symbols.FUNCTION, Colour.Fountain);
+                                break;
+                        }
                         break;
 
                     #endregion

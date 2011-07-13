@@ -94,6 +94,11 @@ namespace DotNetHack.Game
             get { return new Colour(ConsoleColor.Green, ConsoleColor.DarkGreen); }
         }
 
+        public static Colour Grave
+        {
+            get { return new Colour(ConsoleColor.Black, ConsoleColor.DarkGreen); }
+        }
+
         public static Colour Field
         {
             get { return new Colour(ConsoleColor.DarkYellow, ConsoleColor.Yellow); }

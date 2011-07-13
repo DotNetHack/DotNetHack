@@ -7,6 +7,14 @@ namespace DotNetHack.UI
 {
     public static class Symbols
     {
+        
+            // ƒ
+
+        /// <summary>
+        /// ≡
+        /// </summary>
+        public const char MOD_EQUAL = '≡';
+
         /// <summary>
         /// ░
         /// </summary>
@@ -330,6 +338,11 @@ namespace DotNetHack.UI
         /// τ
         /// </summary>
         public const char TAU = 'τ';
+
+        /// <summary>
+        /// t
+        /// </summary>
+        public const char SMALL_T = 't';
 
         /// <summary>
         /// »

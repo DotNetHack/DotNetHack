@@ -51,8 +51,10 @@
     <Compile Include="Game\Affects\AffectType.cs" />
     <Compile Include="Game\Dungeon.cs" />
     <Compile Include="Game\Dice.cs" />
+    <Compile Include="Game\Events\GameEvent.cs" />
     <Compile Include="Game\IDungeonLevel.cs" />
     <Compile Include="Game\Interfaces\IArmor.cs" />
+    <Compile Include="Game\Interfaces\IPrayer.cs" />
     <Compile Include="Game\Items\Containers\LootContainer.cs" />
     <Compile Include="Game\Interfaces\IMonster.cs" />
     <Compile Include="Game\Interfaces\ITome.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="Game\TileType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Game\Actions\" />
     <Folder Include="Game\Items\Food\" />
     <Folder Include="Game\Items\Herbs\" />
     <Folder Include="Game\Monsters\AI\" />

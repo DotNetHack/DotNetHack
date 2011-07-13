@@ -15,5 +15,13 @@ namespace DotNetHack.Game.Items.Potions
             : base(aName, '!', aColor) { PotionType = aType; }
 
         public PotionType PotionType { get; set; }
+
+        /// <summary>
+        /// Quaff
+        /// </summary>
+        public void Quaff()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

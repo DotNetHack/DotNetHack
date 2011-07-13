@@ -26,5 +26,6 @@ namespace DotNetHack.Game
         HOME,
         STAIRS_UP,
         STAIRS_DOWN,
+        BRIDGE,
     }
 }

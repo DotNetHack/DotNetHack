@@ -73,12 +73,16 @@ namespace DotNetHack.Editor
 
             CurrentLocation = new Location3i(0, 0, 0);
 
+            // The last unit movement is recorded.
+            Location3i LastUnitMovement = Location3i.Origin3i;
+
             #region Main Loop
         redo__main_input:
             try
             {
                 var inkey = Console.ReadKey();
                 Location3i UnitMovement = new Location3i(0, 0, 0);
+
                 switch (inkey.Key)
                 {
                     #region Directional Keys
@@ -264,6 +268,34 @@ namespace DotNetHack.Editor
 
                     #endregion
                 }
+
+                switch (inkey.Modifiers)
+                {
+                    case ConsoleModifiers.Shift:
+                        if (inkey.Key == ConsoleKey.LeftArrow ||
+                            inkey.Key == ConsoleKey.RightArrow ||
+                            inkey.Key == ConsoleKey.UpArrow ||
+                            inkey.Key == ConsoleKey.DownArrow)
+                        {
+                        redo_get_count:
+                            try
+                            {
+                                int char_count = 0;
+                                Console.Write(":");
+                                int.TryParse(Console.ReadLine(), out char_count);
+                                for (int c = 0; c < char_count; ++c)
+                                {
+                                    SetTile(PreviousTile.TileType, PreviousTile.G, PreviousTile.C);
+                                    CurrentLocation += LastUnitMovement;
+                                }
+                            }
+                            catch { goto redo_get_count; }
+                        }
+                        break;
+                }
+
+                // Record what the last UnitMovement was.
+                LastUnitMovement = UnitMovement;
 
                 // Check the boundaries of the dungeon.
                 if (!CurrentMap.CheckBounds(CurrentLocation + UnitMovement))

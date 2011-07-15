@@ -5,7 +5,7 @@ namespace DotNetHack.Game.Interfaces
     /// <summary>
     /// IPotion 
     /// </summary>
-    public interface IPotion
+    public interface IPotion : IConsumable
     {
         /// <summary>
         /// The type of the potion

@@ -5,6 +5,7 @@ using System.Text;
 
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Events;
+using DotNetHack.Game.Dungeon;
 
 namespace DotNetHack.Game
 {

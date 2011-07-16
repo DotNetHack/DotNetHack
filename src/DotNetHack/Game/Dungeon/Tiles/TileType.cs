@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DotNetHack.Game
+namespace DotNetHack.Game.Dungeon.Tiles
 {
     /// <summary>
     /// TileType
@@ -27,5 +27,7 @@ namespace DotNetHack.Game
         STAIRS_UP,
         STAIRS_DOWN,
         BRIDGE,
+        SWAMP,
+        FOREST,
     }
 }

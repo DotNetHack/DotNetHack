@@ -1,6 +1,6 @@
 ﻿using System;
 using DotNetHack.Game.Interfaces;
-namespace DotNetHack.Game
+namespace DotNetHack.Game.Dungeon
 {
     interface IDungeonLevel
     {

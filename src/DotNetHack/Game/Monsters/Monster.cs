@@ -7,10 +7,11 @@ using DotNetHack.Game.Interfaces;
 namespace DotNetHack.Game.Monsters
 {
     [Serializable]
-    public class Monster : IMonster, IEquatable<Monster>
+    public class Monster : Actor, IMonster, IEquatable<Monster>
     {
         public Monster() { }
         public Monster(string aName, char aChar, Location3i aLocation)
+            : base()
         {
             Name = aName;
             Location = aLocation;

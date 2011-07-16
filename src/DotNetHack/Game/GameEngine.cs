@@ -48,7 +48,6 @@ namespace DotNetHack.Game
             while (!done)
             {
 
-            redo_input:
                 Graphics.CursorToLocation(1, 1); // So as not to pile up blanks.
                 ConsoleKeyInfo input = Console.ReadKey();
                 Location3i UnitMovement = new Location3i(0, 0, 0);
@@ -77,10 +76,10 @@ namespace DotNetHack.Game
                 }
 
                 if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
-                    goto redo_input;
+                    continue;
                 Tile nMoveToTile = CurrentMap.GetTile(Player.Location + UnitMovement);
                 if (nMoveToTile.TileType == TileType.WALL)
-                    goto redo_input;
+                    continue;
 
                 // Apply the unit movement.
                 Player.Location += UnitMovement;

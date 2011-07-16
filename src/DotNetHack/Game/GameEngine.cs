@@ -7,6 +7,8 @@ using DotNetHack;
 using DotNetHack.UI;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Affects;
+using DotNetHack.Game.Dungeon;
+using DotNetHack.Game.Dungeon.Tiles;
 
 namespace DotNetHack.Game
 {

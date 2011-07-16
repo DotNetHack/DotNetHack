@@ -1,17 +1,24 @@
 ﻿using System;
-
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
 
 using DotNetHack.Game.Interfaces;
-using System.Xml.Serialization;
+using DotNetHack.Game.Dungeon.Tiles;
 
-namespace DotNetHack.Game
+namespace DotNetHack.Game.Dungeon
 {
+    /// <summary>
+    /// IterXYDelegate
+    /// </summary>
+    /// <param name="x">The x-coord</param>
+    /// <param name="y">The y-coord</param>
+    internal delegate void IterXYDelegate(int x, int y);
+
     /// <summary>
     /// DungeonExtensions
     /// </summary>
@@ -66,6 +73,9 @@ namespace DotNetHack.Game
 
             // Create a new dungeon renderer using this as the dungeon.
             DungeonRenderer = new DungeonRenderer(this);
+
+            // Create a new dungeon renderer using this as the dungeon.
+            FogOfWar = new FogOfWar(this);
         }
 
         #endregion
@@ -182,6 +192,12 @@ namespace DotNetHack.Game
         public DungeonRenderer DungeonRenderer { get; set; }
 
         /// <summary>
+        /// Used specifically to make fog of war calculations.
+        /// </summary>
+        [XmlIgnore]
+        public FogOfWar FogOfWar { get; set; }
+
+        /// <summary>
         /// The height of this dungeon.
         /// <remarks>This is not the same as depth. <see cref="DungeonDepth"/></remarks>
         /// </summary>
@@ -248,123 +264,6 @@ namespace DotNetHack.Game
         /// </summary>
         public const string DungeonExtension = ".dungeon";
         #endregion
-    }
-
-    /// <summary>
-    /// DungeonRenderer
-    /// </summary>
-    [Serializable()]
-    public class DungeonRenderer
-    {
-        /// <summary>
-        /// DungeonRenderer
-        /// </summary>
-        /// <param name="aDungeon"></param>
-        public DungeonRenderer(Dungeon3 aDungeon)
-        {
-            RenderDungeon = aDungeon;               // must be set first
-            RenderBuffer = new Tile[Width, Height];
-            ClearBuffer();
-        }
-
-        /// <summary>
-        /// IterXYDelegate
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        delegate void IterXYDelegate(int x, int y);
-
-        /// <summary>
-        /// IterateXY
-        /// </summary>
-        /// <param name="aMapIterator"></param>
-        void IterateXY(IterXYDelegate aMapIterator)
-        {
-            for (int x = 0; x < Width; ++x)
-                for (int y = 0; y < Height; ++y)
-                    aMapIterator(x, y);
-        }
-
-        /// <summary>
-        /// ClearBuffer
-        /// </summary>
-        public void ClearBuffer()
-        {
-            IterateXY(delegate(int x, int y)
-            {
-                RenderBuffer[x, y] = new Tile() { G = '\0', TileType = TileType.NOTHING };
-            });
-        }
-
-        /// <summary>
-        /// HardRefresh
-        /// </summary>
-        /// <param name="l"></param>
-        public void HardRefresh(Location3i l)
-        {
-            IterateXY(delegate(int x, int y)
-            {
-                UI.Graphics.CursorToLocation(x, y);
-                RenderDungeon.MapData[x, y, l.D].C.Set();
-                Console.Write(RenderDungeon.MapData[x, y, l.D].G);
-                RenderBuffer[x, y].G = RenderDungeon.MapData[x, y, l.D].G;
-                UI.Graphics.CursorToLocation(x, y);
-            });
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="l"></param>
-        public void Render(Location3i l)
-        {
-            IterateXY(delegate(int x, int y)
-            {
-                if (RenderBuffer[x, y].G != RenderDungeon.MapData[x, y, l.D].G)
-                {
-                    UI.Graphics.CursorToLocation(x, y);
-                    RenderDungeon.MapData[x, y, l.D].C.Set();
-                    Console.Write(RenderDungeon.MapData[x, y, l.D].G);
-                    RenderBuffer[x, y].G = RenderDungeon.MapData[x, y, l.D].G;
-                    UI.Graphics.CursorToLocation(x, y);
-                }
-            });
-
-            ClearLocation(l);
-        }
-
-        /// <summary>
-        /// Clears a render buffer location.
-        /// </summary>
-        /// <param name="l"></param>
-        public void ClearLocation(Location2i l)
-        {
-            RenderBuffer[l.X, l.Y].G = '\0';
-        }
-
-        /// <summary>
-        /// DungeonLevelGlyphs enumerable
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<IGlyph> DungeonLevelGlyphs()
-        {
-            for (int x = 0; x < Width; ++x)
-                for (int y = 0; y < Height; ++y)
-                    yield return RenderBuffer[x, y];
-        }
-
-        /// <summary>
-        /// DungeonWidth
-        /// </summary>
-        public int Width { get { return RenderDungeon.DungeonWidth; } }
-
-        /// <summary>
-        /// DungeonHeight
-        /// </summary>
-        public int Height { get { return RenderDungeon.DungeonHeight; } }
-
-        IGlyph[,] RenderBuffer { get; set; }
-        Dungeon3 RenderDungeon { get; set; }
     }
 
 #if OBSOLETE

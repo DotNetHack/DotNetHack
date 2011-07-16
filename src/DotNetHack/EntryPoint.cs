@@ -1,5 +1,6 @@
 using System;
 using DotNetHack.Game;
+using DotNetHack.Game.Dungeon;
 
 namespace DotNetHack
 {

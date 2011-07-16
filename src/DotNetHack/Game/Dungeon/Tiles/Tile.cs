@@ -6,7 +6,7 @@ using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Monsters;
 using DotNetHack.UI;
 
-namespace DotNetHack.Game
+namespace DotNetHack.Game.Dungeon.Tiles
 {
 
 #if OBSOLETE

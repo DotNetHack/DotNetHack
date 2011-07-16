@@ -36,7 +36,7 @@ namespace DotNetHack.Game
             Graphics.ShowGraphicsInfo();
 
             // set engine run flags
-            RunFlags = aFlags;
+            GameEngine.RunFlags = aFlags;
 
             // CursorVisible
             Console.CursorVisible = false;

@@ -99,6 +99,9 @@ namespace DotNetHack.Editor
             // The default is the "Layout" mode.
             CommandProcessor = ProcessLayoutModeCommands;
 
+            // Set the game engine run flags
+            GameEngine.RunFlags = GameEngine.EngineRunFlags.DEBUG |                             GameEngine.EngineRunFlags.EDITOR;
+
             #region Main Loop
         redo__main_input:
             try
@@ -142,8 +145,7 @@ namespace DotNetHack.Editor
                             break;
                         }
                     case ConsoleKey.F5:
-                        // Create a new instance of the game engine with the current location
-                        // and the current map.
+                        // Create a new instance of the game engine with the current location and map.
                         GameEngine g = new GameEngine(
                             new Player("Editor", CurrentLocation), CurrentMap);
 

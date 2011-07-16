@@ -40,6 +40,15 @@ namespace DotNetHack.Game.Dungeon
         }
 
         /// <summary>
+        /// Seen
+        /// </summary>
+        /// <param name="x">x-coord</param>
+        /// <param name="y">y-coord</param>
+        /// <param name="d">d-coord</param>
+        /// <returns>true if the tile has been seen.</returns>
+        public bool Seen(int x, int y, int d) { return SeenData[x, y, d]; }
+
+        /// <summary>
         /// IterXYDelegate
         /// </summary>
         /// <param name="d">x,y iterator delegate</param>

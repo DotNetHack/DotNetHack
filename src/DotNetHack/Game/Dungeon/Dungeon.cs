@@ -73,6 +73,9 @@ namespace DotNetHack.Game.Dungeon
 
             // Create a new dungeon renderer using this as the dungeon.
             DungeonRenderer = new DungeonRenderer(this);
+
+            // Create a new dungeon renderer using this as the dungeon.
+            FogOfWar = new FogOfWar(this);
         }
 
         #endregion
@@ -187,6 +190,12 @@ namespace DotNetHack.Game.Dungeon
         /// </summary>
         [XmlIgnore]
         public DungeonRenderer DungeonRenderer { get; set; }
+
+        /// <summary>
+        /// Used specifically to make fog of war calculations.
+        /// </summary>
+        [XmlIgnore]
+        public FogOfWar FogOfWar { get; set; }
 
         /// <summary>
         /// The height of this dungeon.

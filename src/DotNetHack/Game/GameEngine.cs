@@ -145,7 +145,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// RunFlags
         /// </summary>
-        public EngineRunFlags RunFlags { get; set; }
+        public static EngineRunFlags RunFlags { get; set; }
 
         /// <summary>
         /// EngineRunFlags

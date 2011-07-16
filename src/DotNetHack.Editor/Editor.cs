@@ -1,12 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DotNetHack.Game;
+using System.Collections.Generic;
+
 using DotNetHack.UI;
+using DotNetHack.Game;
+using DotNetHack.Game.Dungeon;
+using DotNetHack.Game.Dungeon.Tiles;
 
 namespace DotNetHack.Editor
 {
+    /// <summary>
+    /// CommandProcessor
+    /// </summary>
+    /// <param name="k">input</param>
     public delegate void CommandProcessor(ConsoleKeyInfo k);
 
     /// <summary>

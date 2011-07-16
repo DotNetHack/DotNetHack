@@ -49,10 +49,11 @@
     <Compile Include="Game\Affects\AffectResistance.cs" />
     <Compile Include="Game\Affects\Affects.cs" />
     <Compile Include="Game\Affects\AffectType.cs" />
-    <Compile Include="Game\Dungeon.cs" />
+    <Compile Include="Game\Dungeon\Dungeon.cs" />
     <Compile Include="Game\Dice.cs" />
+    <Compile Include="Game\Dungeon\FogOfWar.cs" />
     <Compile Include="Game\Events\GameEvent.cs" />
-    <Compile Include="Game\IDungeonLevel.cs" />
+    <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
     <Compile Include="Game\Interfaces\IArmor.cs" />
     <Compile Include="Game\Interfaces\IPrayer.cs" />
     <Compile Include="Game\Items\Containers\LootContainer.cs" />
@@ -79,9 +80,9 @@
     <Compile Include="Game\Items\Potions\Potion.cs" />
     <Compile Include="Game\Items\Potions\PotionType.cs" />
     <Compile Include="Game\Monsters\Monster.cs" />
-    <Compile Include="Game\Door.cs" />
+    <Compile Include="Game\Dungeon\Tiles\Door.cs" />
     <Compile Include="Game\Stats.cs" />
-    <Compile Include="Game\TileFlags.cs" />
+    <Compile Include="Game\Dungeon\Tiles\TileFlags.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Game\Colour.cs" />
     <Compile Include="UI\Display.cs" />
@@ -111,8 +112,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuntimeEnviornment.cs" />
     <Compile Include="Game\Speech.cs" />
-    <Compile Include="Game\Tile.cs" />
-    <Compile Include="Game\TileType.cs" />
+    <Compile Include="Game\Dungeon\Tiles\Tile.cs" />
+    <Compile Include="Game\Dungeon\Tiles\TileType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Game\Actions\" />

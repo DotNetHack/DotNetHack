@@ -1,16 +1,16 @@
 ﻿using System;
-
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
 
 using DotNetHack.Game.Interfaces;
-using System.Xml.Serialization;
+using DotNetHack.Game.Dungeon.Tiles;
 
-namespace DotNetHack.Game
+namespace DotNetHack.Game.Dungeon
 {
     /// <summary>
     /// DungeonExtensions

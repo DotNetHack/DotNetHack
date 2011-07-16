@@ -7,6 +7,8 @@ using DotNetHack.UI;
 
 namespace DotNetHack.Editor
 {
+    public delegate void CommandProcessor(ConsoleKeyInfo k);
+
     /// <summary>
     /// DNH Editor (2nd) Revision
     /// </summary>
@@ -27,6 +29,17 @@ namespace DotNetHack.Editor
         /// be used to repeat the last tile added.
         /// </summary>
         static Tile PreviousTile { get; set; }
+
+        /// <summary>
+        /// The editor mode.
+        /// This can be switched using {F9 - F12}
+        /// </summary>
+        static EditorMode EditorMode { get; set; }
+
+        /// <summary>
+        /// CommandProcessor
+        /// </summary>
+        static CommandProcessor CommandProcessor { get; set; }
 
         /// <summary>
         /// The current map file name
@@ -75,6 +88,9 @@ namespace DotNetHack.Editor
 
             // The last unit movement is recorded.
             Location3i LastUnitMovement = Location3i.Origin3i;
+
+            // The default is the "Layout" mode.
+            CommandProcessor = ProcessLayoutModeCommands;
 
             #region Main Loop
         redo__main_input:
@@ -128,108 +144,17 @@ namespace DotNetHack.Editor
                         g.Run(GameEngine.EngineRunFlags.DEBUG | GameEngine.EngineRunFlags.EDITOR);
 
                         break;
-                    #endregion
-
-                    #region Editing Commands
-
-                    // Add a new basic wall tile.
-                    case ConsoleKey.Enter:
-                        if (PreviousTile != null)
-                            SetTile(PreviousTile.TileType, PreviousTile.G, PreviousTile.C);
+                    // Change editor mode to "Layout"
+                    case ConsoleKey.F9:
+                        EditorMode = DotNetHack.Editor.EditorMode.Layout;
                         break;
-
-                    // Add a stairs-up tile.
-                    case ConsoleKey.OemPeriod:
-                        SetTile(TileType.STAIRS_UP, Symbols.ARROW_UP, Colour.Standard);
+                    // Change editor mode to "Items"
+                    case ConsoleKey.F10:
+                        EditorMode = DotNetHack.Editor.EditorMode.Items;
                         break;
-
-                    // Allow for deltion
-                    case ConsoleKey.Delete:
-                        SetTile(TileType.NOTHING, '.', Colour.Standard);
+                    case ConsoleKey.F11:
+                        EditorMode = DotNetHack.Editor.EditorMode.Monsters;
                         break;
-
-                    case ConsoleKey.A:
-                        SetTile(TileType.ALTAR, '_', Colour.Standard);
-                        break;
-
-                    // Add stairs down tile.
-                    case ConsoleKey.OemComma:
-                        SetTile(TileType.STAIRS_DOWN, Symbols.MOD_EQUAL, Colour.Standard);
-                        break;
-
-                    // wall
-                    case ConsoleKey.Insert:
-                        SetTile(TileType.WALL, Symbols.SOLID, Colour.Standard);
-                        break;
-
-                    #region Out of Doors Tiles
-
-                    /// water
-                    case ConsoleKey.W:
-                        SetTile(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
-                        break;
-
-                    // road
-                    case ConsoleKey.R:
-                        SetTile(TileType.ROAD, Symbols.FILL_LIGHT, Colour.Road);
-                        break;
-
-                    // tree.
-                    case ConsoleKey.T:
-                        SetTile(TileType.TREE, 'T', Colour.CurrentColour);
-                        break;
-
-                    // mountain
-                    case ConsoleKey.M:
-                        SetTile(TileType.MOUNTAIN, '^', Colour.Mountain);
-                        break;
-
-                    // home
-                    case ConsoleKey.H:
-                        SetTile(TileType.HOME, '⌂', Colour.CurrentColour);
-                        break;
-
-                    // gress
-                    case ConsoleKey.G:
-                        switch (inkey.Modifiers)
-                        {
-                            default:
-                                SetTile(TileType.GRASS, Symbols.FILL_LIGHT, Colour.Grass);
-                                break;
-                            case ConsoleModifiers.Shift:
-                                SetTile(TileType.GRAVE, Symbols.SMALL_T, Colour.Grave);
-                                break;
-                        }
-                        break;
-
-                    // bridge horizontal, bridge vertical
-                    case ConsoleKey.B:
-                        switch (inkey.Modifiers)
-                        {
-                            default:
-                                SetTile(TileType.BRIDGE, Symbols.W_DBL_HORIZONTAL, Colour.Road);
-                                break;
-                            case ConsoleModifiers.Shift:
-                                SetTile(TileType.BRIDGE, Symbols.W_DBL_VERTICAL, Colour.Road);
-                                break;
-                        }
-                        break;
-
-                    // field, fountain
-                    case ConsoleKey.F:
-                        switch (inkey.Modifiers)
-                        {
-                            default:
-                                SetTile(TileType.FIELD, Symbols.FILL_LIGHT, Colour.Field);
-                                break;
-                            case ConsoleModifiers.Shift:
-                                SetTile(TileType.FOUNTAIN, Symbols.FUNCTION, Colour.Fountain);
-                                break;
-                        }
-                        break;
-
-                    #endregion
-
                     #endregion
 
                     #region Map Load/Save Commands
@@ -269,30 +194,23 @@ namespace DotNetHack.Editor
                     #endregion
                 }
 
-                switch (inkey.Modifiers)
+                // Depending on the editor "mode" re-wire the command procesor
+                // (kind of like a func pointer)
+                switch (EditorMode)
                 {
-                    case ConsoleModifiers.Shift:
-                        if (inkey.Key == ConsoleKey.LeftArrow ||
-                            inkey.Key == ConsoleKey.RightArrow ||
-                            inkey.Key == ConsoleKey.UpArrow ||
-                            inkey.Key == ConsoleKey.DownArrow)
-                        {
-                        redo_get_count:
-                            try
-                            {
-                                int char_count = 0;
-                                Console.Write(":");
-                                int.TryParse(Console.ReadLine(), out char_count);
-                                for (int c = 0; c < char_count; ++c)
-                                {
-                                    SetTile(PreviousTile.TileType, PreviousTile.G, PreviousTile.C);
-                                    CurrentLocation += LastUnitMovement;
-                                }
-                            }
-                            catch { goto redo_get_count; }
-                        }
+                    case DotNetHack.Editor.EditorMode.Layout:
+                        CommandProcessor = ProcessLayoutModeCommands;
+                        break;
+                    case DotNetHack.Editor.EditorMode.Items:
+                        CommandProcessor = ProcessItemModeCommands;
+                        break;
+                    case DotNetHack.Editor.EditorMode.Monsters:
+                        CommandProcessor = ProcessMonsterModeCommands;
                         break;
                 }
+
+                // Fire off command processor, be sure to see the switch above 
+                CommandProcessor(inkey);
 
                 // Record what the last UnitMovement was.
                 LastUnitMovement = UnitMovement;
@@ -330,6 +248,133 @@ namespace DotNetHack.Editor
             #endregion
         }
 
+        /// <summary>
+        /// No different than a mouse cursor.
+        /// </summary>
         const char EDITOR_GLYPH = '#';
+
+        /// <summary>
+        /// ProcessLayoutModeCommands
+        /// </summary>
+        /// <param name="input">The input</param>
+        static void ProcessLayoutModeCommands(ConsoleKeyInfo input)
+        {
+            switch (input.Key)
+            {
+                #region Editing Commands
+
+                // Add a new basic wall tile.
+                case ConsoleKey.Enter:
+                    if (PreviousTile != null)
+                        SetTile(PreviousTile.TileType, PreviousTile.G, PreviousTile.C);
+                    break;
+
+                // Add a stairs-up tile.
+                case ConsoleKey.OemPeriod:
+                    SetTile(TileType.STAIRS_UP, Symbols.ARROW_UP, Colour.Standard);
+                    break;
+
+                // Allow for deltion
+                case ConsoleKey.Delete:
+                    SetTile(TileType.NOTHING, '.', Colour.Standard);
+                    break;
+
+                case ConsoleKey.A:
+                    SetTile(TileType.ALTAR, '_', Colour.Standard);
+                    break;
+
+                // Add stairs down tile.
+                case ConsoleKey.OemComma:
+                    SetTile(TileType.STAIRS_DOWN, Symbols.MOD_EQUAL, Colour.Standard);
+                    break;
+
+                // wall
+                case ConsoleKey.Insert:
+                    SetTile(TileType.WALL, Symbols.SOLID, Colour.Standard);
+                    break;
+
+                #region Out of Doors Tiles
+
+                /// water
+                case ConsoleKey.W:
+                    SetTile(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
+                    break;
+
+                // road
+                case ConsoleKey.R:
+                    SetTile(TileType.ROAD, Symbols.FILL_LIGHT, Colour.Road);
+                    break;
+
+                // tree.
+                case ConsoleKey.T:
+                    SetTile(TileType.TREE, 'T', Colour.CurrentColour);
+                    break;
+
+                // mountain
+                case ConsoleKey.M:
+                    SetTile(TileType.MOUNTAIN, '^', Colour.Mountain);
+                    break;
+
+                // home
+                case ConsoleKey.H:
+                    SetTile(TileType.HOME, '⌂', Colour.CurrentColour);
+                    break;
+
+                // gress
+                case ConsoleKey.G:
+                    switch (input.Modifiers)
+                    {
+                        default:
+                            SetTile(TileType.GRASS, Symbols.FILL_LIGHT, Colour.Grass);
+                            break;
+                        case ConsoleModifiers.Shift:
+                            SetTile(TileType.GRAVE, Symbols.SMALL_T, Colour.Grave);
+                            break;
+                    }
+                    break;
+
+                // bridge horizontal, bridge vertical
+                case ConsoleKey.B:
+                    switch (input.Modifiers)
+                    {
+                        default:
+                            SetTile(TileType.BRIDGE, Symbols.W_DBL_HORIZONTAL, Colour.Road);
+                            break;
+                        case ConsoleModifiers.Shift:
+                            SetTile(TileType.BRIDGE, Symbols.W_DBL_VERTICAL, Colour.Road);
+                            break;
+                    }
+                    break;
+
+                // field, fountain
+                case ConsoleKey.F:
+                    switch (input.Modifiers)
+                    {
+                        default:
+                            SetTile(TileType.FIELD, Symbols.FILL_LIGHT, Colour.Field);
+                            break;
+                        case ConsoleModifiers.Shift:
+                            SetTile(TileType.FOUNTAIN, Symbols.FUNCTION, Colour.Fountain);
+                            break;
+                    }
+                    break;
+
+                #endregion
+
+                #endregion
+            }
+        }
+
+        /// <summary>
+        /// ProcessMonsterModeCommands
+        /// </summary>
+        /// <param name="input">The input</param>
+        static void ProcessMonsterModeCommands(ConsoleKeyInfo input) { }
+
+        /// <summary>
+        /// ProcessItemModeCommands
+        /// </summary>
+        /// <param name="input">The input</param>
+        static void ProcessItemModeCommands(ConsoleKeyInfo input) { }
     }
 }

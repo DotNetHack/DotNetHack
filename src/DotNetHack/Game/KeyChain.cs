@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
+using DotNetHack.Game.Items;
 
 namespace DotNetHack.Game
 {
@@ -15,7 +16,11 @@ namespace DotNetHack.Game
         /// <summary>
         /// Creates a new instance of keychain.
         /// </summary>
-        public KeyChain() { KeyStore = new List<IKey>(); }
+        public KeyChain() 
+        { 
+            KeyStore = new List<IKey>();
+            KeyStore.Add(new Key(Guid.Empty));
+        }
 
         /// <summary>
         /// AddKey, adds a key to the key chain
@@ -37,7 +42,18 @@ namespace DotNetHack.Game
         public bool HasKey(IKey aKey)
         {
             return KeyStore.FirstOrDefault<IKey>(
-                k => k.KeyGuid.Equals(aKey.KeyGuid)) == null;
+                k => k.KeyGuid.Equals(aKey.KeyGuid)) != null;
+        }
+
+        /// <summary>
+        /// HasKey, determines if the key is contained in the key chain.
+        /// </summary>
+        /// <param name="aKey"></param>
+        /// <returns></returns>
+        public bool HasKeyGuid(Guid aGuid)
+        {
+            return KeyStore.FirstOrDefault<IKey>(
+                k => k.KeyGuid.Equals(aGuid)) != null;
         }
 
         /// <summary>
@@ -46,7 +62,7 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="aHasLock">Anything that has a lock.</param>
         /// <returns><value>true - if the *thing* that has a lock can be unlocked.</value></returns>
-        public bool CanUnLock(IHasLock aHasLock) { return HasKey(aHasLock.KeyGuid); }
+        public bool CanUnLock(IHasLock aHasLock) { return HasKeyGuid(aHasLock.KeyRef); }
 
         /// <summary>
         /// A keychain is a collection of Guids

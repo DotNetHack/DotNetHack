@@ -6,6 +6,7 @@ using System.Text;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Events;
 using DotNetHack.Game.Dungeon;
+using DotNetHack.Game.Items;
 
 namespace DotNetHack.Game
 {
@@ -19,7 +20,8 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="aPlayerName"></param>
         public Player(string aPlayerName)
-            : this(aPlayerName, new Location3i(0, 0, 0)) { }
+            : this(aPlayerName, new Location3i(0, 0, 0))
+        { }
 
         /// <summary>
         /// Player
@@ -29,6 +31,12 @@ namespace DotNetHack.Game
         public Player(string aPlayerName, Location3i aLocation)
             : base()
         {
+            // Create the players key-chain
+            KeyChain = new KeyChain();
+
+            // Create the players wallet.
+            Wallet = new Currency(0);
+
             G = '@';
             Name = aPlayerName;
             Location = aLocation;
@@ -74,5 +82,15 @@ namespace DotNetHack.Game
         /// Color
         /// </summary>
         public Colour C { get; set; }
+
+        /// <summary>
+        /// The players key-chain
+        /// </summary>
+        public KeyChain KeyChain { get; set; }
+
+        /// <summary>
+        /// Wallet
+        /// </summary>
+        public Currency Wallet { get; set; }
     }
 }

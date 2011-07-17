@@ -9,6 +9,7 @@ using DotNetHack.Game.Dungeon;
 using DotNetHack.Game.Dungeon.Tiles;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Items;
+using System.Threading;
 
 namespace DotNetHack.Editor
 {
@@ -59,6 +60,14 @@ namespace DotNetHack.Editor
         /// The current map file name
         /// </summary>
         static string CurrentMapFileName { get; set; }
+
+        /// <summary>
+        /// The current guid, used to tie doors, keys, locked things, together.
+        /// The person editing is responsible for managing guids by using F4 to generate
+        /// a new Guid, all subsequent Doors, Keys, etc, will be created tying 
+        /// them together. Once F4 is pressed again, the process repeats.
+        /// </summary>
+        static Guid CurrentGuid { get; set; }
 
         /// <summary>
         /// Main
@@ -137,18 +146,38 @@ namespace DotNetHack.Editor
 
                         // Run the full out game engine except with editor and debug run flags.
                         g.Run(GameEngine.EngineRunFlags.DEBUG | GameEngine.EngineRunFlags.EDITOR);
+                        break;
 
+                    // generate a new guid.
+                    case ConsoleKey.F4:
+                        UI.Graphics.CursorToLocation(1, 1);
+                        CurrentGuid = Guid.NewGuid();
+                        UI.Graphics.MessageBox.Show("Generated New Guid",
+                            CurrentGuid.ToString());
+                        CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
                         break;
                     // Change editor mode to "Layout"
                     case ConsoleKey.F9:
                         EditorMode = DotNetHack.Editor.EditorMode.Layout;
+                        UI.Graphics.CursorToLocation(1, 1);
+                        Console.Write(EditorMode);
+                        Thread.Sleep(1000);
+                        CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
                         break;
                     // Change editor mode to "Items"
                     case ConsoleKey.F10:
                         EditorMode = DotNetHack.Editor.EditorMode.Items;
+                        UI.Graphics.CursorToLocation(1, 1);
+                        Console.Write(EditorMode);
+                        Thread.Sleep(1000);
+                        CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
                         break;
                     case ConsoleKey.F11:
                         EditorMode = DotNetHack.Editor.EditorMode.Monsters;
+                        UI.Graphics.CursorToLocation(1, 1);
+                        Console.Write(EditorMode);
+                        Thread.Sleep(1000);
+                        CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
                         break;
                     #endregion
 
@@ -312,9 +341,23 @@ namespace DotNetHack.Editor
                 case ConsoleKey.Insert:
                     SetTile(TileType.WALL, Symbols.SOLID, Colour.Standard);
                     break;
+
+                // Adds a door.
                 case ConsoleKey.D:
-                        SetTile(Door.NewDoor());
-                        break;
+                    switch (input.Modifiers)
+                    {
+                        default:
+                            SetTile(Door.NewDoor());
+                            break;
+                        case ConsoleModifiers.Shift:
+                            if (CurrentGuid.Equals(Guid.Empty))
+                                throw new ApplicationException("Generate a new Guid using F4");
+                            SetTile(Door.NewDoor(CurrentGuid));
+                            break;
+                    }
+
+                    break;
+
 
                 #region Out of Doors Tiles
 
@@ -414,6 +457,11 @@ namespace DotNetHack.Editor
                     int intGoldAmount = 0;
                     GetInt(out intGoldAmount);
                     SetItem(new Currency(intGoldAmount));
+                    break;
+                case ConsoleKey.K:
+                    if (CurrentGuid.Equals(Guid.Empty))
+                        throw new ApplicationException("Generate a new Guid using F4");
+                    SetItem(new Key(CurrentGuid));
                     break;
             }
         }

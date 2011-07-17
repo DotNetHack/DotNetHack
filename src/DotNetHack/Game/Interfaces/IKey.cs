@@ -12,7 +12,7 @@ namespace DotNetHack.Game.Interfaces
 
     public interface IHasLock
     {
-        void UnLock(IKey aKey);
-        IKey KeyGuid { get; set; }
+        bool UnLock(IKey aKey);
+        Guid KeyRef { get; set; }
     }
 }

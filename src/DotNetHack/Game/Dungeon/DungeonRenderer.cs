@@ -71,7 +71,7 @@ namespace DotNetHack.Game.Dungeon
             // TODO: This shit should be else where, and may even benefit from 
             // being called as part of several methods in a multicast delegate that
             // run each time render is called on a location.
-            RenderDungeon.FogOfWar.UpdateSeenData(l, 10.0);
+            RenderDungeon.FogOfWar.UpdateSeenData(l, 6);
 
             IterateXY(delegate(int x, int y)
             {

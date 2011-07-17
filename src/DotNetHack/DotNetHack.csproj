@@ -58,6 +58,7 @@
     <Compile Include="Game\Events\GameEvent.cs" />
     <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
     <Compile Include="Game\Interfaces\IArmor.cs" />
+    <Compile Include="Game\Interfaces\IKey.cs" />
     <Compile Include="Game\Interfaces\IPrayer.cs" />
     <Compile Include="Game\Items\Containers\LootContainer.cs" />
     <Compile Include="Game\Interfaces\IMonster.cs" />
@@ -78,10 +79,12 @@
     <Compile Include="Game\Items\Currency.cs" />
     <Compile Include="Game\Items\Item.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\Weapon.cs" />
+    <Compile Include="Game\Items\Key.cs" />
     <Compile Include="Game\Items\Magical\Scroll.cs" />
     <Compile Include="Game\Items\Magical\Tome.cs" />
     <Compile Include="Game\Items\Potions\Potion.cs" />
     <Compile Include="Game\Items\Potions\PotionType.cs" />
+    <Compile Include="Game\KeyChain.cs" />
     <Compile Include="Game\Monsters\Monster.cs" />
     <Compile Include="Game\Dungeon\Tiles\Door.cs" />
     <Compile Include="Game\Stats.cs" />

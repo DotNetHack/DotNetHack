@@ -1,4 +1,5 @@
 using System;
+using DotNetHack.Game.Items;
 
 namespace DotNetHack.Game.Interfaces
 {
@@ -8,6 +9,7 @@ namespace DotNetHack.Game.Interfaces
     public interface IItem : IDrawable
 	{
         string Name { get; set; }
+        ItemType ItemType { get; set; }
 	}
 }
 

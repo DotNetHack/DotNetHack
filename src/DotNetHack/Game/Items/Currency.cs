@@ -15,7 +15,8 @@ namespace DotNetHack.Game.Items
         /// </summary>
         /// <param name="aAmount">Amount</param>
         public Currency(int aAmount)
-            : base("Gold", '$', Colour.Yellow) { }
+            : base(ItemType.Currency, "Gold", '$', Colour.Yellow)
+        { }
 
         /// <summary>
         /// The amont of currency this represents.

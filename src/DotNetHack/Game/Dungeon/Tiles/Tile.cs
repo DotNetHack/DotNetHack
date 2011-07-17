@@ -63,7 +63,9 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// </summary>
         public Tile()
         {
+            TileGlyph = '\0';
             C = new Colour();
+            Items = new Stack<IItem>();
         }
 
         /// <summary>
@@ -74,17 +76,42 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// <summary>
         /// TileFlags
         /// </summary>
-        // public TileFlags TileFlags { get; set; }
+        public TileFlags TileFlags { get; set; }
 
         /// <summary>
         /// Tile Glyph
         /// </summary>
-        public char G { get; set; }
+        public char G
+        {
+            get 
+            {
+                if (HasItems)
+                    return Items.Peek().G;
+                return TileGlyph;
+            }
+            set { TileGlyph = value; }
+        }
+
+        /// <summary>
+        /// TileGlyph
+        /// </summary>
+        private char TileGlyph { get; set; }
+
+        /// <summary>
+        /// Returns true if this tile has items on it.
+        /// </summary>
+        public bool HasItems { get { return Items.Count > 0; } }
 
         /// <summary>
         /// Color
         /// </summary>
         public Colour C { get; set; }
+
+        /// <summary>
+        /// Items
+        /// <remarks>The following method for storing items is experiemental.</remarks>
+        /// </summary>
+        public Stack<IItem> Items { get; set; }
 
         /// <summary>
         /// EmptyTile has standard colour, a '.' as the Glyph and Nothing as the TileType.

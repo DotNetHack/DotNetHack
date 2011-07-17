@@ -28,7 +28,7 @@ namespace DotNetHack.Game.Items
         /// <param name="a">LHS</param>
         /// <param name="b">RHS</param>
         /// <returns>The new amount</returns>
-        static Currency operator +(Currency a, Currency b)
+        public static Currency operator +(Currency a, Currency b)
         {
             return new Currency(a.Amount + b.Amount);
         }
@@ -39,7 +39,7 @@ namespace DotNetHack.Game.Items
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        static bool operator <(Currency a, Currency b)
+        public static bool operator <(Currency a, Currency b)
         {
             return (a.Amount < b.Amount);
         }
@@ -50,7 +50,7 @@ namespace DotNetHack.Game.Items
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        static bool operator >(Currency a, Currency b)
+        public static bool operator >(Currency a, Currency b)
         {
             return (a.Amount > b.Amount);
         }
@@ -61,7 +61,7 @@ namespace DotNetHack.Game.Items
         /// <param name="a">LHS</param>
         /// <param name="b">RHS</param>
         /// <returns>true when condition met</returns>
-        static bool operator >=(Currency a, Currency b) 
+        public static bool operator >=(Currency a, Currency b) 
         {
             return (a.Amount >= b.Amount);
         }
@@ -72,7 +72,7 @@ namespace DotNetHack.Game.Items
         /// <param name="a">LHS</param>
         /// <param name="b">RHS</param>
         /// <returns>true when condition met</returns>
-        static bool operator <=(Currency a, Currency b)
+        public static bool operator <=(Currency a, Currency b)
         {
             return (a.Amount <= b.Amount);
         }
@@ -92,5 +92,10 @@ namespace DotNetHack.Game.Items
         /// </summary>
         /// <returns>The amount is good enough for the hash</returns>
         public override int GetHashCode() { return this.Amount; }
+
+        public override void Draw()
+        {
+            base.Draw();
+        }
     }
 }

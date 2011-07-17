@@ -16,7 +16,7 @@ namespace DotNetHack.Game.Items
     /// <summary>
     /// Item
     /// </summary>
-    [DebuggerDisplay("{Name}")]
+    [DebuggerDisplay("{Name}"), Serializable]
     public abstract class Item : IItem
     {
         /// <summary>

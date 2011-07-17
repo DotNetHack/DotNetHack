@@ -8,6 +8,7 @@ namespace DotNetHack.Game.Dungeon
     /// <summary>
     /// FogOfWar
     /// </summary>
+    [Serializable]
     public class FogOfWar
     {
         /// <summary>

@@ -8,33 +8,19 @@ namespace DotNetHack.Game.Items
     /// <summary>
     /// Currency
     /// </summary>
-    public class Currency : Item
+    public class Currency : Item, IEquatable<Currency>
     {
-        public Currency(int aAmt)
-            : base("gold", '$', Colour.Yellow)
-        { Amount = aAmt; }
-
-        // Store the amount of currency in copper
-        public int Amount { get; set; }
+        /// <summary>
+        /// Currency
+        /// </summary>
+        /// <param name="aAmount">Amount</param>
+        public Currency(int aAmount)
+            : base("Gold", '$', Colour.Yellow) { }
 
         /// <summary>
-        /// DisplayAmount
-        /// Gets a three element array for currency display to
-        /// user.
+        /// The amont of currency this represents.
         /// </summary>
-        public int[] DisplayAmount()
-        {
-            // Take our amount and convert it into Gold/Silver/Copper
-            // 1 Gold = 100 Silver, 1 Silver = 100 Copper
-            // 1 Gold = 10000 Copper
-            int [] amounts = new int [3];
-            amounts[0] = Amount / 10000;
-            amounts[1] = (Amount % 10000 - Amount % 100) / 100;
-            amounts[2] = Amount % 100;
-
-            return amounts;
-        }
-
+        public int Amount { get; set; }
 
         /// <summary>
         ///  operator +
@@ -75,7 +61,7 @@ namespace DotNetHack.Game.Items
         /// <param name="a">LHS</param>
         /// <param name="b">RHS</param>
         /// <returns>true when condition met</returns>
-        public static bool operator >=(Currency a, Currency b)
+        public static bool operator >=(Currency a, Currency b) 
         {
             return (a.Amount >= b.Amount);
         }
@@ -106,5 +92,10 @@ namespace DotNetHack.Game.Items
         /// </summary>
         /// <returns>The amount is good enough for the hash</returns>
         public override int GetHashCode() { return this.Amount; }
+
+        public override void Draw()
+        {
+            base.Draw();
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace DotNetHack.Game
             Graphics.ShowGraphicsInfo();
 
             // set engine run flags
-            RunFlags = aFlags;
+            GameEngine.RunFlags = aFlags;
 
             // CursorVisible
             Console.CursorVisible = false;
@@ -48,6 +48,7 @@ namespace DotNetHack.Game
             while (!done)
             {
 
+            redo_input:
                 Graphics.CursorToLocation(1, 1); // So as not to pile up blanks.
                 ConsoleKeyInfo input = Console.ReadKey();
                 Location3i UnitMovement = new Location3i(0, 0, 0);
@@ -70,16 +71,50 @@ namespace DotNetHack.Game
                     case ConsoleKey.OemComma:
                         if (nPlayerTile.TileType == TileType.STAIRS_DOWN)
                             UnitMovement.D++; break;
+                    case ConsoleKey.O:
+                        {
+                            ConsoleKeyInfo tmpInput;
+                            Location3i tmpUnitLocation = new Location3i(0, 0, 0);
+                            switch (InputFilter(x => x.Key == ConsoleKey.LeftArrow ||
+                                x.Key == ConsoleKey.RightArrow ||
+                                x.Key == ConsoleKey.UpArrow ||
+                                x.Key == ConsoleKey.DownArrow, out tmpInput).Key)
+                            {
+                                case ConsoleKey.RightArrow:
+                                    tmpUnitLocation.X++; break;
+                                case ConsoleKey.LeftArrow:
+                                    tmpUnitLocation.X--; break;
+                                case ConsoleKey.UpArrow:
+                                    tmpUnitLocation.Y--; break;
+                                case ConsoleKey.DownArrow:
+                                    tmpUnitLocation.Y++; break;
+                            }
+                            if (!CurrentMap.CheckBounds(
+                                Player.Location + tmpUnitLocation))
+                                goto redo_input;
+                            Tile nDoorTile = CurrentMap.GetTile(Player.Location + tmpUnitLocation);
+                            if (nDoorTile.TileFlags == TileFlags.Door)
+                            {
+                                Door tmpDoor = (Door)nDoorTile;
+                                if (tmpDoor.IsOpen) tmpDoor.CloseDoor();
+                                else tmpDoor.OpenDoor();
+                            }
+
+                            break;
+                        }
                     case ConsoleKey.Escape:
                         done = true;
                         break;
                 }
 
                 if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
-                    continue;
+                    goto redo_input;
                 Tile nMoveToTile = CurrentMap.GetTile(Player.Location + UnitMovement);
                 if (nMoveToTile.TileType == TileType.WALL)
-                    continue;
+                    goto redo_input;
+                else if (nMoveToTile.TileFlags == TileFlags.Door)
+                    if (((Door)nMoveToTile).IsClosed)
+                        goto redo_input;
 
                 // Apply the unit movement.
                 Player.Location += UnitMovement;
@@ -92,6 +127,21 @@ namespace DotNetHack.Game
 
                 ++Time;
             }
+        }
+
+        /// <summary>
+        /// Performs input filtering
+        /// <remarks>Pass anonymous filter called "filter" be sure it returns a boolean, filtering will continue until the boolean condition is met.</remarks>
+        /// </summary>
+        /// <param name="aFilter"></param>
+        /// <returns></returns>
+        public ConsoleKeyInfo InputFilter(Func<ConsoleKeyInfo, bool> aFilter, out ConsoleKeyInfo k)
+        {
+        filter_input:
+            k = Console.ReadKey();
+            if (!aFilter(k))
+                goto filter_input;
+            return k;
         }
 
         public void Update()
@@ -144,7 +194,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// RunFlags
         /// </summary>
-        public EngineRunFlags RunFlags { get; set; }
+        public static EngineRunFlags RunFlags { get; set; }
 
         /// <summary>
         /// EngineRunFlags

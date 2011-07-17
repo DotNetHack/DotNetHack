@@ -7,6 +7,8 @@ using DotNetHack.UI;
 using DotNetHack.Game;
 using DotNetHack.Game.Dungeon;
 using DotNetHack.Game.Dungeon.Tiles;
+using DotNetHack.Game.Interfaces;
+using DotNetHack.Game.Items;
 
 namespace DotNetHack.Editor
 {
@@ -21,6 +23,11 @@ namespace DotNetHack.Editor
     /// </summary>
     public class Editor
     {
+        /// <summary>
+        /// No different than a mouse cursor.
+        /// </summary>
+        const char EDITOR_GLYPH = '#';
+
         /// <summary>
         /// The current location inside of the current map
         /// </summary>
@@ -54,27 +61,6 @@ namespace DotNetHack.Editor
         static string CurrentMapFileName { get; set; }
 
         /// <summary>
-        /// Set tile
-        /// <remarks>Makes things a bit cleaner.</remarks>
-        /// </summary>
-        /// <param name="t">type</param>
-        /// <param name="g">glyph</param>
-        /// <param name="c">colour = standard.</param>
-        static void SetTile(TileType t, char g, Colour c)
-        {
-            var tmpSetTile = new Tile()
-            {
-                G = g,
-                TileType = t,
-                C = c ?? Colour.Standard,
-            };
-
-            // Store the previous tile.
-            CurrentMap.SetTile(CurrentLocation, tmpSetTile);
-            PreviousTile = tmpSetTile;
-        }
-
-        /// <summary>
         /// Main
         /// </summary>
         /// <param name="args"></param>
@@ -98,6 +84,9 @@ namespace DotNetHack.Editor
 
             // The default is the "Layout" mode.
             CommandProcessor = ProcessLayoutModeCommands;
+
+            // Set the game engine run flags
+            GameEngine.RunFlags = GameEngine.EngineRunFlags.DEBUG | GameEngine.EngineRunFlags.EDITOR;
 
             #region Main Loop
         redo__main_input:
@@ -142,8 +131,7 @@ namespace DotNetHack.Editor
                             break;
                         }
                     case ConsoleKey.F5:
-                        // Create a new instance of the game engine with the current location
-                        // and the current map.
+                        // Create a new instance of the game engine with the current location and map.
                         GameEngine g = new GameEngine(
                             new Player("Editor", CurrentLocation), CurrentMap);
 
@@ -256,9 +244,34 @@ namespace DotNetHack.Editor
         }
 
         /// <summary>
-        /// No different than a mouse cursor.
+        /// Set tile
+        /// <remarks>Makes things a bit cleaner.</remarks>
         /// </summary>
-        const char EDITOR_GLYPH = '#';
+        /// <param name="t">type</param>
+        /// <param name="g">glyph</param>
+        /// <param name="c">colour = standard.</param>
+        static void SetTile(TileType t, char g, Colour c)
+        {
+            var tmpSetTile = new Tile()
+            {
+                G = g,
+                TileType = t,
+                C = c ?? Colour.Standard,
+            };
+
+            // Store the previous tile.
+            CurrentMap.SetTile(CurrentLocation, tmpSetTile);
+            PreviousTile = tmpSetTile;
+        }
+
+        /// <summary>
+        /// SetTile, adds the passed tile to this location.
+        /// </summary>
+        /// <param name="aTile">The tile to add to this location.</param>
+        static void SetTile(Tile aTile)
+        {
+            CurrentMap.SetTile(CurrentLocation, aTile);
+        }
 
         /// <summary>
         /// ProcessLayoutModeCommands
@@ -299,6 +312,9 @@ namespace DotNetHack.Editor
                 case ConsoleKey.Insert:
                     SetTile(TileType.WALL, Symbols.SOLID, Colour.Standard);
                     break;
+                case ConsoleKey.D:
+                        SetTile(Door.NewDoor());
+                        break;
 
                 #region Out of Doors Tiles
 
@@ -373,15 +389,55 @@ namespace DotNetHack.Editor
         }
 
         /// <summary>
+        /// Sets an item at the current location.
+        /// </summary>
+        /// <param name="aItem">The item to set in the current location.</param>
+        static void SetItem(IItem aItem)
+        {
+            // that'll do
+            CurrentMap.GetTile(CurrentLocation)
+                .Items.Push(aItem);
+        }
+
+        /// <summary>
+        /// ProcessItemModeCommands
+        /// </summary>
+        /// <param name="input">The input</param>
+        static void ProcessItemModeCommands(ConsoleKeyInfo input)
+        {
+            switch (input.Key)
+            {
+                // lock box
+                case ConsoleKey.L:
+                    break;
+                case ConsoleKey.G:
+                    int intGoldAmount = 0;
+                    GetInt(out intGoldAmount);
+                    SetItem(new Currency(intGoldAmount));
+                    break;
+            }
+        }
+
+        /// <summary>
         /// ProcessMonsterModeCommands
         /// </summary>
         /// <param name="input">The input</param>
         static void ProcessMonsterModeCommands(ConsoleKeyInfo input) { }
 
         /// <summary>
-        /// ProcessItemModeCommands
+        /// GetInt
+        /// <remarks>Gets an integer from standard input
+        /// requires that input is definately valid.</remarks>
         /// </summary>
-        /// <param name="input">The input</param>
-        static void ProcessItemModeCommands(ConsoleKeyInfo input) { }
+        /// <param name="aValue">The <c>out</c> value where the input is stashed.</param>
+        /// <param name="aMessage">The message to show prior to reading the input.</param>
+        static void GetInt(out int aValue, string aMessage = "#")
+        {
+        redo_get_int:
+            UI.Graphics.CursorToLocation(CurrentLocation);
+            Console.Write(aMessage);
+            if (!int.TryParse(Console.ReadLine(), out aValue))
+                goto redo_get_int;
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 namespace DotNetHack.Game.Dungeon.Tiles
 {
     [Flags]
-    enum TileFlags
+    public enum TileFlags
     {
     }
 }

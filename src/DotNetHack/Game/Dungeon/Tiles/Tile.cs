@@ -56,7 +56,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
     /// Tile
     /// </summary>
     [Serializable]
-    public class Tile : IGlyph
+    public class Tile : IGlyph, DotNetHack.Game.Dungeon.Tiles.ITile
     {
         /// <summary>
         /// Tile
@@ -66,6 +66,18 @@ namespace DotNetHack.Game.Dungeon.Tiles
             TileGlyph = '\0';
             C = new Colour();
             Items = new Stack<IItem>();
+        }
+
+        /// <summary>
+        /// Creates a new tile with the passed parameters
+        /// </summary>
+        /// <param name="aGlyph">The glyph representing this tile.</param>
+        /// <param name="aColour">The color of this tile.</param>
+        public Tile(char aGlyph, Colour aColour) 
+            : this()
+        {
+            TileGlyph = aGlyph;
+            C = aColour;
         }
 
         /// <summary>
@@ -81,7 +93,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// <summary>
         /// Tile Glyph
         /// </summary>
-        public char G
+        public virtual char G
         {
             get 
             {

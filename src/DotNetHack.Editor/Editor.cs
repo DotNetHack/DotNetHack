@@ -265,6 +265,15 @@ namespace DotNetHack.Editor
         }
 
         /// <summary>
+        /// SetTile, adds the passed tile to this location.
+        /// </summary>
+        /// <param name="aTile">The tile to add to this location.</param>
+        static void SetTile(Tile aTile)
+        {
+            CurrentMap.SetTile(CurrentLocation, aTile);
+        }
+
+        /// <summary>
         /// ProcessLayoutModeCommands
         /// </summary>
         /// <param name="input">The input</param>
@@ -303,6 +312,9 @@ namespace DotNetHack.Editor
                 case ConsoleKey.Insert:
                     SetTile(TileType.WALL, Symbols.SOLID, Colour.Standard);
                     break;
+                case ConsoleKey.D:
+                        SetTile(Door.NewDoor());
+                        break;
 
                 #region Out of Doors Tiles
 

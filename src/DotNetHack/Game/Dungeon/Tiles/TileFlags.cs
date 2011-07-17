@@ -8,5 +8,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
     [Flags]
     public enum TileFlags
     {
+        None,
+        Door,
     }
 }

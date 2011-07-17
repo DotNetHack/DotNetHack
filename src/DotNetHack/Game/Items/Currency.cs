@@ -19,8 +19,63 @@ namespace DotNetHack.Game.Items
 
         /// <summary>
         /// The amont of currency this represents.
+        /// This should be in the lowest available amount
         /// </summary>
         public int Amount { get; set; }
+
+        /// <summary>
+        /// Gold returns how much gold the user has
+        /// or sets how much gold the user has.
+        /// </summary>
+        public int Gold 
+        { 
+            get 
+            {
+                return Amount / 10000;
+            }
+
+            set 
+            {
+                Amount -= Amount / 10000;   // Removes the old amount of gold
+                Amount += value * 10000;
+            }
+        }
+
+        /// <summary>
+        /// Silver returns how much silver the user has
+        /// or sets how much silver the user has.
+        /// </summary>
+        public int Silver
+        {
+            get
+            {
+                return ((Amount % 10000) - (Amount % 100)) / 100;
+            }
+
+            set
+            {
+                Amount -= ((Amount % 10000) - (Amount % 100));
+                Amount += value * 100;
+            }
+        }
+
+        /// <summary>
+        /// Copper sets or returns the amount of copper a
+        /// user has.
+        /// </summary>
+        public int Copper
+        {
+            get
+            {
+                return Amount % 100;
+            }
+
+            set
+            {
+                Amount -= Amount % 100;
+                Amount += value;
+            }
+        }
 
         /// <summary>
         ///  operator +

@@ -10,6 +10,7 @@ namespace DotNetHack.Game.Items
     /// Key
     /// <see cref="http://en.wikipedia.org/wiki/Key_(lock)"/>
     /// </summary>
+    [Serializable]
     public class Key : Item, IKey
     {
         /// <summary>

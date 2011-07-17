@@ -79,7 +79,9 @@ namespace DotNetHack.Game.Dungeon
                     if (RenderBuffer[x, y].G != RenderDungeon.MapData[x, y, l.D].G)
                     {
                         UI.Graphics.CursorToLocation(x, y);
-                        RenderDungeon.MapData[x, y, l.D].C.Set();
+                        if (RenderDungeon.MapData[x, y, l.D].Items.Count <= 0)
+                            RenderDungeon.MapData[x, y, l.D].C.Set();
+                        else RenderDungeon.MapData[x,y,l.D].Items.Peek().C.Set();
                         Console.Write(RenderDungeon.MapData[x, y, l.D].G);
                         RenderBuffer[x, y].G = RenderDungeon.MapData[x, y, l.D].G;
                         UI.Graphics.CursorToLocation(x, y);

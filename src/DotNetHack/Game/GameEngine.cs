@@ -53,6 +53,7 @@ namespace DotNetHack.Game
                 ConsoleKeyInfo input = Console.ReadKey();
                 Location3i UnitMovement = new Location3i(0, 0, 0);
                 Tile nPlayerTile = CurrentMap.GetTile(Player.Location);
+
                 switch (input.Key)
                 {
                     default:
@@ -81,13 +82,14 @@ namespace DotNetHack.Game
                             {
                                 IItem cItem = nTileUnderPlayer.Items.Pop();
                                 switch (cItem.ItemType)
-                                { 
+                                {
                                     default:
                                         break;
                                     case ItemType.Key:
                                         Player.KeyChain.AddKey((Key)cItem);
                                         break;
                                     case ItemType.Currency:
+
                                         Player.Wallet += (Currency)cItem;
                                         break;
                                 }
@@ -152,6 +154,11 @@ namespace DotNetHack.Game
                 else if (nMoveToTile.TileFlags == TileFlags.Door)
                     if (((Door)nMoveToTile).IsClosed)
                         goto redo_input;
+
+                if (nMoveToTile.HasItems)
+                    UI.Graphics.Display.ShowMessage("{0}, {1} here",
+                        nMoveToTile.Items.Count,
+                        Speech.Pluralize("item", nMoveToTile.Items.Count));
 
                 // Apply the unit movement.
                 Player.Location += UnitMovement;

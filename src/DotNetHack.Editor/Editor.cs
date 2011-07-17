@@ -159,25 +159,17 @@ namespace DotNetHack.Editor
                     // Change editor mode to "Layout"
                     case ConsoleKey.F9:
                         EditorMode = DotNetHack.Editor.EditorMode.Layout;
-                        UI.Graphics.CursorToLocation(1, 1);
-                        Console.Write(EditorMode);
-                        Thread.Sleep(1000);
-                        CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
+                        UI.Graphics.Display.ShowMessage("Changed to \"{0}\" mode.", EditorMode);
                         break;
                     // Change editor mode to "Items"
                     case ConsoleKey.F10:
                         EditorMode = DotNetHack.Editor.EditorMode.Items;
                         UI.Graphics.CursorToLocation(1, 1);
-                        Console.Write(EditorMode);
-                        Thread.Sleep(1000);
-                        CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
+                        UI.Graphics.Display.ShowMessage("Changed to \"{0}\" mode.", EditorMode);
                         break;
                     case ConsoleKey.F11:
                         EditorMode = DotNetHack.Editor.EditorMode.Monsters;
-                        UI.Graphics.CursorToLocation(1, 1);
-                        Console.Write(EditorMode);
-                        Thread.Sleep(1000);
-                        CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
+                        UI.Graphics.Display.ShowMessage("Changed to \"{0}\" mode.", EditorMode);
                         break;
                     #endregion
 

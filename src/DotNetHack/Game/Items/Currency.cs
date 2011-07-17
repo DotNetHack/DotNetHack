@@ -8,6 +8,7 @@ namespace DotNetHack.Game.Items
     /// <summary>
     /// Currency
     /// </summary>
+    [Serializable]
     public class Currency : Item, IEquatable<Currency>
     {
         /// <summary>

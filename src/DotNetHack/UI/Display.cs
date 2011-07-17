@@ -85,6 +85,39 @@ namespace DotNetHack.UI
         /// </summary>
         public static class Display
         {
+            /// <summary>
+            /// ShowMessage
+            /// </summary>
+            /// <param name="aFormatString">A composite format string.</param>
+            /// <param name="aArgs">Parameters</param>
+            public static void ShowMessage(string aFormatString,
+                params object[] aArgs)
+            {
+                // determine what the display string ends up being.
+                string tmpDisplayString = string.Format(aFormatString, aArgs);
+
+                // If the size of the last string is greater than this one,
+                // overwrite what was there with nothing.
+                if (_lastStringSize > tmpDisplayString.Length)
+                {
+                    CursorToLocation(1, 0);
+                    for (int c = 0; c < _lastStringSize; ++c)
+                        Console.Write(' ');
+                }
+
+                // Jump back over to starting location.
+                CursorToLocation(1, 0);
+
+                // Write the display string.
+                Console.Write(tmpDisplayString);
+
+                // Capture the last string size.
+                _lastStringSize = tmpDisplayString.Length;
+            }
+
+            static int _lastStringSize = 0;
+
+
             public static void ShowStatsBar(Stats aStats)
             {
                 string strStats =

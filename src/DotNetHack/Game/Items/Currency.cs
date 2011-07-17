@@ -34,5 +34,77 @@ namespace DotNetHack.Game.Items
 
             return amounts;
         }
+
+
+        /// <summary>
+        ///  operator +
+        /// </summary>
+        /// <param name="a">LHS</param>
+        /// <param name="b">RHS</param>
+        /// <returns>The new amount</returns>
+        public static Currency operator +(Currency a, Currency b)
+        {
+            return new Currency(a.Amount + b.Amount);
+        }
+
+        /// <summary>
+        /// operator <
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator <(Currency a, Currency b)
+        {
+            return (a.Amount < b.Amount);
+        }
+
+        /// <summary>
+        /// operator >
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator >(Currency a, Currency b)
+        {
+            return (a.Amount > b.Amount);
+        }
+
+        /// <summary>
+        /// operator >=
+        /// </summary>
+        /// <param name="a">LHS</param>
+        /// <param name="b">RHS</param>
+        /// <returns>true when condition met</returns>
+        public static bool operator >=(Currency a, Currency b)
+        {
+            return (a.Amount >= b.Amount);
+        }
+
+        /// <summary>
+        /// operator <=
+        /// </summary>
+        /// <param name="a">LHS</param>
+        /// <param name="b">RHS</param>
+        /// <returns>true when condition met</returns>
+        public static bool operator <=(Currency a, Currency b)
+        {
+            return (a.Amount <= b.Amount);
+        }
+
+        /// <summary>
+        /// Equals
+        /// </summary>
+        /// <param name="other">The Currency to compare to</param>
+        /// <returns><value>true</value> when equal</returns>
+        public bool Equals(Currency other)
+        {
+            return this.Amount.Equals(other.Amount);
+        }
+
+        /// <summary>
+        /// GetHashCode
+        /// </summary>
+        /// <returns>The amount is good enough for the hash</returns>
+        public override int GetHashCode() { return this.Amount; }
     }
 }

@@ -63,6 +63,17 @@ namespace DotNetHack.Game
         {
             get { return new Colour(ConsoleColor.Yellow); }
         }
+        
+        // TODO: Find the best color combination for copper and silver
+        public static Colour Silver
+        {
+            get { return new Colour(ConsoleColor.DarkGray); }
+        }
+
+        public static Colour Copper
+        {
+            get { return new Colour(ConsoleColor.DarkRed); }
+        }
 
         public static Colour Void
         {

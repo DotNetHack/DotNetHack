@@ -7,7 +7,7 @@ namespace DotNetHack.Game.Items
 {
     public static class CurrencyModifier
     {
-        public const int GOLD = 10000;
+        public const int GOLD   = 10000;
         public const int SILVER = 100;
         public const int COPPER = 1;
     }
@@ -25,8 +25,18 @@ namespace DotNetHack.Game.Items
             : base(ItemType.Currency, "Gold", '$', Colour.Yellow)
         {
             // Given that we seem to be currently setting things in amounts of gold,
-            // We'll have the default value set to gold.  Amount get set accordingly:
+            // We'll have the default value set to gold.  Amount gets set accordingly:
             Amount = aAmount * modifier;
+
+            switch (modifier)
+            {
+                case CurrencyModifier.SILVER:
+                    C = Colour.Silver;
+                    break;
+                case CurrencyModifier.COPPER:
+                    C = Colour.Copper;
+                    break;
+            }
         }
 
         /// <summary>

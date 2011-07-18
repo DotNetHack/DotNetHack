@@ -11,33 +11,35 @@ namespace DotNetHack.Game.Dungeon.Tiles
     /// <remarks>A door is a movable structure used to close off an entrance, typically consisting of a panel that swings on hinges or that slides or rotates inside of a space.</remarks>
     /// <see cref="http://en.wikipedia.org/wiki/Door"/>
     /// </summary>
-    public class Door : Tile, IGlyph
+    public class Door : Tile, IGlyph, IHasLock
     {
         /// <summary>
         /// Creates a new instance of Door.
         /// </summary>
-        public Door(bool aOpen = false)
+        public Door(bool aOpen = false, bool aLocked = false)
             : base('+', Colour.Door)
         {
-            InternalDoorState = aOpen ? 
-                DoorState.Opened : Door.DoorState.Closed;
             TileFlags = TileFlags.Door;
+            InternalDoorState = aOpen ?
+                DoorState.Opened : Door.DoorState.Closed;
+            IsLocked = aLocked;
+            if (IsLocked) InternalDoorState = DoorState.Closed;
         }
 
         private enum DoorState { Opened, Closed }
         private DoorState InternalDoorState { get; set; }
         public bool IsOpen { get { return InternalDoorState == DoorState.Opened; } }
         public bool IsClosed { get { return InternalDoorState == DoorState.Closed; } }
+        public bool IsLocked { get; set; }
 
-        public virtual void CloseDoor() 
+        public virtual void CloseDoor()
         {
-            InternalDoorState = DoorState.Closed; 
+            InternalDoorState = DoorState.Closed;
         }
 
-        public virtual void OpenDoor() 
+        public virtual void OpenDoor()
         {
-            G = DOOR__OPENED_GLYPH;
-            InternalDoorState = DoorState.Opened; 
+            InternalDoorState = DoorState.Opened;
         }
 
         /// <summary>
@@ -48,7 +50,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
             get
             {
                 switch (InternalDoorState)
-                { 
+                {
                     case DoorState.Closed:
                         DoorGlyph = DOOR__CLOSED_GLYPH;
                         break;
@@ -66,21 +68,24 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// The glyph used to represent this door.
         /// </summary>
         private char DoorGlyph;
-        
+
         /// <summary>
         /// Returns a new closed door
         /// </summary>
         /// <returns></returns>
-        public static Door NewDoor(bool aOpen = false)
+        public static Door NewDoor(Guid aGuid, bool aOpen = false)
         {
-            return new Door(aOpen) { Guid = Guid.NewGuid(), };
+            return new Door(aOpen, true) { KeyRef = aGuid };
         }
 
-        /// <summary>
-        /// Uniquely identifies this door.
-        /// </summary>
-        public Guid Guid { get; set; }
-        
+        public static Door NewDoor(bool aOpen = false)
+        {
+            return new Door(aOpen) { KeyRef = Guid.Empty };
+        }
+
+
+        public Guid KeyRef { get; set; }
+
         /// <summary>
         /// Represents a closed door
         /// </summary>
@@ -90,5 +95,13 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// Represents an open door.
         /// </summary>
         const char DOOR__OPENED_GLYPH = '/';
+
+        public bool UnLock(IKey aKey)
+        {
+            if (IsLocked)
+                if (aKey.KeyGuid.Equals(KeyRef))
+                    IsLocked = false;
+            return IsLocked;
+        }
     }
 }

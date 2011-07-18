@@ -5,6 +5,12 @@ using System.Text;
 
 namespace DotNetHack.Game.Items
 {
+    public static class CurrencyModifier
+    {
+        public const int GOLD = 10000;
+        public const int SILVER = 100;
+        public const int COPPER = 1;
+    }
     /// <summary>
     /// Currency
     /// </summary>
@@ -15,9 +21,13 @@ namespace DotNetHack.Game.Items
         /// Currency
         /// </summary>
         /// <param name="aAmount">Amount</param>
-        public Currency(int aAmount)
+        public Currency(int aAmount, int modifier = CurrencyModifier.GOLD)
             : base(ItemType.Currency, "Gold", '$', Colour.Yellow)
-        { }
+        {
+            // Given that we seem to be currently setting things in amounts of gold,
+            // We'll have the default value set to gold.  Amount get set accordingly:
+            Amount = aAmount * modifier;
+        }
 
         /// <summary>
         /// The amont of currency this represents.

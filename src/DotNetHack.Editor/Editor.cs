@@ -450,6 +450,16 @@ namespace DotNetHack.Editor
                     GetInt(out intGoldAmount);
                     SetItem(new Currency(intGoldAmount));
                     break;
+                case ConsoleKey.S:
+                    int intSilverAmount = 0;
+                    GetInt(out intSilverAmount);
+                    SetItem(new Currency(intSilverAmount, CurrencyModifier.SILVER));
+                    break;
+                case ConsoleKey.C:
+                    int intCopperAmount = 0;
+                    GetInt(out intCopperAmount);
+                    SetItem(new Currency(intCopperAmount, CurrencyModifier.COPPER));
+                    break;
                 case ConsoleKey.K:
                     if (CurrentGuid.Equals(Guid.Empty))
                         throw new ApplicationException("Generate a new Guid using F4");

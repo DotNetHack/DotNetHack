@@ -5,6 +5,12 @@ using System.Text;
 
 namespace DotNetHack.Game.Items
 {
+    public static class CurrencyModifier
+    {
+        public const int GOLD   = 10000;
+        public const int SILVER = 100;
+        public const int COPPER = 1;
+    }
     /// <summary>
     /// Currency
     /// </summary>
@@ -15,14 +21,83 @@ namespace DotNetHack.Game.Items
         /// Currency
         /// </summary>
         /// <param name="aAmount">Amount</param>
-        public Currency(int aAmount)
+        public Currency(int aAmount, int modifier = CurrencyModifier.GOLD)
             : base(ItemType.Currency, "Gold", '$', Colour.Yellow)
-        { }
+        {
+            // Given that we seem to be currently setting things in amounts of gold,
+            // We'll have the default value set to gold.  Amount gets set accordingly:
+            Amount = aAmount * modifier;
+
+            switch (modifier)
+            {
+                case CurrencyModifier.SILVER:
+                    C = Colour.Silver;
+                    break;
+                case CurrencyModifier.COPPER:
+                    C = Colour.Copper;
+                    break;
+            }
+        }
 
         /// <summary>
         /// The amont of currency this represents.
+        /// This should be in the lowest available amount
         /// </summary>
         public int Amount { get; set; }
+
+        /// <summary>
+        /// Gold returns how much gold the user has
+        /// or sets how much gold the user has.
+        /// </summary>
+        public int Gold 
+        { 
+            get 
+            {
+                return Amount / 10000;
+            }
+
+            set 
+            {
+                Amount -= Amount / 10000;   // Removes the old amount of gold
+                Amount += value * 10000;
+            }
+        }
+
+        /// <summary>
+        /// Silver returns how much silver the user has
+        /// or sets how much silver the user has.
+        /// </summary>
+        public int Silver
+        {
+            get
+            {
+                return ((Amount % 10000) - (Amount % 100)) / 100;
+            }
+
+            set
+            {
+                Amount -= ((Amount % 10000) - (Amount % 100));
+                Amount += value * 100;
+            }
+        }
+
+        /// <summary>
+        /// Copper sets or returns the amount of copper a
+        /// user has.
+        /// </summary>
+        public int Copper
+        {
+            get
+            {
+                return Amount % 100;
+            }
+
+            set
+            {
+                Amount -= Amount % 100;
+                Amount += value;
+            }
+        }
 
         /// <summary>
         ///  operator +

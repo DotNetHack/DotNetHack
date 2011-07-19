@@ -207,6 +207,9 @@ namespace DotNetHack.Game
         {
             UI.Graphics.Display.ShowStatsBar(Player.Stats);
 
+            // Apply all affects.
+            Player.ApplyAffects();
+
 #if OBSOLETE
             foreach (var iItem in CurrentMap.Items)
             {

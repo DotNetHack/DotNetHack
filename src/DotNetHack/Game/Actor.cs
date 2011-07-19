@@ -45,10 +45,22 @@ namespace DotNetHack.Game
         /// </summary>
         public Stats Stats { get; set; }
 
+        #region Potion Related
+
+        /// TODO: 
+        /// It appears this pattern will be used quite a lot.
+        /// it may be wise to make special templated collection(s)
+        /// notice how IPotion is used at least twice that would be T.
+
         /// <summary>
         /// Any actor can carry a potion.
         /// </summary>
         public List<IPotion> Potions { get; set; }
+
+        /// <summary>
+        /// Returns <c>true</c> if this actor has one or more potions.
+        /// </summary>
+        public bool HasPotions { get { return Potions.Count > 0; } }
 
         /// <summary>
         /// Quaff the selected potion.
@@ -58,5 +70,7 @@ namespace DotNetHack.Game
         {
             aPotion.Quaff(this);
         }
+
+        #endregion
     }
 }

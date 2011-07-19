@@ -101,6 +101,24 @@ namespace DotNetHack.Game
                             }
                         }
                         break;
+
+                    // If the player has potions, then take one off the top shelf 
+                    // and drink it.
+                    // TODO: Allow player to select exactly which potion they'd like to quaff.
+                    case ConsoleKey.Q:
+                        {
+                            if (Player.HasPotions)
+                            {
+                                // Grab the topmost potion, and remove it.
+                                IPotion tmpPotion = Player.Potions[0];
+                                Player.Potions.RemoveAt(0);
+
+                                // The player is the target for quaffing the potion.
+                                tmpPotion.Quaff(Player);
+                            }
+
+                            break;
+                        }
                     case ConsoleKey.O:
                         {
                             ConsoleKeyInfo tmpInput;

@@ -85,11 +85,16 @@ namespace DotNetHack.Game
                                 {
                                     default:
                                         break;
+                                    // Occurs when a player picks up any potion.
+                                    case ItemType.Potion:
+                                        Player.Potions.Add((IPotion)cItem);
+                                        break;
+                                    // Occurs when a player picks up a key.
                                     case ItemType.Key:
                                         Player.KeyChain.AddKey((Key)cItem);
                                         break;
+                                    // Occurs when a player picks up currency.
                                     case ItemType.Currency:
-
                                         Player.Wallet += (Currency)cItem;
                                         break;
                                 }

@@ -82,6 +82,7 @@
     <Compile Include="Game\Items\Key.cs" />
     <Compile Include="Game\Items\Magical\Scroll.cs" />
     <Compile Include="Game\Items\Magical\Tome.cs" />
+    <Compile Include="Game\Items\Potions\HealthPotion.cs" />
     <Compile Include="Game\Items\Potions\Potion.cs" />
     <Compile Include="Game\Items\Potions\PotionType.cs" />
     <Compile Include="Game\KeyChain.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Game\Dungeon\Tiles\TileFlags.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Game\Colour.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="UI\Display.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Game\GameEngine.cs" />

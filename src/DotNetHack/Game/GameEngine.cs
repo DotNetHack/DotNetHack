@@ -100,7 +100,7 @@ namespace DotNetHack.Game
                         {
                             ConsoleKeyInfo tmpInput;
                             Location3i tmpUnitLocation = new Location3i(0, 0, 0);
-                            switch (InputFilter(x => x.Key == ConsoleKey.LeftArrow ||
+                            switch (Input.Filter(x => x.Key == ConsoleKey.LeftArrow ||
                                 x.Key == ConsoleKey.RightArrow ||
                                 x.Key == ConsoleKey.UpArrow ||
                                 x.Key == ConsoleKey.DownArrow, out tmpInput).Key)
@@ -173,20 +173,7 @@ namespace DotNetHack.Game
             }
         }
 
-        /// <summary>
-        /// Performs input filtering
-        /// <remarks>Pass anonymous filter called "filter" be sure it returns a boolean, filtering will continue until the boolean condition is met.</remarks>
-        /// </summary>
-        /// <param name="aFilter"></param>
-        /// <returns></returns>
-        public ConsoleKeyInfo InputFilter(Func<ConsoleKeyInfo, bool> aFilter, out ConsoleKeyInfo k)
-        {
-        filter_input:
-            k = Console.ReadKey();
-            if (!aFilter(k))
-                goto filter_input;
-            return k;
-        }
+
 
         public void Update()
         {

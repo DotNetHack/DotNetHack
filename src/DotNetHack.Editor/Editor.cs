@@ -10,6 +10,7 @@ using DotNetHack.Game.Dungeon.Tiles;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Items;
 using System.Threading;
+using DotNetHack.Game.Items.Potions;
 
 namespace DotNetHack.Editor
 {
@@ -460,6 +461,67 @@ namespace DotNetHack.Editor
                     GetInt(out intCopperAmount);
                     SetItem(new Currency(intCopperAmount, CurrencyModifier.COPPER));
                     break;
+                // Add a new potion, use menu to determine exactly which one.
+                case ConsoleKey.P:
+                    {
+                        Menu mPotion = new Menu("Select Potion Type",
+                            new[]
+                            {
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Light Healing Potion",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new HealthPotion(
+                                            HealthPotion.HealthPotionType.Light));
+                                    },
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D0),
+                                },
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Minor Healing Potion",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new HealthPotion(
+                                            HealthPotion.HealthPotionType.Minor));
+                                    },
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D1),
+                                },
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Strong Healing Potion",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new HealthPotion(
+                                            HealthPotion.HealthPotionType.Strong));
+                                    },
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D2),
+                                },
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Super Healing Potion",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new HealthPotion(
+                                            HealthPotion.HealthPotionType.Greater));
+                                    },
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D3),
+                                },
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Super Healing Potion",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new HealthPotion(
+                                            HealthPotion.HealthPotionType.Super));
+                                    },
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D4),
+                                },
+                            });
+                        mPotion.Show(1, 1);
+                        mPotion.Exec(null);
+                        break;
+                    }
                 case ConsoleKey.K:
                     if (CurrentGuid.Equals(Guid.Empty))
                         throw new ApplicationException("Generate a new Guid using F4");

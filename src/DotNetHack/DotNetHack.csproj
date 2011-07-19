@@ -82,6 +82,7 @@
     <Compile Include="Game\Items\Key.cs" />
     <Compile Include="Game\Items\Magical\Scroll.cs" />
     <Compile Include="Game\Items\Magical\Tome.cs" />
+    <Compile Include="Game\Items\Potions\HealthPotion.cs" />
     <Compile Include="Game\Items\Potions\Potion.cs" />
     <Compile Include="Game\Items\Potions\PotionType.cs" />
     <Compile Include="Game\KeyChain.cs" />

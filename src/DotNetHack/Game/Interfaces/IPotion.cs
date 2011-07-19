@@ -15,7 +15,7 @@ namespace DotNetHack.Game.Interfaces
         /// <summary>
         /// The quaff
         /// </summary>
-        void Quaff();
+        void Quaff(Actor aTarget);
     }
 }
 

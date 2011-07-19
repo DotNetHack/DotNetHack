@@ -1,0 +1,6 @@
+<potion atype='Fire' ptype='Minor'   amount='1' duration='0' />
+<potion atype='Fire' ptype='Light'   amount='3' duration='0' />
+<potion atype='Fire' ptype='Strong'  amount='5' duration='0' />
+<potion atype='Fire' ptype='Greater' amount='7' duration='0' />
+<potion atype='Fire' ptype='Super'   amount='9' duration='0' />
+<potion atype='Fire' ptype='Inferno' amount='9' duration='5' />

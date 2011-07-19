@@ -1,0 +1,5 @@
+<potion atype='Healing' ptype='Minor'   amount='1' duration='0' />
+<potion atype='Healing' ptype='Light'   amount='2' duration='0' />
+<potion atype='Healing' ptype='Strong'  amount='3' duration='0' />
+<potion atype='Healing' ptype='Greater' amount='4' duration='0' />
+<potion atype='Healing' ptype='Super'   amount='5' duration='0' />

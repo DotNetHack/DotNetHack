@@ -461,6 +461,27 @@ namespace DotNetHack.Editor
                     GetInt(out intCopperAmount);
                     SetItem(new Currency(intCopperAmount, CurrencyModifier.COPPER));
                     break;
+                // Add a new potion, use menu to determine exactly which one.
+                case ConsoleKey.P:
+                    {
+                        Menu mPotion = new Menu("Select Potion Type",
+                            new Menu.MenuAction[] 
+                            {
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Light Healing Potion",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new HealthPotion(
+                                            HealthPotion.HealthPotionType.Light));
+                                    },
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D0),
+                                },
+                            });
+                        mPotion.Show(1, 1);
+                        mPotion.Exec(null);
+                        break;
+                    }
                 case ConsoleKey.K:
                     if (CurrentGuid.Equals(Guid.Empty))
                         throw new ApplicationException("Generate a new Guid using F4");

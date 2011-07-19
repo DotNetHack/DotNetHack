@@ -11,6 +11,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
     /// <remarks>A door is a movable structure used to close off an entrance, typically consisting of a panel that swings on hinges or that slides or rotates inside of a space.</remarks>
     /// <see cref="http://en.wikipedia.org/wiki/Door"/>
     /// </summary>
+    [Serializable]
     public class Door : Tile, IGlyph, IHasLock
     {
         /// <summary>

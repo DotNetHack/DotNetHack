@@ -1,0 +1,6 @@
+<spell atype='Fire' ptype='Minor'   amount='2' casttime='0' duration='0' range='0'  radius='1' mana='12' price='10000' glyph='' />
+<spell atype='Fire' ptype='Light'   amount='3' casttime='0' duration='0' range='0'  radius='2' mana='17' price='15000' glyph='' />
+<spell atype='Fire' ptype='Strong'  amount='4' casttime='0' duration='0' range='0'  radius='3' mana='22' price='20000' glyph='' />
+<spell atype='Fire' ptype='Greater' amount='5' casttime='1' duration='0' range='0'  radius='3' mana='27' price='30000' glyph='' />
+<spell atype='Fire' ptype='Super'   amount='6' casttime='1' duration='0' range='0'  radius='4' mana='32' price='50000' glyph='' />
+<spell atype='Fire' ptype='Inferno' amount='9' casttime='2' duration='5' range='12' radius='6' mana='52' price='75000' glyph='&' />

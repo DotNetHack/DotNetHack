@@ -472,8 +472,7 @@ namespace DotNetHack.Editor
                                     Name = "Light Healing Potion",
                                     MAction = delegate(object argv)
                                     {
-                                        SetItem(new HealthPotion(
-                                            HealthPotion.HealthPotionType.Light));
+                                        SetItem(new HealthPotion(PotionStrength.Light));
                                     },
                                     MenuActionFilter = (i => i.Key == ConsoleKey.D0),
                                 },
@@ -482,8 +481,7 @@ namespace DotNetHack.Editor
                                     Name = "Minor Healing Potion",
                                     MAction = delegate(object argv)
                                     {
-                                        SetItem(new HealthPotion(
-                                            HealthPotion.HealthPotionType.Minor));
+                                        SetItem(new HealthPotion(PotionStrength.Minor));
                                     },
                                     MenuActionFilter = (i => i.Key == ConsoleKey.D1),
                                 },
@@ -492,18 +490,16 @@ namespace DotNetHack.Editor
                                     Name = "Strong Healing Potion",
                                     MAction = delegate(object argv)
                                     {
-                                        SetItem(new HealthPotion(
-                                            HealthPotion.HealthPotionType.Strong));
+                                        SetItem(new HealthPotion(PotionStrength.Strong));
                                     },
                                     MenuActionFilter = (i => i.Key == ConsoleKey.D2),
                                 },
                                 new Menu.MenuAction() 
                                 {
-                                    Name = "Super Healing Potion",
+                                    Name = "Greater Healing Potion",
                                     MAction = delegate(object argv)
                                     {
-                                        SetItem(new HealthPotion(
-                                            HealthPotion.HealthPotionType.Greater));
+                                        SetItem(new HealthPotion(PotionStrength.Greater));
                                     },
                                     MenuActionFilter = (i => i.Key == ConsoleKey.D3),
                                 },
@@ -512,8 +508,7 @@ namespace DotNetHack.Editor
                                     Name = "Super Healing Potion",
                                     MAction = delegate(object argv)
                                     {
-                                        SetItem(new HealthPotion(
-                                            HealthPotion.HealthPotionType.Super));
+                                        SetItem(new HealthPotion(PotionStrength.Super));
                                     },
                                     MenuActionFilter = (i => i.Key == ConsoleKey.D4),
                                 },

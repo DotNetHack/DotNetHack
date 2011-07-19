@@ -13,16 +13,11 @@ namespace DotNetHack.Game.Items.Potions
     public class HealthPotion : Potion
     {
         /// <summary>
-        /// HealthPotionType
-        /// </summary>
-        public enum HealthPotionType { Minor, Light, Strong, Greater, Super }
-
-        /// <summary>
         /// HealthPotion
         /// </summary>
-        public HealthPotion(HealthPotionType aHealthPotionType)
+        public HealthPotion(PotionStrength aHealthPotionType)
             : base(PotionType.Healing,
-                aHealthPotionType.ToString() + " Healing Potion", Colour.DarkRed) 
+                "Health Potion", Colour.White) 
         { }
 
         /// <summary>

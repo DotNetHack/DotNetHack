@@ -92,6 +92,7 @@
     <Compile Include="Game\Dungeon\Tiles\TileFlags.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Game\Colour.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="UI\Display.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Game\GameEngine.cs" />

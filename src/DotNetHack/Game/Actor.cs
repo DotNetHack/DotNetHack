@@ -11,11 +11,17 @@ namespace DotNetHack.Game
     /// <summary>
     /// Actor
     /// </summary>
-    public abstract class Actor
+    public abstract class Actor : ICanDrink
     {
         public Actor()
+        {
+            // Create a fresh list of potions.
+            Potions = new List<IPotion>();
 
-        { Health = 100; }
+            // Health is at 100 (not percent).
+            Health = 100; 
+        }
+
         public int Health { get; set; }
 
         public void ApplyAffects()
@@ -38,5 +44,19 @@ namespace DotNetHack.Game
         /// Stats for this Actor
         /// </summary>
         public Stats Stats { get; set; }
+
+        /// <summary>
+        /// Any actor can carry a potion.
+        /// </summary>
+        public List<IPotion> Potions { get; set; }
+
+        /// <summary>
+        /// Quaff the selected potion.
+        /// </summary>
+        /// <param name="aPotion">The <see cref="Potion"/> to drink</param>
+        public void Quaff(IPotion aPotion)
+        {
+            aPotion.Quaff(this);
+        }
     }
 }

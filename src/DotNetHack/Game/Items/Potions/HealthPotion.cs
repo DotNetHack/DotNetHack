@@ -15,9 +15,8 @@ namespace DotNetHack.Game.Items.Potions
         /// <summary>
         /// HealthPotion
         /// </summary>
-        public HealthPotion(PotionStrength aHealthPotionType)
-            : base(PotionType.Healing,
-                "Health Potion", Colour.White)
+        public HealthPotion(PotionStrength aPotionStrength)
+            : base(PotionType.Healing, aPotionStrength, "", Colour.White)
         { }
 
         /// <summary>
@@ -25,32 +24,14 @@ namespace DotNetHack.Game.Items.Potions
         /// </summary>
         public override void Quaff(Actor aActor)
         {
-            double tmpModifier = 0.0;
-
-            // Push the healing affect onto the affect stack.
-            switch (PotionStrength)
-            {
-                case Potions.PotionStrength.Light:
-                    tmpModifier = 0.1;
-                    break;
-                case Potions.PotionStrength.Minor:
-                    tmpModifier = 0.22;
-                    break;
-                case Potions.PotionStrength.Greater:
-                    tmpModifier = 0.34;
-                    break;
-                case Potions.PotionStrength.Strong:
-                    tmpModifier = 0.46;
-                    break;
-                case Potions.PotionStrength.Super:
-                    tmpModifier = 0.56;
-                    break;
-            }
-
             var healingAffect = new Affect(AffectType.Healing,
-                aActor.Stats.Endurance * tmpModifier);
+                aActor.Stats.Endurance * StregthModifier, 1);
 
-            healingAffect.Modifiers = AffectModifiers.HealingPotion;
+            healingAffect.Modifiers += 
+                new Affect.Modifier(delegate(Affect af, Actor ta) 
+                    {
+                        ta.Health += (int)(10 * af.Magnitude);
+                    });
 
             aActor.AffectStack.Push(healingAffect);
         }

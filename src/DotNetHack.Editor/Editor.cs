@@ -11,6 +11,7 @@ using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Items;
 using System.Threading;
 using DotNetHack.Game.Items.Potions;
+using DotNetHack.Game.Items.Potions.Elixers;
 
 namespace DotNetHack.Editor
 {
@@ -467,6 +468,7 @@ namespace DotNetHack.Editor
                         Menu mPotion = new Menu("Select Potion Type",
                             new[]
                             {
+
                                 new Menu.MenuAction() 
                                 {
                                     Name = "Light Healing Potion",
@@ -474,7 +476,7 @@ namespace DotNetHack.Editor
                                     {
                                         SetItem(new HealthPotion(PotionStrength.Light));
                                     },
-                                    MenuActionFilter = (i => i.Key == ConsoleKey.D0),
+                                    MenuActionFilter = (i => i.Key.Equals(ConsoleKey.D1)),
                                 },
                                 new Menu.MenuAction() 
                                 {
@@ -483,7 +485,16 @@ namespace DotNetHack.Editor
                                     {
                                         SetItem(new HealthPotion(PotionStrength.Minor));
                                     },
-                                    MenuActionFilter = (i => i.Key == ConsoleKey.D1),
+                                    MenuActionFilter = (i => i.Key.Equals( ConsoleKey.D2)),
+                                },
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Elixer of Strength",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new ElixerOfStrength(PotionStrength.Strong));
+                                    },
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D0),
                                 },
                                 new Menu.MenuAction() 
                                 {
@@ -492,7 +503,7 @@ namespace DotNetHack.Editor
                                     {
                                         SetItem(new HealthPotion(PotionStrength.Strong));
                                     },
-                                    MenuActionFilter = (i => i.Key == ConsoleKey.D2),
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D3),
                                 },
                                 new Menu.MenuAction() 
                                 {
@@ -501,7 +512,7 @@ namespace DotNetHack.Editor
                                     {
                                         SetItem(new HealthPotion(PotionStrength.Greater));
                                     },
-                                    MenuActionFilter = (i => i.Key == ConsoleKey.D3),
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D4),
                                 },
                                 new Menu.MenuAction() 
                                 {

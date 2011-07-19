@@ -58,6 +58,7 @@
     <Compile Include="Game\Events\GameEvent.cs" />
     <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
     <Compile Include="Game\Interfaces\IArmor.cs" />
+    <Compile Include="Game\Interfaces\ICanDrink.cs" />
     <Compile Include="Game\Interfaces\IKey.cs" />
     <Compile Include="Game\Interfaces\IPrayer.cs" />
     <Compile Include="Game\Items\Containers\LootContainer.cs" />

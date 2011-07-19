@@ -11,6 +11,6 @@ namespace DotNetHack.Game.Affects
     public enum AffectType
     {
         None, Poision, Frost, Fire, Arcane, Disease, Physical, Shadow, 
-            Holy, Healing, Nature,
+            Holy, Healing, Nature, Elixer, 
     }
 }

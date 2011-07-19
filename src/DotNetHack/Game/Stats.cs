@@ -11,6 +11,11 @@ namespace DotNetHack.Game
     public class Stats
     {
         /// <summary>
+        /// Health
+        /// </summary>
+        public int Health { get; set; }
+
+        /// <summary>
         /// Effectiveness w/ Melee weapons
         /// </summary>
         public int Strength { get; set; }

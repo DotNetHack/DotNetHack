@@ -465,7 +465,7 @@ namespace DotNetHack.Editor
                 case ConsoleKey.P:
                     {
                         Menu mPotion = new Menu("Select Potion Type",
-                            new Menu.MenuAction[] 
+                            new[]
                             {
                                 new Menu.MenuAction() 
                                 {
@@ -476,6 +476,46 @@ namespace DotNetHack.Editor
                                             HealthPotion.HealthPotionType.Light));
                                     },
                                     MenuActionFilter = (i => i.Key == ConsoleKey.D0),
+                                },
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Minor Healing Potion",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new HealthPotion(
+                                            HealthPotion.HealthPotionType.Minor));
+                                    },
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D1),
+                                },
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Strong Healing Potion",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new HealthPotion(
+                                            HealthPotion.HealthPotionType.Strong));
+                                    },
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D2),
+                                },
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Super Healing Potion",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new HealthPotion(
+                                            HealthPotion.HealthPotionType.Greater));
+                                    },
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D3),
+                                },
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Super Healing Potion",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new HealthPotion(
+                                            HealthPotion.HealthPotionType.Super));
+                                    },
+                                    MenuActionFilter = (i => i.Key == ConsoleKey.D4),
                                 },
                             });
                         mPotion.Show(1, 1);

@@ -156,9 +156,14 @@ namespace DotNetHack.Game
                         goto redo_input;
 
                 if (nMoveToTile.HasItems)
-                    UI.Graphics.Display.ShowMessage("{0}, {1} here",
-                        nMoveToTile.Items.Count,
-                        Speech.Pluralize("item", nMoveToTile.Items.Count));
+                {
+                    if (nMoveToTile.Items.Count == 1)
+                        UI.Graphics.Display.ShowMessage(nMoveToTile.Items.First<IItem>().ToString());
+                    else
+                        UI.Graphics.Display.ShowMessage("{0}, {1} here",
+                            nMoveToTile.Items.Count,
+                            Speech.Pluralize("item", nMoveToTile.Items.Count));
+                }
 
                 // Apply the unit movement.
                 Player.Location += UnitMovement;

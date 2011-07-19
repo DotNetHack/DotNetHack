@@ -9,19 +9,25 @@ namespace DotNetHack.Game.Items.Potions
     /// <summary>
     /// Potion
     /// </summary>
-    public class Potion: Item, IPotion
+    public abstract class Potion: Item, IPotion
     {
+        /// <summary>
+        /// Creates a (base) instance of Potion/
+        /// </summary>
+        /// <param name="aType">The type of potion</param>
+        /// <param name="aName">The name of the potion.</param>
+        /// <param name="aColor">The color of the potion.</param>
         public Potion(PotionType aType, string aName, Colour aColor)
             : base(aName, '!', aColor) { PotionType = aType; }
 
+        /// <summary>
+        /// The type of potion
+        /// </summary>
         public PotionType PotionType { get; set; }
 
         /// <summary>
         /// Quaff
         /// </summary>
-        public void Quaff()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void Quaff(Actor aTarget);
     }
 }

@@ -7,32 +7,42 @@ namespace DotNetHack.UI
 {
     public class Menu
     {
-        public Menu(string aTile, MenuAction[] aActions) { MenuActions = aActions; Title = aTile; }
+        public Menu(string aTile, MenuAction[] aActions) 
+        {
+            MenuActions = aActions; Title = aTile; 
+        }
+
         public string Title { get; set; }
-        public MenuAction[] MenuActions { get; private set; }
-        public void Show(int x, int y) 
+        public void Show(int x, int y)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Blue;
-            Graphics.Display.Box(this, x, y); 
-        }
-        public void Exec(object state)
-        {
-            Console.CursorVisible = false;
-            ConsoleKeyInfo input = (ConsoleKeyInfo)state;
-            if (input.Key == ConsoleKey.Escape)
-                return;
-            foreach (MenuAction m in MenuActions)
-                if (input.Key == m.ActionKey)
-                    m.Action(state);
-        }
-        public struct MenuAction
-        {
-            public string Name;
-            public MAction Action;
-            public ConsoleKey ActionKey;
+            Graphics.Display.Box(this, x, y);
         }
 
-        public delegate void MAction(object state);
+        public virtual void Exec(object argv)
+        {
+            var input = Console.ReadKey();
+            if (input.Key == ConsoleKey.Escape)
+                return;
+            foreach (MenuAction mAction in MenuActions)
+                if (mAction.MenuActionFilter(input))
+                    mAction.MAction(argv);
+            return;
+        }
+
+        public MenuAction[] MenuActions { get; set; }
+
+        public delegate void MActionDelegate(object argv);
+
+        /// <summary>
+        /// MenuAction
+        /// </summary>
+        public struct MenuAction
+        {
+            public string Name { get; set; }
+            public MActionDelegate MAction { get; set; }
+            public Func<ConsoleKeyInfo, bool> MenuActionFilter { get; set; }
+        }
     }
 }

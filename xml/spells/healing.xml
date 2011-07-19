@@ -1,0 +1,5 @@
+<spell atype='Healing' ptype='Minor'   amount='1' casttime='0' duration='0' range='0' radius='1' mana='12' price='10000' glyph='' />
+<spell atype='Healing' ptype='Light'   amount='2' casttime='1' duration='0' range='0' radius='2' mana='17' price='15000' glyph='' />
+<spell atype='Healing' ptype='Strong'  amount='3' casttime='1' duration='0' range='0' radius='3' mana='22' price='20000' glyph='' />
+<spell atype='Healing' ptype='Greater' amount='4' casttime='1' duration='0' range='0' radius='3' mana='27' price='30000' glyph='' />
+<spell atype='Healing' ptype='Super'   amount='5' casttime='2' duration='0' range='0' radius='4' mana='32' price='50000' glyph='' />

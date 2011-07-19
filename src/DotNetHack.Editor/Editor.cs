@@ -10,6 +10,7 @@ using DotNetHack.Game.Dungeon.Tiles;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Items;
 using System.Threading;
+using DotNetHack.Game.Items.Potions;
 
 namespace DotNetHack.Editor
 {

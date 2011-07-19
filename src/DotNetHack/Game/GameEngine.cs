@@ -85,17 +85,40 @@ namespace DotNetHack.Game
                                 {
                                     default:
                                         break;
+                                    // Occurs when a player picks up any potion.
+                                    case ItemType.Potion:
+                                        Player.Potions.Add((IPotion)cItem);
+                                        break;
+                                    // Occurs when a player picks up a key.
                                     case ItemType.Key:
                                         Player.KeyChain.AddKey((Key)cItem);
                                         break;
+                                    // Occurs when a player picks up currency.
                                     case ItemType.Currency:
-
                                         Player.Wallet += (Currency)cItem;
                                         break;
                                 }
                             }
                         }
                         break;
+
+                    // If the player has potions, then take one off the top shelf 
+                    // and drink it.
+                    // TODO: Allow player to select exactly which potion they'd like to quaff.
+                    case ConsoleKey.Q:
+                        {
+                            if (Player.HasPotions)
+                            {
+                                // Grab the topmost potion, and remove it.
+                                IPotion tmpPotion = Player.Potions[0];
+                                Player.Potions.RemoveAt(0);
+
+                                // The player is the target for quaffing the potion.
+                                tmpPotion.Quaff(Player);
+                            }
+
+                            break;
+                        }
                     case ConsoleKey.O:
                         {
                             ConsoleKeyInfo tmpInput;
@@ -156,9 +179,14 @@ namespace DotNetHack.Game
                         goto redo_input;
 
                 if (nMoveToTile.HasItems)
-                    UI.Graphics.Display.ShowMessage("{0}, {1} here",
-                        nMoveToTile.Items.Count,
-                        Speech.Pluralize("item", nMoveToTile.Items.Count));
+                {
+                    if (nMoveToTile.Items.Count == 1)
+                        UI.Graphics.Display.ShowMessage(nMoveToTile.Items.First<IItem>().ToString());
+                    else
+                        UI.Graphics.Display.ShowMessage("{0}, {1} here",
+                            nMoveToTile.Items.Count,
+                            Speech.Pluralize("item", nMoveToTile.Items.Count));
+                }
 
                 // Apply the unit movement.
                 Player.Location += UnitMovement;
@@ -178,6 +206,9 @@ namespace DotNetHack.Game
         public void Update()
         {
             UI.Graphics.Display.ShowStatsBar(Player.Stats);
+
+            // Apply all affects.
+            Player.ApplyAffects();
 
 #if OBSOLETE
             foreach (var iItem in CurrentMap.Items)

@@ -18,7 +18,7 @@ namespace DotNetHack.Game.Items.Potions
         /// <param name="aName">The name of the potion.</param>
         /// <param name="aColor">The color of the potion.</param>
         public Potion(PotionType aType, string aName, Colour aColor)
-            : base(aName, '!', aColor) { PotionType = aType; }
+            : base(ItemType.Potion, aName, '!', aColor) { PotionType = aType; }
 
         /// <summary>
         /// The type of potion
@@ -26,8 +26,24 @@ namespace DotNetHack.Game.Items.Potions
         public PotionType PotionType { get; set; }
 
         /// <summary>
+        /// PotionStrength
+        /// </summary>
+        public PotionStrength PotionStrength { get; set; }
+
+        /// <summary>
         /// Quaff
         /// </summary>
         public abstract void Quaff(Actor aTarget);
+
+        /// <summary>
+        /// ToString
+        /// {Superior} {Healing} Potion
+        /// </summary>
+        /// <returns>A string representation of this potion.</returns>
+        public override string ToString()
+        {
+            return string.Format("{0} {1} Potion",
+                PotionStrength, PotionType);
+        }
     }
 }

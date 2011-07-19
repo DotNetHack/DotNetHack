@@ -25,5 +25,15 @@ namespace DotNetHack.Game.Affects
                 ((double)(target.Health * 0.07));
             target.Health -= (int)tmpAffect.Magnitude;
         }
+
+        /// <summary>
+        /// HealingPotion
+        /// </summary>
+        /// <param name="aAffect">Affect</param>
+        /// <param name="aTarget">Target</param>
+        public static void HealingPotion(Affect aAffect, Actor aTarget)
+        {
+            aTarget.Health += (int)(aAffect.Magnitude * 0.3);
+        }
     }
 }

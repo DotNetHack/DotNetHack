@@ -12,6 +12,7 @@ using DotNetHack.Game.Items;
 using System.Threading;
 using DotNetHack.Game.Items.Potions;
 using DotNetHack.Game.Items.Potions.Elixers;
+using DotNetHack.Utility;
 
 namespace DotNetHack.Editor
 {
@@ -142,12 +143,14 @@ namespace DotNetHack.Editor
                             break;
                         }
                     case ConsoleKey.F5:
+
                         // Create a new instance of the game engine with the current location and map.
-                        GameEngine g = new GameEngine(
-                            new Player("Editor", CurrentLocation), CurrentMap);
+                        GameEngine g = new GameEngine(new Player("Editor", CurrentLocation), 
+                            Util.DeepCopy<Dungeon3>(CurrentMap));
 
                         // Run the full out game engine except with editor and debug run flags.
                         g.Run(GameEngine.EngineRunFlags.DEBUG | GameEngine.EngineRunFlags.EDITOR);
+                        CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
                         break;
 
                     // generate a new guid.
@@ -468,7 +471,6 @@ namespace DotNetHack.Editor
                         Menu mPotion = new Menu("Select Potion Type",
                             new[]
                             {
-
                                 new Menu.MenuAction() 
                                 {
                                     Name = "Light Healing Potion",

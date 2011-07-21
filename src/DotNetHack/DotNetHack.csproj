@@ -120,6 +120,7 @@
     <Compile Include="Game\Interfaces\IReadable.cs" />
     <Compile Include="Game\Interfaces\IScroll.cs" />
     <Compile Include="Game\Interfaces\IWeapon.cs" />
+    <Compile Include="Utility\Util.cs" />
     <Compile Include="Utility\LockFile.cs" />
     <Compile Include="Game\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

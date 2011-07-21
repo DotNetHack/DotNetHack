@@ -273,7 +273,7 @@ namespace DotNetHack.Editor
         /// <param name="t">type</param>
         /// <param name="g">glyph</param>
         /// <param name="c">colour = standard.</param>
-        static void SetTile(TileType t, char g, Colour c)
+        static void SetTile(TileType t, char g, Colour c, Location3i location = null)
         {
             var tmpSetTile = new Tile()
             {
@@ -282,8 +282,13 @@ namespace DotNetHack.Editor
                 C = c ?? Colour.Standard,
             };
 
+            if (location == null)
+            {
+                location = CurrentLocation;
+            }
+
             // Store the previous tile.
-            CurrentMap.SetTile(CurrentLocation, tmpSetTile);
+            CurrentMap.SetTile(location, tmpSetTile);
             PreviousTile = tmpSetTile;
         }
 
@@ -319,7 +324,28 @@ namespace DotNetHack.Editor
 
                 // Allow for deltion
                 case ConsoleKey.Delete:
-                    SetTile(TileType.NOTHING, '.', Colour.Standard);
+                    switch(input.Modifiers) {
+                        default:
+                            SetTile(TileType.NOTHING, '.', Colour.Standard);
+                            break;
+                        case ConsoleModifiers.Control:
+                            bool nothing = Graphics.MessageBox.YesNo("Are you Sure?");
+                            Location3i tmpLocation = new Location3i(0, 0, CurrentLocation.D);
+                            if (nothing)
+                            {
+                                // Fill entire map with water
+                                for (int i = 0; i < Console.WindowHeight; i++)
+                                {
+                                    for (int j = 0; j < Console.WindowWidth; j++)
+                                    {
+                                        tmpLocation.X = j;
+                                        tmpLocation.Y = i;
+                                        SetTile(TileType.NOTHING, '.', Colour.Standard, tmpLocation);
+                                    }
+                                }
+                            }
+                            break;
+                    }
                     break;
 
                 case ConsoleKey.A:
@@ -357,7 +383,29 @@ namespace DotNetHack.Editor
 
                 /// water
                 case ConsoleKey.W:
-                    SetTile(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
+                    switch(input.Modifiers) 
+                    {
+                        default:
+                            SetTile(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
+                            break;
+                        case ConsoleModifiers.Control:
+                            bool water = Graphics.MessageBox.YesNo("Are you Sure?");
+                            Location3i tmpLocation = new Location3i(0, 0, CurrentLocation.D);
+                            if (water)
+                            {
+                                // Fill entire map with water
+                                for (int i = 0; i < Console.WindowHeight; i++)
+                                {
+                                    for (int j = 0; j < Console.WindowWidth; j++)
+                                    {
+                                        tmpLocation.X = j;
+                                        tmpLocation.Y = i;
+                                        SetTile(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean, tmpLocation);
+                                    }
+                                }
+                            }
+                            break;
+                    }
                     break;
 
                 // road
@@ -389,6 +437,23 @@ namespace DotNetHack.Editor
                             break;
                         case ConsoleModifiers.Shift:
                             SetTile(TileType.GRAVE, Symbols.SMALL_T, Colour.Grave);
+                            break;
+                        case ConsoleModifiers.Control:
+                            bool grass = Graphics.MessageBox.YesNo("Are you Sure?");
+                            Location3i tmpLocation = new Location3i(0, 0, CurrentLocation.D);
+                            if (grass)
+                            {
+                                // Fill entire map with water
+                                for (int i = 0; i < Console.WindowHeight; i++)
+                                {
+                                    for (int j = 0; j < Console.WindowWidth; j++)
+                                    {
+                                        tmpLocation.X = j;
+                                        tmpLocation.Y = i;
+                                        SetTile(TileType.GRASS, Symbols.FILL_LIGHT, Colour.Grass, tmpLocation);
+                                    }
+                                }
+                            }
                             break;
                     }
                     break;

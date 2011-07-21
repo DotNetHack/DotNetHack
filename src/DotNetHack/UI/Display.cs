@@ -24,6 +24,76 @@ namespace DotNetHack.UI
             public static void Show(string aTitle, Exception ex) { Show(aTitle, ex.Message); }
 
             /// <summary>
+            /// YesNo Box
+            /// </summary>
+            public static bool YesNo(string aMessage = "")
+            {
+                const string YES_NO = "[Y/N]: ";
+
+                // Draw MessageBox
+                const int WIDTH_OFFSET = 2;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Blue;
+
+                Location2i ynBoxLocation = Graphics.ScreenCenter;
+                aMessage = string.Format(" {0} ", aMessage);
+                int messagePadding = 2;
+                int borderWidth = 1;
+                int mWidth = messagePadding + YES_NO.Length + aMessage.Length + messagePadding + borderWidth;
+                int mHeight = messagePadding + messagePadding + borderWidth;
+
+                ynBoxLocation.X -= mWidth / 2;
+                ynBoxLocation.Y -= mHeight / 2;
+
+                Display.Box(ynBoxLocation.X, ynBoxLocation.Y, mWidth, mHeight);
+
+                ynBoxLocation.X++;
+
+                Location2i tmpLoc = ynBoxLocation;
+
+                string spacer = "";
+                for (int ix = 0; ix < mWidth - WIDTH_OFFSET; ++ix)
+                    spacer += " ";
+
+                Console.SetCursorPosition(ynBoxLocation.X, ynBoxLocation.Y + 2);
+                Console.Write(spacer);
+
+                Console.SetCursorPosition(ynBoxLocation.X, ynBoxLocation.Y + 4);
+                Console.Write(spacer);
+
+                Console.SetCursorPosition(tmpLoc.X, tmpLoc.Y + 3);
+                Console.Write(spacer);
+
+                Console.SetCursorPosition(tmpLoc.X, tmpLoc.Y + 3);
+                Console.Write(aMessage);
+
+                Console.SetCursorPosition(tmpLoc.X + ((mWidth / 2) - 3), tmpLoc.Y + 4);
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.Write(YES_NO);
+
+                Console.SetCursorPosition(tmpLoc.X + ((mWidth / 2) - 3) + YES_NO.Length - 1, tmpLoc.Y + 4);
+
+                // Handle Y/N logic
+                int x_loc = Console.CursorLeft;
+                int y_loc = Console.CursorTop;
+                redo_yes_no:
+                var input = Console.ReadKey();
+                switch (input.Key)
+                {
+                    case ConsoleKey.Y:
+                        Console.ResetColor();
+                        return true;
+                    case ConsoleKey.N: 
+                        Console.ResetColor();
+                        return false;
+                    default:
+                        Console.SetCursorPosition(x_loc, y_loc);
+                        goto redo_yes_no;
+                }
+            }
+
+            /// <summary>
             /// Show
             /// </summary>
             /// <param name="aTitle">The title of the message box</param>

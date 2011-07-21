@@ -9,6 +9,11 @@ namespace DotNetHack
     public static class R
     {
         /// <summary>
+        /// Static .ctor
+        /// </summary>
+        static R() { Random = new Random(); }
+
+        /// <summary>
         /// IsDebug can be used to determine if realtile debugging has been 
         /// enabled.  This is not to be confused with conditional compilation symbols.
         /// </summary>
@@ -50,6 +55,11 @@ namespace DotNetHack
             catch { return false; }
             return true;
         }
+
+        /// <summary>
+        /// Random
+        /// </summary>
+        public static Random Random { get; set; }
     }
 }
 

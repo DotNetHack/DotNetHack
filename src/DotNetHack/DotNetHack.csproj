@@ -53,6 +53,9 @@
     <Compile Include="Game\Dice.cs" />
     <Compile Include="Game\Dungeon\DungeonRenderer.cs" />
     <Compile Include="Game\Dungeon\FogOfWar.cs" />
+    <Compile Include="Game\Dungeon\Generator\DungeonGeneratorOutdoors.cs" />
+    <Compile Include="Game\Dungeon\Generator\DungeonGenerator.cs" />
+    <Compile Include="Game\Dungeon\Generator\IDungeonGenerator.cs" />
     <Compile Include="Game\Dungeon\TileBuilder.cs" />
     <Compile Include="Game\Dungeon\Tiles\ITile.cs" />
     <Compile Include="Game\Events\GameEvent.cs" />

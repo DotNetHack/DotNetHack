@@ -11,7 +11,19 @@ namespace DotNetHack.Game.Items
     /// <summary>
     /// TileType
     /// </summary>
-    public enum ItemType { Other, Potion, Currency, Key, }
+    public enum ItemType 
+    {
+        Food,
+        Other,
+        Armor,
+        Weapon,
+        Scroll,
+        Tome,
+        Potion,
+        Currency, 
+        Key, 
+        Tool,
+    }
 
     /// <summary>
     /// Item

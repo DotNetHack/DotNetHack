@@ -159,7 +159,7 @@ namespace DotNetHack.Editor
                         CurrentGuid = Guid.NewGuid();
                         UI.Graphics.MessageBox.Show("Generated New Guid",
                             CurrentGuid.ToString());
-                        CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
+                        UI.Graphics.Display.Refresh(CurrentMap, CurrentLocation);
                         break;
                     // Change editor mode to "Layout"
                     case ConsoleKey.F9:
@@ -260,7 +260,7 @@ namespace DotNetHack.Editor
             catch (Exception ex)
             {
                 UI.Graphics.MessageBox.Show("DNH-Edit Exception", ex);
-                CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
+                UI.Graphics.Display.Refresh(CurrentMap, CurrentLocation);
             }
 
             // jump back to main input

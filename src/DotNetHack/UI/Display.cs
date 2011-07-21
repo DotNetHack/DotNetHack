@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game;
+using DotNetHack.Game.Dungeon;
 
 namespace DotNetHack.UI
 {
@@ -77,14 +78,14 @@ namespace DotNetHack.UI
                 // Handle Y/N logic
                 int x_loc = Console.CursorLeft;
                 int y_loc = Console.CursorTop;
-                redo_yes_no:
+            redo_yes_no:
                 var input = Console.ReadKey();
                 switch (input.Key)
                 {
                     case ConsoleKey.Y:
                         Console.ResetColor();
                         return true;
-                    case ConsoleKey.N: 
+                    case ConsoleKey.N:
                         Console.ResetColor();
                         return false;
                     default:
@@ -145,7 +146,6 @@ namespace DotNetHack.UI
                 Console.Write("["); Console.Write("Ok"); Console.Write("]");
 
                 Console.ReadKey();
-
                 Console.ResetColor();
             }
         }
@@ -261,6 +261,23 @@ namespace DotNetHack.UI
             }
 
             /// <summary>
+            /// DisplayRefresh
+            /// </summary>
+            /// <param name="aDungeon">The dungeon used for determining data to clear</param>
+            /// <param name="aLocation">The location for determing the dungeon level to use in refreshing.</param>
+            public static void Refresh(Dungeon3 aDungeon, Location3i aLocation)
+            {
+                if (PostRedisplay != null)
+                    PostRedisplay(aDungeon, aLocation);
+            }
+
+            /// <summary>
+            /// PostRedisplay, should only be wired up to clear one area at a time. A multicast del
+            /// is not used.
+            /// </summary>
+            static Func<Dungeon3, Location3i, DisplayRegion> PostRedisplay = null;
+
+            /// <summary>
             /// Box
             /// </summary>
             /// <param name="x">The X-Coordinate</param>
@@ -269,6 +286,16 @@ namespace DotNetHack.UI
             /// <param name="h">The Height.</param>
             public static void Box(int x, int y, int w, int h)
             {
+                // wire up the post redisplay callback.
+                PostRedisplay = delegate(Dungeon3 dungeon, Location3i l)
+                {
+                    if (dungeon == null || l == null)
+                        throw new ApplicationException("PostRedisplay Failed!");
+                    var displayRegion = new DisplayRegion(x, y, x + w, y + h);
+                    dungeon.DungeonRenderer.RefreshBufferedRegion(l, displayRegion);
+                    return displayRegion;
+                };
+
                 if (w <= 2)
                     throw new ArgumentException(
                         string.Format("Display box width must be greater than 2. Was {0}.", w));

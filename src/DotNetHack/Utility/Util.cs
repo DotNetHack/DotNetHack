@@ -1,5 +1,7 @@
 ﻿using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 namespace DotNetHack.Utility
 {
     /// <summary>

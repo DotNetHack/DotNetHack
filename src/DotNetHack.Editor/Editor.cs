@@ -13,6 +13,7 @@ using System.Threading;
 using DotNetHack.Game.Items.Potions;
 using DotNetHack.Game.Items.Potions.Elixers;
 using DotNetHack.Utility;
+using DotNetHack.Game.Dungeon.Generator;
 
 namespace DotNetHack.Editor
 {
@@ -145,7 +146,7 @@ namespace DotNetHack.Editor
                     case ConsoleKey.F5:
 
                         // Create a new instance of the game engine with the current location and map.
-                        GameEngine g = new GameEngine(new Player("Editor", CurrentLocation), 
+                        GameEngine g = new GameEngine(new Player("Editor", CurrentLocation),
                             Util.DeepCopy<Dungeon3>(CurrentMap));
 
                         // Run the full out game engine except with editor and debug run flags.
@@ -336,7 +337,7 @@ namespace DotNetHack.Editor
                             bool nothing = Graphics.MessageBox.YesNo("Are you Sure?");
                             if (nothing)
                             {
-                                clrScreen(TileType.NOTHING,'.', Colour.Standard);
+                                clrScreen(TileType.NOTHING, '.', Colour.Standard);
                             }
                             break;
                     }
@@ -432,6 +433,15 @@ namespace DotNetHack.Editor
                     }
                     break;
 
+                    // WARNING: Experimental.
+                case ConsoleKey.D1: 
+                    {
+                        DungeonGeneratorOutdoors g = new DungeonGeneratorOutdoors();
+                        g.Generate(CurrentMap);
+                        CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
+                        break;
+                    }
+
                 // bridge horizontal, bridge vertical
                 case ConsoleKey.B:
                     switch (input.Modifiers)
@@ -478,11 +488,11 @@ namespace DotNetHack.Editor
                 {
                     tmpLocation.X = j;
                     tmpLocation.Y = i;
+
                     SetTile(tileType, symbol, color, tmpLocation);
                 }
             }
         }
-
 
         /// <summary>
         /// Sets an item at the current location.

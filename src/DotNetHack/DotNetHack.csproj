@@ -80,6 +80,7 @@
     <Compile Include="Game\Items\Currency.cs" />
     <Compile Include="Game\Items\Item.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\Weapon.cs" />
+    <Compile Include="Game\Items\ItemCollection.cs" />
     <Compile Include="Game\Items\Key.cs" />
     <Compile Include="Game\Items\Magical\Scroll.cs" />
     <Compile Include="Game\Items\Magical\Tome.cs" />

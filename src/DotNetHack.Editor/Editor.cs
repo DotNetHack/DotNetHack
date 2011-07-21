@@ -324,25 +324,16 @@ namespace DotNetHack.Editor
 
                 // Allow for deltion
                 case ConsoleKey.Delete:
-                    switch(input.Modifiers) {
+                    switch (input.Modifiers)
+                    {
                         default:
                             SetTile(TileType.NOTHING, '.', Colour.Standard);
                             break;
                         case ConsoleModifiers.Control:
                             bool nothing = Graphics.MessageBox.YesNo("Are you Sure?");
-                            Location3i tmpLocation = new Location3i(0, 0, CurrentLocation.D);
                             if (nothing)
                             {
-                                // Fill entire map with water
-                                for (int i = 0; i < Console.WindowHeight; i++)
-                                {
-                                    for (int j = 0; j < Console.WindowWidth; j++)
-                                    {
-                                        tmpLocation.X = j;
-                                        tmpLocation.Y = i;
-                                        SetTile(TileType.NOTHING, '.', Colour.Standard, tmpLocation);
-                                    }
-                                }
+                                clrScreen(TileType.NOTHING,'.', Colour.Standard);
                             }
                             break;
                     }
@@ -383,26 +374,16 @@ namespace DotNetHack.Editor
 
                 /// water
                 case ConsoleKey.W:
-                    switch(input.Modifiers) 
+                    switch (input.Modifiers)
                     {
                         default:
                             SetTile(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
                             break;
                         case ConsoleModifiers.Control:
                             bool water = Graphics.MessageBox.YesNo("Are you Sure?");
-                            Location3i tmpLocation = new Location3i(0, 0, CurrentLocation.D);
                             if (water)
                             {
-                                // Fill entire map with water
-                                for (int i = 0; i < Console.WindowHeight; i++)
-                                {
-                                    for (int j = 0; j < Console.WindowWidth; j++)
-                                    {
-                                        tmpLocation.X = j;
-                                        tmpLocation.Y = i;
-                                        SetTile(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean, tmpLocation);
-                                    }
-                                }
+                                clrScreen(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
                             }
                             break;
                     }
@@ -440,19 +421,9 @@ namespace DotNetHack.Editor
                             break;
                         case ConsoleModifiers.Control:
                             bool grass = Graphics.MessageBox.YesNo("Are you Sure?");
-                            Location3i tmpLocation = new Location3i(0, 0, CurrentLocation.D);
                             if (grass)
                             {
-                                // Fill entire map with water
-                                for (int i = 0; i < Console.WindowHeight; i++)
-                                {
-                                    for (int j = 0; j < Console.WindowWidth; j++)
-                                    {
-                                        tmpLocation.X = j;
-                                        tmpLocation.Y = i;
-                                        SetTile(TileType.GRASS, Symbols.FILL_LIGHT, Colour.Grass, tmpLocation);
-                                    }
-                                }
+                                clrScreen(TileType.GRASS, Symbols.FILL_LIGHT, Colour.Grass);
                             }
                             break;
                     }
@@ -489,6 +460,26 @@ namespace DotNetHack.Editor
                 #endregion
             }
         }
+
+        /// <summary>
+        /// Clears the screen with specified tile
+        /// </summary>
+        static void clrScreen(TileType tileType, char symbol, Colour color)
+        {
+            Location3i tmpLocation = new Location3i(0, 0, CurrentLocation.D);
+
+            // Fill entire map with tileType
+            for (int i = 0; i < Console.WindowHeight; i++)
+            {
+                for (int j = 0; j < Console.WindowWidth; j++)
+                {
+                    tmpLocation.X = j;
+                    tmpLocation.Y = i;
+                    SetTile(tileType, symbol, color, tmpLocation);
+                }
+            }
+        }
+
 
         /// <summary>
         /// Sets an item at the current location.

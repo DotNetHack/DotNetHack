@@ -68,14 +68,18 @@ namespace DotNetHack.Game.Dungeon
         /// <param name="l"></param>
         public void Render(Location3i l)
         {
+#if FOG_OF_WAR
             // TODO: This shit should be else where, and may even benefit from 
             // being called as part of several methods in a multicast delegate that
             // run each time render is called on a location.
             RenderDungeon.FogOfWar.UpdateSeenData(l, 6);
+#endif
 
             IterateXY(delegate(int x, int y)
             {
+#if FOG_OF_WAR
                 if (RenderDungeon.FogOfWar.Seen(x, y, l.D))
+#endif
                     if (RenderBuffer[x, y].G != RenderDungeon.MapData[x, y, l.D].G)
                     {
                         UI.Graphics.CursorToLocation(x, y);

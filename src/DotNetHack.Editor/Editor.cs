@@ -273,7 +273,7 @@ namespace DotNetHack.Editor
         /// <param name="t">type</param>
         /// <param name="g">glyph</param>
         /// <param name="c">colour = standard.</param>
-        static void SetTile(TileType t, char g, Colour c)
+        static void SetTile(TileType t, char g, Colour c, Location3i location = null)
         {
             var tmpSetTile = new Tile()
             {
@@ -282,8 +282,13 @@ namespace DotNetHack.Editor
                 C = c ?? Colour.Standard,
             };
 
+            if (location == null)
+            {
+                location = CurrentLocation;
+            }
+
             // Store the previous tile.
-            CurrentMap.SetTile(CurrentLocation, tmpSetTile);
+            CurrentMap.SetTile(location, tmpSetTile);
             PreviousTile = tmpSetTile;
         }
 
@@ -319,7 +324,19 @@ namespace DotNetHack.Editor
 
                 // Allow for deltion
                 case ConsoleKey.Delete:
-                    SetTile(TileType.NOTHING, '.', Colour.Standard);
+                    switch (input.Modifiers)
+                    {
+                        default:
+                            SetTile(TileType.NOTHING, '.', Colour.Standard);
+                            break;
+                        case ConsoleModifiers.Control:
+                            bool nothing = Graphics.MessageBox.YesNo("Are you Sure?");
+                            if (nothing)
+                            {
+                                clrScreen(TileType.NOTHING,'.', Colour.Standard);
+                            }
+                            break;
+                    }
                     break;
 
                 case ConsoleKey.A:
@@ -357,7 +374,19 @@ namespace DotNetHack.Editor
 
                 /// water
                 case ConsoleKey.W:
-                    SetTile(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
+                    switch (input.Modifiers)
+                    {
+                        default:
+                            SetTile(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
+                            break;
+                        case ConsoleModifiers.Control:
+                            bool water = Graphics.MessageBox.YesNo("Are you Sure?");
+                            if (water)
+                            {
+                                clrScreen(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
+                            }
+                            break;
+                    }
                     break;
 
                 // road
@@ -389,6 +418,13 @@ namespace DotNetHack.Editor
                             break;
                         case ConsoleModifiers.Shift:
                             SetTile(TileType.GRAVE, Symbols.SMALL_T, Colour.Grave);
+                            break;
+                        case ConsoleModifiers.Control:
+                            bool grass = Graphics.MessageBox.YesNo("Are you Sure?");
+                            if (grass)
+                            {
+                                clrScreen(TileType.GRASS, Symbols.FILL_LIGHT, Colour.Grass);
+                            }
                             break;
                     }
                     break;
@@ -424,6 +460,26 @@ namespace DotNetHack.Editor
                 #endregion
             }
         }
+
+        /// <summary>
+        /// Clears the screen with specified tile
+        /// </summary>
+        static void clrScreen(TileType tileType, char symbol, Colour color)
+        {
+            Location3i tmpLocation = new Location3i(0, 0, CurrentLocation.D);
+
+            // Fill entire map with tileType
+            for (int i = 0; i < Console.WindowHeight; i++)
+            {
+                for (int j = 0; j < Console.WindowWidth; j++)
+                {
+                    tmpLocation.X = j;
+                    tmpLocation.Y = i;
+                    SetTile(tileType, symbol, color, tmpLocation);
+                }
+            }
+        }
+
 
         /// <summary>
         /// Sets an item at the current location.

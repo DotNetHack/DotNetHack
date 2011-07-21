@@ -20,6 +20,15 @@ namespace DotNetHack.Game.Dungeon
     internal delegate void IterXYDelegate(int x, int y);
 
     /// <summary>
+    /// Used as an argument for interating over all dungeon tiles.  This 
+    /// is a common operation. so it's been crafted into a delegate.
+    /// </summary>
+    /// <param name="x">x parameter</param>
+    /// <param name="y">y parameter</param>
+    /// <param name="d">d parameter</param>
+    public delegate void DungeonIterator(int x, int y, int d);
+
+    /// <summary>
     /// DungeonExtensions
     /// </summary>
     public static class DungeonExtensions
@@ -85,20 +94,11 @@ namespace DotNetHack.Game.Dungeon
         #region Public Delegates
 
         /// <summary>
-        /// Used as an argument for interating over all dungeon tiles.  This 
-        /// is a common operation. so it's been crafted into a delegate.
-        /// </summary>
-        /// <param name="x">x parameter</param>
-        /// <param name="y">y parameter</param>
-        /// <param name="d">d parameter</param>
-        delegate void DungeonIterator(int x, int y, int d);
-
-        /// <summary>
         /// IterateDungeonData will iterate of all dungeon data and call the DungeonIterator.
         /// This is the preferred method to iterate over all dungeon data
         /// </summary>
         /// <param name="aDungeonIterator"></param>
-        void IterateDungeonData(DungeonIterator aDungeonIterator)
+        public void IterateDungeonData(DungeonIterator aDungeonIterator)
         {
             for (int d = 0; d < DungeonDepth; ++d)
                 for (int x = 0; x < DungeonWidth; ++x)

@@ -81,13 +81,12 @@ namespace DotNetHack.Game
                             while (nTileUnderPlayer.HasItems)
                             {
                                 IItem cItem = nTileUnderPlayer.Items.Pop();
+
+                                // switch by item type
                                 switch (cItem.ItemType)
                                 {
                                     default:
-                                        break;
-                                    // Occurs when a player picks up any potion.
-                                    case ItemType.Potion:
-                                        Player.Potions.Add((IPotion)cItem);
+                                        Player.Inventory.Push(cItem);
                                         break;
                                     // Occurs when a player picks up a key.
                                     case ItemType.Key:
@@ -107,15 +106,10 @@ namespace DotNetHack.Game
                     // TODO: Allow player to select exactly which potion they'd like to quaff.
                     case ConsoleKey.Q:
                         {
-                            if (Player.HasPotions)
-                            {
-                                // Grab the topmost potion, and remove it.
-                                IPotion tmpPotion = Player.Potions[0];
-                                Player.Potions.RemoveAt(0);
+                            // TODO: 
+                            var p = Player.Inventory.Potions.First();
 
-                                // The player is the target for quaffing the potion.
-                                tmpPotion.Quaff(Player);
-                            }
+                            p.Quaff(Player);
 
                             break;
                         }

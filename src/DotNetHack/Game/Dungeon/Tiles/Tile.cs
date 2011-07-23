@@ -5,6 +5,7 @@ using System.Text;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Monsters;
 using DotNetHack.UI;
+using DotNetHack.Game.Items;
 
 namespace DotNetHack.Game.Dungeon.Tiles
 {
@@ -65,7 +66,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
         {
             TileGlyph = '\0';
             C = new Colour();
-            Items = new Stack<IItem>();
+            Items = new ItemCollection();
         }
 
         /// <summary>
@@ -98,7 +99,8 @@ namespace DotNetHack.Game.Dungeon.Tiles
             get 
             {
                 if (HasItems)
-                    return Items.Peek().G;
+                    G = Items.First().G;
+                
                 return TileGlyph;
             }
             set { TileGlyph = value; }
@@ -123,7 +125,9 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// Items
         /// <remarks>The following method for storing items is experiemental.</remarks>
         /// </summary>
-        public Stack<IItem> Items { get; set; }
+        // public Stack<IItem> Items { get; set; }
+
+        public ItemCollection Items { get; set; }
 
         /// <summary>
         /// EmptyTile has standard colour, a '.' as the Glyph and Nothing as the TileType.

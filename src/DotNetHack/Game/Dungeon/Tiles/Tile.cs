@@ -136,7 +136,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
                 {
                     C = Colour.Standard,
                     G = '.',
-                    TileType = TileType.NOTHING,
+                    TileType = TileType.Nothing,
                 };
             }
         }

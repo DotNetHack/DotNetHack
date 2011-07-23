@@ -67,12 +67,12 @@ namespace DotNetHack.Game
                     case ConsoleKey.DownArrow:
                         UnitMovement.Y++; break;
                     case ConsoleKey.OemPeriod:
-                        if (nPlayerTile.TileType == TileType.STAIRS_UP)
+                        if (nPlayerTile.TileType == TileType.StairsUp)
                             UnitMovement.D--; break;
                     case ConsoleKey.OemComma:
                         if (input.Modifiers == ConsoleModifiers.Shift)
                         {
-                            if (nPlayerTile.TileType == TileType.STAIRS_DOWN)
+                            if (nPlayerTile.TileType == TileType.StairsDown)
                                 UnitMovement.D++; break;
                         }
                         else
@@ -172,7 +172,7 @@ namespace DotNetHack.Game
                 if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
                     goto redo_input;
                 Tile nMoveToTile = CurrentMap.GetTile(Player.Location + UnitMovement);
-                if (nMoveToTile.TileType == TileType.WALL)
+                if (nMoveToTile.TileType == TileType.Wall)
                     goto redo_input;
                 else if (nMoveToTile.TileFlags == TileFlags.Door)
                     if (((Door)nMoveToTile).IsClosed)
@@ -262,6 +262,6 @@ namespace DotNetHack.Game
         /// EngineRunFlags
         /// </summary>
         [Flags]
-        public enum EngineRunFlags { NORMAL, EDITOR, DEBUG }
+        public enum EngineRunFlags { Normal, Editor, Debug }
     }
 }

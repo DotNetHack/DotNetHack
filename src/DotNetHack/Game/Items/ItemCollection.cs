@@ -9,6 +9,7 @@ namespace DotNetHack.Game.Items
     ///    Is a specialized collection of items that offerrs up
     ///    various enumerators for just about any occasion.
     /// </summary>
+    [Serializable]
     public class ItemCollection : ICollection<IItem>
     {
         /// <summary>
@@ -117,7 +118,7 @@ namespace DotNetHack.Game.Items
         /// </summary>
         public IEnumerable<IFood> Food
         {
-            get 
+            get
             {
                 return (IEnumerable<IFood>)
                     ItemFilter(x => x.ItemType == ItemType.Food);
@@ -150,7 +151,7 @@ namespace DotNetHack.Game.Items
         }
 
         /// <summary>
-        /// 
+        /// Clears all items
         /// </summary>
         public void Clear() { Items.Clear(); }
 
@@ -177,12 +178,14 @@ namespace DotNetHack.Game.Items
         public int Count { get { return Items.Count; } }
 
         /// <summary>
+        /// Returns true if this items collection has items.
+        /// </summary>
+        public bool HasItems { get { return Count > 0; } }
+
+        /// <summary>
         /// IsReadOnly
         /// </summary>
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly { get { return false; } }
 
         /// <summary>
         /// Remove
@@ -190,6 +193,36 @@ namespace DotNetHack.Game.Items
         /// <param name="item">The item to remove from the item collection</param>
         /// <returns>true on success</returns>
         public bool Remove(IItem item) { return Items.Remove(item); }
+
+        /// <summary>
+        /// Pops the first <see cref="IItem"/> from the item collection.
+        /// </summary>
+        /// <returns><value>null if there are no items, or the item in [0]</value></returns>
+        public IItem Pop()
+        {
+            if (!HasItems)
+                return default(IItem);
+            IItem retVal = Items[0];
+            Items.RemoveAt(0);
+            return retVal;
+        }
+
+        /// <summary>
+        /// Peek at the topmost item without popping it off the stack.
+        /// </summary>
+        /// <returns><value>null if there are no items, or the item in [0]</value></returns>
+        public IItem Peek() 
+        {
+            if (!HasItems)
+                return default(IItem);
+            return Items[0];
+        }
+
+        /// <summary>
+        /// Pushes an item to the top of the item stack
+        /// </summary>
+        /// <param name="item">The item to push</param>
+        public void Push(IItem item) { Items.Insert(0, item); }
 
         /// <summary>
         /// GetEnumerator
@@ -201,9 +234,7 @@ namespace DotNetHack.Game.Items
         /// GetEnumerator
         /// </summary>
         /// <returns></returns>
-        System.Collections.IEnumerator 
+        System.Collections.IEnumerator
             System.Collections.IEnumerable.GetEnumerator() { return GetEnumerator(); }
-
-        
     }
 }

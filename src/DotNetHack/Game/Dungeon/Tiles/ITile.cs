@@ -1,6 +1,7 @@
 ﻿using System;
 using DotNetHack.Game.Interfaces;
 using System.Collections.Generic;
+using DotNetHack.Game.Items;
 namespace DotNetHack.Game.Dungeon.Tiles
 {
     /// <summary>
@@ -9,7 +10,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
     interface ITile : IGlyph
     {
         bool HasItems { get; }
-        Stack<IItem> Items { get; set; }
+        ItemCollection Items { get; set; }
         TileFlags TileFlags { get; set; }
         TileType TileType { get; set; }
     }

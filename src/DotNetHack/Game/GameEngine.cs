@@ -6,10 +6,10 @@ using System.Text;
 using DotNetHack;
 using DotNetHack.UI;
 using DotNetHack.Game.Interfaces;
-using DotNetHack.Game.Affects;
 using DotNetHack.Game.Dungeon;
 using DotNetHack.Game.Dungeon.Tiles;
 using DotNetHack.Game.Items;
+using DotNetHack.Game.Dungeon.Tiles.Traps;
 
 namespace DotNetHack.Game
 {
@@ -67,12 +67,12 @@ namespace DotNetHack.Game
                     case ConsoleKey.DownArrow:
                         UnitMovement.Y++; break;
                     case ConsoleKey.OemPeriod:
-                        if (nPlayerTile.TileType == TileType.STAIRS_UP)
+                        if (nPlayerTile.TileType == TileType.StairsUp)
                             UnitMovement.D--; break;
                     case ConsoleKey.OemComma:
                         if (input.Modifiers == ConsoleModifiers.Shift)
                         {
-                            if (nPlayerTile.TileType == TileType.STAIRS_DOWN)
+                            if (nPlayerTile.TileType == TileType.StairsDown)
                                 UnitMovement.D++; break;
                         }
                         else
@@ -81,13 +81,12 @@ namespace DotNetHack.Game
                             while (nTileUnderPlayer.HasItems)
                             {
                                 IItem cItem = nTileUnderPlayer.Items.Pop();
+
+                                // switch by item type
                                 switch (cItem.ItemType)
                                 {
                                     default:
-                                        break;
-                                    // Occurs when a player picks up any potion.
-                                    case ItemType.Potion:
-                                        Player.Potions.Add((IPotion)cItem);
+                                        Player.Inventory.Push(cItem);
                                         break;
                                     // Occurs when a player picks up a key.
                                     case ItemType.Key:
@@ -107,15 +106,10 @@ namespace DotNetHack.Game
                     // TODO: Allow player to select exactly which potion they'd like to quaff.
                     case ConsoleKey.Q:
                         {
-                            if (Player.HasPotions)
-                            {
-                                // Grab the topmost potion, and remove it.
-                                IPotion tmpPotion = Player.Potions[0];
-                                Player.Potions.RemoveAt(0);
+                            // TODO: 
+                            var p = Player.Inventory.Potions.First();
 
-                                // The player is the target for quaffing the potion.
-                                tmpPotion.Quaff(Player);
-                            }
+                            p.Quaff(Player);
 
                             break;
                         }
@@ -172,8 +166,14 @@ namespace DotNetHack.Game
                 if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
                     goto redo_input;
                 Tile nMoveToTile = CurrentMap.GetTile(Player.Location + UnitMovement);
-                if (nMoveToTile.TileType == TileType.WALL)
+                if (nMoveToTile.TileType == TileType.Wall)
                     goto redo_input;
+                else if (nMoveToTile.TileFlags == TileFlags.Trap)
+                {
+                    var nTrapTile = (Trap)nMoveToTile;
+                    nTrapTile.OnTrapTriggeredEvent(
+                        new Trap.TrapEventArgs(Player));
+                }
                 else if (nMoveToTile.TileFlags == TileFlags.Door)
                     if (((Door)nMoveToTile).IsClosed)
                         goto redo_input;
@@ -200,8 +200,6 @@ namespace DotNetHack.Game
                 ++Time;
             }
         }
-
-
 
         public void Update()
         {
@@ -247,7 +245,6 @@ namespace DotNetHack.Game
         /// </summary>
         public Player Player { get; private set; }
 
-
         /// <summary>
         /// CurrentMap
         /// </summary>
@@ -262,6 +259,6 @@ namespace DotNetHack.Game
         /// EngineRunFlags
         /// </summary>
         [Flags]
-        public enum EngineRunFlags { NORMAL, EDITOR, DEBUG }
+        public enum EngineRunFlags { Normal, Editor, Debug }
     }
 }

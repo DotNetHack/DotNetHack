@@ -35,7 +35,7 @@ namespace DotNetHack.Game.Dungeon.Generator
                     {
                         G = '"',
                         C = flowerColor,
-                        TileType = TileType.GRASS,
+                        TileType = TileType.Grass,
                     });
                 }
                 else if (Dice.D(0.5))
@@ -44,7 +44,7 @@ namespace DotNetHack.Game.Dungeon.Generator
                     {
                         G = 'T',
                         C = Colour.CurrentColour,
-                        TileType = TileType.TREE,
+                        TileType = TileType.Tree,
                     });
                 }
                 else
@@ -53,7 +53,7 @@ namespace DotNetHack.Game.Dungeon.Generator
                     {
                         G = '.',
                         C = Colour.Grass,
-                        TileType = TileType.GRASS,
+                        TileType = TileType.Grass,
                     });
                 }
 

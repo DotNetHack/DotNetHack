@@ -5,6 +5,7 @@ using System.Text;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Monsters;
 using DotNetHack.UI;
+using DotNetHack.Game.Items;
 
 namespace DotNetHack.Game.Dungeon.Tiles
 {
@@ -65,7 +66,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
         {
             TileGlyph = '\0';
             C = new Colour();
-            Items = new Stack<IItem>();
+            Items = new ItemCollection();
         }
 
         /// <summary>
@@ -73,11 +74,21 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// </summary>
         /// <param name="aGlyph">The glyph representing this tile.</param>
         /// <param name="aColour">The color of this tile.</param>
-        public Tile(char aGlyph, Colour aColour) 
-            : this()
+        public Tile(char aGlyph, Colour aColour)
+            : this(aGlyph, aColour, TileFlags.None) { }
+
+        /// <summary>
+        /// Creates a new tile with the passed parameters
+        /// </summary>
+        /// <param name="aGlyph">The glyph representing this tile.</param>
+        /// <param name="aColour">The color of this tile.</param>
+        /// <param name="aFlags">The flags present on this tile.</param>
+        public Tile(char aGlyph, Colour aColour, TileFlags aFlags)
         {
-            TileGlyph = aGlyph;
+            G = aGlyph;
             C = aColour;
+            TileFlags = aFlags;
+            Items = new ItemCollection();
         }
 
         /// <summary>
@@ -98,7 +109,8 @@ namespace DotNetHack.Game.Dungeon.Tiles
             get 
             {
                 if (HasItems)
-                    return Items.Peek().G;
+                    G = Items.First().G;
+                
                 return TileGlyph;
             }
             set { TileGlyph = value; }
@@ -123,7 +135,9 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// Items
         /// <remarks>The following method for storing items is experiemental.</remarks>
         /// </summary>
-        public Stack<IItem> Items { get; set; }
+        // public Stack<IItem> Items { get; set; }
+
+        public ItemCollection Items { get; set; }
 
         /// <summary>
         /// EmptyTile has standard colour, a '.' as the Glyph and Nothing as the TileType.
@@ -136,7 +150,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
                 {
                     C = Colour.Standard,
                     G = '.',
-                    TileType = TileType.NOTHING,
+                    TileType = TileType.Nothing,
                 };
             }
         }

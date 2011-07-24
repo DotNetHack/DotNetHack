@@ -8,6 +8,7 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
     /// <summary>
     /// TrapFallingRock
     /// </summary>
+    [Serializable]
     public class TrapFallingRock : Trap
     {
         /// <summary>

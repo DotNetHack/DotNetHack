@@ -5,6 +5,7 @@ using System.Text;
 using DotNetHack.Game.Events;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Items;
+using DotNetHack.Game.Effects;
 
 namespace DotNetHack.Game
 {
@@ -21,11 +22,10 @@ namespace DotNetHack.Game
             // Create inventory collection.
             Inventory = new ItemCollection();
 
-            // Health is at 100 (not percent).
-            Health = 100;
-        }
+            EffectStack = new Stack<Effect>();
 
-        public int Health { get; set; }
+            Stats = new Stats();
+        }
 
         public void ApplyAffects()
         {
@@ -42,6 +42,10 @@ namespace DotNetHack.Game
         /// </summary>
         public ItemCollection Inventory { get; set; }
 
+        /// <summary>
+        /// EffectStack
+        /// </summary>
+        public Stack<Effect> EffectStack { get; set; }
 
         #region Potion Related
 

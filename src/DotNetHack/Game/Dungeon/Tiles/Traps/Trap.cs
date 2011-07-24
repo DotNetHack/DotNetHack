@@ -9,6 +9,7 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
     /// <summary>
     /// Trap
     /// </summary>
+    [Serializable]
     public abstract class Trap : Tile, IGlyph
     {
         /// <summary>
@@ -16,7 +17,7 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
         /// <remarks>This is the most basic form of trap.</remarks>
         /// </summary>
         public Trap()
-            : base('^', Colour.Standard)
+            : base('^', Colour.Standard, TileFlags.Trap)
         { }
 
         /// <summary>

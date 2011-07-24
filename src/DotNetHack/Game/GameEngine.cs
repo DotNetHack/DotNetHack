@@ -201,8 +201,6 @@ namespace DotNetHack.Game
             }
         }
 
-
-
         public void Update()
         {
             UI.Graphics.Display.ShowStatsBar(Player.Stats);
@@ -246,7 +244,6 @@ namespace DotNetHack.Game
         /// Player
         /// </summary>
         public Player Player { get; private set; }
-
 
         /// <summary>
         /// CurrentMap

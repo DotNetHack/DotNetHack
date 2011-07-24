@@ -88,6 +88,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
             G = aGlyph;
             C = aColour;
             TileFlags = aFlags;
+            Items = new ItemCollection();
         }
 
         /// <summary>

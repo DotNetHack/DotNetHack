@@ -14,6 +14,7 @@ using DotNetHack.Game.Items.Potions;
 using DotNetHack.Game.Items.Potions.Elixers;
 using DotNetHack.Utility;
 using DotNetHack.Game.Dungeon.Generator;
+using DotNetHack.Game.Dungeon.Tiles.Traps;
 
 namespace DotNetHack.Editor
 {
@@ -400,9 +401,18 @@ namespace DotNetHack.Editor
 
                 // tree.
                 case ConsoleKey.T:
-                    SetTile(TileType.Tree, 'T', Colour.CurrentColour);
-                    break;
+                    switch (input.Modifiers)
+                    {
+                        default:
+                            SetTile(TileType.Tree, 'T', Colour.CurrentColour);
+                            break;
 
+                        // Add a spike pit.
+                        case ConsoleModifiers.Shift:
+                            SetTile(new TrapSpikePit());
+                            break;
+                    }
+                    break;
                 // mountain
                 case ConsoleKey.M:
                     SetTile(TileType.Mountain, '^', Colour.Mountain);
@@ -433,8 +443,8 @@ namespace DotNetHack.Editor
                     }
                     break;
 
-                    // WARNING: Experimental.
-                case ConsoleKey.D1: 
+                // WARNING: Experimental.
+                case ConsoleKey.D1:
                     {
                         DungeonGeneratorOutdoors g = new DungeonGeneratorOutdoors();
                         g.Generate(CurrentMap);

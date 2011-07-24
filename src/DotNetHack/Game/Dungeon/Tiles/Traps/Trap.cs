@@ -40,9 +40,9 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
         /// Occurs when the trap is triggered.
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void OnTrapTriggeredEvent(TrapEventArgs e) 
+        public virtual void OnTrapTriggeredEvent(TrapEventArgs e) 
         {
-            if (TriggerEvent != null)
+            if (TriggerEvent != null && !Disabled)
                 TriggerEvent(this, e);
         }
 
@@ -50,5 +50,20 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
         /// The trap trigger event handler.
         /// </summary>
         public event EventHandler<TrapEventArgs> TriggerEvent;
+
+        /// <summary>
+        /// Has this trap been disabled?
+        /// </summary>
+        public bool Disabled { get; set; }
+
+        /// <summary>
+        /// Calling this method will Disable this trap.
+        /// </summary>
+        public void Enable() { Disabled = true; }
+
+        /// <summary>
+        /// Calling this trap will <c>Enable</c> this trap.
+        /// </summary>
+        public void Disable() { Disabled = false; }
     }
 }

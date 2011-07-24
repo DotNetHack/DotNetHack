@@ -9,6 +9,7 @@ using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Dungeon;
 using DotNetHack.Game.Dungeon.Tiles;
 using DotNetHack.Game.Items;
+using DotNetHack.Game.Dungeon.Tiles.Traps;
 
 namespace DotNetHack.Game
 {
@@ -167,6 +168,12 @@ namespace DotNetHack.Game
                 Tile nMoveToTile = CurrentMap.GetTile(Player.Location + UnitMovement);
                 if (nMoveToTile.TileType == TileType.Wall)
                     goto redo_input;
+                else if (nMoveToTile.TileFlags == TileFlags.Trap)
+                {
+                    var nTrapTile = (Trap)nMoveToTile;
+                    nTrapTile.OnTrapTriggeredEvent(
+                        new Trap.TrapEventArgs(Player));
+                }
                 else if (nMoveToTile.TileFlags == TileFlags.Door)
                     if (((Door)nMoveToTile).IsClosed)
                         goto redo_input;

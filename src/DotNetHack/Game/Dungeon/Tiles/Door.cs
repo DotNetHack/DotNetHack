@@ -18,9 +18,8 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// Creates a new instance of Door.
         /// </summary>
         public Door(bool aOpen = false, bool aLocked = false)
-            : base('+', Colour.Door)
+            : base('+', Colour.Door, TileFlags.Door)
         {
-            TileFlags = TileFlags.Door;
             InternalDoorState = aOpen ?
                 DoorState.Opened : Door.DoorState.Closed;
             IsLocked = aLocked;

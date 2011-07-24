@@ -9,13 +9,21 @@ namespace DotNetHack.Game.NPC
     /// non player controlled character.
     /// </summary>
     [Serializable]
-    public class NPC : Actor
+    public abstract class NonPlayerControlled : Actor
     {
         /// <summary>
-        /// Creates a new NPC
+        /// Supports serialization.
         /// </summary>
-        public NPC(string aNPCName)
-            : base() { Name = aNPCName; }
+        public NonPlayerControlled() { }
+
+        /// <summary>
+        /// Creates a new NPC with the provided parameters.
+        /// </summary>
+        /// <param name="aName">The name of this NPC</param>
+        /// <param name="aGlyph"></param>
+        /// <param name="aColour"></param>
+        public NonPlayerControlled(string aName, char aGlyph, Colour aColour, Location3i l)
+            : base(aGlyph, aColour, l) { Name = aName; }
 
         /// <summary>
         /// The name of this non-player controlled character.
@@ -25,7 +33,6 @@ namespace DotNetHack.Game.NPC
         /// <summary>
         /// The level of this NPC.
         /// </summary>
-        public int Level { get; set; }   
+        public int Level { get; set; }
     }
-
 }

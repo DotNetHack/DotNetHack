@@ -5,6 +5,7 @@ using System.Text;
 using DotNetHack.Game.Dungeon.Tiles;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.UI;
+using DotNetHack.Game.NPC;
 
 namespace DotNetHack.Game.Dungeon
 {
@@ -121,6 +122,10 @@ namespace DotNetHack.Game.Dungeon
                 }
             });
 
+            // draw all non player controlled characters.
+            foreach (var npc in RenderDungeon.NonPlayerControlled)
+                npc.Draw();
+            
             ClearLocation(l);
         }
 

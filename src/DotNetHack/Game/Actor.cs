@@ -12,26 +12,39 @@ namespace DotNetHack.Game
     /// <summary>
     /// Actor
     /// </summary>
-    public abstract class Actor : ICanDrink
+    public abstract class Actor : IDrawable
     {
         /// <summary>
         /// Create a new instance of Actor.
         /// </summary>
         public Actor()
         {
-            // Create inventory collection.
+            // Create inventory collection for this actor.
             Inventory = new ItemCollection();
 
+            // Active effects on this actor.
             EffectStack = new Stack<Effect>();
 
+            // The actors stats.
             Stats = new Stats();
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Actor"/> with the specified glyph
+        /// and colour.
+        /// </summary>
+        public Actor(char aGlyph, Colour aColor, Location3i aLocation) 
+            : this()
+        {
+            Location = aLocation;
+            G = aGlyph;
+            C = aColor;
         }
 
         /// <summary>
         /// Location
         /// </summary>
         public Location3i Location { get; set; }
-
 
         /// <summary>
         /// Stats for this Actor
@@ -48,21 +61,6 @@ namespace DotNetHack.Game
         /// </summary>
         public Stack<Effect> EffectStack { get; set; }
 
-        #region Potion Related
-
-        /// TODO: 
-        /// It appears this pattern will be used quite a lot.
-        /// it may be wise to make special templated collection(s)
-        /// notice how IPotion is used at least twice that would be T.
-
-        /// <summary>
-        /// Quaff the selected potion.
-        /// </summary>
-        /// <param name="aPotion">The <see cref="Potion"/> to drink</param>
-        public void Quaff(IPotion aPotion) { aPotion.Quaff(this); }
-
-        #endregion
-
         public Cond Condition { get; set; }
 
         public enum Cond
@@ -75,5 +73,21 @@ namespace DotNetHack.Game
             Unconscious,
             Slowed,
         }
+
+
+        /// <summary>
+        /// The glyph representing this actor.
+        /// </summary>
+        public virtual char G { get; set; }
+
+        /// <summary>
+        /// The colour of this actors
+        /// </summary>
+        public virtual Colour C { get; set; }
+
+        /// <summary>
+        /// Draw this actor.
+        /// </summary>
+        public void Draw() { UI.Graphics.Draw(this); }
     }
 }

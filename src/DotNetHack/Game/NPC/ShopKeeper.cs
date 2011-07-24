@@ -9,14 +9,14 @@ namespace DotNetHack.Game.NPC
     /// ShopKeeper
     /// </summary>
     [Serializable]
-    public class ShopKeeper : NPC
+    public class ShopKeeper : NonPlayerControlled
     {
         /// <summary>
         /// Creates a new shopkeeper.
         /// </summary>
         /// <param name="aShopKeeperName"></param>
-        public ShopKeeper(string aShopKeeperName)
-            : base(aShopKeeperName)
+        public ShopKeeper(string aShopKeeperName, Location3i l)
+            : base(aShopKeeperName, '@', Colour.White, l)
         { }
     }
 }

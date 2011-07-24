@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Dungeon.Tiles;
+using DotNetHack.Game.NPC;
 
 namespace DotNetHack.Game.Dungeon
 {
@@ -82,6 +83,9 @@ namespace DotNetHack.Game.Dungeon
 
             // Create a new dungeon renderer using this as the dungeon.
             DungeonRenderer = new DungeonRenderer(this);
+
+            // Create the list of NPC's in this dungeon.
+            NonPlayerControlled = new List<NonPlayerControlled>();
 
 #if FOG_OF_WAR
             // Create a new dungeon renderer using this as the dungeon.
@@ -169,6 +173,12 @@ namespace DotNetHack.Game.Dungeon
         public void SetTile(Location3i l, Tile aTile) { MapData[l.X, l.Y, l.D] = aTile; }
 
         /// <summary>
+        /// Spawns an NPC monster into the dungeon.
+        /// <remarks>the monster knows about his/her/it's location.</remarks>
+        /// </summary>
+        public void SpawnNPC(NonPlayerControlled aNPC) { NonPlayerControlled.Add(aNPC); }
+
+        /// <summary>
         /// CheckBounds
         /// </summary>
         /// <param name="l"></param>
@@ -221,6 +231,11 @@ namespace DotNetHack.Game.Dungeon
         /// MapData contains all data that pretains to the physicality of the dungeon.
         /// </summary>
         public Tile[, ,] MapData { get; private set; }
+
+        /// <summary>
+        /// all non player controlled characters.
+        /// </summary>
+        public List<NonPlayerControlled> NonPlayerControlled { get; private set; }
 
         #endregion
 

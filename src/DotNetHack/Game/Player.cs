@@ -59,24 +59,9 @@ namespace DotNetHack.Game
         string Name { get; set; }
 
         /// <summary>
-        /// G
-        /// </summary>
-        public char G { get; set; }
-
-        /// <summary>
         /// DLV
         /// </summary>
         public int DungeonLevel { get { return Location.D; } }
-
-        /// <summary>
-        /// Draw
-        /// </summary>
-        public void Draw() { UI.Graphics.Draw(this); }
-
-        /// <summary>
-        /// Color
-        /// </summary>
-        public Colour C { get; set; }
 
         /// <summary>
         /// The players key-chain

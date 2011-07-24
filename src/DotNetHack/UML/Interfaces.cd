@@ -10,7 +10,7 @@
   <Class Name="DotNetHack.Game.Colour">
     <Position X="4.5" Y="1.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>ACACAAAAiAACAAAIoAAAAFAABIAAAAAIABAMACACgAA=</HashCode>
+      <HashCode>ACAKACAAiAACAAAIoAAAAFAABIACAAAIABAMADACgAA=</HashCode>
       <FileName>Game\Colour.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -23,7 +23,7 @@
     </TypeIdentifier>
   </Class>
   <Interface Name="DotNetHack.Game.Interfaces.IWeapon" Collapsed="true">
-    <Position X="6" Y="7.75" Width="1.5" />
+    <Position X="5.75" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Game\Interfaces\IWeapon.cs</FileName>
@@ -82,7 +82,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="DotNetHack.Game.Interfaces.IHasCondition">
-    <Position X="5.25" Y="9.5" Width="1.5" />
+    <Position X="1.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Game\Interfaces\IHasCondition.cs</FileName>
@@ -108,7 +108,7 @@
   <Interface Name="DotNetHack.Game.Interfaces.IItem">
     <Position X="11.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>Game\Interfaces\IItem.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -148,16 +148,16 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="DotNetHack.Game.Interfaces.IWand" Collapsed="true">
-    <Position X="7.75" Y="9.25" Width="1.5" />
+    <Position X="7.75" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Game\Interfaces\IWand.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="DotNetHack.Game.Interfaces.IArmor" Collapsed="true">
-    <Position X="4.25" Y="7.75" Width="1.5" />
+    <Position X="4.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Game\Interfaces\IArmor.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -166,6 +166,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Game\Interfaces\ITool.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DotNetHack.Game.Interfaces.IWearable">
+    <Position X="4.25" Y="12" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Game\Interfaces\IWearable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Tahoma" Size="8.25" />

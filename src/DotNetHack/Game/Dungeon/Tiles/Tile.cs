@@ -74,11 +74,20 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// </summary>
         /// <param name="aGlyph">The glyph representing this tile.</param>
         /// <param name="aColour">The color of this tile.</param>
-        public Tile(char aGlyph, Colour aColour) 
-            : this()
+        public Tile(char aGlyph, Colour aColour)
+            : this(aGlyph, aColour, TileFlags.None) { }
+
+        /// <summary>
+        /// Creates a new tile with the passed parameters
+        /// </summary>
+        /// <param name="aGlyph">The glyph representing this tile.</param>
+        /// <param name="aColour">The color of this tile.</param>
+        /// <param name="aFlags">The flags present on this tile.</param>
+        public Tile(char aGlyph, Colour aColour, TileFlags aFlags)
         {
-            TileGlyph = aGlyph;
+            G = aGlyph;
             C = aColour;
+            TileFlags = aFlags;
         }
 
         /// <summary>

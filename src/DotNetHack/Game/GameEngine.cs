@@ -205,34 +205,6 @@ namespace DotNetHack.Game
         {
             UI.Graphics.Display.ShowStatsBar(Player.Stats);
 
-            // Apply all affects.
-            Player.ApplyAffects();
-
-#if OBSOLETE
-            foreach (var iItem in CurrentMap.Items)
-            {
-                if (iItem.Location.Equals(Player.Location))
-                {
-                    Console.SetCursorPosition(0, Console.WindowHeight - 3);
-                    Console.Write(iItem.Name);
-                }
-            }
-#endif
-
-
-            /*
-            foreach (var m in World.Monsters)
-            {
-                if (m.Location.X < Player.Location.X)
-                    m.Location.X++;
-                if (m.Location.Y < Player.Location.Y)
-                    m.Location.Y++;
-
-                if (m.Location.Y > Player.Location.Y)
-                    m.Location.Y--;
-                if (m.Location.X > Player.Location.X)
-                    m.Location.X--;
-            }*/
         }
 
         /// <summary>

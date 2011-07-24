@@ -27,9 +27,10 @@ namespace DotNetHack.Game
             Stats = new Stats();
         }
 
-        public void ApplyAffects()
-        {
-        }
+        /// <summary>
+        /// Location
+        /// </summary>
+        public Location3i Location { get; set; }
 
 
         /// <summary>
@@ -63,6 +64,7 @@ namespace DotNetHack.Game
         #endregion
 
         public Cond Condition { get; set; }
+
         public enum Cond
         {
             Okay,

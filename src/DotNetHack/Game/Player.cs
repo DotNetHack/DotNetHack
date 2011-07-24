@@ -64,11 +64,6 @@ namespace DotNetHack.Game
         public char G { get; set; }
 
         /// <summary>
-        /// Location
-        /// </summary>
-        public Location3i Location { get; set; }
-
-        /// <summary>
         /// DLV
         /// </summary>
         public int DungeonLevel { get { return Location.D; } }

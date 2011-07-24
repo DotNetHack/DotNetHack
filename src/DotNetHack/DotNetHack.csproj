@@ -45,10 +45,6 @@
   <ItemGroup>
     <Compile Include="DNHackException.cs" />
     <Compile Include="Game\Actor.cs" />
-    <Compile Include="Game\Affects\AffectModifiers.cs" />
-    <Compile Include="Game\Affects\AffectResistance.cs" />
-    <Compile Include="Game\Affects\Affects.cs" />
-    <Compile Include="Game\Affects\AffectType.cs" />
     <Compile Include="Game\Dungeon\Dungeon.cs" />
     <Compile Include="Game\Dice.cs" />
     <Compile Include="Game\Dungeon\DungeonRenderer.cs" />
@@ -58,6 +54,12 @@
     <Compile Include="Game\Dungeon\Generator\IDungeonGenerator.cs" />
     <Compile Include="Game\Dungeon\TileBuilder.cs" />
     <Compile Include="Game\Dungeon\Tiles\ITile.cs" />
+    <Compile Include="Game\Dungeon\Tiles\Traps\Trap.cs" />
+    <Compile Include="Game\Dungeon\Tiles\Traps\TrapFallingRock.cs" />
+    <Compile Include="Game\Dungeon\Tiles\Traps\TrapSpikePit.cs" />
+    <Compile Include="Game\Effects\Cond.cs" />
+    <Compile Include="Game\Effects\DamageEffect.cs" />
+    <Compile Include="Game\Effects\Effect.cs" />
     <Compile Include="Game\Events\GameEvent.cs" />
     <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
     <Compile Include="Game\Interfaces\IArmor.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Game\Items\Potions\PotionStrength.cs" />
     <Compile Include="Game\Items\Potions\PotionType.cs" />
     <Compile Include="Game\KeyChain.cs" />
+    <Compile Include="Game\Effects\EffectType.cs" />
     <Compile Include="Game\Monsters\Monster.cs" />
     <Compile Include="Game\Dungeon\Tiles\Door.cs" />
     <Compile Include="Game\Stats.cs" />
@@ -141,6 +144,7 @@
     <Folder Include="Game\Quests\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Game\Dungeon\Tiles\Traps\Traps.cd" />
     <None Include="UML\Concrete.cd" />
     <None Include="UML\Interfaces.cd" />
   </ItemGroup>

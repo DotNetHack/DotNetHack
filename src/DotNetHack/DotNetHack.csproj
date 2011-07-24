@@ -96,8 +96,10 @@
     <Compile Include="Game\Items\Potions\PotionType.cs" />
     <Compile Include="Game\KeyChain.cs" />
     <Compile Include="Game\Effects\EffectType.cs" />
-    <Compile Include="Game\Monsters\Monster.cs" />
     <Compile Include="Game\Dungeon\Tiles\Door.cs" />
+    <Compile Include="Game\NPC\Monsters\Monster.cs" />
+    <Compile Include="Game\NPC\NPC.cs" />
+    <Compile Include="Game\NPC\ShopKeeper.cs" />
     <Compile Include="Game\Stats.cs" />
     <Compile Include="Game\Dungeon\Tiles\TileFlags.cs" />
     <Compile Include="Game\World.cs" />
@@ -139,7 +141,6 @@
     <Folder Include="Game\Actions\" />
     <Folder Include="Game\Items\Food\" />
     <Folder Include="Game\Items\Herbs\" />
-    <Folder Include="Game\Monsters\AI\" />
     <Folder Include="Game\Quests\" />
   </ItemGroup>
   <ItemGroup>

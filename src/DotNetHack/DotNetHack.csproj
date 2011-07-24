@@ -57,7 +57,6 @@
     <Compile Include="Game\Dungeon\Tiles\Traps\Trap.cs" />
     <Compile Include="Game\Dungeon\Tiles\Traps\TrapFallingRock.cs" />
     <Compile Include="Game\Dungeon\Tiles\Traps\TrapSpikePit.cs" />
-    <Compile Include="Game\Effects\Cond.cs" />
     <Compile Include="Game\Effects\DamageEffect.cs" />
     <Compile Include="Game\Effects\Effect.cs" />
     <Compile Include="Game\Events\GameEvent.cs" />

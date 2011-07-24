@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DotNetHack.Game.Effects;
 
 namespace DotNetHack.Game.Dungeon.Tiles.Traps
 {
@@ -29,7 +30,8 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
         {
             UI.Graphics.Display.ShowMessage(
                 string.Format("You stepped into a {0} trap!", this));
-            e.TrapTarget.Stats.Health -= 1;
+            
+            Disable();
         }
 
         /// <summary>

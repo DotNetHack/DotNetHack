@@ -61,5 +61,17 @@ namespace DotNetHack.Game
         public void Quaff(IPotion aPotion) { aPotion.Quaff(this); }
 
         #endregion
+
+        public Cond Condition { get; set; }
+        public enum Cond
+        {
+            Okay,
+            Blinded,
+            Dazed,
+            Immobilized,
+            Stunned,
+            Unconscious,
+            Slowed,
+        }
     }
 }

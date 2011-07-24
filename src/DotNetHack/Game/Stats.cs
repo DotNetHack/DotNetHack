@@ -10,15 +10,17 @@ namespace DotNetHack.Game
     /// </summary>
     public class Stats
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Level { get; set; }
+        public int TotalHealth
+        {
+            get { return (int)((Strength + Endurance) / 10) * 2; }
+        }
+
+        public int TotalMagica { get { return (int)(2.5 * Intelligence); } }
 
         /// <summary>
-        /// Health
+        /// Level
         /// </summary>
-        public int Health { get; set; }
+        public int Level { get; set; }
 
         /// <summary>
         /// Effectiveness w/ Melee weapons

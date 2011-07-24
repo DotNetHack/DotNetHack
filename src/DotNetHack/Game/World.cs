@@ -6,7 +6,6 @@ using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Items;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using DotNetHack.Game.Monsters;
 
 namespace DotNetHack.Game
 {

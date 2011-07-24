@@ -170,9 +170,11 @@ namespace DotNetHack.Game.Items
         /// <returns>The amount is good enough for the hash</returns>
         public override int GetHashCode() { return this.Amount; }
 
-        public override void Draw()
-        {
-            base.Draw();
-        }
+        /// <summary>
+        /// Returns a string representation of this Currency.
+        /// </summary>
+        /// <returns>A string representing the total currency.</returns>
+        public override string ToString() { return string.Format("{0}g{1}s{2}c", 
+            Gold, Silver, Copper); }
     }
 }

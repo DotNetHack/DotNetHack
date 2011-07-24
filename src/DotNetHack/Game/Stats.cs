@@ -11,6 +11,11 @@ namespace DotNetHack.Game
     public class Stats
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public int Level { get; set; }
+
+        /// <summary>
         /// Health
         /// </summary>
         public int Health { get; set; }

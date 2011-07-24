@@ -14,6 +14,7 @@ using DotNetHack.Game.Items.Potions;
 using DotNetHack.Game.Items.Potions.Elixers;
 using DotNetHack.Utility;
 using DotNetHack.Game.Dungeon.Generator;
+using DotNetHack.Game.Dungeon.Tiles.Traps;
 
 namespace DotNetHack.Editor
 {
@@ -99,7 +100,7 @@ namespace DotNetHack.Editor
             CommandProcessor = ProcessLayoutModeCommands;
 
             // Set the game engine run flags
-            GameEngine.RunFlags = GameEngine.EngineRunFlags.DEBUG | GameEngine.EngineRunFlags.EDITOR;
+            GameEngine.RunFlags = GameEngine.EngineRunFlags.Debug | GameEngine.EngineRunFlags.Editor;
 
             #region Main Loop
         redo__main_input:
@@ -150,7 +151,7 @@ namespace DotNetHack.Editor
                             Util.DeepCopy<Dungeon3>(CurrentMap));
 
                         // Run the full out game engine except with editor and debug run flags.
-                        g.Run(GameEngine.EngineRunFlags.DEBUG | GameEngine.EngineRunFlags.EDITOR);
+                        g.Run(GameEngine.EngineRunFlags.Debug | GameEngine.EngineRunFlags.Editor);
                         CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
                         break;
 
@@ -323,7 +324,7 @@ namespace DotNetHack.Editor
 
                 // Add a stairs-up tile.
                 case ConsoleKey.OemPeriod:
-                    SetTile(TileType.STAIRS_UP, Symbols.ARROW_UP, Colour.Standard);
+                    SetTile(TileType.StairsUp, Symbols.ARROW_UP, Colour.Standard);
                     break;
 
                 // Allow for deltion
@@ -331,30 +332,30 @@ namespace DotNetHack.Editor
                     switch (input.Modifiers)
                     {
                         default:
-                            SetTile(TileType.NOTHING, '.', Colour.Standard);
+                            SetTile(TileType.Nothing, '.', Colour.Standard);
                             break;
                         case ConsoleModifiers.Control:
                             bool nothing = Graphics.MessageBox.YesNo("Are you Sure?");
                             if (nothing)
                             {
-                                clrScreen(TileType.NOTHING, '.', Colour.Standard);
+                                clrScreen(TileType.Nothing, '.', Colour.Standard);
                             }
                             break;
                     }
                     break;
 
                 case ConsoleKey.A:
-                    SetTile(TileType.ALTAR, '_', Colour.Standard);
+                    SetTile(TileType.Altar, '_', Colour.Standard);
                     break;
 
                 // Add stairs down tile.
                 case ConsoleKey.OemComma:
-                    SetTile(TileType.STAIRS_DOWN, Symbols.MOD_EQUAL, Colour.Standard);
+                    SetTile(TileType.StairsDown, Symbols.MOD_EQUAL, Colour.Standard);
                     break;
 
                 // wall
                 case ConsoleKey.Insert:
-                    SetTile(TileType.WALL, Symbols.SOLID, Colour.Standard);
+                    SetTile(TileType.Wall, Symbols.SOLID, Colour.Standard);
                     break;
 
                 // Adds a door.
@@ -381,13 +382,13 @@ namespace DotNetHack.Editor
                     switch (input.Modifiers)
                     {
                         default:
-                            SetTile(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
+                            SetTile(TileType.Water, Symbols.ALMOST_EQUAL, Colour.Ocean);
                             break;
                         case ConsoleModifiers.Control:
                             bool water = Graphics.MessageBox.YesNo("Are you Sure?");
                             if (water)
                             {
-                                clrScreen(TileType.WATER, Symbols.ALMOST_EQUAL, Colour.Ocean);
+                                clrScreen(TileType.Water, Symbols.ALMOST_EQUAL, Colour.Ocean);
                             }
                             break;
                     }
@@ -395,22 +396,31 @@ namespace DotNetHack.Editor
 
                 // road
                 case ConsoleKey.R:
-                    SetTile(TileType.ROAD, Symbols.FILL_LIGHT, Colour.Road);
+                    SetTile(TileType.Road, Symbols.FILL_LIGHT, Colour.Road);
                     break;
 
                 // tree.
                 case ConsoleKey.T:
-                    SetTile(TileType.TREE, 'T', Colour.CurrentColour);
-                    break;
+                    switch (input.Modifiers)
+                    {
+                        default:
+                            SetTile(TileType.Tree, 'T', Colour.CurrentColour);
+                            break;
 
+                        // Add a spike pit.
+                        case ConsoleModifiers.Shift:
+                            SetTile(new TrapSpikePit());
+                            break;
+                    }
+                    break;
                 // mountain
                 case ConsoleKey.M:
-                    SetTile(TileType.MOUNTAIN, '^', Colour.Mountain);
+                    SetTile(TileType.Mountain, '^', Colour.Mountain);
                     break;
 
                 // home
                 case ConsoleKey.H:
-                    SetTile(TileType.HOME, '⌂', Colour.CurrentColour);
+                    SetTile(TileType.Home, '⌂', Colour.CurrentColour);
                     break;
 
                 // gress
@@ -418,23 +428,23 @@ namespace DotNetHack.Editor
                     switch (input.Modifiers)
                     {
                         default:
-                            SetTile(TileType.GRASS, Symbols.FILL_LIGHT, Colour.Grass);
+                            SetTile(TileType.Grass, Symbols.FILL_LIGHT, Colour.Grass);
                             break;
                         case ConsoleModifiers.Shift:
-                            SetTile(TileType.GRAVE, Symbols.SMALL_T, Colour.Grave);
+                            SetTile(TileType.Grave, Symbols.SMALL_T, Colour.Grave);
                             break;
                         case ConsoleModifiers.Control:
                             bool grass = Graphics.MessageBox.YesNo("Are you Sure?");
                             if (grass)
                             {
-                                clrScreen(TileType.GRASS, Symbols.FILL_LIGHT, Colour.Grass);
+                                clrScreen(TileType.Grass, Symbols.FILL_LIGHT, Colour.Grass);
                             }
                             break;
                     }
                     break;
 
-                    // WARNING: Experimental.
-                case ConsoleKey.D1: 
+                // WARNING: Experimental.
+                case ConsoleKey.D1:
                     {
                         DungeonGeneratorOutdoors g = new DungeonGeneratorOutdoors();
                         g.Generate(CurrentMap);
@@ -447,10 +457,10 @@ namespace DotNetHack.Editor
                     switch (input.Modifiers)
                     {
                         default:
-                            SetTile(TileType.BRIDGE, Symbols.W_DBL_HORIZONTAL, Colour.Road);
+                            SetTile(TileType.Bridge, Symbols.W_DBL_HORIZONTAL, Colour.Road);
                             break;
                         case ConsoleModifiers.Shift:
-                            SetTile(TileType.BRIDGE, Symbols.W_DBL_VERTICAL, Colour.Road);
+                            SetTile(TileType.Bridge, Symbols.W_DBL_VERTICAL, Colour.Road);
                             break;
                     }
                     break;
@@ -460,10 +470,10 @@ namespace DotNetHack.Editor
                     switch (input.Modifiers)
                     {
                         default:
-                            SetTile(TileType.FIELD, Symbols.FILL_LIGHT, Colour.Field);
+                            SetTile(TileType.Field, Symbols.FILL_LIGHT, Colour.Field);
                             break;
                         case ConsoleModifiers.Shift:
-                            SetTile(TileType.FOUNTAIN, Symbols.FUNCTION, Colour.Fountain);
+                            SetTile(TileType.Fountain, Symbols.FUNCTION, Colour.Fountain);
                             break;
                     }
                     break;

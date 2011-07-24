@@ -16,7 +16,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// Creates a new instance of keychain.
         /// </summary>
-        public KeyChain() 
+        public KeyChain()
         { 
             KeyStore = new List<IKey>();
             KeyStore.Add(new Key(Guid.Empty));

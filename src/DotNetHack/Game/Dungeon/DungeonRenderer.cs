@@ -52,7 +52,7 @@ namespace DotNetHack.Game.Dungeon
         {
             IterateXY(delegate(int x, int y)
             {
-                RenderBuffer[x, y] = new Tile() { G = '\0', TileType = TileType.NOTHING };
+                RenderBuffer[x, y] = new Tile() { G = '\0', TileType = TileType.Nothing };
             });
         }
 

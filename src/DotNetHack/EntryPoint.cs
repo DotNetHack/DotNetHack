@@ -31,11 +31,11 @@ namespace DotNetHack
 
             // Run
             GameEngine.EngineRunFlags runFlags =
-                GameEngine.EngineRunFlags.NORMAL;
+                GameEngine.EngineRunFlags.Normal;
 
             // If runtime is setup for debug, set the run flags
             if (R.IsDebug)
-                runFlags |= GameEngine.EngineRunFlags.DEBUG;
+                runFlags |= GameEngine.EngineRunFlags.Debug;
 
             g.Run(runFlags);
         }

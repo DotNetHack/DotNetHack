@@ -227,17 +227,28 @@ namespace DotNetHack.UI
                 foreach (var action in aMenu.MenuActions)
                     if (action.Name.Length > max_name_length)
                         max_name_length = action.Name.Length;
-                w = max_name_length + 3;
+                w = max_name_length + 7;
                 h = aMenu.MenuActions.Count() + 2;
                 Box(aMenu.Title, x, y, w, h);
                 ++y; ++x; int c = 0;  // top right
                 Console.SetCursorPosition(x, y);
                 foreach (var action in aMenu.MenuActions)
                 {
-                    Console.Write("({0}). {1}", c, action.Name);
+                    string tmpPad = string.Empty;
+                    for (int padIndex = 0; padIndex < Math.Abs(action.Name.Length - w) - 7; ++padIndex)
+                        tmpPad += " ";
+                    Console.Write("({0}). {1}", c, action.Name + tmpPad);
                     Console.SetCursorPosition(x, y++);
                     ++c;
                 }
+                string tmpPad1 = string.Empty;
+                for (int padIndex = 2; padIndex < w; ++padIndex)
+                    tmpPad1 += " ";
+                Console.Write(tmpPad1);
+                Console.SetCursorPosition(x, y++);
+                Console.Write(tmpPad1);
+
+
             }
 
             /// <summary>

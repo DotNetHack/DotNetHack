@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
-using DotNetHack.Game.Monsters;
 using DotNetHack.UI;
 using DotNetHack.Game.Items;
 

@@ -12,25 +12,46 @@ namespace DotNetHack.Game
     /// <summary>
     /// Actor
     /// </summary>
-    public abstract class Actor : ICanDrink
+    [Serializable]
+    public abstract class Actor : IDrawable
     {
         /// <summary>
         /// Create a new instance of Actor.
         /// </summary>
         public Actor()
         {
-            // Create inventory collection.
+            // Create inventory collection for this actor.
             Inventory = new ItemCollection();
 
+            // Active effects on this actor.
             EffectStack = new Stack<Effect>();
 
+            // The actors stats.
             Stats = new Stats();
         }
 
-        public void ApplyAffects()
+        /// <summary>
+        /// Creates a new instance of <see cref="Actor"/> with the specified glyph
+        /// and colour.
+        /// </summary>
+        public Actor(string aName, char aGlyph, Colour aColor, Location3i aLocation) 
+            : this()
         {
+            Location = aLocation;
+            Name = aName;
+            G = aGlyph;
+            C = aColor;
         }
 
+        /// <summary>
+        /// Location
+        /// </summary>
+        public Location3i Location { get; set; }
+
+        /// <summary>
+        /// The name of this actor.
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// Stats for this Actor
@@ -47,19 +68,33 @@ namespace DotNetHack.Game
         /// </summary>
         public Stack<Effect> EffectStack { get; set; }
 
-        #region Potion Related
+        public Cond Condition { get; set; }
 
-        /// TODO: 
-        /// It appears this pattern will be used quite a lot.
-        /// it may be wise to make special templated collection(s)
-        /// notice how IPotion is used at least twice that would be T.
+        public enum Cond
+        {
+            Okay,
+            Blinded,
+            Dazed,
+            Immobilized,
+            Stunned,
+            Unconscious,
+            Slowed,
+        }
+
 
         /// <summary>
-        /// Quaff the selected potion.
+        /// The glyph representing this actor.
         /// </summary>
-        /// <param name="aPotion">The <see cref="Potion"/> to drink</param>
-        public void Quaff(IPotion aPotion) { aPotion.Quaff(this); }
+        public virtual char G { get; set; }
 
-        #endregion
+        /// <summary>
+        /// The colour of this actors
+        /// </summary>
+        public virtual Colour C { get; set; }
+
+        /// <summary>
+        /// Draw this actor.
+        /// </summary>
+        public void Draw() { UI.Graphics.Draw(this); }
     }
 }

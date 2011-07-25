@@ -15,6 +15,7 @@ using DotNetHack.Game.Items.Potions.Elixers;
 using DotNetHack.Utility;
 using DotNetHack.Game.Dungeon.Generator;
 using DotNetHack.Game.Dungeon.Tiles.Traps;
+using DotNetHack.Game.NPC.Monsters;
 
 namespace DotNetHack.Editor
 {
@@ -465,7 +466,7 @@ namespace DotNetHack.Editor
                     }
                     break;
 
-                // field, fountain
+                // Frieldly, fountain
                 case ConsoleKey.F:
                     switch (input.Modifiers)
                     {
@@ -618,7 +619,18 @@ namespace DotNetHack.Editor
         /// ProcessMonsterModeCommands
         /// </summary>
         /// <param name="input">The input</param>
-        static void ProcessMonsterModeCommands(ConsoleKeyInfo input) { }
+        static void ProcessMonsterModeCommands(ConsoleKeyInfo input)
+        {
+            switch (input.Key)
+            {
+                default:
+                    break;
+                // Adds a fire ant to the current location.
+                case ConsoleKey.F:
+                    CurrentMap.SpawnNPC(new FireAnt(CurrentLocation));
+                    break;
+            }
+        }
 
         /// <summary>
         /// GetInt

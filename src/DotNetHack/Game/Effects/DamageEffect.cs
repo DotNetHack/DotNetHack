@@ -29,7 +29,7 @@ namespace DotNetHack.Game.Effects
         /// <param name="aDamageType">The damage type being dealt</param>
         /// <param name="aDuration">The duration of the effect.</param>
         public DamageEffect(DamageType aDamageType, int aDuration = 1)
-            : base(aDuration) { DamageEffectType = aDamageType; }
+        { }
 
         /// <summary>
         /// The DamageAffectType

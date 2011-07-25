@@ -60,11 +60,11 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
         /// <summary>
         /// Calling this method will Disable this trap.
         /// </summary>
-        public void Enable() { Disabled = true; }
+        public void Enable() { Disabled = false; }
 
         /// <summary>
         /// Calling this trap will <c>Enable</c> this trap.
         /// </summary>
-        public void Disable() { Disabled = false; }
+        public void Disable() { Disabled = true; }
     }
 }

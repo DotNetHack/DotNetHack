@@ -10,6 +10,10 @@ namespace DotNetHack.Game.Dungeon.Generator
     /// </summary>
     public class DungeonGenerator : IDungeonGenerator
     {
-        public void Generate(Dungeon3 aEmptyDungeon) { return; }
+        public void Generate(Dungeon3 aEmptyDungeon) 
+        {
+            // starting location.
+            Location3i l = Location3i.Origin3i;
+        }
     }
 }

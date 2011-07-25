@@ -51,6 +51,8 @@ namespace DotNetHack.Game
                 Perception = 2,
                 Strength = 4,
             };
+
+            // Stats.Health = Stats.M
         }
 
         /// <summary>

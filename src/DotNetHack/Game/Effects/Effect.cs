@@ -8,6 +8,7 @@ namespace DotNetHack.Game.Effects
     /// <summary>
     /// Effect
     /// </summary>
+    [Serializable]
     public class Effect
     {
         /// <summary>

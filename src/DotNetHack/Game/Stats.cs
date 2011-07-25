@@ -8,6 +8,7 @@ namespace DotNetHack.Game
     /// <summary>
     /// Stats
     /// </summary>
+    [Serializable]
     public class Stats
     {
         public int TotalHealth

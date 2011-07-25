@@ -12,6 +12,7 @@ namespace DotNetHack.Game
     /// <summary>
     /// Actor
     /// </summary>
+    [Serializable]
     public abstract class Actor : IDrawable
     {
         /// <summary>
@@ -33,10 +34,11 @@ namespace DotNetHack.Game
         /// Creates a new instance of <see cref="Actor"/> with the specified glyph
         /// and colour.
         /// </summary>
-        public Actor(char aGlyph, Colour aColor, Location3i aLocation) 
+        public Actor(string aName, char aGlyph, Colour aColor, Location3i aLocation) 
             : this()
         {
             Location = aLocation;
+            Name = aName;
             G = aGlyph;
             C = aColor;
         }
@@ -45,6 +47,11 @@ namespace DotNetHack.Game
         /// Location
         /// </summary>
         public Location3i Location { get; set; }
+
+        /// <summary>
+        /// The name of this actor.
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// Stats for this Actor

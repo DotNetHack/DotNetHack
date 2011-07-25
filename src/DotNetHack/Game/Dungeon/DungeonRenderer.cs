@@ -124,7 +124,13 @@ namespace DotNetHack.Game.Dungeon
 
             // draw all non player controlled characters.
             foreach (var npc in RenderDungeon.NonPlayerControlled)
+            {
+                // clear the location.
+                ClearLocation(npc.Location);
+
+                // Draw the location.
                 npc.Draw();
+            }
             
             ClearLocation(l);
         }

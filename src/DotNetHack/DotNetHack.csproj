@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Disposition.cs" />
     <Compile Include="DNHackException.cs" />
     <Compile Include="Game\Actor.cs" />
+    <Compile Include="Game\Direction.cs" />
     <Compile Include="Game\Dungeon\Dungeon.cs" />
     <Compile Include="Game\Dice.cs" />
     <Compile Include="Game\Dungeon\DungeonRenderer.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="Game\Dungeon\Tiles\Traps\TrapSpikePit.cs" />
     <Compile Include="Game\Effects\DamageEffect.cs" />
     <Compile Include="Game\Effects\Effect.cs" />
+    <Compile Include="Game\Events\ActorEvent.cs" />
     <Compile Include="Game\Events\GameEvent.cs" />
     <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
     <Compile Include="Game\Interfaces\IArmor.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Game\Dungeon\Tiles\Door.cs" />
     <Compile Include="Game\NPC\Agression.cs" />
     <Compile Include="Game\NPC\AI\IAI.cs" />
+    <Compile Include="Game\NPC\AI\IShopKeeperAI.cs" />
     <Compile Include="Game\NPC\Monsters\FireAnt.cs" />
     <Compile Include="Game\NPC\Monsters\Monster.cs" />
     <Compile Include="Game\NPC\NPC.cs" />

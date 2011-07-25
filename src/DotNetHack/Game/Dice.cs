@@ -19,6 +19,8 @@ namespace DotNetHack.Game
         /// <returns>true when condition is met.</returns>
         public static bool D(double n) { return (R.Random.NextDouble() * 100 < n); }
 
+
+
         /// <summary>
         /// RandomChoice
         /// <example>

@@ -54,11 +54,6 @@ namespace DotNetHack.Game
         }
 
         /// <summary>
-        /// Name
-        /// </summary>
-        string Name { get; set; }
-
-        /// <summary>
         /// DLV
         /// </summary>
         public int DungeonLevel { get { return Location.D; } }

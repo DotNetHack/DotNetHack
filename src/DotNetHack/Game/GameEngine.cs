@@ -205,12 +205,14 @@ namespace DotNetHack.Game
         {
             UI.Graphics.Display.ShowStatsBar(Player.Stats);
 
+            foreach (var npc in CurrentMap.NonPlayerControlled)
+                npc.Exec(Player, CurrentMap);
         }
 
         /// <summary>
         /// Time
         /// </summary>
-        public long Time { get; private set; }
+        public static long Time { get; private set; }
 
         /// <summary>
         /// Player

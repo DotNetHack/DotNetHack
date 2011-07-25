@@ -466,7 +466,7 @@ namespace DotNetHack.Editor
                     }
                     break;
 
-                // field, fountain
+                // Frieldly, fountain
                 case ConsoleKey.F:
                     switch (input.Modifiers)
                     {

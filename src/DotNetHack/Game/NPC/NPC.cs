@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DotNetHack.Game.NPC.AI;
 
 namespace DotNetHack.Game.NPC
 {
@@ -9,7 +10,7 @@ namespace DotNetHack.Game.NPC
     /// non player controlled character.
     /// </summary>
     [Serializable]
-    public abstract class NonPlayerControlled : Actor
+    public abstract class NonPlayerControlled : Actor, IAI
     {
         /// <summary>
         /// Supports serialization.
@@ -23,16 +24,22 @@ namespace DotNetHack.Game.NPC
         /// <param name="aGlyph"></param>
         /// <param name="aColour"></param>
         public NonPlayerControlled(string aName, char aGlyph, Colour aColour, Location3i l)
-            : base(aGlyph, aColour, l) { Name = aName; }
-
-        /// <summary>
-        /// The name of this non-player controlled character.
-        /// </summary>
-        public string Name { get; set; }
+            : base(aName, aGlyph, aColour, l) { }
 
         /// <summary>
         /// The level of this NPC.
         /// </summary>
         public int Level { get; set; }
+        
+        public event EventHandler<Events.ActorEventArgs> OnSeePlayer;
+
+        public event EventHandler<Events.ActorEventArgs> OnSeeMonster;
+
+        /// <summary>
+        /// Execute the AI operation.
+        /// </summary>
+        /// <param name="aPlayer">The player</param>
+        /// <param name="aDungeon">The dungeon</param>
+        public abstract void Exec(Player aPlayer, Dungeon.Dungeon3 aDungeon);
     }
 }

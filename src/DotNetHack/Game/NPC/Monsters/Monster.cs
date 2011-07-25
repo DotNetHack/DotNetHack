@@ -7,7 +7,7 @@ using DotNetHack.Game.Interfaces;
 namespace DotNetHack.Game.NPC.Monsters
 {
     [Serializable]
-    public class Monster : NonPlayerControlled, IMonster, IEquatable<Monster>
+    public abstract class Monster : NonPlayerControlled, IMonster, IEquatable<Monster>
     {
         /// <summary>
         /// Creates a new monster.

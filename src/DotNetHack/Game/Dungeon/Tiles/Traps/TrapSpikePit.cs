@@ -28,9 +28,12 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
         /// <param name="e">Trap event arguments.</param>
         void TrapSpikePit_TriggerEvent(object sender, Trap.TrapEventArgs e)
         {
-            UI.Graphics.Display.ShowMessage(
-                string.Format("You stepped into a {0} trap!", this));
-            
+            string strMessage = string.Format("You stepped into a {0} trap!", this);
+            if (Dice.D(e.TrapTarget.Stats.Agility) || Dice.D(e.TrapTarget.Stats.Luck))
+                strMessage += " You were agile enough to avoid it!";
+            else
+                e.TrapTarget.Stats.Health -= 10;
+            UI.Graphics.Display.ShowMessage(strMessage);
             Disable();
         }
 

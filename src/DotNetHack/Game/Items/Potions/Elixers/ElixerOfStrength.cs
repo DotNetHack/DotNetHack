@@ -5,6 +5,7 @@ using System.Text;
 
 namespace DotNetHack.Game.Items.Potions.Elixers
 {
+    [Serializable]
     public class ElixerOfStrength : Elixer
     {
         public ElixerOfStrength(PotionStrength aElixerStr)
@@ -12,7 +13,6 @@ namespace DotNetHack.Game.Items.Potions.Elixers
 
         public override void Quaff(Actor aTarget)
         {
-
         }
     }
 }

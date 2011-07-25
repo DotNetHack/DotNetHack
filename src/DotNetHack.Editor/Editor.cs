@@ -605,6 +605,8 @@ namespace DotNetHack.Editor
                             });
                         mPotion.Show(1, 1);
                         mPotion.Exec(null);
+                        UI.Graphics.Display.Refresh(
+                            CurrentMap, CurrentLocation);
                         break;
                     }
                 case ConsoleKey.K:

@@ -9,6 +9,7 @@ namespace DotNetHack.Game.Items.Potions
     /// <summary>
     /// Elixer
     /// </summary>
+    [Serializable]
     public abstract class Elixer : Potion
     {
         /// <summary>

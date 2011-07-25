@@ -9,6 +9,7 @@ namespace DotNetHack.Game.Items.Potions
     /// <summary>
     /// HealthPotion
     /// </summary>
+    [Serializable]
     public class HealthPotion : Potion
     {
         /// <summary>
@@ -23,6 +24,7 @@ namespace DotNetHack.Game.Items.Potions
         /// </summary>
         public override void Quaff(Actor aActor)
         {
+            aActor.Stats.Health++;
         }
     }
 }

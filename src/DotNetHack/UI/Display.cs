@@ -188,8 +188,24 @@ namespace DotNetHack.UI
             static int _lastStringSize = 0;
 
 
-            public static void ShowStatsBar(Stats aStats)
+            public static void ShowStatsBar(Player aPlayer)
             {
+
+
+                Stats aStats = aPlayer.Stats;
+
+                string strPlayerInfo = string.Format(
+                        "{0}, {1}, (hp){2}/{3}, (Ma){4}/{5}",
+                        aPlayer.Name,
+                        aPlayer.Wallet,
+                        aPlayer.Stats.Health,
+                        aPlayer.Stats.MaxHealth,
+                        aPlayer.Stats.Magika,
+                        aPlayer.Stats.MaxMagika
+                    );
+                Console.SetCursorPosition(0, Console.WindowHeight - 2);
+                Console.Write(strPlayerInfo);
+
                 string strStats =
                     string.Format("Str:{0} Per:{1} End:{2} Chr:{3} Int:{4} Agi:{5} Luck:{6}",
                     aStats.Strength, aStats.Perception, aStats.Endurance, aStats.Charisma,

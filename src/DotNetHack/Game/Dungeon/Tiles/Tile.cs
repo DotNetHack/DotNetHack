@@ -108,8 +108,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
             get 
             {
                 if (HasItems)
-                    G = Items.First().G;
-                
+                    return Items.First().G;
                 return TileGlyph;
             }
             set { TileGlyph = value; }

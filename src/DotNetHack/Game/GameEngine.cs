@@ -98,6 +98,8 @@ namespace DotNetHack.Game
                                         break;
                                 }
                             }
+
+                            CurrentMap.DungeonRenderer.ClearLocation(Player.Location);
                         }
                         break;
 
@@ -203,7 +205,9 @@ namespace DotNetHack.Game
 
         public void Update()
         {
-            UI.Graphics.Display.ShowStatsBar(Player.Stats);
+            Player.Stats.RegenerateHealth();
+            Player.Stats.RegenerateMagika();
+            UI.Graphics.Display.ShowStatsBar(Player);
 
             foreach (var npc in CurrentMap.NonPlayerControlled)
                 npc.Exec(Player, CurrentMap);

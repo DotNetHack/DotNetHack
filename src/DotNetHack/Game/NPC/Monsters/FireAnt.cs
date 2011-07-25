@@ -24,6 +24,11 @@ namespace DotNetHack.Game.NPC.Monsters
             Agression = Game.NPC.Agression.PassiveAgressive;
         }
 
+        public int Speed 
+        {
+            get { return 0; }
+        }
+
         public int SightDistance
         {
             get
@@ -42,8 +47,8 @@ namespace DotNetHack.Game.NPC.Monsters
         /// <param name="aDungeon"></param>
         public override void Exec(Player aPlayer, Dungeon.Dungeon3 aDungeon)
         {
-            if (GameEngine.Time % 1 != 0)
-                return;
+            // if (GameEngine.Time) // % Speed != 0
+               //  return;
                 
             if (aPlayer.Distance(this) < SightDistance)
                 Agression = NPC.Agression.Agressive;
@@ -53,6 +58,8 @@ namespace DotNetHack.Game.NPC.Monsters
             {
                 default:
                     {
+
+                        // TODO: this code pattern is common, should be factored out.
                     redo_movement:
                         Location3i UnitMovement = new Location3i(0, 0, Location.D);
                         RandomDirection.ApplyTo(UnitMovement);

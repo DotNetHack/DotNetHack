@@ -108,11 +108,13 @@ namespace DotNetHack.Game
                     // TODO: Allow player to select exactly which potion they'd like to quaff.
                     case ConsoleKey.Q:
                         {
-                            // TODO: 
-                            var p = Player.Inventory.Potions.First();
+
+                            var p = Player.Inventory.Potions.First<IPotion>();
+
+                            Player.Inventory.Remove(p);
 
                             p.Quaff(Player);
-
+                            
                             break;
                         }
                     case ConsoleKey.O:

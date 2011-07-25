@@ -36,8 +36,7 @@ namespace DotNetHack.Game.Items
         {
             get
             {
-                return (IEnumerable<IPotion>)
-                    ItemFilter(x => x.ItemType == ItemType.Potion);
+                return ItemFilter<IPotion>(x => x.ItemType == ItemType.Potion);
             }
         }
 
@@ -49,7 +48,7 @@ namespace DotNetHack.Game.Items
             get
             {
                 return (IEnumerable<IWeapon>)
-                    ItemFilter(x => x.ItemType == ItemType.Weapon);
+                    ItemFilter<IWeapon>(x => x.ItemType == ItemType.Weapon);
             }
         }
 
@@ -61,7 +60,7 @@ namespace DotNetHack.Game.Items
             get
             {
                 return (IEnumerable<IArmor>)
-                    ItemFilter(x => x.ItemType == ItemType.Armor);
+                    ItemFilter<IArmor>(x => x.ItemType == ItemType.Armor);
             }
         }
 
@@ -73,7 +72,7 @@ namespace DotNetHack.Game.Items
             get
             {
                 return (IEnumerable<IScroll>)
-                    ItemFilter(x => x.ItemType == ItemType.Scroll);
+                    ItemFilter<IScroll>(x => x.ItemType == ItemType.Scroll);
             }
         }
 
@@ -85,7 +84,7 @@ namespace DotNetHack.Game.Items
             get
             {
                 return (IEnumerable<ITool>)
-                    ItemFilter(x => x.ItemType == ItemType.Tool);
+                    ItemFilter<ITool>(x => x.ItemType == ItemType.Tool);
             }
         }
 
@@ -97,7 +96,7 @@ namespace DotNetHack.Game.Items
             get
             {
                 return (IEnumerable<ITome>)
-                    ItemFilter(x => x.ItemType == ItemType.Tome);
+                    ItemFilter<ITome>(x => x.ItemType == ItemType.Tome);
             }
         }
 
@@ -109,7 +108,7 @@ namespace DotNetHack.Game.Items
             get
             {
                 return (IEnumerable<IKey>)
-                    ItemFilter(x => x.ItemType == ItemType.Key);
+                    ItemFilter<IKey>(x => x.ItemType == ItemType.Key);
             }
         }
 
@@ -121,7 +120,7 @@ namespace DotNetHack.Game.Items
             get
             {
                 return (IEnumerable<IFood>)
-                    ItemFilter(x => x.ItemType == ItemType.Food);
+                    ItemFilter<IFood>(x => x.ItemType == ItemType.Food);
             }
         }
 
@@ -133,8 +132,9 @@ namespace DotNetHack.Game.Items
             get
             {
                 return (IEnumerable<IEquipment>)
-                    ItemFilter(x => x.ItemType == ItemType.Armor ||
-                    x.ItemType == ItemType.Weapon);
+                    ItemFilter<IEquipment>(x =>
+                        x.ItemType == ItemType.Armor ||
+                        x.ItemType == ItemType.Weapon);
             }
         }
 
@@ -143,11 +143,11 @@ namespace DotNetHack.Game.Items
         /// </summary>
         /// <param name="aFilter"></param>
         /// <returns>An enumerable list of items, depending on the lam</returns>
-        IEnumerable<IItem> ItemFilter(Func<IItem, bool> aFilter)
+        public IEnumerable<T> ItemFilter<T>(Func<IItem, bool> aFilter)
         {
             foreach (var iItem in Items)
                 if (aFilter(iItem))
-                    yield return iItem;
+                    yield return (T)iItem;
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace DotNetHack.Game.Items
         /// Peek at the topmost item without popping it off the stack.
         /// </summary>
         /// <returns><value>null if there are no items, or the item in [0]</value></returns>
-        public IItem Peek() 
+        public IItem Peek()
         {
             if (!HasItems)
                 return default(IItem);

@@ -51,8 +51,9 @@
     <Compile Include="Game\Dice.cs" />
     <Compile Include="Game\Dungeon\DungeonRenderer.cs" />
     <Compile Include="Game\Dungeon\FogOfWar.cs" />
-    <Compile Include="Game\Dungeon\Generator\DungeonGeneratorOutdoors.cs" />
     <Compile Include="Game\Dungeon\Generator\DungeonGenerator.cs" />
+    <Compile Include="Game\Dungeon\Generator\DungeonGeneratorRecursiveDescent.cs" />
+    <Compile Include="Game\Dungeon\Generator\DungeonRegion.cs" />
     <Compile Include="Game\Dungeon\Generator\IDungeonGenerator.cs" />
     <Compile Include="Game\Dungeon\TileBuilder.cs" />
     <Compile Include="Game\Dungeon\Tiles\ITile.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Game\Interfaces\IReadable.cs" />
     <Compile Include="Game\Interfaces\IScroll.cs" />
     <Compile Include="Game\Interfaces\IWeapon.cs" />
+    <Compile Include="Utility\Rectangle.cs" />
     <Compile Include="Utility\Util.cs" />
     <Compile Include="Utility\LockFile.cs" />
     <Compile Include="Game\Player.cs" />

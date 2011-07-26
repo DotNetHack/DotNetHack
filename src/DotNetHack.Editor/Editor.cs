@@ -447,8 +447,8 @@ namespace DotNetHack.Editor
                 // WARNING: Experimental.
                 case ConsoleKey.D1:
                     {
-                        DungeonGeneratorOutdoors g = new DungeonGeneratorOutdoors();
-                        g.Generate(CurrentMap);
+                        IDungeonGenerator g = new DungeonGeneratorRecursiveDescent(CurrentMap);
+                        g.Generate();
                         CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
                         break;
                     }

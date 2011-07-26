@@ -114,6 +114,23 @@ namespace DotNetHack.Game.Dungeon
 
         #region Public Facing Methods
 
+        /// <summary>
+        /// Wipes everything from the face of this dungeon.
+        /// </summary>
+        public void WipeDungeon()
+        {
+            NonPlayerControlled = new List<NonPlayerControlled>();
+            DungeonRenderer = new DungeonRenderer(this);
+            foreach (ITile t in TileIterator)
+            {
+                t.G = '\0';
+                t.C = Colour.Standard;
+                t.Items = new Items.ItemCollection();
+                t.TileFlags = TileFlags.None;
+                t.TileType = TileType.Nothing;
+            }
+        }
+
         public void Render(Location3i aLoc) { DungeonRenderer.Render(aLoc); }
 
         /// <summary>
@@ -196,6 +213,18 @@ namespace DotNetHack.Game.Dungeon
         #endregion
 
         #region Public Facing Properties
+
+        public IEnumerable<Tile> TileIterator
+        {
+            get
+            {
+                // can't use yield return inside lambdas
+                for (int d = 0; d < DungeonDepth; ++d)
+                    for (int x = 0; x < DungeonWidth; ++x)
+                        for (int y = 0; y < DungeonHeight; ++y)
+                            yield return MapData[x, y, d];
+            }
+        }
 
         /// <summary>
         /// Used specificially to render this dungeon

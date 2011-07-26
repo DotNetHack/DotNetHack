@@ -8,12 +8,10 @@ namespace DotNetHack.Game.Dungeon.Generator
     /// <summary>
     /// DungeonGenerator
     /// </summary>
-    public class DungeonGenerator : IDungeonGenerator
+    public abstract class DungeonGenerator : IDungeonGenerator
     {
-        public void Generate(Dungeon3 aEmptyDungeon) 
-        {
-            // starting location.
-            Location3i l = Location3i.Origin3i;
-        }
+        public DungeonGenerator(Dungeon3 aDungeon) { Dungeon = aDungeon; }
+        public abstract void Generate();
+        protected Dungeon3 Dungeon { get; set; }
     }
 }

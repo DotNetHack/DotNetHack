@@ -214,6 +214,18 @@ namespace DotNetHack.Game.Dungeon
 
         #region Public Facing Properties
 
+        public IEnumerable<Tile> TileIterator
+        {
+            get
+            {
+                // can't use yield return inside lambdas
+                for (int d = 0; d < DungeonDepth; ++d)
+                    for (int x = 0; x < DungeonWidth; ++x)
+                        for (int y = 0; y < DungeonHeight; ++y)
+                            yield return MapData[x, y, d];
+            }
+        }
+
         /// <summary>
         /// Used specificially to render this dungeon
         /// </summary>

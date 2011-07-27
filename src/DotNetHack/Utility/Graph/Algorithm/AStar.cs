@@ -38,6 +38,14 @@ namespace DotNetHack.Utility.Graph.Algorithm
 
     /// <summary>
     /// DungeonPathFinding
+    ///   The following pages were and still are quite informative:
+    ///     http://en.wikipedia.org/wiki/A*_search_algorithm
+    ///     http://www.policyalmanac.org/games/aStarTutorial.htm
+    ///     
+    /// TODO: Significant amount of tuning still required for this A* implementation.
+    ///  - F, G, and H performance numbers all require additional work.
+    ///  - General tuning, right now one monster is dog slow.
+    /// 7/26/2011 - Initial working copy.
     /// </summary>
     public class DungeonPathFinding
     {

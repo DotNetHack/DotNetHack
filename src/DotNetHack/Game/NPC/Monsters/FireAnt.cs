@@ -25,7 +25,7 @@ namespace DotNetHack.Game.NPC.Monsters
             Agression = Game.NPC.Agression.PassiveAgressive;
         }
 
-        public int Speed 
+        public int Speed
         {
             get { return 0; }
         }
@@ -51,6 +51,9 @@ namespace DotNetHack.Game.NPC.Monsters
             // Create a new dungeon path finder.
             DungeonPathFinding pathFind = new DungeonPathFinding(aDungeon, this,
                 aPlayer);
+
+            // start pathfinding from this
+            pathFind.Solve(pathFind.StartNode);
         }
     }
 }

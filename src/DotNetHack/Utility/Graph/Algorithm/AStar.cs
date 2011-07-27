@@ -59,12 +59,21 @@ namespace DotNetHack.Utility.Graph.Algorithm
             ClosedList = new List<Node>();
 
             Initialize();
+
+            // Setup G, client code may overwrite this functionality.
+            G = delegate(Node a, Node b)
+            {
+                return new Rectangle(a.Location, b.Location).ManhattanDistance() * 100;
+            };
+
+            // Setup G, client code may overrite this functionality.
+            H = delegate(Node a, Node b) { return (int)a.Distance(b) * 100; };
         }
 
         /// <summary>
         /// The initialization step.
         /// </summary>
-        void Initialize() 
+        void Initialize()
         {
             OpenList.Add(StartNode);
 
@@ -80,28 +89,76 @@ namespace DotNetHack.Utility.Graph.Algorithm
             OpenList.Remove(StartNode);
         }
 
+
+
+        /// <summary>
+        /// http://en.wikipedia.org/wiki/A*_search_algorithm
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public Node Solve(Node n)
+        {
+            while (OpenList.Count > 0)
+            {
+                SortedDictionary<int, Node> fCostDict = new SortedDictionary<int, Node>();
+                foreach (Node o in OpenList)
+                    try { fCostDict.Add(ComputeFCost(o), o); }
+                    catch { }
+
+                n = fCostDict.Values.FirstOrDefault<Node>();
+                OpenList.Remove(n);
+                ClosedList.Add(n);
+
+                foreach (var k in OpenList)
+                {
+                    Dungeon.GetTile(k.Location).C = Colour.Green;
+                    Dungeon.DungeonRenderer.ClearLocation(k.Location);
+                }
+
+                foreach (var k in ClosedList)
+                {
+                    Dungeon.GetTile(k.Location).C = Colour.Road;
+                    Dungeon.DungeonRenderer.ClearLocation(k.Location);
+                }
+
+                foreach (var y in GetNeighbors(n))
+                {
+                    if (ClosedList.Contains(y))
+                        continue;
+                    if (!OpenList.Contains(y))
+                        OpenList.Add(y);
+                }
+            }
+
+            return null;
+        }
+
+
         /// <summary>
         /// Solve
         /// </summary>
         /// <returns></returns>
-        public Node Solve(Node aNode)
+        public Node Solv1e(Node aNode)
         {
             // GetNeighbors
             foreach (var t in GetNeighbors(aNode))
-                OpenList.Add(t);
+            {
+
+
+                if (!ClosedList.Contains(t))
+                    OpenList.Add(t);
+            }
 
             // We can set capacity since we know it'll be around open lists cardinality.
-            SortedDictionary<Node, int> fCostDict = new SortedDictionary<Node, int>();
+            SortedDictionary<int, Node> fCostDict = new SortedDictionary<int, Node>();
 
             // For all nodes in the open list compute the fCost.
-            foreach (Node o in OpenList)
-                fCostDict.Add(o, ComputeFCost(o));
+            foreach (Node o in GetNeighbors(aNode))
+                try { fCostDict.Add(ComputeFCost(o), o); ClosedList.Add(o); }
+                catch { }
 
             // Found the min node.
-            Node tmpMinimalNode = fCostDict.Min().Key;
-
-            // Set as parent.
-            tmpMinimalNode.Parent = aNode;
+            var tmpMinimalNode = fCostDict.Values.First<Node>();
 
             if (tmpMinimalNode.Location.Equals(EndNode.Location))
                 return null;
@@ -174,19 +231,19 @@ namespace DotNetHack.Utility.Graph.Algorithm
 
             Location3i lLeft = Location3i.GetNew(l.X - 1, l.Y, d);
             if (Dungeon.CheckBounds(lLeft))
-                tmpList.Add(new Node(Dungeon.GetTile(lLeft, l.D), lLeft, aNode));
+                tmpList.Add(new Node(Dungeon.GetTile(lLeft, l.D), lLeft));
 
             Location3i lRight = Location3i.GetNew(l.X + 1, l.Y, d);
             if (Dungeon.CheckBounds(lRight))
-                tmpList.Add(new Node(Dungeon.GetTile(lRight, l.D), lRight, aNode));
+                tmpList.Add(new Node(Dungeon.GetTile(lRight, l.D), lRight));
 
             Location3i lDown = Location3i.GetNew(l.X, l.Y + 1, d);
             if (Dungeon.CheckBounds(lDown))
-                tmpList.Add(new Node(Dungeon.GetTile(lDown, l.D), lDown, aNode));
+                tmpList.Add(new Node(Dungeon.GetTile(lDown, l.D), lDown));
 
             Location3i lUp = Location3i.GetNew(l.X, l.Y - 1, d);
             if (Dungeon.CheckBounds(lUp))
-                tmpList.Add(new Node(Dungeon.GetTile(lUp, l.D), lUp, aNode));
+                tmpList.Add(new Node(Dungeon.GetTile(lUp, l.D), lUp));
 
             // return an IEnumerable<Node> based on some predicate.
             return tmpList.Where<Node>(t => !t.Impassable);
@@ -200,7 +257,7 @@ namespace DotNetHack.Utility.Graph.Algorithm
         /// <summary>
         /// The starting node.
         /// </summary>
-        Node StartNode { get; set; }
+        public Node StartNode { get; set; }
 
         /// <summary>
         /// the ending terminal node

@@ -11,7 +11,7 @@ namespace DotNetHack.Utility.Graph
     /// <summary>
     /// The basic node used for all DNH graph calculations.
     /// </summary>
-    public class Node 
+    public class Node : IHasLocation, IEquatable<Node>
     {
         /// <summary>
         /// Creates a new DNH tile Node
@@ -49,6 +49,11 @@ namespace DotNetHack.Utility.Graph
         public bool Impassable
         {
             get { return TileInfo.Impassable; }
+        }
+
+        public bool Equals(Node other)
+        {
+            return this.Location == other.Location;
         }
     }
 }

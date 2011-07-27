@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game.Dungeon.Tiles;
+using DotNetHack.Utility.Graph.Algorithm;
 
 namespace DotNetHack.Game.NPC.Monsters
 {
@@ -24,7 +25,7 @@ namespace DotNetHack.Game.NPC.Monsters
             Agression = Game.NPC.Agression.PassiveAgressive;
         }
 
-        public int Speed 
+        public int Speed
         {
             get { return 0; }
         }
@@ -47,7 +48,31 @@ namespace DotNetHack.Game.NPC.Monsters
         /// <param name="aDungeon"></param>
         public override void Exec(Player aPlayer, Dungeon.Dungeon3 aDungeon)
         {
-            // if (GameEngine.Time) // % Speed != 0
+            // Create a new dungeon path finder.
+            DungeonPathFinding pathFind = new DungeonPathFinding(aDungeon, this,
+                aPlayer);
+
+            // start pathfinding from this
+
+            var pSln = pathFind.Solve(pathFind.StartNode);
+            Location = pSln.Peek().Location;
+
+#if A_STAR_VIS
+            foreach (var n in pSln)
+            {
+                aDungeon.GetTile(n.Location).G = '*';
+                aDungeon.DungeonRenderer.Render(n.Location);
+            }
+#endif
+
+        }
+    }
+}
+
+
+#if __
+/**
+// if (GameEngine.Time) // % Speed != 0
                //  return;
                 
             if (aPlayer.Distance(this) < SightDistance)
@@ -96,6 +121,5 @@ namespace DotNetHack.Game.NPC.Monsters
                         break;
                     }
             }
-        }
-    }
-}
+*/
+#endif

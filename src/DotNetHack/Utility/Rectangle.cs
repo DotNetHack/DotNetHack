@@ -30,6 +30,16 @@ namespace DotNetHack.Utility
         { }
 
         /// <summary>
+        /// The length of the rectangle
+        /// </summary>
+        public int Length { get { return Math.Abs(P1.Y - P2.Y); } }
+
+        /// <summary>
+        /// The width of the rectangle.
+        /// </summary>
+        public int Width { get { return Math.Abs(P1.X - P2.X); } }
+
+        /// <summary>
         /// The first point of the buffered region.
         /// </summary>
         public Location2i P1 { get; set; }

@@ -105,7 +105,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// </summary>
         public virtual char G
         {
-            get 
+            get
             {
                 if (HasItems)
                     return Items.First().G;
@@ -140,16 +140,46 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// <summary>
         /// EmptyTile has standard colour, a '.' as the Glyph and Nothing as the TileType.
         /// </summary>
-        public static Tile EmptyTile 
+        public static Tile EmptyTile
         {
-            get 
+            get
             {
-                return new Tile() 
+                return new Tile()
                 {
                     C = Colour.Standard,
                     G = '.',
                     TileType = TileType.Nothing,
                 };
+            }
+        }
+
+
+        /// <summary>
+        /// Is this tile <c>impassable</c>?
+        /// </summary>
+        public bool Impassable
+        {
+            get
+            {
+                // Certain types of tiles are simply not passable.
+                switch (TileType)
+                {
+                    case Tiles.TileType.Wall:
+                    case Tiles.TileType.Water:
+                    case Tiles.TileType.Tree:
+                    case Tiles.TileType.Fountain:
+                        return true;
+                }
+
+                // Then there are some tiles that are special and have flags
+                // in the case of doors, the tile may or may not be passable.
+                switch (TileFlags)
+                {
+                    case Tiles.TileFlags.Door:
+                        return ((Door)this).IsClosed;
+                }
+
+                return false;
             }
         }
     }

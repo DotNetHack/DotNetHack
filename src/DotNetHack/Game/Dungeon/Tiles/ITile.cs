@@ -7,7 +7,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
     /// <summary>
     /// ITile interface
     /// </summary>
-    interface ITile : IGlyph
+    public interface ITile : IGlyph
     {
         bool HasItems { get; }
         ItemCollection Items { get; set; }

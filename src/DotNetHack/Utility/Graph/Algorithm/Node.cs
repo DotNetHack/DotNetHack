@@ -14,19 +14,16 @@ namespace DotNetHack.Utility.Graph
     public class Node 
     {
         /// <summary>
-        /// Creates an empty node.
-        /// </summary>
-        public Node() { }
-
-        /// <summary>
         /// Creates a new DNH tile Node
         /// <remarks>The tile info and location are normally decoupled but are 
         /// brought together in this instance.</remarks>
         /// </summary>
         /// <param name="aTile">The tile information associated with this node</param>
         /// <param name="aLocation">The location of this node.</param>
-        public Node(ITile aTile, Location3i aLocation) 
+        /// <param name="Parent">The parent node</param>
+        public Node(ITile aTile, Location3i aLocation, Node Parent = null)
         {
+            Parent = null;
             TileInfo = aTile;
             Location = aLocation;
         }
@@ -34,12 +31,17 @@ namespace DotNetHack.Utility.Graph
         /// <summary>
         /// Stores information about the tile.
         /// </summary>
-        ITile TileInfo { get; set; }
+        public ITile TileInfo { get; set; }
 
         /// <summary>
         /// Location
         /// </summary>
-        Location3i Location { get; set; }
+        public Location3i Location { get; set; }
+
+        /// <summary>
+        /// Parent
+        /// </summary>
+        public Node Parent { get; set; }
 
         /// <summary>
         /// Determines if the A* node is impassable.

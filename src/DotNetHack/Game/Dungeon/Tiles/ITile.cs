@@ -13,5 +13,6 @@ namespace DotNetHack.Game.Dungeon.Tiles
         ItemCollection Items { get; set; }
         TileFlags TileFlags { get; set; }
         TileType TileType { get; set; }
+        bool Impassable { get; }
     }
 }

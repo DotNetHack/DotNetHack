@@ -89,37 +89,61 @@ namespace DotNetHack.Utility.Graph.Algorithm
             OpenList.Remove(StartNode);
         }
 
-
-
+        /// <summary>
+        /// UnwindPath, holy smoke.
+        /// </summary>
+        /// <returns></returns>
+        public void UnwindPath(Node aNode, Stack<Node> aResult)
+        {
+            aResult.Push(aNode);
+            if (aNode.Parent != null)
+                UnwindPath(aNode.Parent, aResult);
+        }
         /// <summary>
         /// http://en.wikipedia.org/wiki/A*_search_algorithm
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public Node Solve(Node n)
+        public Stack<Node> Solve(Node n)
         {
+            Node last = null;
             while (OpenList.Count > 0)
             {
+                ///
+                // TODO: rehash this sorted dictionary garbage.
+                ///
                 SortedDictionary<int, Node> fCostDict = new SortedDictionary<int, Node>();
                 foreach (Node o in OpenList)
                     try { fCostDict.Add(ComputeFCost(o), o); }
                     catch { }
-
                 n = fCostDict.Values.FirstOrDefault<Node>();
+
+                if (n.Location == EndNode.Location)
+                {
+                    last = n;
+                    break;
+                }
+                
                 OpenList.Remove(n);
                 ClosedList.Add(n);
+
+#if A_STAR_VIS
+                ///
+                /// WARNING: for visualization only.
+                ///
 
                 foreach (var k in OpenList)
                 {
                     Dungeon.GetTile(k.Location).C = Colour.Green;
-                    Dungeon.DungeonRenderer.ClearLocation(k.Location);
+                    Dungeon.DungeonRenderer.Render(k.Location);
                 }
 
                 foreach (var k in ClosedList)
                 {
                     Dungeon.GetTile(k.Location).C = Colour.Road;
-                    Dungeon.DungeonRenderer.ClearLocation(k.Location);
+                    Dungeon.DungeonRenderer.Render(k.Location);
                 }
+#endif
 
                 foreach (var y in GetNeighbors(n))
                 {
@@ -127,44 +151,14 @@ namespace DotNetHack.Utility.Graph.Algorithm
                         continue;
                     if (!OpenList.Contains(y))
                         OpenList.Add(y);
+                    y.Parent = n;
                 }
             }
 
-            return null;
-        }
-
-
-        /// <summary>
-        /// Solve
-        /// </summary>
-        /// <returns></returns>
-        public Node Solv1e(Node aNode)
-        {
-            // GetNeighbors
-            foreach (var t in GetNeighbors(aNode))
-            {
-
-
-                if (!ClosedList.Contains(t))
-                    OpenList.Add(t);
-            }
-
-            // We can set capacity since we know it'll be around open lists cardinality.
-            SortedDictionary<int, Node> fCostDict = new SortedDictionary<int, Node>();
-
-            // For all nodes in the open list compute the fCost.
-            foreach (Node o in GetNeighbors(aNode))
-                try { fCostDict.Add(ComputeFCost(o), o); ClosedList.Add(o); }
-                catch { }
-
-            // Found the min node.
-            var tmpMinimalNode = fCostDict.Values.First<Node>();
-
-            if (tmpMinimalNode.Location.Equals(EndNode.Location))
-                return null;
-
-            // rtaio;ls
-            return Solve(tmpMinimalNode);
+            // no sense in being celverm this'll get it done.
+            Stack<Node> retVal = new Stack<Node>();
+            UnwindPath(last, retVal);
+            return retVal;
         }
 
         /// <summary>

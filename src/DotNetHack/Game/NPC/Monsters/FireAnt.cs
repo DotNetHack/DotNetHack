@@ -53,7 +53,18 @@ namespace DotNetHack.Game.NPC.Monsters
                 aPlayer);
 
             // start pathfinding from this
-            pathFind.Solve(pathFind.StartNode);
+
+            var pSln = pathFind.Solve(pathFind.StartNode);
+            Location = pSln.Peek().Location;
+
+#if A_STAR_VIS
+            foreach (var n in pSln)
+            {
+                aDungeon.GetTile(n.Location).G = '*';
+                aDungeon.DungeonRenderer.Render(n.Location);
+            }
+#endif
+
         }
     }
 }

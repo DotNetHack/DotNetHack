@@ -143,6 +143,8 @@ namespace DotNetHack.Game
         /// <returns></returns>
         public static bool operator ==(Location3i a, Location3i b)
         {
+            a = a ?? Location3i.Origin3i;
+            b = b ?? Location3i.Origin3i;
             return a.X == b.X && a.Y == b.Y && a.D == b.D;
         }
 

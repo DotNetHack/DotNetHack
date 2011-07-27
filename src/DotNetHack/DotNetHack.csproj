@@ -137,6 +137,7 @@
     <Compile Include="Game\Interfaces\IScroll.cs" />
     <Compile Include="Game\Interfaces\IWeapon.cs" />
     <Compile Include="Utility\Graph\Algorithm\AStar.cs" />
+    <Compile Include="Utility\Graph\Algorithm\IAStar.cs" />
     <Compile Include="Utility\Graph\Algorithm\Node.cs" />
     <Compile Include="Utility\Rectangle.cs" />
     <Compile Include="Utility\Util.cs" />

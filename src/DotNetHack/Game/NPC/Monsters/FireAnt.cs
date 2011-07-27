@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game.Dungeon.Tiles;
+using DotNetHack.Utility.Graph.Algorithm;
 
 namespace DotNetHack.Game.NPC.Monsters
 {
@@ -47,7 +48,17 @@ namespace DotNetHack.Game.NPC.Monsters
         /// <param name="aDungeon"></param>
         public override void Exec(Player aPlayer, Dungeon.Dungeon3 aDungeon)
         {
-            // if (GameEngine.Time) // % Speed != 0
+            // Create a new dungeon path finder.
+            DungeonPathFinding pathFind = new DungeonPathFinding(aDungeon, this,
+                aPlayer);
+        }
+    }
+}
+
+
+#if __
+/**
+// if (GameEngine.Time) // % Speed != 0
                //  return;
                 
             if (aPlayer.Distance(this) < SightDistance)
@@ -96,6 +107,5 @@ namespace DotNetHack.Game.NPC.Monsters
                         break;
                     }
             }
-        }
-    }
-}
+*/
+#endif

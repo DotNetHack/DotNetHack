@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace DotNetHack.Game
 {
@@ -49,6 +50,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// Health
         /// </summary>
+        [XmlIgnore]
         public int Health
         {
             get { return _health; }
@@ -64,6 +66,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// Magika
         /// </summary>
+        [XmlIgnore]
         public int Magika
         {
             get { return _magika; }
@@ -89,43 +92,51 @@ namespace DotNetHack.Game
         /// <summary>
         /// Level
         /// </summary>
+        [XmlAttribute]
         public int Level { get; set; }
 
         /// <summary>
         /// Effectiveness w/ Melee weapons
         /// </summary>
+        [XmlAttribute]
         public int Strength { get; set; }
 
         /// <summary>
         /// Trap, Enemy detection
         /// </summary>
+        [XmlAttribute]
         public int Perception { get; set; }
 
         /// <summary>
         /// Amount that can be carried.
         /// Affects total health.
         /// </summary>
+        [XmlAttribute]
         public int Endurance { get; set; }
 
         /// <summary>
         /// Affects interactions with all NPCs.
         /// </summary>
+        [XmlAttribute]
         public int Charisma { get; set; }
 
         /// <summary>
         /// Affects alchemy.
         /// </summary>
+        [XmlAttribute]
         public int Intelligence { get; set; }
 
         /// <summary>
         /// Agility affects speed.
         /// Use of ranged weapons.
         /// </summary>
+        [XmlAttribute]
         public int Agility { get; set; }
 
         /// <summary>
         /// Luck affects all actions
         /// </summary>
+        [XmlAttribute]
         public int Luck { get; set; }
     }
 }

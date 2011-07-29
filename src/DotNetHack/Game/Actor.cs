@@ -6,6 +6,7 @@ using DotNetHack.Game.Events;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Items;
 using DotNetHack.Game.Effects;
+using System.Xml.Serialization;
 
 namespace DotNetHack.Game
 {
@@ -46,11 +47,13 @@ namespace DotNetHack.Game
         /// <summary>
         /// Location
         /// </summary>
+        [XmlIgnore]
         public Location3i Location { get; set; }
 
         /// <summary>
         /// The name of this actor.
         /// </summary>
+        [XmlAttribute]
         public string Name { get; set; }
 
         /// <summary>
@@ -61,13 +64,16 @@ namespace DotNetHack.Game
         /// <summary>
         /// All actors have inventory.
         /// </summary>
+        [XmlIgnore]
         public ItemCollection Inventory { get; set; }
 
         /// <summary>
         /// EffectStack
         /// </summary>
+        [XmlIgnore]
         public Stack<Effect> EffectStack { get; set; }
 
+        [XmlIgnore()]
         public Cond Condition { get; set; }
 
         public enum Cond
@@ -80,7 +86,6 @@ namespace DotNetHack.Game
             Unconscious,
             Slowed,
         }
-
 
         /// <summary>
         /// The glyph representing this actor.

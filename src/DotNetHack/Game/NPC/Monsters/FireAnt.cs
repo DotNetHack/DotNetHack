@@ -5,6 +5,8 @@ using System.Text;
 using DotNetHack.Game.Dungeon.Tiles;
 using DotNetHack.Utility.Graph.Algorithm;
 
+using System.Xml.Serialization.Persisted;
+
 namespace DotNetHack.Game.NPC.Monsters
 {
     /// <summary>
@@ -13,7 +15,10 @@ namespace DotNetHack.Game.NPC.Monsters
     [Serializable]
     public class FireAnt : Monster
     {
-
+        public FireAnt()
+            : base("fire ant", 'f', Colour.DarkRed, null)
+        { }
+        
         /// <summary>
         /// FireAnt
         /// </summary>
@@ -23,6 +28,8 @@ namespace DotNetHack.Game.NPC.Monsters
         {
             // All fire-ants start out as passive agressive.
             Agression = Game.NPC.Agression.PassiveAgressive;
+
+            this.Write<FireAnt>(@"c:\DNH\monsters.dat");
         }
 
         public int Speed
@@ -57,7 +64,7 @@ namespace DotNetHack.Game.NPC.Monsters
             var pSln = pathFind.Solve(pathFind.StartNode);
             Location = pSln.Peek().Location;
 
-#if A_STAR_VIS
+#if !A_STAR_VIS
             foreach (var n in pSln)
             {
                 aDungeon.GetTile(n.Location).G = '*';

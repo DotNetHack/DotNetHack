@@ -131,11 +131,11 @@ namespace DotNetHack.Utility.Graph.Algorithm
                     last = n;
                     break;
                 }
-                
+
                 OpenList.Remove(n);
                 ClosedList.Add(n);
 
-#if !A_STAR_VIS
+#if A_STAR_VIS
                 ///
                 /// WARNING: for visualization only.
                 ///

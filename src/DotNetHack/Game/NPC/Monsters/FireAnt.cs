@@ -57,7 +57,7 @@ namespace DotNetHack.Game.NPC.Monsters
             var pSln = pathFind.Solve(pathFind.StartNode);
             Location = pSln.Peek().Location;
 
-#if A_STAR_VIS
+#if !A_STAR_VIS
             foreach (var n in pSln)
             {
                 aDungeon.GetTile(n.Location).G = '*';

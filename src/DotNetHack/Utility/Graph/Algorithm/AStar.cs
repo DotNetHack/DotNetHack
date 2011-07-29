@@ -131,7 +131,7 @@ namespace DotNetHack.Utility.Graph.Algorithm
                     last = n;
                     break;
                 }
-                
+
                 OpenList.Remove(n);
                 ClosedList.Add(n);
 

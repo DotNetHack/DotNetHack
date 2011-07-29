@@ -17,6 +17,7 @@ using DotNetHack.Game.Dungeon.Generator;
 using DotNetHack.Game.Dungeon.Tiles.Traps;
 using DotNetHack.Game.NPC.Monsters;
 
+using System.Xml.Serialization.Persisted;
 namespace DotNetHack.Editor
 {
     /// <summary>
@@ -81,6 +82,36 @@ namespace DotNetHack.Editor
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            List<Monster> mL = new List<Monster>();
+
+            Monster r = new Monster("Sewer Rat", 'r', new Colour(ConsoleColor.DarkRed), null);
+            r.Stats = new Stats()
+            {
+                Agility = 0,
+                Charisma = 0,
+                Endurance = 1,
+                Intelligence = 0,
+                Level = 1,
+                Luck = 0,
+                Strength = 1,
+                Perception = 0,
+            };
+            Monster s = new Monster("Slime Mold", 'N', new Colour(ConsoleColor.Green), null);
+            s.Stats = new Stats()
+            {
+                Agility = 0,
+                Charisma = 0,
+                Endurance = 2,
+                Intelligence = 0,
+                Level = 1,
+                Luck = 0,
+                Strength = 1,
+                Perception = 0,
+            };
+
+            mL.Add(r);
+            mL.Add(s);
+            mL.Write<List<Monster>>("c:\\DNH\\monsters.dat");
 
             // Parse incoming args for the runtime env.
             R.ParseArgs(args);

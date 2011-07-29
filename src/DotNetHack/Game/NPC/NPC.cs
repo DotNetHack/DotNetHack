@@ -40,6 +40,6 @@ namespace DotNetHack.Game.NPC
         /// </summary>
         /// <param name="aPlayer">The player</param>
         /// <param name="aDungeon">The dungeon</param>
-        public abstract void Exec(Player aPlayer, Dungeon.Dungeon3 aDungeon);
+        public virtual void Exec(Player aPlayer, Dungeon.Dungeon3 aDungeon) { }
     }
 }

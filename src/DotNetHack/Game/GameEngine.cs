@@ -207,8 +207,9 @@ namespace DotNetHack.Game
 
         public void Update()
         {
-            Player.Stats.RegenerateHealth();
-            Player.Stats.RegenerateMagika();
+            Player.RegenerateHealth();
+            Player.RegenerateMagika();
+
             UI.Graphics.Display.ShowStatsBar(Player);
 
             foreach (var npc in CurrentMap.NonPlayerControlled)

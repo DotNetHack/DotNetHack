@@ -69,5 +69,15 @@ namespace DotNetHack.Game
         /// Wallet
         /// </summary>
         public Currency Wallet { get; set; }
+
+        public override void RegenerateMagika()
+        {
+            
+        }
+
+        public override void RegenerateHealth()
+        {
+            
+        }
     }
 }

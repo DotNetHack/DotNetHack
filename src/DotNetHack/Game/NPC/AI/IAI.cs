@@ -13,10 +13,14 @@ namespace DotNetHack.Game.NPC.AI
     /// </summary>
     public interface IAI
     {
+        /// <summary>
+        /// Occurs when the agent sees the player.
+        /// </summary>
         event EventHandler<ActorEventArgs> OnSeePlayer;
 
+        /// <summary>
+        /// Occurs when the agent sees another monster,
+        /// </summary>
         event EventHandler<ActorEventArgs> OnSeeMonster;
-
-        void Exec(Player aPlayer, Dungeon3 aDungeon);
     }
 }

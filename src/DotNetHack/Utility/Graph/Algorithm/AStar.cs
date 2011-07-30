@@ -62,6 +62,10 @@ namespace DotNetHack.Utility.Graph.Algorithm
             StartNode = new Node(Dungeon.GetTile(aAlpha.Location), aAlpha.Location);
             EndNode = new Node(Dungeon.GetTile(aOmega.Location), aOmega.Location);
 
+            // Initialize FCost dictionary.
+            FCostDict = new Dictionary<Node, FCost>();
+
+
             // create the closed list and the open list.
             OpenList = new List<Node>();
             ClosedList = new List<Node>();
@@ -69,13 +73,13 @@ namespace DotNetHack.Utility.Graph.Algorithm
             Initialize();
 
             // Setup G, client code may overwrite this functionality.
-            G = delegate(Node a, Node b)
+            GFunc = delegate(Node a, Node b)
             {
-                return new Rectangle(a.Location, b.Location).ManhattanDistance() * 100;
+                return new Rectangle(a.Location, b.Location).ManhattanDistance() * 10;
             };
 
             // Setup G, client code may overrite this functionality.
-            H = delegate(Node a, Node b) { return (int)a.Distance(b) * 100; };
+            HFunc = delegate(Node a, Node b) { return (int)(a.Distance(b) * 100); };
         }
 
         /// <summary>
@@ -117,14 +121,8 @@ namespace DotNetHack.Utility.Graph.Algorithm
             Node last = null;
             while (OpenList.Count > 0)
             {
-                ///
-                // TODO: rehash this sorted dictionary garbage.
-                ///
-                SortedDictionary<int, Node> fCostDict = new SortedDictionary<int, Node>();
-                foreach (Node o in OpenList)
-                    try { fCostDict.Add(ComputeFCost(o), o); }
-                    catch { }
-                n = fCostDict.Values.FirstOrDefault<Node>();
+                OpenList.Sort(Cmp);
+                n = OpenList[0];
 
                 if (n.Location == EndNode.Location)
                 {
@@ -135,22 +133,18 @@ namespace DotNetHack.Utility.Graph.Algorithm
                 OpenList.Remove(n);
                 ClosedList.Add(n);
 
-#if A_STAR_VIS
+#if !A_STAR_VIS
                 ///
                 /// WARNING: for visualization only.
                 ///
 
                 foreach (var k in OpenList)
-                {
                     Dungeon.GetTile(k.Location).C = Colour.Green;
-                    Dungeon.DungeonRenderer.Render(k.Location);
-                }
 
                 foreach (var k in ClosedList)
-                {
                     Dungeon.GetTile(k.Location).C = Colour.Road;
-                    Dungeon.DungeonRenderer.Render(k.Location);
-                }
+
+                Dungeon.DungeonRenderer.Render(n.Location);
 #endif
 
                 foreach (var y in GetNeighbors(n))
@@ -163,30 +157,47 @@ namespace DotNetHack.Utility.Graph.Algorithm
                 }
             }
 
-            // no sense in being celverm this'll get it done.
+            // no sense in being celverm this'll get it done 
             Stack<Node> retVal = new Stack<Node>();
             UnwindPath(last, retVal);
             return retVal;
         }
 
         /// <summary>
-        /// The starting point and end point are already maintained; so we only need
-        /// the single node, G and H will be computed bsed on start and end.
+        /// To keep from re-computing FCost a dictionary is used to short cirtcuit
+        /// results that may have already been calculated.
         /// </summary>
-        /// <param name="aNode"></param>
-        /// <returns></returns>
-        int ComputeFCost(Node aSelected)
+        Dictionary<Node, FCost> FCostDict { get; set; }
+
+        /// <summary>
+        /// Computes the FCost of the given node. 
+        /// </summary>
+        /// <param name="start">The start location.</param>
+        /// <param name="n">The node</param>
+        /// <param name="end">The end location.</param>
+        /// <returns>An integer representing the computed FCost</returns>
+        public int Compute(Node start, Node n, Node end)
         {
-            // Both G & H anonymous functions with the signature Func<Node, Node, int>
-            // this was done since each of these computation for G & H may be slightly different.
-            return new FCost(
-                G(StartNode, aSelected),
-                H(aSelected, EndNode)
-                ).F;
+            var fCost = new FCost(GFunc(start, n), HFunc(n, end));
+            if (!FCostDict.ContainsKey(n))
+                FCostDict.Add(n, fCost);
+            return FCostDict[n].F;
         }
 
         /// <summary>
-        /// Used to compute H and G's
+        /// Compares two nodes' FCost and returns equivalency integer
+        /// </summary>
+        /// <param name="a">LHS node</param>
+        /// <param name="b">RHS node</param>
+        /// <returns>equivalency integer</returns>
+        public int Cmp(Node a, Node b)
+        {
+            return Compute(StartNode, a, EndNode) -
+                Compute(StartNode, b, EndNode);
+        }
+
+        /// <summary>
+        /// One method used used to compute H and G's
         /// </summary>
         /// <param name="aNode"></param>
         /// <returns></returns>
@@ -279,12 +290,12 @@ namespace DotNetHack.Utility.Graph.Algorithm
         /// <summary>
         /// Computing G
         /// </summary>
-        public Func<Node, Node, int> G { get; set; }
+        public Func<Node, Node, int> GFunc { get; set; }
 
         /// <summary>
         /// Computing H
         /// </summary>
-        public Func<Node, Node, int> H { get; set; }
+        public Func<Node, Node, int> HFunc { get; set; }
     }
 
     /// <summary>

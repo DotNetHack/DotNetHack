@@ -101,6 +101,7 @@
     <Compile Include="Game\Effects\EffectType.cs" />
     <Compile Include="Game\Dungeon\Tiles\Door.cs" />
     <Compile Include="Game\NPC\Agression.cs" />
+    <Compile Include="Game\NPC\AI\Brain.cs" />
     <Compile Include="Game\NPC\AI\IAI.cs" />
     <Compile Include="Game\NPC\AI\IShopKeeperAI.cs" />
     <Compile Include="Game\NPC\Monsters\FireAnt.cs" />

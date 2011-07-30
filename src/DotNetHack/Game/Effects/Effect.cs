@@ -12,27 +12,35 @@ namespace DotNetHack.Game.Effects
     public class Effect
     {
         /// <summary>
+        /// Creates a new Effect.
+        /// </summary>
+        public Effect() { }
+
+        /// <summary>
         /// Creates a new instance of Effect
         /// </summary>
-        /// <param name="aDuration"></param>
-        public Effect(EffectType aEffectType, int aDuration)
+        /// <param name="aDuration">The duration of the effect</param>
+        public Effect(EffectType aEffectType, int aMagnitude, int aDuration = 1)
         {
             // Set the effect type.
             EffectType = aEffectType;
 
             // Set the duration of this effect.
             Duration = aDuration;
-        }
 
-        /// <summary>
-        /// Creates a new Effect.
-        /// </summary>
-        public Effect() { }
+            // Set the magnitude of this effect.
+            Magnitude = aMagnitude;
+        }
 
         /// <summary>
         /// The duration of the affect.
         /// </summary>
         public int Duration { get; set; }
+
+        /// <summary>
+        /// Magnitude
+        /// </summary>
+        public int Magnitude { get; set; }
 
         /// <summary>
         /// The Effect's type

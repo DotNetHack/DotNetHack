@@ -15,7 +15,9 @@ namespace DotNetHack.Game.Events
         /// </summary>
         /// <param name="aActor"></param>
         public ActorEventArgs(Actor aActor) 
-        { }
+        {
+            ActorInvolved = aActor;
+        }
 
         /// <summary>
         /// Actor involved in the event.

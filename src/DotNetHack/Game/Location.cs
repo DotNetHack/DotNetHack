@@ -6,6 +6,7 @@ using System.Text;
 using DotNetHack.Game.Interfaces;
 using System.Diagnostics;
 
+
 namespace DotNetHack.Game
 {
     /// <summary>
@@ -50,6 +51,14 @@ namespace DotNetHack.Game
         public Location3i()
             : base()
         { }
+
+        /// <summary>
+        /// Location3i
+        /// </summary>
+        /// <param name="l">A two-d location.</param>
+        /// <param name="d">The dungeon level.</param>
+        public Location3i(Location2i l, int d = 0)
+            : this(l.X, l.Y, d) { }
 
         /// <summary>
         /// Location3i

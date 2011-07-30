@@ -7,6 +7,6 @@ namespace DotNetHack.Game.Dungeon.Generator
     /// </summary>
     public interface IDungeonGenerator
     {
-        void Generate();
+        void Generate(int d);
     }
 }

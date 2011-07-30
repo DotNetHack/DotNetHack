@@ -79,12 +79,12 @@ namespace DotNetHack.Game
         public enum Cond
         {
             Okay,
-            Blinded,
             Dazed,
-            Immobilized,
-            Stunned,
-            Unconscious,
             Slowed,
+            Stunned,
+            Blinded,
+            Immobilized,
+            Unconscious,
         }
 
         /// <summary>

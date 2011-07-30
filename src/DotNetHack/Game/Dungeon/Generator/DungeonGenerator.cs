@@ -11,7 +11,7 @@ namespace DotNetHack.Game.Dungeon.Generator
     public abstract class DungeonGenerator : IDungeonGenerator
     {
         public DungeonGenerator(Dungeon3 aDungeon) { Dungeon = aDungeon; }
-        public abstract void Generate();
+        public abstract void Generate(int d);
         protected Dungeon3 Dungeon { get; set; }
     }
 }

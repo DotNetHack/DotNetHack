@@ -198,10 +198,10 @@ namespace DotNetHack.UI
                         "{0}, {1}, (hp){2}/{3}, (Ma){4}/{5}",
                         aPlayer.Name,
                         aPlayer.Wallet,
-                        aPlayer.Stats.Health,
-                        aPlayer.Stats.MaxHealth,
-                        aPlayer.Stats.Magika,
-                        aPlayer.Stats.MaxMagika
+                        0,
+                        aPlayer.Stats.HitPoints,
+                        0,
+                        aPlayer.Stats.ManaPoints
                     );
                 Console.SetCursorPosition(0, Console.WindowHeight - 2);
                 Console.Write(strPlayerInfo);
@@ -209,7 +209,8 @@ namespace DotNetHack.UI
                 string strStats =
                     string.Format("Str:{0} Per:{1} End:{2} Chr:{3} Int:{4} Agi:{5} Luck:{6}",
                     aStats.Strength, aStats.Perception, aStats.Endurance, aStats.Charisma,
-                    aStats.Intelligence, aStats.Agility, aStats.Luck);
+                    aStats.Intelligence, aStats.Agility, aStats.Luck, aStats.Level);
+                
                 Console.SetCursorPosition(0, Console.WindowHeight - 1);
                 Console.Write(strStats);
             }

@@ -41,5 +41,15 @@ namespace DotNetHack.Game.NPC
         /// <param name="aPlayer">The player</param>
         /// <param name="aDungeon">The dungeon</param>
         public virtual void Exec(Player aPlayer, Dungeon.Dungeon3 aDungeon) { }
+
+        public override void RegenerateMagika()
+        {
+            
+        }
+
+        public override void RegenerateHealth()
+        {
+            
+        }
     }
 }

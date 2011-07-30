@@ -6,11 +6,14 @@ using DotNetHack.Game.Dungeon.Tiles;
 using DotNetHack.Game;
 using DotNetHack.Game.Interfaces;
 
+using System.Diagnostics;
+
 namespace DotNetHack.Utility.Graph
 {
     /// <summary>
     /// The basic node used for all DNH graph calculations.
     /// </summary>
+    [DebuggerDisplay("{ToString()}")]
     public class Node : IHasLocation, IEquatable<Node>
     {
         /// <summary>
@@ -51,9 +54,24 @@ namespace DotNetHack.Utility.Graph
             get { return TileInfo.Impassable; }
         }
 
-        public bool Equals(Node other)
+        public bool Equals(Node other) { return this.Location == other.Location; }
+
+        /// <summary>
+        /// How a node is displayed as text.
+        /// (0,0,0) => (null)
+        /// (9,9,9) => (10, 10, 10)
+        /// </summary>
+        /// <returns>Returns a string representation of this node.</returns>
+        public override string ToString()
         {
-            return this.Location == other.Location;
+            string strThisNode, strParentNode;
+            strThisNode = "(null)"; strParentNode = strThisNode;
+            strThisNode = Location.ToString();
+            if (Parent != null)
+                if (Parent.Location != null)
+                    strParentNode = Parent.Location.ToString();
+            return string.Format("Node:{0} => {1}", strThisNode, strParentNode);
         }
+
     }
 }

@@ -24,7 +24,7 @@ namespace DotNetHack.Game.Items.Potions
         /// </summary>
         public override void Quaff(Actor aActor)
         {
-            aActor.Stats.Health++;
+            
         }
     }
 }

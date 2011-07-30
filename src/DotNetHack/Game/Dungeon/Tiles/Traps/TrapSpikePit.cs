@@ -32,7 +32,7 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
             if (Dice.D(e.TrapTarget.Stats.Agility) || Dice.D(e.TrapTarget.Stats.Luck))
                 strMessage += " You were agile enough to avoid it!";
             else
-                e.TrapTarget.Stats.Health -= 10;
+            { }
             UI.Graphics.Display.ShowMessage(strMessage);
             Disable();
         }

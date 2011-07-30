@@ -32,22 +32,6 @@ namespace DotNetHack.Game.NPC.Monsters
             this.Write<FireAnt>(@"c:\DNH\monsters.dat");
         }
 
-        public int Speed
-        {
-            get { return 0; }
-        }
-
-        public int SightDistance
-        {
-            get
-            {
-                if (Condition == Cond.Blinded)
-                    return 0;
-                else
-                    return 10;
-            }
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -71,7 +55,6 @@ namespace DotNetHack.Game.NPC.Monsters
                 aDungeon.DungeonRenderer.Render(n.Location);
             }
 #endif
-
         }
     }
 }

@@ -35,7 +35,7 @@ namespace DotNetHack.Game
         /// Creates a new instance of <see cref="Actor"/> with the specified glyph
         /// and colour.
         /// </summary>
-        public Actor(string aName, char aGlyph, Colour aColor, Location3i aLocation) 
+        public Actor(string aName, char aGlyph, Colour aColor, Location3i aLocation)
             : this()
         {
             Location = aLocation;
@@ -73,20 +73,6 @@ namespace DotNetHack.Game
         [XmlIgnore]
         public Stack<Effect> EffectStack { get; set; }
 
-        [XmlIgnore()]
-        public Cond Condition { get; set; }
-
-        public enum Cond
-        {
-            Okay,
-            Blinded,
-            Dazed,
-            Immobilized,
-            Stunned,
-            Unconscious,
-            Slowed,
-        }
-
         /// <summary>
         /// The glyph representing this actor.
         /// </summary>
@@ -101,5 +87,33 @@ namespace DotNetHack.Game
         /// Draw this actor.
         /// </summary>
         public void Draw() { UI.Graphics.Draw(this); }
+
+        /// <summary>
+        /// RegenerateMagika
+        /// </summary>
+        public abstract void RegenerateMagika();
+
+        /// <summary>
+        /// RegenerateHealth
+        /// </summary>
+        public abstract void RegenerateHealth();
+    }
+
+
+    public class StatRegen
+    {
+        public StatRegen() { RegenTicks = 0; }
+        void Regen(int aSpeed, ref Stats s, Func<Stats, Stats> r)
+        {
+            if (++RegenTicks > aSpeed)
+            {
+                s = r(s);
+                Reset();
+            }
+        }
+
+        void Reset() { RegenTicks = 0; }
+
+        int RegenTicks { get; set; }
     }
 }

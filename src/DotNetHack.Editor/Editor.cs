@@ -18,6 +18,7 @@ using DotNetHack.Game.Dungeon.Tiles.Traps;
 using DotNetHack.Game.NPC.Monsters;
 
 using System.Xml.Serialization.Persisted;
+
 namespace DotNetHack.Editor
 {
     /// <summary>
@@ -123,7 +124,7 @@ namespace DotNetHack.Editor
             CurrentMap = new Dungeon3(UI.Graphics.ScreenWidth,
                 UI.Graphics.ScreenHeight, 3);
 
-            CurrentLocation = new Location3i(0, 0, 0);
+            CurrentLocation = new Location3i(UI.Graphics.ScreenCenter);
 
             // The last unit movement is recorded.
             Location3i LastUnitMovement = Location3i.Origin3i;
@@ -479,7 +480,7 @@ namespace DotNetHack.Editor
                 case ConsoleKey.D1:
                     {
                         IDungeonGenerator g = new DungeonGeneratorRecursiveDescent(CurrentMap);
-                        g.Generate();
+                        g.Generate(0);
                         CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
                         break;
                     }

@@ -9,10 +9,56 @@ using DotNetHack.Game.Events;
 namespace DotNetHack.Game.NPC.AI
 {
     /// <summary>
+    /// Extension methods for brain.
+    /// </summary>
+    public static class BrainExt
+    {
+        /// <summary>
+        /// SwitchDungeon allows for changing the dungeon.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">thrown when dungeon is null.</exception>
+        public static void SwitchDungeon(this Brain b, Dungeon.Dungeon3 aDungeon)
+        {
+            // Make sure the passed parameter is not null.
+            if (aDungeon == null)
+                throw new ArgumentNullException("Cannot switch to a null dungeon.");
+
+            // Set the dungeon.
+            b.Dungeon = aDungeon;
+
+            // Update path finding.
+            b.PathFinding = new DungeonPathFinding(b.Dungeon);
+        }
+    }
+
+    /// <summary>
     /// Brain
     /// </summary>
+    [Serializable]
     public class Brain
     {
+        /// <summary>
+        /// The various states this brain may be in.
+        /// </summary>
+        public enum BrainState 
+        {
+            Idle,
+            Patrol,
+            Attack,
+            Flee,
+            Stop,
+        }
+
+        /// <summary>
+        /// The state machine responsible 
+        /// </summary>
+        FSM<BrainState> FSM { get; set; }
+
+        /// <summary>
+        /// CurrentState
+        /// </summary>
+        public BrainState CurrentState { get { return FSM.CurrentState; } }
+
         /// <summary>
         /// Occures when this brain becomes aware of the player.
         /// </summary>
@@ -31,7 +77,14 @@ namespace DotNetHack.Game.NPC.AI
         /// <summary>
         /// Supports serialization.
         /// </summary>
-        public Brain() { }
+        public Brain() 
+        {
+            FSM = new FSM<BrainState>(
+                delegate(BrainState a)
+                {
+                    return BrainState.Attack;
+                });
+        }
 
         /// <summary>
         /// Creates a new instance of Brain.  A brain requires a reference to the
@@ -40,6 +93,7 @@ namespace DotNetHack.Game.NPC.AI
         /// <param name="aSelf">The actor that this brain belongs to.</param>
         /// <param name="aDungeon">The surroundings the brain is aware of.</param>
         public Brain(Actor aSelf, Dungeon.Dungeon3 aDungeon) 
+            : this()
         {
             Self = aSelf;
             Dungeon = aDungeon;
@@ -54,28 +108,11 @@ namespace DotNetHack.Game.NPC.AI
         /// <summary>
         /// The brain has "awareness" of it's surroundings.
         /// </summary>
-        Dungeon3 Dungeon { get; set; }
+        public Dungeon3 Dungeon { get; set; }
 
         /// <summary>
         /// The brains ability to find a way to things.
         /// </summary>
-        DungeonPathFinding PathFinding { get; set; }
-
-        /// <summary>
-        /// SwitchDungeon allows for changing the dungeon.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">thrown when dungeon is null.</exception>
-        public void SwitchDungeon(Dungeon.Dungeon3 aDungeon)
-        {
-            // Make sure the passed parameter is not null.
-            if (aDungeon == null)
-                throw new ArgumentNullException("Cannot switch to a null dungeon.");
-
-            // Set the dungeon.
-            Dungeon = aDungeon;
-
-            // Update path finding.
-            PathFinding = new DungeonPathFinding(Dungeon);
-        }
+        public DungeonPathFinding PathFinding { get; set; }
     }
 }

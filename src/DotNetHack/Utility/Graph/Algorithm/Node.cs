@@ -13,7 +13,7 @@ namespace DotNetHack.Utility.Graph
     /// <summary>
     /// The basic node used for all DNH graph calculations.
     /// </summary>
-    [DebuggerDisplay("{ToString()}")]
+    [DebuggerDisplay("{ToString()}"), Serializable]
     public class Node : IHasLocation, IEquatable<Node>
     {
         /// <summary>

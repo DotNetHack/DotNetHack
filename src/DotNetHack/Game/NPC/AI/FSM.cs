@@ -25,8 +25,27 @@ namespace DotNetHack.Game.NPC.AI
     /// A genericized finite state machine.
     /// <typeparam name="S">The type of state this FSM may be in.</typeparam>
     /// </summary>
+    [Serializable]
     public class FSM<S>
     {
+
+        /// <summary>
+        /// Creates a new instance of finite state machine.
+        /// <remarks>starts out in default</remarks>
+        /// </summary>
+        /// <param name="aFunc">The transition table or function.</param>
+        public FSM(Func<S, S> aFunc)
+            : this(aFunc, default(S))
+        { }
+
+        /// <summary>
+        /// Creates a new instance of the finite state machine.
+        /// </summary>
+        /// <param name="fOf">The transition function / table used.</param>
+        /// <param name="aInitialState">The initial state.</param>
+        public FSM(Func<S, S> aFunc, S aInitialState)
+            : this(aInitialState) { fOf = aFunc; }
+
         /// <summary>
         /// Creates a new instance of the finite state machine.
         /// <param name="initialState">The initial state of the state machine.</param>
@@ -49,11 +68,15 @@ namespace DotNetHack.Game.NPC.AI
         /// <summary>
         /// Reads and yield returns the current state then moves
         /// to the next state.
+        /// <remarks>If <c>fOf</c> has not been set yet, expect the default state to be 
+        /// continually returned.</remarks>
         /// </summary>
         public IEnumerable<S> Next
         {
             get
             {
+                if (fOf == null)
+                    yield return default(S);
                 yield return CurrentState;
                 CurrentState = fOf(CurrentState);
             }

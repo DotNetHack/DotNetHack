@@ -661,7 +661,20 @@ namespace DotNetHack.Editor
                     break;
                 // Adds a fire ant to the current location.
                 case ConsoleKey.F:
-                    CurrentMap.SpawnNPC(new FireAnt(CurrentLocation));
+                    CurrentMap.SpawnNPC(new Monster("Rabid Fox", 'f', Colour.Road, CurrentLocation)
+                    {
+                        Agression = Game.NPC.Agression.Agressive,
+                        Stats = new Stats()
+                        {
+                            Level = 1,
+                            Speed = 8,
+                            Agility = 1,
+                            Strength = 1,
+                            Endurance = 1,
+                            Experience = 20,
+                            Perception = 3,
+                        },
+                    });
                     break;
             }
         }

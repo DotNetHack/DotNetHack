@@ -47,6 +47,7 @@ namespace DotNetHack.Utility.Graph.Algorithm
     ///  - General tuning, right now one monster is dog slow.
     /// 7/26/2011 - Initial working copy.
     /// </summary>
+    [Serializable]
     public class DungeonPathFinding
     {
         /// <summary>
@@ -55,22 +56,10 @@ namespace DotNetHack.Utility.Graph.Algorithm
         /// <param name="d">The dungeon</param>
         /// <param name="aAlpha">Start location</param>
         /// <param name="aOmega">End location</param>
-        public DungeonPathFinding(Dungeon3 d, IHasLocation aAlpha, IHasLocation aOmega)
+        public DungeonPathFinding(Dungeon3 d)
         {
             // Set the dungeon, the start node and the end node.
             Dungeon = d;
-            StartNode = new Node(Dungeon.GetTile(aAlpha.Location), aAlpha.Location);
-            EndNode = new Node(Dungeon.GetTile(aOmega.Location), aOmega.Location);
-
-            // Initialize FCost dictionary.
-            FCostDict = new Dictionary<Node, FCost>();
-
-
-            // create the closed list and the open list.
-            OpenList = new List<Node>();
-            ClosedList = new List<Node>();
-
-            Initialize();
 
             // Setup G, client code may overwrite this functionality.
             GFunc = delegate(Node a, Node b)
@@ -85,8 +74,18 @@ namespace DotNetHack.Utility.Graph.Algorithm
         /// <summary>
         /// The initialization step.
         /// </summary>
-        void Initialize()
+        void Initialize(Location3i aAlpha, Location3i aOmega)
         {
+            StartNode = new Node(Dungeon.GetTile(aAlpha), aAlpha);
+            EndNode = new Node(Dungeon.GetTile(aOmega), aOmega);
+
+            // Initialize FCost dictionary.
+            FCostDict = new Dictionary<Node, FCost>();
+
+            // create the closed list and the open list.
+            OpenList = new List<Node>();
+            ClosedList = new List<Node>();
+
             OpenList.Add(StartNode);
 
             // find all closed tiles
@@ -116,9 +115,11 @@ namespace DotNetHack.Utility.Graph.Algorithm
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        public Stack<Node> Solve(Node n)
+        public Stack<Node> Solve(IHasLocation aAlpha, IHasLocation aOmega)
         {
-            Node last = null;
+            Initialize(aAlpha.Location, aOmega.Location);
+
+            Node n, last = null;
             while (OpenList.Count > 0)
             {
                 OpenList.Sort(Cmp);
@@ -133,7 +134,7 @@ namespace DotNetHack.Utility.Graph.Algorithm
                 OpenList.Remove(n);
                 ClosedList.Add(n);
 
-#if !A_STAR_VIS
+#if A_STAR_VIS
                 ///
                 /// WARNING: for visualization only.
                 ///

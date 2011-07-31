@@ -199,6 +199,7 @@ namespace DotNetHack.Game
 
                 CurrentMap.Render(Player.Location);
 
+                
                 Player.Draw();
 
                 ++Time;
@@ -213,7 +214,7 @@ namespace DotNetHack.Game
             UI.Graphics.Display.ShowStatsBar(Player);
 
             foreach (var npc in CurrentMap.NonPlayerControlled)
-                npc.Exec(Player, CurrentMap);
+                npc.Execute(Player);
         }
 
         /// <summary>

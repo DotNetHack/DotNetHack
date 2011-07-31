@@ -8,7 +8,7 @@ namespace DotNetHack.Game.NPC.AI
     /// <summary>
     /// All shopkeepers share this common interface.
     /// </summary>
-    public interface IShopKeeperAI : IAI
+    public interface IShopKeeperAI : IAgent
     {
         /// <summary>
         /// Occurs when the shopkeeper recieves payment for goods purchased.

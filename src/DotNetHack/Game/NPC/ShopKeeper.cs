@@ -26,18 +26,7 @@ namespace DotNetHack.Game.NPC
         public ShopKeeper(string aShopKeeperName, Location3i l)
             : base(aShopKeeperName, '@', Colour.White, l)
         {
-            OnSeeMonster += new EventHandler<ActorEventArgs>(ShopKeeper_OnSeeMonster);
-            OnSeePlayer += new EventHandler<ActorEventArgs>(ShopKeeper_OnSeePlayer);
-            OnReceivePayment +=new EventHandler(ShopKeeper_OnReceivePayment);
         }
-
-        
-        void ShopKeeper_OnSeeMonster(object sender, ActorEventArgs e) { }
-
-        void ShopKeeper_OnSeePlayer(object sender, ActorEventArgs e) { }
-
-        void ShopKeeper_OnReceivePayment(object sender, EventArgs e) { }
-
 
         public void Greet(Actor aActor) 
         {
@@ -46,6 +35,16 @@ namespace DotNetHack.Game.NPC
         }
 
         public event EventHandler OnReceivePayment;
+
+        event EventHandler IShopKeeperAI.OnReceivePayment
+        {
+            add { throw new NotImplementedException(); }
+            remove { throw new NotImplementedException(); }
+        }
+
+        void IShopKeeperAI.Greet(Actor aActor) { }
+
+
     }
 
     /// <summary>
@@ -59,15 +58,5 @@ namespace DotNetHack.Game.NPC
         /// </summary>
         public GulDarTheShopKeeper(Location3i aLoc)
             : base("Gul'dar", aLoc) { }
-
-        /// <summary>
-        /// Exec AI
-        /// </summary>
-        /// <param name="aPlayer"></param>
-        /// <param name="aDungeon"></param>
-        public override void Exec(Player aPlayer, Dungeon.Dungeon3 aDungeon)
-        {
-            
-        }
     }
 }

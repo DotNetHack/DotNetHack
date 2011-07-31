@@ -37,6 +37,7 @@ namespace DotNetHack.Game.NPC
         /// <summary>
         /// The brain for this NPC
         /// </summary>
+        [XmlIgnore]
         public Brain Brain { get; set; }
 
         public override void RegenerateMagika() { }

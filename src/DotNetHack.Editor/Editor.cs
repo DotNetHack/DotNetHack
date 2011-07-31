@@ -18,6 +18,8 @@ using DotNetHack.Game.Dungeon.Tiles.Traps;
 using DotNetHack.Game.NPC.Monsters;
 
 using System.Xml.Serialization.Persisted;
+using System.IO;
+using System.Reflection;
 
 namespace DotNetHack.Editor
 {
@@ -60,6 +62,11 @@ namespace DotNetHack.Editor
         static EditorMode EditorMode { get; set; }
 
         /// <summary>
+        /// The list of monsters
+        /// </summary>
+        static List<Monster> Monsters { get; set; }
+
+        /// <summary>
         /// CommandProcessor
         /// </summary>
         static CommandProcessor CommandProcessor { get; set; }
@@ -83,39 +90,12 @@ namespace DotNetHack.Editor
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            List<Monster> mL = new List<Monster>();
-
-            Monster r = new Monster("Sewer Rat", 'r', new Colour(ConsoleColor.DarkRed), null);
-            r.Stats = new Stats()
-            {
-                Agility = 0,
-                Charisma = 0,
-                Endurance = 1,
-                Intelligence = 0,
-                Level = 1,
-                Luck = 0,
-                Strength = 1,
-                Perception = 0,
-            };
-            Monster s = new Monster("Slime Mold", 'N', new Colour(ConsoleColor.Green), null);
-            s.Stats = new Stats()
-            {
-                Agility = 0,
-                Charisma = 0,
-                Endurance = 2,
-                Intelligence = 0,
-                Level = 1,
-                Luck = 0,
-                Strength = 1,
-                Perception = 0,
-            };
-
-            mL.Add(r);
-            mL.Add(s);
-            mL.Write<List<Monster>>("c:\\DNH\\monsters.dat");
-
             // Parse incoming args for the runtime env.
             R.ParseArgs(args);
+
+            // Load all monsters
+            try { Monsters = Persisted.Read<List<Monster>>(R.MonsterFile); }
+            catch { UI.Graphics.MessageBox.Show("DNH-Edit", "Monster file not found!"); }
 
             // Show welcome message.
             UI.Graphics.MessageBox.Show("DNH-Edit", "Welcome to DotNetHack-Editor!");
@@ -123,6 +103,8 @@ namespace DotNetHack.Editor
             // Create a new map with a couple of floors
             CurrentMap = new Dungeon3(UI.Graphics.ScreenWidth,
                 UI.Graphics.ScreenHeight, 3);
+
+            Console.SetWindowSize(UI.Graphics.ScreenWidth + 20, UI.Graphics.ScreenHeight);
 
             CurrentLocation = new Location3i(UI.Graphics.ScreenCenter);
 
@@ -561,17 +543,17 @@ namespace DotNetHack.Editor
                     break;
                 case ConsoleKey.G:
                     int intGoldAmount = 0;
-                    GetInt(out intGoldAmount);
+                    Input.GetInt(out intGoldAmount);
                     SetItem(new Currency(intGoldAmount));
                     break;
                 case ConsoleKey.S:
                     int intSilverAmount = 0;
-                    GetInt(out intSilverAmount);
+                    Input.GetInt(out intSilverAmount);
                     SetItem(new Currency(intSilverAmount, CurrencyModifier.SILVER));
                     break;
                 case ConsoleKey.C:
                     int intCopperAmount = 0;
-                    GetInt(out intCopperAmount);
+                    Input.GetInt(out intCopperAmount);
                     SetItem(new Currency(intCopperAmount, CurrencyModifier.COPPER));
                     break;
                 // Add a new potion, use menu to determine exactly which one.
@@ -657,42 +639,28 @@ namespace DotNetHack.Editor
         {
             switch (input.Key)
             {
-                default:
-                    break;
-                // Adds a fire ant to the current location.
                 case ConsoleKey.F:
-                    CurrentMap.SpawnNPC(new Monster("Rabid Fox", 'f', Colour.Road, CurrentLocation)
                     {
-                        Agression = Game.NPC.Agression.Agressive,
-                        Stats = new Stats()
-                        {
-                            Level = 1,
-                            Speed = 8,
-                            Agility = 1,
-                            Strength = 1,
-                            Endurance = 1,
-                            Experience = 20,
-                            Perception = 3,
-                        },
-                    });
+                        CurrentMap.SpawnNPC(
+                            new Monster("Fox", 'Σ', Colour.Road, CurrentLocation))
+                            ;
+                        break;
+                    }
+                case ConsoleKey.N:
+                    UI.Graphics.CursorToLocation(1, 1);
+                    Console.WriteLine("Create Monster");
+                    Thread.Sleep(1000);
+                    Monster m = new Monster()
+                    {
+                        Name = Input.GetString("Name"),
+                        Stats = Input.ReadStats(),
+                    };
+                    if (Monsters == null)
+                        Monsters = new List<Monster>();
+                    Monsters.Add(m);
+                    Monsters.Write(R.MonsterFile);
                     break;
             }
-        }
-
-        /// <summary>
-        /// GetInt
-        /// <remarks>Gets an integer from standard input
-        /// requires that input is definately valid.</remarks>
-        /// </summary>
-        /// <param name="aValue">The <c>out</c> value where the input is stashed.</param>
-        /// <param name="aMessage">The message to show prior to reading the input.</param>
-        static void GetInt(out int aValue, string aMessage = "#")
-        {
-        redo_get_int:
-            UI.Graphics.CursorToLocation(CurrentLocation);
-            Console.Write(aMessage);
-            if (!int.TryParse(Console.ReadLine(), out aValue))
-                goto redo_get_int;
         }
     }
 }

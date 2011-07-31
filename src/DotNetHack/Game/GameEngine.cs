@@ -10,6 +10,8 @@ using DotNetHack.Game.Dungeon;
 using DotNetHack.Game.Dungeon.Tiles;
 using DotNetHack.Game.Items;
 using DotNetHack.Game.Dungeon.Tiles.Traps;
+using DotNetHack.Game.NPC.Monsters;
+using System.Xml.Serialization.Persisted;
 
 namespace DotNetHack.Game
 {
@@ -45,6 +47,9 @@ namespace DotNetHack.Game
             // set to true for exit.
             bool done = false;
 
+            /// Load all monsters.
+            try { MonsterStore = Persisted.Read<List<Monster>>(R.MonsterFile); }
+            catch { }
 
             while (!done)
             {
@@ -114,7 +119,7 @@ namespace DotNetHack.Game
                             Player.Inventory.Remove(p);
 
                             p.Quaff(Player);
-                            
+
                             break;
                         }
                     case ConsoleKey.O:
@@ -199,7 +204,7 @@ namespace DotNetHack.Game
 
                 CurrentMap.Render(Player.Location);
 
-                
+
                 Player.Draw();
 
                 ++Time;
@@ -236,6 +241,11 @@ namespace DotNetHack.Game
         /// RunFlags
         /// </summary>
         public static EngineRunFlags RunFlags { get; set; }
+
+        /// <summary>
+        /// MonsterStore
+        /// </summary>
+        public static List<Monster> MonsterStore { get; set; }
 
         /// <summary>
         /// EngineRunFlags

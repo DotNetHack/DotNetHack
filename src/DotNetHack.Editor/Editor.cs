@@ -101,10 +101,9 @@ namespace DotNetHack.Editor
             UI.Graphics.MessageBox.Show("DNH-Edit", "Welcome to DotNetHack-Editor!");
 
             // Create a new map with a couple of floors
-            CurrentMap = new Dungeon3(UI.Graphics.ScreenWidth,
-                UI.Graphics.ScreenHeight, 3);
+            CurrentMap = new Dungeon3(UI.Graphics.ScreenWidth, UI.Graphics.ScreenHeight, 3);
 
-            Console.SetWindowSize(UI.Graphics.ScreenWidth + 20, UI.Graphics.ScreenHeight);
+            Console.SetWindowSize(UI.Graphics.ScreenWidth, UI.Graphics.ScreenHeight);
 
             CurrentLocation = new Location3i(UI.Graphics.ScreenCenter);
 

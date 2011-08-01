@@ -12,6 +12,7 @@ using DotNetHack.Game.Items;
 using DotNetHack.Game.Dungeon.Tiles.Traps;
 using DotNetHack.Game.NPC.Monsters;
 using System.Xml.Serialization.Persisted;
+using DotNetHack.Game.Actions;
 
 namespace DotNetHack.Game
 {
@@ -26,7 +27,7 @@ namespace DotNetHack.Game
         /// <param name="aPlayer"></param>
         public GameEngine(Player aPlayer, Dungeon3 aStartDungeon)
         {
-            Time = 0L;
+            Time = new DateTime(1688, 11, 16);
             Player = aPlayer;
             CurrentMap = aStartDungeon;
         }
@@ -172,6 +173,15 @@ namespace DotNetHack.Game
 
                 if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
                     goto redo_input;
+
+                var tmpMonster = CurrentMap.MonsterThere(Player.Location + UnitMovement);
+
+                if (tmpMonster != null)
+                {
+                    new ActionMeleeAttack(Player, tmpMonster).Perform();
+                    Time = Time.AddSeconds(3);
+                }
+
                 Tile nMoveToTile = CurrentMap.GetTile(Player.Location + UnitMovement);
                 if (nMoveToTile.TileType == TileType.Wall)
                     goto redo_input;
@@ -196,26 +206,31 @@ namespace DotNetHack.Game
                 }
 
                 // Apply the unit movement.
-                Player.Location += UnitMovement;
+                if (CurrentMap.IsPassable(Player.Location + UnitMovement))
+                {
+                    Player.Location += UnitMovement;
+                    Time = Time.AddSeconds(6);
+                }
 
                 Update();
 
                 CurrentMap.Render(Player.Location);
 
-
                 Player.Draw();
-
-                ++Time;
             }
         }
 
         public void Update()
         {
+            // Perform regeneration step for player.
             Player.RegenerateHealth();
             Player.RegenerateMagika();
 
+            // Show the status bar.
             UI.Graphics.Display.ShowStatsBar(Player);
 
+            // Remove all NPC's that are dead, then run the ones that aren't (yet).
+            CurrentMap.NonPlayerControlled.RemoveAll(x => x.Dead);
             foreach (var npc in CurrentMap.NonPlayerControlled)
                 npc.Execute(Player);
         }
@@ -223,12 +238,20 @@ namespace DotNetHack.Game
         /// <summary>
         /// Time
         /// </summary>
-        public static long Time { get; private set; }
+        public static DateTime Time { get; private set; }
 
         /// <summary>
         /// Player
         /// </summary>
-        public Player Player { get; private set; }
+        public static Player Player { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public enum TimeScale 
+        {
+            World, Dungeon,
+        }
 
         /// <summary>
         /// CurrentMap

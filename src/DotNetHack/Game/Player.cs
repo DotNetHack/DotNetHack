@@ -45,14 +45,31 @@ namespace DotNetHack.Game
             {
                 Agility = 2,
                 Charisma = 4,
-                Endurance = 6,
+                Endurance = 7,
                 Intelligence = 7,
                 Luck = 4,
                 Perception = 2,
-                Strength = 4,
+                Strength = 7,
             };
 
-            // Stats.Health = Stats.M
+            Initialize();
+        }
+
+        /// <summary>
+        /// should be called after stats exist.
+        /// </summary>
+        public override void Initialize()
+        {
+            base.Initialize();
+            Stats.OnHealthChanged += new EventHandler(Stats_OnHealthChanged);
+        }
+
+
+        void Stats_OnHealthChanged(object sender, EventArgs e)
+        {
+            // WARNING: hack for now, until actually die logic can be made.
+            if (Stats.Health <= 0)
+                throw new DNHackException("you died!");
         }
 
         /// <summary>
@@ -69,15 +86,5 @@ namespace DotNetHack.Game
         /// Wallet
         /// </summary>
         public Currency Wallet { get; set; }
-
-        public override void RegenerateMagika()
-        {
-            
-        }
-
-        public override void RegenerateHealth()
-        {
-            
-        }
     }
 }

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Disposition.cs" />
     <Compile Include="DNHackException.cs" />
+    <Compile Include="Game\Actions\Attack.cs" />
     <Compile Include="Game\Actor.cs" />
     <Compile Include="Game\Direction.cs" />
     <Compile Include="Game\Dungeon\Dungeon.cs" />
@@ -152,7 +153,6 @@
     <Compile Include="Game\Dungeon\Tiles\TileType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Game\Actions\" />
     <Folder Include="Game\Items\Food\" />
     <Folder Include="Game\Items\Herbs\" />
     <Folder Include="Game\Quests\" />

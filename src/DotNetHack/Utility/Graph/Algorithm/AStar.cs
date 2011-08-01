@@ -121,6 +121,10 @@ namespace DotNetHack.Utility.Graph.Algorithm
             if (aAlpha.Location == aOmega.Location)
                 return null;
 
+            // TODO: Beside this, determine what happens when different floors.
+            if (aAlpha.Location.D != aOmega.Location.D)
+                return null;
+
             Initialize(aAlpha.Location, aOmega.Location);
 
             Node n, last = null;

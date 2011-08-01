@@ -190,18 +190,17 @@ namespace DotNetHack.UI
 
             public static void ShowStatsBar(Player aPlayer)
             {
-
-
                 Stats aStats = aPlayer.Stats;
 
                 string strPlayerInfo = string.Format(
-                        "{0}, {1}, (hp){2}/{3}, (Ma){4}/{5}",
+                        "{0}, {1}, (hp){2}/{3}, (Ma){4}/{5}, {6}",
                         aPlayer.Name,
                         aPlayer.Wallet,
-                        0,
+                        aPlayer.Stats.Health,
                         aPlayer.Stats.HitPoints,
                         0,
-                        aPlayer.Stats.ManaPoints
+                        aPlayer.Stats.ManaPoints,
+                        GameEngine.Time
                     );
                 Console.SetCursorPosition(0, Console.WindowHeight - 2);
                 Console.Write(strPlayerInfo);

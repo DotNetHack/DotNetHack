@@ -28,7 +28,7 @@ namespace DotNetHack.Game
 
         [XmlAttribute]
         public int Agility { get; set; }
-        
+
         [XmlAttribute]
         public int Wisdom { get; set; }
 
@@ -47,15 +47,53 @@ namespace DotNetHack.Game
         [XmlAttribute]
         public int Perception { get; set; }
 
+        [XmlIgnore]
+        public int Health
+        {
+            get { return _health; }
+            set
+            {
+                // health is being set, and what the value is now isn't what it used to 
+                // be.
+                if (_health != value)
+                {
+                    _health = value;
+
+                    // trigger health changed event.
+                    if (OnHealthChanged != null)
+                        OnHealthChanged(this, null);
+                }
+
+                // health ceiling
+                if (_health >= HitPoints)
+                    _health = HitPoints;
+
+            }
+        }
+
+        private int _health;
 
         /// <summary>
         /// Derrived attribute
         /// </summary>
-        public int HitPoints { get { return (int)((Strength + Endurance) / 10) * 2; } }
+        public int HitPoints { get { return (int)(Strength + Endurance * 2); } }
+
+        /// <summary>
+        /// Health as a percentage.
+        /// </summary>
+        public double HealthPercent
+        {
+            get { return (Health / HitPoints) * 100.0; }
+        }
 
         /// <summary>
         /// Derrived attribute
         /// </summary>
         public int ManaPoints { get { return (int)(2.5 * Intelligence); } }
+
+        /// <summary>
+        /// Triggered on any change in health.
+        /// </summary>
+        public event EventHandler OnHealthChanged;
     }
 }

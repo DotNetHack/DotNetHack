@@ -58,5 +58,13 @@ namespace DotNetHack.Game.NPC
         /// </summary>
         public GulDarTheShopKeeper(Location3i aLoc)
             : base("Gul'dar", aLoc) { }
+
+        /// <summary>
+        /// should be called after stats exist.
+        /// </summary>
+        public override void Initialize()
+        {
+            base.Initialize();
+        }
     }
 }

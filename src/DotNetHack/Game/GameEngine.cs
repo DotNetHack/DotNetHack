@@ -36,8 +36,6 @@ namespace DotNetHack.Game
         /// </summary>
         public void Run(EngineRunFlags aFlags)
         {
-            Graphics.ShowGraphicsInfo();
-
             // set engine run flags
             GameEngine.RunFlags = aFlags;
 
@@ -49,7 +47,7 @@ namespace DotNetHack.Game
 
             /// Load all monsters.
             try { MonsterStore = Persisted.Read<List<Monster>>(R.MonsterFile); }
-            catch { }
+            catch { UI.Graphics.MessageBox.Show("DotNetHack", "Monster file not found!"); }
 
             while (!done)
             {

@@ -531,6 +531,26 @@ namespace DotNetHack.Editor
         }
 
         /// <summary>
+        /// Spawns the passed monster at the current location.
+        /// </summary>
+        /// <param name="m">The monster to spawn.</param>
+        /// <exception cref="ArgumentNullException">Monster must be valid.</exception>
+        static void SetMonster(Monster m)
+        {
+            // satisfy preconditions.
+            if (m == null)
+                throw new ArgumentNullException("Monster cannot be null.");
+            else if (m.Stats == null)
+                throw new ArgumentNullException("Monster stats cannot be null.");
+
+            // This is the part that needed to be abstracted away from callers.
+            m.Location = CurrentLocation;
+
+            // Spawn the NPC in this map.
+            CurrentMap.SpawnNPC(m);
+        }
+
+        /// <summary>
         /// ProcessItemModeCommands
         /// </summary>
         /// <param name="input">The input</param>

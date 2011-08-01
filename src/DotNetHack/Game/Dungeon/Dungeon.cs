@@ -195,8 +195,35 @@ namespace DotNetHack.Game.Dungeon
         /// </summary>
         public void SpawnNPC(NonPlayerControlled aNPC) 
         {
+            aNPC.Initialize();
             aNPC.Spawn(this);
             NonPlayerControlled.Add(aNPC); 
+        }
+
+        /// <summary>
+        /// IsPassable
+        /// This method is used for shared collision detection.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsPassable(Location3i l) 
+        {
+            //if (GameEngine.Player.Location == l)
+                //return false;
+            Tile tmpTile = GetTile(l);
+            if (MonsterThere(l) != null)
+                return false;
+            return !tmpTile.Impassable;
+        }
+
+        /// <summary>
+        /// Determines if there is a monster at this location.
+        /// </summary>
+        /// <param name="l">The location.</param>
+        /// <returns></returns>
+        public NonPlayerControlled MonsterThere(Location3i l)
+        {
+            return NonPlayerControlled.Where(m => m.Location == l)
+                .FirstOrDefault();
         }
 
         /// <summary>

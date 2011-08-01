@@ -82,7 +82,9 @@ namespace DotNetHack.Game.NPC.AI
             FSM = new FSM<BrainState>(
                 delegate(BrainState a)
                 {
-                    return BrainState.Attack;
+                    if (Self.Stats.HealthPercent < 10)
+                        return BrainState.Flee;
+                    return BrainState.Patrol;
                 });
         }
 

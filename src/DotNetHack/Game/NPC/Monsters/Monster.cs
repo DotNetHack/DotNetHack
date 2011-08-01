@@ -5,6 +5,7 @@ using System.Text;
 using DotNetHack.Game.Interfaces;
 
 using System.Xml.Serialization.Persisted;
+using DotNetHack.Game.Items;
 
 namespace DotNetHack.Game.NPC.Monsters
 {
@@ -29,7 +30,7 @@ X	Explodes
         /// <summary>
         /// Supports serialization.
         /// </summary>
-        public Monster() { }
+        public Monster() {  }
 
         /// <summary>
         /// Creates a new Monster
@@ -40,7 +41,7 @@ X	Explodes
         /// <param name="aLocation">The location.</param>
         public Monster(string aName, char aGlyph, Colour aColour, Location3i aLocation = null)
             : base(aName, aGlyph, aColour, aLocation)
-        { }
+        { Initialize(); }
 
         public bool Equals(Monster other) { return other.Location == Location; }
 
@@ -49,5 +50,24 @@ X	Explodes
         /// </summary>
         public Agression Agression { get; set; }
 
+        /// <summary>
+        /// should be called after stats exist.
+        /// </summary>
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            Stats.OnHealthChanged += new EventHandler(Stats_OnHealthChanged);
+        }
+
+        void Stats_OnHealthChanged(object sender, EventArgs e)
+        {
+            if (Stats.Health <= 0)
+            {
+                Dead = true;
+                Brain.Dungeon.GetTile(this.Location)
+                    .Items.Add(new Currency(R.Random.Next(1, 100)));
+            }
+        }
     }
 }

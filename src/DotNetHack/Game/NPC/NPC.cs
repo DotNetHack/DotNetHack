@@ -5,6 +5,7 @@ using System.Text;
 using DotNetHack.Game.NPC.AI;
 using System.Xml.Serialization;
 using DotNetHack.Game.Interfaces;
+using DotNetHack.Game.Actions;
 
 namespace DotNetHack.Game.NPC
 {
@@ -40,9 +41,6 @@ namespace DotNetHack.Game.NPC
         [XmlIgnore]
         public Brain Brain { get; set; }
 
-        public override void RegenerateMagika() { }
-
-        public override void RegenerateHealth() { }
 
         IHasLocation WayPoint { get; set; }
 
@@ -52,32 +50,44 @@ namespace DotNetHack.Game.NPC
         /// <param name="aPlayer"></param>
         public virtual void Execute(Player aPlayer)
         {
+            bool meleeRange = false;
+
             WayPoint = aPlayer;
+
+            if (WayPoint == null)
+                return;
 
             // TODO: factor this out.
             var nStack = Brain.PathFinding.Solve(this, WayPoint);
-            nStack.Reverse();
 
             // TODO: factor this out.
+            if (nStack == null)
+                return;
+
+            // when the player is in range, don't pop, flag as melee range.
             WayPoint = nStack.Pop();
 
-            switch (Brain.CurrentState)
+            // dont allow this baddy to go *onto* the player.
+            if (WayPoint.Location == GameEngine.Player.Location)
             {
-                default:
-                    break;
-                case AI.Brain.BrainState.Flee:
-                    break;
-                case AI.Brain.BrainState.Attack:
-                    WayPoint = aPlayer;
-                    break;
-                case AI.Brain.BrainState.Patrol:
-                    break;
-                case AI.Brain.BrainState.Idle:
-                    break;
+                // stay right here.
+                WayPoint.Location = Location;
+                meleeRange = true;
             }
 
-            Location = WayPoint.Location;
+            if (meleeRange)
+                new ActionMeleeAttack(this, aPlayer).Perform();
+
+            if (_speedCounter % this.Stats.Speed == 0)
+            { 
+                Location = WayPoint.Location;
+                _speedCounter = 0;
+            }
+
+            _speedCounter++;
         }
+
+        private int _speedCounter = 0;
 
         /// <summary>
         /// No different than initialize.

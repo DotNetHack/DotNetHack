@@ -172,6 +172,8 @@ namespace DotNetHack.Game
 
                 if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
                     goto redo_input;
+
+
                 Tile nMoveToTile = CurrentMap.GetTile(Player.Location + UnitMovement);
                 if (nMoveToTile.TileType == TileType.Wall)
                     goto redo_input;
@@ -196,7 +198,8 @@ namespace DotNetHack.Game
                 }
 
                 // Apply the unit movement.
-                Player.Location += UnitMovement;
+                if (CurrentMap.IsPassable(Player.Location + UnitMovement))
+                    Player.Location += UnitMovement;
 
                 Update();
 
@@ -228,7 +231,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// Player
         /// </summary>
-        public Player Player { get; private set; }
+        public static Player Player { get; private set; }
 
         /// <summary>
         /// CurrentMap

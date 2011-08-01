@@ -34,6 +34,8 @@ namespace DotNetHack.Editor
     /// </summary>
     public class Editor
     {
+        static List<Colour> Colours = new List<Colour>();
+
         /// <summary>
         /// No different than a mouse cursor.
         /// </summary>

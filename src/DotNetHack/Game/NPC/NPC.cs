@@ -52,15 +52,28 @@ namespace DotNetHack.Game.NPC
         /// <param name="aPlayer"></param>
         public virtual void Execute(Player aPlayer)
         {
+            bool meleeRange = false;
+
             WayPoint = aPlayer;
 
             // TODO: factor this out.
             var nStack = Brain.PathFinding.Solve(this, WayPoint);
-            nStack.Reverse();
 
             // TODO: factor this out.
+            if (nStack == null)
+                return;
+
+            // when the player is in range, don't pop, flag as melee range.
             WayPoint = nStack.Pop();
 
+            // dont allow this baddy to go *onto* the player.
+            if (WayPoint.Location == GameEngine.Player.Location)
+            {
+                // stay right here.
+                WayPoint.Location = Location;
+                meleeRange = true;
+            }
+            
             switch (Brain.CurrentState)
             {
                 default:

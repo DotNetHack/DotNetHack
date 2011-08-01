@@ -200,6 +200,22 @@ namespace DotNetHack.Game.Dungeon
         }
 
         /// <summary>
+        /// IsPassable
+        /// </summary>
+        /// <returns></returns>
+        public bool IsPassable(Location3i l) 
+        {
+            //if (GameEngine.Player.Location == l)
+                //return false;
+            Tile tmpTile = GetTile(l);
+            var tmpMonsters = NonPlayerControlled.Where(
+                m => m.Location == l);
+            if (tmpMonsters.Count() > 0)
+                return false;
+            return !tmpTile.Impassable;
+        }
+
+        /// <summary>
         /// CheckBounds
         /// </summary>
         /// <param name="l"></param>

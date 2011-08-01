@@ -117,6 +117,10 @@ namespace DotNetHack.Utility.Graph.Algorithm
         /// <returns></returns>
         public Stack<Node> Solve(IHasLocation aAlpha, IHasLocation aOmega)
         {
+            // infinityly close for path finding.
+            if (aAlpha.Location == aOmega.Location)
+                return null;
+
             Initialize(aAlpha.Location, aOmega.Location);
 
             Node n, last = null;
@@ -158,10 +162,19 @@ namespace DotNetHack.Utility.Graph.Algorithm
                 }
             }
 
-            // no sense in being celverm this'll get it done 
-            Stack<Node> retVal = new Stack<Node>();
-            UnwindPath(last, retVal);
-            return retVal;
+            if (last != null)
+                if (last.Parent != null)
+                {
+                    // no sense in being celverm this'll get it done 
+                    Stack<Node> retVal = new Stack<Node>();
+                    UnwindPath(last, retVal);
+
+                    retVal.Reverse();
+                    retVal.Pop();
+
+                    return retVal;
+                }
+            return null;
         }
 
         /// <summary>
@@ -215,9 +228,11 @@ namespace DotNetHack.Utility.Graph.Algorithm
             // find all impassable tiles, add them to the closed list.
             Dungeon.IterateDungeonData(delegate(int x, int y, int d)
             {
-                ITile examineTile = Dungeon.MapData[x, y, d];
-                if (examineTile.Impassable)
-                    ClosedList.Add(new Node(examineTile, new Game.Location3i(x, y, d)));
+                // note: IsPassable takes into account monsters.
+                ITile examineTile = Dungeon.GetTile(x, y, d);
+                if (!Dungeon.IsPassable(new Location3i(x, y, d)))
+                    ClosedList.Add(new Node(examineTile,
+                        new Game.Location3i(x, y, d)));
             });
         }
 

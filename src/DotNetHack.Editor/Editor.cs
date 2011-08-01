@@ -651,6 +651,8 @@ namespace DotNetHack.Editor
             }
         }
 
+
+
         /// <summary>
         /// ProcessMonsterModeCommands
         /// </summary>
@@ -659,25 +661,148 @@ namespace DotNetHack.Editor
         {
             switch (input.Key)
             {
-                case ConsoleKey.F:
+                case ConsoleKey.Insert:
                     {
-                        CurrentMap.SpawnNPC(
-                            new Monster("Fox", 'Σ', Colour.Road, CurrentLocation))
-                            ;
-                        break;
+                        DisplayRegion tmpDisplayRegion = new DisplayRegion(0, 0, 0, 0);
+                        Monster mSelected = null;
+
+                        int maxLen = 0;
+                        int maxListLen = 0;
+                        int maxListCount = 0;
+
+                        //storage for intermediate, modifiable string.
+                        string strCat = string.Empty;
+
+                        // Read the console key, prior to entering while loop.
+                        var k = Console.ReadKey(true);
+
+                        // When enter is not pressed keep collecting keychars.
+                        while (k.Key != ConsoleKey.Enter)
+                        {
+                            string tmpPadding = string.Empty;
+                            for (int c = 0; c < maxListLen; ++c)
+                                tmpPadding += " ";
+                            for (int ix = 1; ix <= maxListCount + 1; ++ix)
+                            {
+                                UI.Graphics.CursorToLocation(1, ix);
+                                Console.Write(tmpPadding);
+                            }
+
+                            if (char.IsLetter(k.KeyChar) || k.KeyChar.Equals(' '))
+                            {
+                                strCat += k.KeyChar;
+
+                                // find an intermediate list of monsters that meet the selection criteria.
+                                var tmpList = Monsters.Where<Monster>(
+                                    x => x.Name.Contains(strCat));
+
+                                int index = 2;
+                                if (tmpList.Count() > 0)
+                                {
+                                    if (tmpList.Count() > maxListCount)
+                                        maxListCount = tmpList.Count();
+
+                                    // Index through tmp list, maintain index for position.
+                                    foreach (var m in tmpList)
+                                    {
+                                        if (index == 2) mSelected = m;
+
+                                        /// bring the cursor to the next menu place down, then write the 
+                                        /// monsters level and monsters name separated by :: 
+                                        string tmpListing = string.Format(
+                                            "{0}. {1} :: {2}", index - 1, m.Level, m.Name);
+                                        if (tmpListing.Length > maxListLen)
+                                            maxListLen = tmpListing.Length;
+
+                                        UI.Graphics.CursorToLocation(1, index);
+                                        Console.Write(tmpListing);
+
+                                        // increment index, for next line.
+                                        index++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (k.Key == ConsoleKey.Backspace)
+                                {
+                                    if (strCat.Length > 0)
+                                        strCat = strCat.Remove(strCat.Length - 1);
+                                }
+                                else if (k.Key == ConsoleKey.Escape)
+                                    return;
+                            }
+
+                            // record the maximal length.
+                            if (strCat.Length > maxLen)
+                                maxLen = strCat.Length;
+
+                            string tmpPaddingOuter = string.Empty;
+                            UI.Graphics.CursorToLocation(1, 1);
+                            for (int c = 0; c < maxLen; ++c)
+                                tmpPaddingOuter += " ";
+                            Console.Write(tmpPaddingOuter);
+
+                            UI.Graphics.CursorToLocation(1, 1);
+                            Console.Write(strCat);
+
+                            Console.Write(maxListCount);
+
+                            k = Console.ReadKey();
+                        }
+
+                        // Update the second point of the region to include maximal values.
+                        tmpDisplayRegion.P2 = new Location2i(maxListLen + 1, maxListCount + 2);
+
+                        // Refresh the buffered region where all our olde junk is.
+                        CurrentMap.DungeonRenderer.RefreshBufferedRegion(CurrentLocation,
+                            tmpDisplayRegion);
+
+                        // spawn the top monster on the list when the user pressed enter.
+                        // this needs to be a copy, otherwise the single reference is retained throughout.
+                        if (mSelected != null)
+                            SetMonster(Util.DeepCopy<Monster>(mSelected));
+
+                        // hold on a second.
+                        Thread.Sleep(100);
                     }
+                    break;
                 case ConsoleKey.N:
                     UI.Graphics.CursorToLocation(1, 1);
                     Console.WriteLine("Create Monster");
-                    Thread.Sleep(1000);
-                    Monster m = new Monster()
+                    Thread.Sleep(100);
+                    Monster tmpNewMonster = new Monster()
                     {
                         Name = Input.GetString("Name"),
                         Stats = Input.ReadStats(),
+                        G = Input.GetChar("Glyph: "),
+                        C = Input.GetColour(),
                     };
+
+                    #region Preview Monster
+                    // Quick display of the monster just created.
+                    var saveColour = Colour.CurrentColour;
+                    UI.Graphics.CursorToLocation(1, 1);
+                    Console.Write("Created Monster: ");
+                    tmpNewMonster.C.Set();
+                    Console.Write(tmpNewMonster.G);
+                    saveColour.Set();
+                    Thread.Sleep(100);
+                    #endregion
+
+                    // assert that monster list exists.
                     if (Monsters == null)
                         Monsters = new List<Monster>();
-                    Monsters.Add(m);
+
+                    #region Make sure the monster has not already been created.
+                    var mExists = Monsters.Where(
+                        x => x.Name.Equals(tmpNewMonster.Name, StringComparison.OrdinalIgnoreCase));
+                    if (mExists.Count() > 0)
+                        throw new DNHackException(
+                            string.Format("The monster \"{0}\" already exists in the beastiary!", tmpNewMonster.Name));
+                    #endregion
+
+                    Monsters.Add(tmpNewMonster);
                     Monsters.Write(R.MonsterFile);
                     break;
             }

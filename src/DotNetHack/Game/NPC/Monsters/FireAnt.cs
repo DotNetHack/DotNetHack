@@ -31,31 +31,6 @@ namespace DotNetHack.Game.NPC.Monsters
 
             this.Write<FireAnt>(@"c:\DNH\monsters.dat");
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="aPlayer"></param>
-        /// <param name="aDungeon"></param>
-        public override void Exec(Player aPlayer, Dungeon.Dungeon3 aDungeon)
-        {
-            // Create a new dungeon path finder.
-            DungeonPathFinding pathFind = new DungeonPathFinding(aDungeon, this,
-                aPlayer);
-
-            // start pathfinding from this
-
-            var pSln = pathFind.Solve(pathFind.StartNode);
-            Location = pSln.Peek().Location;
-
-#if !A_STAR_VIS
-            foreach (var n in pSln)
-            {
-                aDungeon.GetTile(n.Location).G = '*';
-                aDungeon.DungeonRenderer.Render(n.Location);
-            }
-#endif
-        }
     }
 }
 

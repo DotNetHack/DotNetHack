@@ -3,9 +3,12 @@
   <Class Name="DotNetHack.Game.NPC.NonPlayerControlled">
     <Position X="3" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAABABAACAAAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAAACAAAAAAAAAAAAAAAAAABCAAAAAAAAAA=</HashCode>
       <FileName>Game\NPC\NPC.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Brain" />
+    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DotNetHack.Game.Actor">
@@ -13,15 +16,8 @@
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
-    <NestedTypes>
-      <Enum Name="DotNetHack.Game.Actor.Cond" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Game\Actor.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAACAAgEAAAIAAAQAAAAAAAAAAAAAigAAAAA=</HashCode>
+      <HashCode>ABAABAAAAAAAAgEAAAIAAAQAAAAAAAAACAAAigAAAAA=</HashCode>
       <FileName>Game\Actor.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -35,7 +31,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DotNetHack.Game.NPC.Monsters.Monster">
-    <Position X="5.5" Y="1.75" Width="2" />
+    <Position X="5.5" Y="1.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Game\NPC\Monsters\Monster.cs</FileName>
@@ -43,17 +39,44 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DotNetHack.Game.NPC.Monsters.FireAnt">
-    <Position X="6" Y="4.25" Width="1.5" />
+    <Position X="8" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Game\NPC\Monsters\FireAnt.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="DotNetHack.Game.NPC.AI.IAI">
+  <Class Name="DotNetHack.Game.NPC.AI.Brain">
+    <Position X="5.5" Y="3.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="DotNetHack.Game.NPC.AI.Brain.BrainState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Game\NPC\AI\Brain.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAgAAAAEABAAAAAAAAAAAAAACAQAAAAgA=</HashCode>
+      <FileName>Game\NPC\AI\Brain.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="FSM" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DotNetHack.Game.NPC.AI.FSM&lt;S&gt;">
+    <Position X="8.75" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AgAgAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\NPC\AI\FSM.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DotNetHack.Game.NPC.AI.IAgent">
     <Position X="4.25" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAABAAAACAAAAAAAA=</HashCode>
-      <FileName>Game\NPC\AI\IAI.cs</FileName>
+      <HashCode>AAAAAAAgAAAAAAQAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Game\NPC\AI\IAgent.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="DotNetHack.Game.NPC.AI.IShopKeeperAI">

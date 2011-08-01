@@ -9,18 +9,20 @@ using DotNetHack.Game.Dungeon;
 namespace DotNetHack.Game.NPC.AI
 {
     /// <summary>
-    /// IAI
+    /// IAgent
     /// </summary>
-    public interface IAI
+    public interface IAgent
     {
         /// <summary>
-        /// Occurs when the agent sees the player.
+        /// The brain for this agent
         /// </summary>
-        event EventHandler<ActorEventArgs> OnSeePlayer;
+        Brain Brain { get; set; }
 
         /// <summary>
-        /// Occurs when the agent sees another monster,
+        /// Step
         /// </summary>
-        event EventHandler<ActorEventArgs> OnSeeMonster;
+        /// <param name="aDungeon">The dungeon</param>
+        /// <param name="aPlayer">The player.</param>
+        void Execute(Player aPlayer);
     }
 }

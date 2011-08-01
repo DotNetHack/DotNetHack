@@ -10,6 +10,8 @@ using DotNetHack.Game.Dungeon;
 using DotNetHack.Game.Dungeon.Tiles;
 using DotNetHack.Game.Items;
 using DotNetHack.Game.Dungeon.Tiles.Traps;
+using DotNetHack.Game.NPC.Monsters;
+using System.Xml.Serialization.Persisted;
 
 namespace DotNetHack.Game
 {
@@ -34,8 +36,6 @@ namespace DotNetHack.Game
         /// </summary>
         public void Run(EngineRunFlags aFlags)
         {
-            Graphics.ShowGraphicsInfo();
-
             // set engine run flags
             GameEngine.RunFlags = aFlags;
 
@@ -45,6 +45,9 @@ namespace DotNetHack.Game
             // set to true for exit.
             bool done = false;
 
+            /// Load all monsters.
+            try { MonsterStore = Persisted.Read<List<Monster>>(R.MonsterFile); }
+            catch { UI.Graphics.MessageBox.Show("DotNetHack", "Monster file not found!"); }
 
             while (!done)
             {
@@ -114,7 +117,7 @@ namespace DotNetHack.Game
                             Player.Inventory.Remove(p);
 
                             p.Quaff(Player);
-                            
+
                             break;
                         }
                     case ConsoleKey.O:
@@ -199,6 +202,7 @@ namespace DotNetHack.Game
 
                 CurrentMap.Render(Player.Location);
 
+
                 Player.Draw();
 
                 ++Time;
@@ -213,7 +217,7 @@ namespace DotNetHack.Game
             UI.Graphics.Display.ShowStatsBar(Player);
 
             foreach (var npc in CurrentMap.NonPlayerControlled)
-                npc.Exec(Player, CurrentMap);
+                npc.Execute(Player);
         }
 
         /// <summary>
@@ -235,6 +239,11 @@ namespace DotNetHack.Game
         /// RunFlags
         /// </summary>
         public static EngineRunFlags RunFlags { get; set; }
+
+        /// <summary>
+        /// MonsterStore
+        /// </summary>
+        public static List<Monster> MonsterStore { get; set; }
 
         /// <summary>
         /// EngineRunFlags

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game;
+using System.Threading;
 
 namespace DotNetHack
 {
@@ -39,6 +40,18 @@ namespace DotNetHack
         }
 
         /// <summary>
+        /// Get a character from stdin.
+        /// </summary>
+        /// <param name="aMessage">The message to display.</param>
+        /// <returns>The character read.</returns>
+        public static char GetChar(string aMessage = "", bool repeat = false)
+        {
+            UI.Graphics.CursorToLocation(1, 1);
+            Console.Write(aMessage + ": ");
+            return Console.ReadKey(repeat).KeyChar;
+        }
+
+        /// <summary>
         /// GetInt (inplace)
         /// <remarks>Gets an integer from standard input
         /// requires that input is definately valid.</remarks>
@@ -52,6 +65,55 @@ namespace DotNetHack
             Console.Write(aMessage);
             if (!int.TryParse(Console.ReadLine(), out aValue))
                 goto redo_get_int;
+        }
+
+        /// <summary>
+        /// Gets a colour from standard input using a mix of reflection and string comparison.
+        /// </summary>
+        /// <returns>The Colour inputted.</returns>
+        public static Colour GetColour()
+        {
+            bool bgSet = false;
+            bool fgSet = false;
+            ConsoleColor fg = ConsoleColor.Gray;
+            ConsoleColor bg = ConsoleColor.Black;
+
+        redo_get_colour:
+
+            try
+            {
+                // User input, via text.
+                UI.Graphics.CursorToLocation(1, 1);
+                Console.Write("FG: ");
+                string fgColourStr = Console.ReadLine();
+                UI.Graphics.CursorToLocation(1, 1);
+                Console.Write("BG: ");
+                string bgColourStr = Console.ReadLine();
+
+                foreach (var f in typeof(ConsoleColor).GetFields())
+                {
+                    // foreground colour
+                    if (f.Name.Equals(fgColourStr))
+                    {
+                        fg = (ConsoleColor)f.GetValue(f);
+                        fgSet = true;
+                    }
+
+                    // background colour.
+                    if (f.Name.Equals(bgColourStr))
+                    {
+                        bg = (ConsoleColor)f.GetValue(f);
+                        bgSet = true;
+                    }
+
+                    if (fgSet && bgSet)
+                        break;
+                }
+                
+                // Return the hopefully good colour.
+                return new Colour(fg, bg);
+            }
+            catch { goto redo_get_colour; }
         }
 
         /// <summary>

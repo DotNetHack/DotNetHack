@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game.NPC.AI;
+using System.Xml.Serialization;
+using DotNetHack.Game.Interfaces;
 
 namespace DotNetHack.Game.NPC
 {
@@ -10,7 +12,7 @@ namespace DotNetHack.Game.NPC
     /// non player controlled character.
     /// </summary>
     [Serializable]
-    public abstract class NonPlayerControlled : Actor, IAI
+    public abstract class NonPlayerControlled : Actor, IAgent
     {
         /// <summary>
         /// Supports serialization.
@@ -29,27 +31,61 @@ namespace DotNetHack.Game.NPC
         /// <summary>
         /// The level of this NPC.
         /// </summary>
-        public int Level { get; set; }
-        
-        public event EventHandler<Events.ActorEventArgs> OnSeePlayer;
-
-        public event EventHandler<Events.ActorEventArgs> OnSeeMonster;
+        [XmlIgnore]
+        public int Level { get { return Stats.Level; } }
 
         /// <summary>
-        /// Execute the AI operation.
+        /// The brain for this NPC
         /// </summary>
-        /// <param name="aPlayer">The player</param>
-        /// <param name="aDungeon">The dungeon</param>
-        public virtual void Exec(Player aPlayer, Dungeon.Dungeon3 aDungeon) { }
+        [XmlIgnore]
+        public Brain Brain { get; set; }
 
-        public override void RegenerateMagika()
+        public override void RegenerateMagika() { }
+
+        public override void RegenerateHealth() { }
+
+        IHasLocation WayPoint { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aPlayer"></param>
+        public virtual void Execute(Player aPlayer)
         {
-            
+            WayPoint = aPlayer;
+
+            // TODO: factor this out.
+            var nStack = Brain.PathFinding.Solve(this, WayPoint);
+            nStack.Reverse();
+
+            // TODO: factor this out.
+            WayPoint = nStack.Pop();
+
+            switch (Brain.CurrentState)
+            {
+                default:
+                    break;
+                case AI.Brain.BrainState.Flee:
+                    break;
+                case AI.Brain.BrainState.Attack:
+                    WayPoint = aPlayer;
+                    break;
+                case AI.Brain.BrainState.Patrol:
+                    break;
+                case AI.Brain.BrainState.Idle:
+                    break;
+            }
+
+            Location = WayPoint.Location;
         }
 
-        public override void RegenerateHealth()
+        /// <summary>
+        /// No different than initialize.
+        /// </summary>
+        /// <param name="aDungeon"></param>
+        public void Spawn(Dungeon.Dungeon3 aDungeon)
         {
-            
+            Brain = new AI.Brain(this, aDungeon);
         }
     }
 }

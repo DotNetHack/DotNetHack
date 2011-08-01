@@ -64,6 +64,41 @@ namespace DotNetHack.Game
             get { return new Colour(ConsoleColor.Yellow); }
         }
 
+        public static Colour Magenta
+        {
+            get { return new Colour(ConsoleColor.Magenta); }
+        }
+
+        public static Colour DarkMagenta
+        {
+            get { return new Colour(ConsoleColor.DarkMagenta); }
+        }
+
+        public static Colour Blue
+        {
+            get { return new Colour(ConsoleColor.Blue); }
+        }
+
+        public static Colour Cyan
+        {
+            get { return new Colour(ConsoleColor.Cyan); }
+        }
+
+        public static Colour DarkBlue
+        {
+            get { return new Colour(ConsoleColor.DarkBlue); }
+        }
+
+        public static Colour DarkCyan
+        {
+            get { return new Colour(ConsoleColor.DarkCyan); }
+        }
+
+        public static Colour DarkYellow
+        {
+            get { return new Colour(ConsoleColor.DarkYellow); }
+        }
+
         public static Colour Green
         {
             get { return new Colour(ConsoleColor.Green); }

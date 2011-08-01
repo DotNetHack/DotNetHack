@@ -193,7 +193,11 @@ namespace DotNetHack.Game.Dungeon
         /// Spawns an NPC monster into the dungeon.
         /// <remarks>the monster knows about his/her/it's location.</remarks>
         /// </summary>
-        public void SpawnNPC(NonPlayerControlled aNPC) { NonPlayerControlled.Add(aNPC); }
+        public void SpawnNPC(NonPlayerControlled aNPC) 
+        {
+            aNPC.Spawn(this);
+            NonPlayerControlled.Add(aNPC); 
+        }
 
         /// <summary>
         /// CheckBounds

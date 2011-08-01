@@ -85,14 +85,23 @@ namespace DotNetHack.UI
         /// <param name="aDrawable">A drawable object or thing</param>
         public static void Draw(IDrawable aDrawable)
         {
+            // Move the cursor to the drawble location.
             CursorToLocation(aDrawable.Location);
 
+            // Save this for later
             Colour tmpColor = Colour.CurrentColour;
 
+            // we're not coming this far to findout a colour isn't set.
+            if (aDrawable.C == null)
+                aDrawable.C = Colour.Standard;
+
+            // Set the colour
             aDrawable.C.Set();
 
+            // Draw the character
             Console.Write(aDrawable.G);
 
+            // Set the colour back to what we saved at the beginning of the method.
             tmpColor.Set();
         }
 

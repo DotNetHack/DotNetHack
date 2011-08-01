@@ -35,9 +35,21 @@ namespace DotNetHack
                     R.IsDebug = true;
 #if DEBUG
             // Until something better comes along.
-            R.WorkingDirectory = "C:\\DNH\\";
+            R.WorkingDirectory = @"..\..\..\..\";
+
             InitializePath(R.WorkingDirectory);
+            InitializePath(R.DatDirectory);
 #endif
+        }
+
+        public static string DatDirectory
+        {
+            get { return Path.Combine(WorkingDirectory, DAT_FOLDER); }
+        }
+
+        public static string MonsterFile
+        {
+            get { return Path.Combine(DatDirectory, DAT_MONSTERS); }
         }
 
         /// <summary>
@@ -55,6 +67,9 @@ namespace DotNetHack
             catch { return false; }
             return true;
         }
+
+        const string DAT_FOLDER = "dat";
+        const string DAT_MONSTERS = "monsters.dat";
 
         /// <summary>
         /// Random

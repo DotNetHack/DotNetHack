@@ -21,22 +21,26 @@ namespace DotNetHack.Game.Items
         /// Currency
         /// </summary>
         /// <param name="aAmount">Amount</param>
-        public Currency(int aAmount, int modifier = CurrencyModifier.GOLD)
+        public Currency(int aAmount, int modifier = CurrencyModifier.COPPER)
             : base(ItemType.Currency, "Gold", '$', Colour.Yellow)
         {
             // Given that we seem to be currently setting things in amounts of gold,
             // We'll have the default value set to gold.  Amount gets set accordingly:
             Amount = aAmount * modifier;
 
+            /*
             switch (modifier)
             {
+                case CurrencyModifier.GOLD:
+                    C = Colour.Yellow;
+                    break;
                 case CurrencyModifier.SILVER:
                     C = Colour.Silver;
                     break;
                 case CurrencyModifier.COPPER:
                     C = Colour.Copper;
                     break;
-            }
+            }*/
         }
 
         /// <summary>

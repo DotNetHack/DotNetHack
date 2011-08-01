@@ -89,31 +89,40 @@ namespace DotNetHack.Game
         public void Draw() { UI.Graphics.Draw(this); }
 
         /// <summary>
+        /// suplicant classes can add their own flavourings also.
+        /// this should be called after stats have been created.
+        /// </summary>
+        public virtual void Initialize()
+        {
+            Stats.Health = Stats.HitPoints;
+        }
+
+        public bool Dead { get; set; }
+
+        /// <summary>
         /// RegenerateMagika
         /// </summary>
-        public abstract void RegenerateMagika();
+        public virtual void RegenerateMagika()
+        {
+            if (++MagikaRegenTicks > (100 - (Stats.Intelligence + Stats.Wisdom)))
+            {
+                MagikaRegenTicks = 0;
+            }
+        }
+
+        int HealthRegenTicks = 0;
+        int MagikaRegenTicks = 0;
 
         /// <summary>
         /// RegenerateHealth
         /// </summary>
-        public abstract void RegenerateHealth();
-    }
-
-
-    public class StatRegen
-    {
-        public StatRegen() { RegenTicks = 0; }
-        void Regen(int aSpeed, ref Stats s, Func<Stats, Stats> r)
+        public virtual void RegenerateHealth()
         {
-            if (++RegenTicks > aSpeed)
+            if (++HealthRegenTicks > (100 - Stats.Endurance))
             {
-                s = r(s);
-                Reset();
+                HealthRegenTicks = 0;
+                Stats.Health++;
             }
         }
-
-        void Reset() { RegenTicks = 0; }
-
-        int RegenTicks { get; set; }
     }
 }

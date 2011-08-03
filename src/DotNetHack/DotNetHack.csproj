@@ -76,6 +76,7 @@
     <Compile Include="Game\Interfaces\IWand.cs" />
     <Compile Include="Game\Items\Containers\LockBox.cs" />
     <Compile Include="Game\Items\Equipment\Armor\ArmorType.cs" />
+    <Compile Include="Game\Items\Equipment\Armor\ArmorWorn.cs" />
     <Compile Include="Game\Items\Equipment\Material.cs" />
     <Compile Include="Game\Items\Equipment\Quality.cs" />
     <Compile Include="Game\Items\Equipment\Tools\MortarAndPestle.cs" />

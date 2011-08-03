@@ -8,6 +8,7 @@ namespace DotNetHack.Game.Items.Equipment
     /// <summary>
     /// Material
     /// </summary>
+    [Flags]
     public enum Material
     {
         Stone, 
@@ -18,5 +19,6 @@ namespace DotNetHack.Game.Items.Equipment
         Silver,
         Leather,
         Cloth,
+        Glass,
     }
 }

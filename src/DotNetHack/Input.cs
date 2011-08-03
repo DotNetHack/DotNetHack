@@ -13,6 +13,13 @@ namespace DotNetHack
     public static class Input
     {
         /// <summary>
+        /// Confirmation delegate
+        /// </summary>
+        /// <param name="aMessage"></param>
+        /// <returns></returns>
+        public delegate bool Confirm(string aMessage, bool aDefault = true);
+
+        /// <summary>
         /// Performs input filtering
         /// <remarks>Pass anonymous filter called "filter" be sure it returns a boolean, filtering will continue until the boolean condition is met.</remarks>
         /// </summary>

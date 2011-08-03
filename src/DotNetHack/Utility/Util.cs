@@ -1,7 +1,6 @@
 ﻿using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using System.Collections;
-using System.Collections.Generic;
+
 namespace DotNetHack.Utility
 {
     /// <summary>
@@ -9,6 +8,31 @@ namespace DotNetHack.Utility
     /// </summary>
     public static class Util
     {
+        /// <summary>
+        /// Compute a as a percentage in relation to b.
+        /// (a/b)*100
+        /// </summary>
+        /// <param name="a">a</param>
+        /// <param name="b">b</param>
+        /// <returns>the percentage</returns>
+        public static double Percent(int a, int b)
+        {
+            return (a / (b * 1.0)) * 100.00;
+        }
+
+        /// <summary>
+        /// Sigmoid, squashes input to [0,1]
+        /// http://en.wikipedia.org/wiki/Sigmoid_function
+        /// return 2 / (1 + System.Math.Exp(-2 * n)) - 1;
+        /// </summary>
+        /// <param name="n">the input x, for f(x)</param>
+        /// <returns></returns>
+        public static double Sigmoid(double n)
+        {
+            return 1 / (1 + System.Math.Exp(-n));
+        }
+
+
         /// <summary>
         /// <see cref="http://stackoverflow.com/questions/129389/how-do-you-do-a-deep-copy-an-object-in-net-c-specifically"/>
         /// </summary>

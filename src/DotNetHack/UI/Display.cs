@@ -108,6 +108,9 @@ namespace DotNetHack.UI
                 // Intentionally pad message
                 aMessage = string.Format(" {0} ", aMessage);
 
+                if (aMessage.Length > UI.Graphics.ScreenWidth - 20)
+                    aMessage = aMessage.Substring(0, UI.Graphics.ScreenWidth - 20);
+
                 int mBoxWidth = WIDTH_OFFSET; int mBoxHeight = 5;
                 int mTitleLength = aTitle.Length;
                 int mMessageLength = aMessage.Length;

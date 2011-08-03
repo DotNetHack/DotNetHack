@@ -15,7 +15,7 @@ namespace DotNetHack.Game.Items
     {
         Food,
         Other,
-        Armor,
+        Armour,
         Weapon,
         Scroll,
         Tome,
@@ -72,6 +72,11 @@ namespace DotNetHack.Game.Items
         public Item(string aName, char aGlyph, Colour aColor)
             : this(aName, aGlyph, aColor, null)
         { }
+
+        /// <summary>
+        /// supports serialization.
+        /// </summary>
+        public Item() { }
 
         /// <summary>
         /// Name

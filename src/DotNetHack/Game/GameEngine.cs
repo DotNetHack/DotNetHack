@@ -73,6 +73,18 @@ namespace DotNetHack.Game
                     case ConsoleKey.OemPeriod:
                         if (nPlayerTile.TileType == TileType.StairsUp)
                             UnitMovement.D--; break;
+                    case ConsoleKey.P:
+                        {
+                            // TODO: allow for dynamic selection of what to put on,
+                            // should be done via Func<IArmour, bool> for selecting
+                            // from the greater list.
+                            //
+                            // perhaps genericize the dropdown concept.
+                            var p = Player.Inventory.Armour.First<IArmour>();
+                            Player.WornArmour.PutOn(p, true);
+                            break;
+
+                        }
                     case ConsoleKey.OemComma:
                         if (input.Modifiers == ConsoleModifiers.Shift)
                         {
@@ -90,6 +102,7 @@ namespace DotNetHack.Game
                                 switch (cItem.ItemType)
                                 {
                                     default:
+                                        // TODO: Inventory needs events.
                                         Player.Inventory.Push(cItem);
                                         break;
                                     // Occurs when a player picks up a key.
@@ -112,6 +125,7 @@ namespace DotNetHack.Game
                     // TODO: Allow player to select exactly which potion they'd like to quaff.
                     case ConsoleKey.Q:
                         {
+                            // TODO: allow for dynamic selection of potions to quaff.
 
                             var p = Player.Inventory.Potions.First<IPotion>();
 
@@ -198,7 +212,7 @@ namespace DotNetHack.Game
                 if (nMoveToTile.HasItems)
                 {
                     if (nMoveToTile.Items.Count == 1)
-                        UI.Graphics.Display.ShowMessage(nMoveToTile.Items.First<IItem>().ToString());
+                        UI.Graphics.Display.ShowMessage(nMoveToTile.Items.First<IItem>().Name);
                     else
                         UI.Graphics.Display.ShowMessage("{0}, {1} here",
                             nMoveToTile.Items.Count,

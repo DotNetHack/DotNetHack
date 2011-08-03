@@ -21,24 +21,48 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
         { WeaponProperties = new WeaponProperties(); }
 
         /// <summary>
-        /// Condition
+        /// WeaponProperties
+        /// </summary>
+        public WeaponProperties WeaponProperties { get; set; }
+
+        /// <summary>
+        /// the worn weapon location
+        /// </summary>
+        public WeaponLocation WeaponLocation { get; set; }
+
+        /// <summary>
+        /// the type of weapon this is
+        /// </summary>
+        public WeaponType WeaponType { get; set; }
+
+        /// <summary>
+        /// the various weapon subtypes allow for further classification.
+        /// </summary>
+        public WeaponSubType WeaponSubType { get; set; }
+
+        /// <summary>
+        /// The overall health of this weapon.
         /// </summary>
         public int Condition
         {
             get { return WeaponProperties.Condition; }
-            set { WeaponProperties.Condition = value; }
+            set
+            {
+                // the maximum condition can not be exceeded.
+                if (value > WeaponProperties.MaxCondition)
+                    WeaponProperties.Condition = WeaponProperties.MaxCondition;
+                else WeaponProperties.Condition = value;
+            }
         }
-
-        /// <summary>
-        /// WeaponProperties
-        /// </summary>
-        public WeaponProperties WeaponProperties;// { get; set; }
 
         /// <summary>
         /// ToString
         /// </summary>
         /// <returns></returns>
-        public override string ToString() { return string.Format("{0}", Name); }
+        public override string ToString()
+        {
+            return string.Format("{0}", Name);
+        }
 
         /// <summary>
         /// Loads all available weapons and returns them as an array.

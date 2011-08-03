@@ -10,7 +10,7 @@
   <Class Name="DotNetHack.Game.Player">
     <Position X="21.25" Y="15.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAFACAAAAAAAAAAAAAAAEA=</HashCode>
+      <HashCode>AAAAAAAAAAACAQAAAAAAAAAFACAAAAAAAAAAAAAAgEA=</HashCode>
       <FileName>Game\Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -60,7 +60,7 @@
       <FileName>Game\Items\Equipment\Weapons\Weapon.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="WeaponProperties" />
+      <Property Name="WeaponProperties" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
@@ -106,12 +106,12 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Enum Name="DotNetHack.Game.GameEngine.EngineRunFlags" Collapsed="true">
+      <Enum Name="DotNetHack.Game.GameEngine.TimeScale" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Game\GameEngine.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
-      <Enum Name="DotNetHack.Game.GameEngine.TimeScale" Collapsed="true">
+      <Enum Name="DotNetHack.Game.GameEngine.EngineRunFlags" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Game\GameEngine.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -238,7 +238,7 @@
   <Class Name="DotNetHack.Game.Stats">
     <Position X="25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAABAAEAACABCEAEBABBAABAAAABAAEACAAAQCA=</HashCode>
+      <HashCode>AAAACAAAAAEAACABCEAEBABBAABAAAABAAEACAAAUCA=</HashCode>
       <FileName>Game\Stats.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -287,7 +287,7 @@
     <Position X="8.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Game\Events\GameEvent.cs</FileName>
+      <FileName>Game\Events\GameEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DotNetHack.Game.Items.Equipment.Tools.Tool">
@@ -302,7 +302,7 @@
     <Position X="10.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
-      <FileName>Game\Events\ActorEvent.cs</FileName>
+      <FileName>Game\Events\ActorEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DotNetHack.Game.Actions.Action">
@@ -326,31 +326,31 @@
       <FileName>Game\Actions\Attack.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Struct Name="DotNetHack.Game.Items.Equipment.Weapons.WeaponProperties">
-    <Position X="12.5" Y="5.5" Width="2" />
+  <Class Name="DotNetHack.Game.Items.Equipment.Weapons.WeaponProperties" Collapsed="true">
+    <Position X="12.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <HashCode>AAAAAIAAAACAAAAACAAABgAAAAAgAAAAEAAAAAAAAAA=</HashCode>
       <FileName>Game\Items\Equipment\Weapons\WeaponProperties.cs</FileName>
     </TypeIdentifier>
-  </Struct>
+  </Class>
   <Enum Name="DotNetHack.Game.Items.Equipment.Armour.ArmourLocation">
     <Position X="2.25" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAEAAACAQIAEEAAAAAAAAAAAAAAAQAAAAAAEAAA=</HashCode>
-      <FileName>Game\Items\Equipment\Armour\ArmourLocation.cs</FileName>
+      <FileName>Game\Items\Equipment\Armor\ArmorLocation.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="DotNetHack.Game.Items.Equipment.Armour.ArmourType">
     <Position X="5.75" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAAAQAAAAgAAAEAAAAAAAAgAAAAABA=</HashCode>
-      <FileName>Game\Items\Equipment\Armour\ArmourType.cs</FileName>
+      <FileName>Game\Items\Equipment\Armor\ArmorType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="DotNetHack.Game.Items.Equipment.Material">
     <Position X="9.25" Y="11.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIAAIAAAAAAgAAAAAAAAAAAAAAAIAAEAAgAAAAAAE=</HashCode>
+      <HashCode>AAAIAAIAAAAAAgAAAAAAAAAAAAAAAIAAEAAgAAAgAAE=</HashCode>
       <FileName>Game\Items\Equipment\Material.cs</FileName>
     </TypeIdentifier>
   </Enum>

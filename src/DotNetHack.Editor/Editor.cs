@@ -20,6 +20,7 @@ using DotNetHack.Game.NPC.Monsters;
 using System.Xml.Serialization.Persisted;
 using System.IO;
 using System.Reflection;
+using DotNetHack.Game.Items.Equipment.Armor;
 
 namespace DotNetHack.Editor
 {
@@ -577,6 +578,31 @@ namespace DotNetHack.Editor
                     Input.GetInt(out intCopperAmount);
                     SetItem(new Currency(intCopperAmount, CurrencyModifier.COPPER));
                     break;
+#if DEBUG
+
+                // WARNING: Experimental
+                // WARNING: Experimental
+                // WARNING: Experimental
+                // WARNING: Experimental
+                // WARNING: Experimental
+
+
+                // TODO: Remove this
+                case ConsoleKey.H:
+                    {
+
+                        SetItem(
+                        Dice.RandomChoice<IArmour>(new IArmour[] 
+                        {
+                            new HauberkOfDefense(CurrentLocation),
+                            new GauntletsOfBane(CurrentLocation),
+                            new GauntletsOfWisdom(CurrentLocation),
+                        })
+                        );
+
+                        break;
+                    }
+#endif
                 // Add a new potion, use menu to determine exactly which one.
                 case ConsoleKey.P:
                     {

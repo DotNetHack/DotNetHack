@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
+using DotNetHack.Game.Events;
 
 namespace DotNetHack.Game.Items.Equipment.Armour
 {
@@ -29,32 +30,48 @@ namespace DotNetHack.Game.Items.Equipment.Armour
         {
             if (WornArmour.ContainsKey(aArmour.ArmourLocation))
             {
-                if (RemoveArmourConfirm != null && confirm)
-                {
-                    if (RemoveArmourConfirm(string.Format("Remove {0}?", aArmour.Name)))
-                        WornArmour.Remove(aArmour.ArmourLocation);
-                }
-                else 
-                    WornArmour.Remove(aArmour.ArmourLocation);                
+                if (TakeOff(WornArmour[aArmour.ArmourLocation], confirm))
+                    WornArmour.Add(aArmour.ArmourLocation, aArmour);
             }
-
-            WornArmour.Add(aArmour.ArmourLocation, aArmour);
-
-            OnFinishedDressingManeuver(this, new WearEventArgs(aArmour,
-                WearEventArgs.DressingActionType.PutOn));
+            else WornArmour.Add(aArmour.ArmourLocation, aArmour);
+            
+            // fire off events.
+            if (OnFinishedDressingManeuver != null)
+                OnFinishedDressingManeuver(this,
+                    new EquipmentEventArgs<DressingActionType, IArmour>(
+                    DressingActionType.PutOn, aArmour));
         }
 
         /// <summary>
         /// Take off a piece of worn armour.
         /// </summary>
         /// <param name="?"></param>
-        public void TakeOff(IArmour aArmour, bool confirm = true)
+        public bool TakeOff(IArmour aArmour, bool confirm = true)
         {
             if (WornArmour.ContainsKey(aArmour.ArmourLocation))
-                WornArmour.Remove(aArmour.ArmourLocation);
+            {
+                if (RemoveArmourConfirm != null && confirm)
+                {
+                    if (RemoveArmourConfirm(
+                        string.Format("Remove {0}?", aArmour.Name))) { }
+                }
+                else WornArmour.Remove(aArmour.ArmourLocation);
 
-            OnFinishedDressingManeuver(this, 
-                new WearEventArgs(aArmour, WearEventArgs.DressingActionType.TakeOff));
+                // fire off events.
+                if (OnFinishedDressingManeuver != null)
+                    OnFinishedDressingManeuver(this,
+                        new EquipmentEventArgs<DressingActionType, IArmour>(
+                            DressingActionType.TakeOff, aArmour));
+
+                return true;
+            }
+
+            if (OnFinishedDressingManeuver != null)
+                OnFinishedDressingManeuver(this,
+                    new EquipmentEventArgs<DressingActionType, IArmour>(
+                        DressingActionType.Neither, aArmour));
+
+            return false;
         }
 
         /// <summary>
@@ -62,7 +79,7 @@ namespace DotNetHack.Game.Items.Equipment.Armour
         /// </summary>
         /// <param name="aPredicate">The predicate.</param>
         /// <returns>an enumeration that satisfies the predicate.</returns>
-        public IEnumerable<IArmour> Where(Func<IArmour, bool> aPredicate) 
+        public IEnumerable<IArmour> Where(Func<IArmour, bool> aPredicate)
         {
             foreach (IArmour iArmour in WornArmour.Values)
                 if (aPredicate(iArmour))
@@ -75,43 +92,15 @@ namespace DotNetHack.Game.Items.Equipment.Armour
         Input.Confirm RemoveArmourConfirm = null;
 
         /// <summary>
-        /// Occurs when the dressing maneuver is complete.
+        /// occurs any time a dressing manuver occurs
         /// </summary>
-        public event EventHandler<WearEventArgs> OnFinishedDressingManeuver;
-
-        //public  FinishedDressingManeuver;
+        public event EventHandler<EquipmentEventArgs<DressingActionType,
+            IArmour>> OnFinishedDressingManeuver;
 
         /// <summary>
-        /// Events arguments for a wear event
+        /// The type of dressing action type
         /// </summary>
-        public class WearEventArgs : EventArgs
-        {
-            /// <summary>
-            /// Creates a new instance of wear event arguments
-            /// </summary>
-            /// <param name="aArmour">The armour involved</param>
-            /// <param name="aType">The type of dressing maneuver</param>
-            public WearEventArgs(IArmour aArmour, DressingActionType aType)
-            {
-                Armour = aArmour;
-                ManeuverType = aType;
-            }
-
-            /// <summary>
-            /// The type of dressing action type
-            /// </summary>
-            public enum DressingActionType { PutOn, TakeOff, Neither };
-
-            /// <summary>
-            /// DressingActionType
-            /// </summary>
-            public DressingActionType ManeuverType { get; set; }
-
-            /// <summary>
-            /// Armour
-            /// </summary>
-            public IArmour Armour { get; set; }
-        }
+        public enum DressingActionType { PutOn, TakeOff, Neither };
 
         /// <summary>
         /// The associative dictionary of worn Armour.

@@ -8,6 +8,7 @@ using DotNetHack.Game.Events;
 using DotNetHack.Game.Dungeon;
 using DotNetHack.Game.Items;
 using DotNetHack.Game.Items.Equipment.Armour;
+using DotNetHack.Game.Items.Equipment.Weapons;
 
 namespace DotNetHack.Game
 {
@@ -65,22 +66,59 @@ namespace DotNetHack.Game
 
             #region worn armour
             WornArmour = new ArmourWorn();
-            WornArmour.OnFinishedDressingManeuver += 
-                new EventHandler<ArmourWorn.WearEventArgs>(WornArmour_OnFinishedDressingManeuver);
+            WornArmour.OnFinishedDressingManeuver += new EventHandler<EquipmentEventArgs<ArmourWorn.DressingActionType, IArmour>>(WornArmour_OnFinishedDressingManeuver);
+            #endregion
+
+            #region worn weapons
+            WieldedWeapons = new WeaponsWielded();
+            WieldedWeapons.OnWieldWeaponEvent += new EventHandler<EquipmentEventArgs<WeaponsWielded.WieldEventType, IWeapon>>(WieldedWeapons_OnWieldWeaponEvent);
             #endregion
 
             Stats.OnHealthChanged += new EventHandler(Stats_OnHealthChanged);
         }
 
         /// <summary>
-        /// occurs when the a dressing maneuver is completed.
+        /// fires when the wield status of a weapon changes.
         /// </summary>
-        /// <param name="sender">the event sender</param>
-        /// <param name="e">the event args</param>
-        void WornArmour_OnFinishedDressingManeuver(object sender, ArmourWorn.WearEventArgs e)
+        /// <param name="sender">the sender</param>
+        /// <param name="e">the event args (equipment)</param>
+        void WieldedWeapons_OnWieldWeaponEvent(object sender, EquipmentEventArgs<WeaponsWielded.WieldEventType, IWeapon> e)
         {
-            UI.Graphics.Display.ShowMessage(
-                "You are now wearing {0}.", e.Armour.Name);
+            switch (e.EquipEventType)
+            {
+                case WeaponsWielded.WieldEventType.Sheath:
+                    UI.Graphics.Display.ShowMessage("The weapon {0} has been sheathed",
+                        e.EquipmentInvolved.Name);
+                    break;
+                case WeaponsWielded.WieldEventType.Wield:
+                    UI.Graphics.Display.ShowMessage(string.Format("You are now wielding {0}.",
+                        e.EquipmentInvolved.Name));
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// occurs when a dressing meneuver is completed.
+        /// </summary>
+        /// <param name="sender">the sender</param>
+        /// <param name="e">the event arguemtn (equipment)</param>
+        void WornArmour_OnFinishedDressingManeuver(object sender, EquipmentEventArgs<ArmourWorn.DressingActionType, IArmour> e)
+        {
+            switch (e.EquipEventType)
+            {
+                case ArmourWorn.DressingActionType.PutOn:
+                    Inventory.Remove(e.EquipmentInvolved);
+                    UI.Graphics.Display.ShowMessage(
+                        "You are now wearing {0}.",
+                        e.EquipmentInvolved.Name);
+                    break;
+                case ArmourWorn.DressingActionType.TakeOff:
+                    Inventory.Push(e.EquipmentInvolved);
+                    UI.Graphics.Display.ShowMessage(
+                        "You are no longer wearing {0}.",
+                        e.EquipmentInvolved.Name);
+                    break;
+            }
         }
 
         /// <summary>
@@ -114,5 +152,10 @@ namespace DotNetHack.Game
         /// The armour that is worn by the player.
         /// </summary>
         public ArmourWorn WornArmour { get; set; }
+
+        /// <summary>
+        /// the weapons currently being wielded (or sheathed) by the player.
+        /// </summary>
+        public WeaponsWielded WieldedWeapons { get; set; }
     }
 }

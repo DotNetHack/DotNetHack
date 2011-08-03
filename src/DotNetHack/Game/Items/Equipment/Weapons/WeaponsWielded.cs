@@ -25,26 +25,36 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
         /// Wield the following weapon.
         /// </summary>
         /// <param name="aWeapon">wield this weapon.</param>
-        public void Wield(IWeapon aWeapon)
+        /// <param name="confirm">show a conf message if a weapon is already wielded.</param>
+        public void Wield(IWeapon aWeapon, bool confirm = true)
         {
             if (WieldedWeapons.ContainsKey(aWeapon.WeaponLocation))
-            {
-                if (SwitchWeaponConfirm != null)
-                {
-                    var currentWeapon = WieldedWeapons[aWeapon.WeaponLocation];
-                    if (SwitchWeaponConfirm(string.Format(
-                        "Are you sure you want to wield {0} instead of {1}?",
-                            currentWeapon, aWeapon)))
-                        WieldedWeapons.Remove(aWeapon.WeaponLocation);
-                }
-                else WieldedWeapons.Remove(aWeapon.WeaponLocation);
-            }
+                UnWield(aWeapon, confirm);
 
             WieldedWeapons.Add(aWeapon.WeaponLocation, aWeapon);
 
-            OnWieldWeaponEvent(this,
-                new EquipmentEventArgs<WieldEventType, IWeapon>(WieldEventType.Wield,
-                    aWeapon));
+            if (OnWieldWeaponEvent != null)
+                OnWieldWeaponEvent(this,
+                    new EquipmentEventArgs<WieldEventType, IWeapon>(WieldEventType.Wield,
+                        aWeapon));
+        }
+
+        public void UnWield(IWeapon aWeapon, bool confirm = true)
+        {
+            if (UnWieldConfirm != null && confirm)
+            {
+                var currentWeapon = WieldedWeapons[aWeapon.WeaponLocation];
+                if (UnWieldConfirm(string.Format(
+                    "Are you sure you want to wield {0} instead of {1}?",
+                        aWeapon,currentWeapon)))
+                    WieldedWeapons.Remove(aWeapon.WeaponLocation);
+            }
+            else WieldedWeapons.Remove(aWeapon.WeaponLocation);
+
+            if (OnWieldWeaponEvent != null)
+                OnWieldWeaponEvent(this,
+                    new EquipmentEventArgs<WieldEventType, IWeapon>(WieldEventType.Sheath, aWeapon));
+
         }
 
         /// <summary>
@@ -56,7 +66,7 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
         /// confirmation that a weapon switch will take place.
         /// obviously monsters dont do this.
         /// </summary>
-        public Input.Confirm SwitchWeaponConfirm = null;
+        public Input.Confirm UnWieldConfirm = null;
 
         /// <summary>
         /// contains all wielded weapons.

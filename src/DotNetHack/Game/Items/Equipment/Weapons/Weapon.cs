@@ -12,13 +12,27 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
     [Serializable]
     public abstract class Weapon : Item, IWeapon
     {
+        public Weapon()
+        { }
+
         /// <summary>
-        /// Weapon
+        /// creates a new weapon
         /// </summary>
-        /// <param name="aName"></param>
-        public Weapon(string aName, char aGlyph, Colour aColor)
-            : base(aName, aGlyph, aColor)
-        { WeaponProperties = new WeaponProperties(); }
+        /// <param name="aName">the name of the weapon</param>
+        /// <param name="aGlyph">the weapon glyph</param>
+        /// <param name="aColor">the weapon colour</param>
+        /// <param name="l">the weapon location.</param>
+        /// <param name="aWProps">weapon properties</param>
+        /// <param name="aLoc">worn location</param>
+        /// <param name="aSubType">weapon subtype</param>
+        public Weapon(string aName, char aGlyph, Colour aColor, Location3i l,
+            WeaponProperties aWProps, WeaponLocation aLoc, WeaponSubType aSubType)
+            : base(ItemType.Weapon, aName, aGlyph, aColor, l)
+        {
+            WeaponProperties = aWProps;
+            WeaponSubType = aSubType;
+            WeaponLocation = aLoc;
+        }
 
         /// <summary>
         /// WeaponProperties

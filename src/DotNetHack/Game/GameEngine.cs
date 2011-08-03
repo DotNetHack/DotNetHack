@@ -85,6 +85,15 @@ namespace DotNetHack.Game
                             break;
 
                         }
+                    case ConsoleKey.W:
+                        {
+                            // TODO: allow for dynamic selection of what to put on,
+                            // should be done via Func<IWeapon, bool> for selecting.
+                            Player.WieldedWeapons.Wield(
+                                Dice.RandomChoice<IWeapon>(
+                                Player.Inventory.Weapons.ToArray()));
+                            break;
+                        }
                     case ConsoleKey.OemComma:
                         if (input.Modifiers == ConsoleModifiers.Shift)
                         {

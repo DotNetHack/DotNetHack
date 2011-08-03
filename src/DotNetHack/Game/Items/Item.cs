@@ -74,6 +74,11 @@ namespace DotNetHack.Game.Items
         { }
 
         /// <summary>
+        /// supports serialization.
+        /// </summary>
+        public Item() { }
+
+        /// <summary>
         /// Name
         /// </summary>
         public string Name { get; set; }

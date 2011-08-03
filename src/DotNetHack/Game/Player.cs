@@ -87,10 +87,12 @@ namespace DotNetHack.Game
             switch (e.EquipEventType)
             {
                 case WeaponsWielded.WieldEventType.Sheath:
-                    UI.Graphics.Display.ShowMessage("The weapon {0} has been sheathed",
+                    Inventory.Push(e.EquipmentInvolved);
+                    UI.Graphics.Display.ShowMessage("The weapon {0} has been sheathed.",
                         e.EquipmentInvolved.Name);
                     break;
                 case WeaponsWielded.WieldEventType.Wield:
+                    Inventory.Remove(e.EquipmentInvolved);
                     UI.Graphics.Display.ShowMessage(string.Format("You are now wielding {0}.",
                         e.EquipmentInvolved.Name));
                     break;

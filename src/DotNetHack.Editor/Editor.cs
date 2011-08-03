@@ -21,6 +21,7 @@ using System.Xml.Serialization.Persisted;
 using System.IO;
 using System.Reflection;
 using DotNetHack.Game.Items.Equipment.Armor;
+using DotNetHack.Game.Items.Equipment.Weapons;
 
 namespace DotNetHack.Editor
 {
@@ -591,14 +592,25 @@ namespace DotNetHack.Editor
                 case ConsoleKey.H:
                     {
 
-                        SetItem(
-                        Dice.RandomChoice<IArmour>(new IArmour[] 
+                        if (input.Modifiers.HasFlag(ConsoleModifiers.Shift))
+                        {
+                            SetItem(
+                            Dice.RandomChoice<IArmour>(new IArmour[] 
                         {
                             new HauberkOfDefense(CurrentLocation),
                             new GauntletsOfBane(CurrentLocation),
                             new GauntletsOfWisdom(CurrentLocation),
                         })
-                        );
+                            );
+                        }
+                        else 
+                        {
+                            SetItem(Dice.RandomChoice<IWeapon>(new IWeapon[] 
+                            {
+                                new ShortswordOfRending(CurrentLocation),
+                                new ShortswordOfTheBear(CurrentLocation)
+                            }));
+                        }
 
                         break;
                     }

@@ -154,11 +154,11 @@
       <FileName>Game\Interfaces\IWand.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DotNetHack.Game.Interfaces.IArmor" Collapsed="true">
+  <Interface Name="DotNetHack.Game.Interfaces.IArmour" Collapsed="true">
     <Position X="4.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Game\Interfaces\IArmor.cs</FileName>
+      <FileName>Game\Interfaces\IArmour.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="DotNetHack.Game.Interfaces.ITool">

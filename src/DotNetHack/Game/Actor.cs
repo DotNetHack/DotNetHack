@@ -7,6 +7,7 @@ using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Items;
 using DotNetHack.Game.Effects;
 using System.Xml.Serialization;
+using DotNetHack.Game.Items.Equipment.Armour;
 
 namespace DotNetHack.Game
 {

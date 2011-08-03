@@ -55,12 +55,12 @@ namespace DotNetHack.Game.Items
         /// <summary>
         /// All armour in this item collection.
         /// </summary>
-        public IEnumerable<IArmor> Armor
+        public IEnumerable<IArmour> Armour
         {
             get
             {
-                return (IEnumerable<IArmor>)
-                    ItemFilter<IArmor>(x => x.ItemType == ItemType.Armor);
+                return (IEnumerable<IArmour>)
+                    ItemFilter<IArmour>(x => x.ItemType == ItemType.Armour);
             }
         }
 
@@ -133,7 +133,7 @@ namespace DotNetHack.Game.Items
             {
                 return (IEnumerable<IEquipment>)
                     ItemFilter<IEquipment>(x =>
-                        x.ItemType == ItemType.Armor ||
+                        x.ItemType == ItemType.Armour ||
                         x.ItemType == ItemType.Weapon);
             }
         }

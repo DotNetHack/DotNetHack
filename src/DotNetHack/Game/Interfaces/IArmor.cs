@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DotNetHack.Game.Items.Equipment.Armor;
+using DotNetHack.Game.Items.Equipment.Armour;
 
 namespace DotNetHack.Game.Interfaces
 {
-    public interface IArmor : IEquipment, IHasCondition
+    public interface IArmour : IEquipment, IHasCondition
     {
-        ArmorLocation ArmorLocation { get; }
+        ArmourLocation ArmourLocation { get; }
     }
 }

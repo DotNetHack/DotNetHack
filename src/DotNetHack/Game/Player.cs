@@ -7,6 +7,7 @@ using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Events;
 using DotNetHack.Game.Dungeon;
 using DotNetHack.Game.Items;
+using DotNetHack.Game.Items.Equipment.Armour;
 
 namespace DotNetHack.Game
 {
@@ -61,10 +62,32 @@ namespace DotNetHack.Game
         public override void Initialize()
         {
             base.Initialize();
+
+            #region worn armour
+            WornArmour = new ArmourWorn();
+            WornArmour.OnFinishedDressingManeuver += 
+                new EventHandler<ArmourWorn.WearEventArgs>(WornArmour_OnFinishedDressingManeuver);
+            #endregion
+
             Stats.OnHealthChanged += new EventHandler(Stats_OnHealthChanged);
         }
 
+        /// <summary>
+        /// occurs when the a dressing maneuver is completed.
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the event args</param>
+        void WornArmour_OnFinishedDressingManeuver(object sender, ArmourWorn.WearEventArgs e)
+        {
+            UI.Graphics.Display.ShowMessage(
+                "You are now wearing {0}.", e.Armour.Name);
+        }
 
+        /// <summary>
+        /// Occurs when the players health changes, this could be bad.
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">event args (none really since stats will be inspected)</param>
         void Stats_OnHealthChanged(object sender, EventArgs e)
         {
             // WARNING: hack for now, until actually die logic can be made.
@@ -86,5 +109,10 @@ namespace DotNetHack.Game
         /// Wallet
         /// </summary>
         public Currency Wallet { get; set; }
+
+        /// <summary>
+        /// The armour that is worn by the player.
+        /// </summary>
+        public ArmourWorn WornArmour { get; set; }
     }
 }

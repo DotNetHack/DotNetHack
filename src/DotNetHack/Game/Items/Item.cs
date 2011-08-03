@@ -15,7 +15,7 @@ namespace DotNetHack.Game.Items
     {
         Food,
         Other,
-        Armor,
+        Armour,
         Weapon,
         Scroll,
         Tome,

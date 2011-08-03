@@ -18,7 +18,7 @@ namespace DotNetHack.Game
         public int Speed { get; set; }
 
         [XmlAttribute]
-        public int ArmorClass { get; set; }
+        public int ArmourClass { get; set; }
 
         [XmlAttribute]
         public int Strength { get; set; }

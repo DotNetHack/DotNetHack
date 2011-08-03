@@ -42,7 +42,19 @@ namespace DotNetHack.Game
         /// <returns>A "randomly" selected element from the list.</returns>
         public static T RandomChoice<T>(IList<T> obj)
         {
+            // TODO: Rehash this a bit; not so hot the more i loot at it.
             return obj[R.Random.Next(0, obj.Count)];
+        }
+
+        /// <summary>
+        /// a little better.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static T RandomChoice<T>(T[] obj)
+        {
+            return obj[R.Random.Next(0, obj.Length)];
         }
     }
 }

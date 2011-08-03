@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DotNetHack.Game.Items.Equipment.Armor
+namespace DotNetHack.Game.Items.Equipment.Armour
 {
     /// <summary>
-    /// WornArmorLocation
+    /// WornArmourLocation
     /// </summary>
-    public enum ArmorLocation
+    public enum ArmourLocation
     {
         Head,
         Neck,

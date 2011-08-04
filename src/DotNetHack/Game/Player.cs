@@ -65,12 +65,11 @@ namespace DotNetHack.Game
             base.Initialize();
 
             #region worn armour
-            WornArmour = new ArmourWorn();
+            
             WornArmour.OnFinishedDressingManeuver += new EventHandler<EquipmentEventArgs<ArmourWorn.DressingActionType, IArmour>>(WornArmour_OnFinishedDressingManeuver);
             #endregion
 
             #region worn weapons
-            WieldedWeapons = new WeaponsWielded();
             WieldedWeapons.OnWieldWeaponEvent += new EventHandler<EquipmentEventArgs<WeaponsWielded.WieldEventType, IWeapon>>(WieldedWeapons_OnWieldWeaponEvent);
             #endregion
 
@@ -149,15 +148,5 @@ namespace DotNetHack.Game
         /// Wallet
         /// </summary>
         public Currency Wallet { get; set; }
-
-        /// <summary>
-        /// The armour that is worn by the player.
-        /// </summary>
-        public ArmourWorn WornArmour { get; set; }
-
-        /// <summary>
-        /// the weapons currently being wielded (or sheathed) by the player.
-        /// </summary>
-        public WeaponsWielded WieldedWeapons { get; set; }
     }
 }

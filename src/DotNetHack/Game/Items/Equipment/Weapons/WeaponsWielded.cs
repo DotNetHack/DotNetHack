@@ -16,10 +16,7 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
         /// <summary>
         /// supports serialization
         /// </summary>
-        public WeaponsWielded()
-        {
-            WieldedWeapons = new Dictionary<WeaponLocation, IWeapon>();
-        }
+        public WeaponsWielded() { }
 
         /// <summary>
         /// Wield the following weapon.
@@ -28,50 +25,65 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
         /// <param name="confirm">show a conf message if a weapon is already wielded.</param>
         public void Wield(IWeapon aWeapon, bool confirm = true)
         {
-            if (WieldedWeapons.ContainsKey(aWeapon.WeaponLocation))
-                UnWield(aWeapon, confirm);
+            if (CurrentWeapon != null)
+                UnWield(CurrentWeapon, confirm);
 
-            WieldedWeapons.Add(aWeapon.WeaponLocation, aWeapon);
-
+            CurrentWeapon = aWeapon;
+            
             if (OnWieldWeaponEvent != null)
                 OnWieldWeaponEvent(this,
-                    new EquipmentEventArgs<WieldEventType, IWeapon>(WieldEventType.Wield,
-                        aWeapon));
+                    new EquipmentEventArgs<WieldEventType, IWeapon>
+                    (WieldEventType.Wield, aWeapon));
         }
 
         public void UnWield(IWeapon aWeapon, bool confirm = true)
         {
             if (UnWieldConfirm != null && confirm)
+                confirm = UnWieldConfirm(string.Format(
+                    "Are you sure you want to unwield {0}", CurrentWeapon.Name));
+
+            if (confirm)
             {
-                var currentWeapon = WieldedWeapons[aWeapon.WeaponLocation];
-                if (UnWieldConfirm(string.Format(
-                    "Are you sure you want to wield {0} instead of {1}?",
-                        aWeapon,currentWeapon)))
-                    WieldedWeapons.Remove(aWeapon.WeaponLocation);
+                CurrentWeapon = null;
+                SheathedWeapon = aWeapon;
             }
-            else WieldedWeapons.Remove(aWeapon.WeaponLocation);
 
             if (OnWieldWeaponEvent != null)
                 OnWieldWeaponEvent(this,
-                    new EquipmentEventArgs<WieldEventType, IWeapon>(WieldEventType.Sheath, aWeapon));
-
+                    new EquipmentEventArgs<WieldEventType, IWeapon>(WieldEventType.Sheath,
+                        aWeapon));
         }
 
         /// <summary>
         /// occurs when the weapon wield is complete.
         /// </summary>
-        public event EventHandler<EquipmentEventArgs<WieldEventType, IWeapon>> OnWieldWeaponEvent;
+        public event EventHandler<EquipmentEventArgs<
+            WieldEventType, IWeapon>> OnWieldWeaponEvent;
 
         /// <summary>
         /// confirmation that a weapon switch will take place.
         /// obviously monsters dont do this.
         /// </summary>
+        [System.Xml.Serialization.XmlIgnore]
         public Input.Confirm UnWieldConfirm = null;
 
+        /*
         /// <summary>
         /// contains all wielded weapons.
         /// </summary>
-        public Dictionary<WeaponLocation, IWeapon> WieldedWeapons { get; set; }
+        public Dictionary<WeaponLocation, IWeapon> 
+            WieldedWeapons { get; set; }
+         */
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IWeapon CurrentWeapon { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IWeapon SheathedWeapon { get; set; }
 
         /// <summary>
         /// the various types of wielding (or not)

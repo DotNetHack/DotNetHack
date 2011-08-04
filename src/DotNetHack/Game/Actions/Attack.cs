@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DotNetHack.Game.Effects;
 
 namespace DotNetHack.Game.Actions
 {
@@ -74,7 +75,35 @@ namespace DotNetHack.Game.Actions
 
         static bool MeleeAttack(Actor aAttacker, Actor aDefender)
         {
-            aDefender.Stats.Health--;
+            if (aAttacker.WieldedWeapons.CurrentWeapon == null)
+                return false;
+
+            // this junk should be rollec up into a game-engine delegate
+            // http://www.uesp.net/wiki/Oblivion:The_Complete_Damage_Formula
+            double weaponRating =
+            aAttacker.WieldedWeapons.CurrentWeapon.WeaponProperties.BaseWeaponDamage
+                * 0.5 * (aAttacker.WieldedWeapons.CurrentWeapon.WeaponProperties.Condition
+                / aAttacker.WieldedWeapons.CurrentWeapon.WeaponProperties.MaxCondition + 1)
+                / 2;
+
+
+            aDefender.Stats.Health -= (int)weaponRating;
+
+            if (aDefender.EffectStack.Count < 1)
+                aDefender.EffectStack.Add(new Effects.Effect()
+                {
+                    Duration = 10,
+                    EffectType = Effects.EffectType.Disease,
+                    Magnitude = 1,
+                    EffectModifiers = delegate(Effect e, Actor a) 
+                    {
+                        a.Stats.Speed++;
+                        a.Stats.Health -= e.Magnitude;
+                        if (e.Duration < 5)
+                            e.Magnitude *= 2;
+                        
+                    },
+                });
 
             return true;
         }

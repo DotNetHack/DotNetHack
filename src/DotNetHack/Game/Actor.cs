@@ -8,6 +8,7 @@ using DotNetHack.Game.Items;
 using DotNetHack.Game.Effects;
 using System.Xml.Serialization;
 using DotNetHack.Game.Items.Equipment.Armour;
+using DotNetHack.Game.Items.Equipment.Weapons;
 
 namespace DotNetHack.Game
 {
@@ -26,10 +27,12 @@ namespace DotNetHack.Game
             Inventory = new ItemCollection();
 
             // Active effects on this actor.
-            EffectStack = new Stack<Effect>();
+            EffectStack = new List<Effect>();
 
             // The actors stats.
             Stats = new Stats();
+
+            WieldedWeapons = new WeaponsWielded();
         }
 
         /// <summary>
@@ -72,7 +75,18 @@ namespace DotNetHack.Game
         /// EffectStack
         /// </summary>
         [XmlIgnore]
-        public Stack<Effect> EffectStack { get; set; }
+        public List<Effect> EffectStack { get; set; }
+
+        /// <summary>
+        /// ApplyEffects
+        /// </summary>
+        public void ApplyEffects() 
+        {
+            foreach (var effect in EffectStack)
+                effect.Tick(this);
+            
+            EffectStack.RemoveAll(e => e.Duration <= 0);
+        }
 
         /// <summary>
         /// The glyph representing this actor.
@@ -96,6 +110,8 @@ namespace DotNetHack.Game
         public virtual void Initialize()
         {
             Stats.Health = Stats.HitPoints;
+            WornArmour = new ArmourWorn();
+            WieldedWeapons = new WeaponsWielded();
         }
 
         public bool Dead { get; set; }
@@ -125,5 +141,17 @@ namespace DotNetHack.Game
                 Stats.Health++;
             }
         }
+
+        /// <summary>
+        /// The armour that is worn by the player.
+        /// </summary>
+        [XmlIgnore]
+        public ArmourWorn WornArmour { get; set; }
+
+        /// <summary>
+        /// the weapons currently being wielded (or sheathed) by the player.
+        /// </summary>
+        [XmlIgnore]
+        public WeaponsWielded WieldedWeapons { get; set; }
     }
 }

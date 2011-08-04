@@ -24,7 +24,15 @@ namespace DotNetHack.Game.Items.Potions
         /// </summary>
         public override void Quaff(Actor aActor)
         {
-            
+            // experimental
+            aActor.EffectStack.Add(
+                new Effects.Effect(Effects.EffectType.Healing, 5, 40)
+                {
+                    EffectModifiers = delegate(Effects.Effect e, Actor t) 
+                    {
+                        t.Stats.Health += e.Magnitude;
+                    },
+                });
         }
     }
 }

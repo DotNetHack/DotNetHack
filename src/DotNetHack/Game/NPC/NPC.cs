@@ -45,7 +45,8 @@ namespace DotNetHack.Game.NPC
         IHasLocation WayPoint { get; set; }
 
         /// <summary>
-        /// 
+        /// TODO: EXPERIEMTNAL.
+        /// Everything will be wired up to events and state machines.
         /// </summary>
         /// <param name="aPlayer"></param>
         public virtual void Execute(Player aPlayer)
@@ -64,25 +65,25 @@ namespace DotNetHack.Game.NPC
             if (nStack == null)
                 return;
 
-            // when the player is in range, don't pop, flag as melee range.
-            WayPoint = nStack.Pop();
-
-            // dont allow this baddy to go *onto* the player.
-            if (WayPoint.Location == GameEngine.Player.Location)
+            if (_speedCounter % this.Stats.Speed == 0)
             {
-                // stay right here.
-                WayPoint.Location = Location;
-                meleeRange = true;
+                // when the player is in range, don't pop, flag as melee range.
+                WayPoint = nStack.Pop();
+
+                // dont allow this baddy to go *onto* the player.
+                if (WayPoint.Location == GameEngine.Player.Location)
+                {
+                    // stay right here.
+                    WayPoint.Location = Location;
+                    meleeRange = true;
+                }
+
+                Location = WayPoint.Location;
+                _speedCounter = 0;
             }
 
             if (meleeRange)
                 new ActionMeleeAttack(this, aPlayer).Perform();
-
-            if (_speedCounter % this.Stats.Speed == 0)
-            { 
-                Location = WayPoint.Location;
-                _speedCounter = 0;
-            }
 
             _speedCounter++;
         }

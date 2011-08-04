@@ -603,7 +603,7 @@ namespace DotNetHack.Editor
                         })
                             );
                         }
-                        else 
+                        else
                         {
                             SetItem(Dice.RandomChoice<IWeapon>(new IWeapon[] 
                             {

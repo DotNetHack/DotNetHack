@@ -10,6 +10,7 @@ namespace DotNetHack.Game.Items.Equipment.Armour
     /// <summary>
     /// ArmourWorn
     /// </summary>
+    [Serializable]
     public class ArmourWorn
     {
         /// <summary>
@@ -105,6 +106,9 @@ namespace DotNetHack.Game.Items.Equipment.Armour
         /// <summary>
         /// The associative dictionary of worn Armour.
         /// </summary>
+        
+        [System.Xml.Serialization.XmlIgnore]
         public Dictionary<ArmourLocation, IArmour> WornArmour { get; set; }
     }
 }
+

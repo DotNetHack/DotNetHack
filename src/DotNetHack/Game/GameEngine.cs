@@ -13,6 +13,7 @@ using DotNetHack.Game.Dungeon.Tiles.Traps;
 using DotNetHack.Game.NPC.Monsters;
 using System.Xml.Serialization.Persisted;
 using DotNetHack.Game.Actions;
+using DotNetHack.Game.Items.Equipment.Weapons;
 
 namespace DotNetHack.Game
 {
@@ -30,6 +31,10 @@ namespace DotNetHack.Game
             Time = new DateTime(1688, 11, 16);
             Player = aPlayer;
             CurrentMap = aStartDungeon;
+
+            // TODO: more junk
+            foreach (var m in aStartDungeon.NonPlayerControlled)
+                m.WieldedWeapons.CurrentWeapon = new ShortswordOfRending(null);
         }
 
         /// <summary>
@@ -49,7 +54,7 @@ namespace DotNetHack.Game
             /// Load all monsters.
             try { MonsterStore = Persisted.Read<List<Monster>>(R.MonsterFile); }
             catch { UI.Graphics.MessageBox.Show("DotNetHack", "Monster file not found!"); }
-
+            
             while (!done)
             {
             redo_input:
@@ -248,6 +253,7 @@ namespace DotNetHack.Game
             // Perform regeneration step for player.
             Player.RegenerateHealth();
             Player.RegenerateMagika();
+            Player.ApplyEffects();
 
             // Show the status bar.
             UI.Graphics.Display.ShowStatsBar(Player);
@@ -255,7 +261,10 @@ namespace DotNetHack.Game
             // Remove all NPC's that are dead, then run the ones that aren't (yet).
             CurrentMap.NonPlayerControlled.RemoveAll(x => x.Dead);
             foreach (var npc in CurrentMap.NonPlayerControlled)
+            {
+                npc.ApplyEffects();
                 npc.Execute(Player);
+            }
         }
 
         /// <summary>

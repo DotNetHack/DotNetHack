@@ -46,6 +46,8 @@
     <Compile Include="Disposition.cs" />
     <Compile Include="DNHackException.cs" />
     <Compile Include="Game\Actions\Attack.cs" />
+    <Compile Include="Game\Actions\Move.cs" />
+    <Compile Include="Game\Actions\Quaff.cs" />
     <Compile Include="Game\Actor.cs" />
     <Compile Include="Game\Direction.cs" />
     <Compile Include="Game\Dungeon\Dungeon.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="Game\Dungeon\Tiles\Traps\TrapSpikePit.cs" />
     <Compile Include="Game\Effects\Effect.cs" />
     <Compile Include="Game\Events\ActorEventArgs.cs" />
+    <Compile Include="Game\Events\DNHExceptionEventArgs.cs" />
     <Compile Include="Game\Events\GameEventArgs.cs" />
     <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
     <Compile Include="Game\Events\EquipmentEventArgs.cs" />

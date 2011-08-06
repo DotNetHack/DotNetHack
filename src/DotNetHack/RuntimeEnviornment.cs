@@ -52,6 +52,11 @@ namespace DotNetHack
             get { return Path.Combine(DatDirectory, DAT_MONSTERS); }
         }
 
+        public static string ExceptionFile 
+        {
+            get { return Path.Combine(DatDirectory, LOG_EXCEPTION); }
+        }
+
         /// <summary>
         /// InitializePath.
         /// Initializes the working path for DNH.
@@ -70,6 +75,7 @@ namespace DotNetHack
 
         const string DAT_FOLDER = "dat";
         const string DAT_MONSTERS = "monsters.dat";
+        const string LOG_EXCEPTION = "exceptions.log";
 
         /// <summary>
         /// Random

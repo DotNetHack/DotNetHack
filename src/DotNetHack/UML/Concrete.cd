@@ -10,7 +10,7 @@
   <Class Name="DotNetHack.Game.Player">
     <Position X="21.25" Y="15.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAQAAAAAAAAAFACAAAAAAAAAAAAAAgEA=</HashCode>
+      <HashCode>AAAAEAAAAAACAQAAAAAAAAAFACAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Game\Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -56,7 +56,7 @@
   <Class Name="DotNetHack.Game.Items.Equipment.Weapons.Weapon">
     <Position X="9.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAACAAAAEAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AgAAgAAAAACAAAAEAAAAAACAAAAAAAAABAAAAEAAAAA=</HashCode>
       <FileName>Game\Items\Equipment\Weapons\Weapon.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -95,13 +95,13 @@
   <Class Name="DotNetHack.Game.Items.Potions.Potion" Collapsed="true">
     <Position X="2.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAIAAAAEAACAAAAAAAAAAAAAAAAAAAGAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAIAAAAEAACgAAAAAAAAAAAAAAAAAAGAAAA=</HashCode>
       <FileName>Game\Items\Potions\Potion.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DotNetHack.Game.GameEngine">
-    <Position X="25" Y="14.75" Width="1.75" />
+    <Position X="26" Y="15.5" Width="1.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -118,17 +118,18 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AgQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAAAQI=</HashCode>
+      <HashCode>AgQAgEAAAiAAAQAAAAAAAAQAAIAAAAAAAAEAAwAAAQI=</HashCode>
       <FileName>Game\GameEngine.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Player" />
     </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="DotNetHack.Game.Actor">
     <Position X="21.5" Y="10.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAABAAAAAAAAwEAAIIAAAQAAAAAAAAACAEAigAAAAA=</HashCode>
+      <HashCode>ABAABAAAAAAAAwEAAIIAAAQAACAAAACACAEAigAAgAA=</HashCode>
       <FileName>Game\Actor.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -305,7 +306,7 @@
       <FileName>Game\Events\ActorEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DotNetHack.Game.Actions.Action">
+  <Class Name="DotNetHack.Game.Actions.DAction">
     <Position X="14.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>

@@ -7,6 +7,26 @@ using DotNetHack.Game.Interfaces;
 namespace DotNetHack.Game.Events
 {
     /// <summary>
+    /// potion event args
+    /// </summary>
+    /// <typeparam name="G"></typeparam>
+    public class PotionEventArgs : ActorEventArgs
+    {
+        /// <summary>
+        /// creates a new potion event args
+        /// </summary>
+        /// <param name="aActor"></param>
+        public PotionEventArgs(Actor aActor, IPotion aPotion) 
+            : base(aActor)
+        { PotionInvolved = aPotion; }
+
+        /// <summary>
+        /// the potion involved
+        /// </summary>
+        public IPotion PotionInvolved { get; set; }
+    }
+
+    /// <summary>
     /// equipment based event argument
     /// </summary>
     /// <typeparam name="T">the special event type</typeparam>

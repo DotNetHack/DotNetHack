@@ -66,9 +66,11 @@
     <Compile Include="Game\Effects\Effect.cs" />
     <Compile Include="Game\Events\ActorEventArgs.cs" />
     <Compile Include="Game\Events\DNHExceptionEventArgs.cs" />
+    <Compile Include="Game\Events\DoorEventArgs.cs" />
     <Compile Include="Game\Events\GameEventArgs.cs" />
     <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
     <Compile Include="Game\Events\EquipmentEventArgs.cs" />
+    <Compile Include="Game\Events\MoveEventArgs.cs" />
     <Compile Include="Game\Interfaces\IArmor.cs" />
     <Compile Include="Game\Interfaces\ICanDrink.cs" />
     <Compile Include="Game\Interfaces\IKey.cs" />

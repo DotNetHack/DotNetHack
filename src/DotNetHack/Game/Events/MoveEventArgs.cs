@@ -11,13 +11,14 @@ namespace DotNetHack.Game.Events
         /// <summary>
         /// creates a new instance of actor movement event
         /// </summary>
-        /// <param name="aActor">the actor that moved</param>
-        /// <param name="aTile">the tile the actor moved to</param>
-        public MoveEventArgs(Actor aActor, Tile aToTile, Tile aFromTile)
-            : base(aActor) 
+        /// <param name="aActor">the actor</param>
+        /// <param name="aFromTile">source tile</param>
+        /// <param name="aToTile">dest tile</param>
+        public MoveEventArgs(Actor aActor, Tile aMoveFrom, Tile aMoveTo)
+            : base(aActor)
         {
-            MoveToTile = aToTile;
-            MoveFromTile = aFromTile;
+            MoveFromTile = aMoveFrom;
+            MoveToTile = aMoveTo;
         }
 
         /// <summary>

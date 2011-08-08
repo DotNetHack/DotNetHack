@@ -59,6 +59,35 @@ namespace DotNetHack
         }
 
         /// <summary>
+        /// GetDirection returns a unit movement.
+        /// </summary>
+        /// <param name="aMessage">optional message</param>
+        /// <returns>a unit movement.</returns>
+        public static Location3i GetDirection(string aMessage = "")
+        {
+            ConsoleKeyInfo tmpInput;
+            Location3i tmpUnitLocation = new Location3i(0, 0, 0);
+
+            switch (Input.Filter(x =>
+                x.Key == ConsoleKey.LeftArrow ||
+                x.Key == ConsoleKey.RightArrow ||
+                x.Key == ConsoleKey.UpArrow ||
+                x.Key == ConsoleKey.DownArrow, out tmpInput).Key)
+            {
+                case ConsoleKey.RightArrow:
+                    tmpUnitLocation.X++; break;
+                case ConsoleKey.LeftArrow:
+                    tmpUnitLocation.X--; break;
+                case ConsoleKey.UpArrow:
+                    tmpUnitLocation.Y--; break;
+                case ConsoleKey.DownArrow:
+                    tmpUnitLocation.Y++; break;
+            }
+
+            return tmpUnitLocation;
+        }
+
+        /// <summary>
         /// GetInt (inplace)
         /// <remarks>Gets an integer from standard input
         /// requires that input is definately valid.</remarks>

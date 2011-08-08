@@ -53,6 +53,8 @@ namespace DotNetHack.Game
                 m.WieldedWeapons.CurrentWeapon = new ShortswordOfRending(null);
         }
 
+        static bool Done = false;
+
         /// <summary>
         /// Excecutes the game engine until !done.
         /// </summary>
@@ -62,18 +64,23 @@ namespace DotNetHack.Game
         public void Run(EngineRunFlags aFlags, ref string[] args)
         {
             GameEngine.RunFlags = aFlags;
-            bool done = false;
-
+            
             try
             {
                 Initialize();
 
-                while (!done)
+                while (!Done)
                 {
                     Graphics.CursorToLocation(0, 0);
                     var input = Console.ReadKey(false);
 
+                    ProcessCommand(input);
 
+                    Update();
+
+                    CurrentMap.Render(Player.Location);
+
+                    Player.Draw();
                 }
             }
             catch (Exception ex)
@@ -86,47 +93,86 @@ namespace DotNetHack.Game
 
         /// <summary>
         /// ProcessMovementCommand
+        /// <remarks>processes all movement commands, hook into the OnPlayerMoved
+        /// to add extended functionality.</remarks>
         /// </summary>
         /// <param name="input">the user input for the movement command</param>
         /// <returns>true when an actual command is processed.</returns>
-        bool ProcessMovementCommand(ConsoleKeyInfo input)
+        bool ProcessCommand(ConsoleKeyInfo input)
         {
             bool isMoveOkay = false;
+            bool isMoveCommand = false;
 
-            Tile nPlayerTile = null;
+            Func<ITile, bool> aRestriction = null;
+
+            Tile nMoveFrom = CurrentMap.GetTile(Player);
+            Tile nMoveTo = null;
 
             Location3i UnitMovement = new Location3i(0, 0, 0);
 
             switch (input.Key)
             {
                 case ConsoleKey.LeftArrow:
+                    isMoveCommand = true;
                     UnitMovement.X--; break;
                 case ConsoleKey.RightArrow:
+                    isMoveCommand = true;
                     UnitMovement.X++; break;
                 case ConsoleKey.UpArrow:
+                    isMoveCommand = true;
                     UnitMovement.Y--; break;
                 case ConsoleKey.DownArrow:
+                    isMoveCommand = true;
                     UnitMovement.Y++; break;
                 case ConsoleKey.OemPeriod:
+                    if (input.Modifiers == ConsoleModifiers.Shift)
+                    {
+                        isMoveCommand = true;
+                        aRestriction = new Func<ITile, bool>(
+                            x => x.TileType == TileType.StairsDown);
+                        UnitMovement.D--;
+                    } break;
+                case ConsoleKey.OemComma:
+                    if (input.Modifiers == ConsoleModifiers.Shift)
+                    {
+                        isMoveCommand = true;
+                        aRestriction = new Func<ITile, bool>(
+                            x => x.TileType == TileType.StairsUp);
+                        UnitMovement.D++;
+                    } break;
+
+                case ConsoleKey.O:
+                    {
+                        Door tmpDoor;
+                        if (TryOpenCloseDoor(Player, Input.GetDirection(), out tmpDoor))
+                        {
+                            if (OnDoorOpenedClosed != null)
+                                OnDoorOpenedClosed(this, new DoorEventArgs(Player, tmpDoor));
+                        }
+                    } break;
+                case ConsoleKey.Escape:
+                    Done = true;
                     break;
             }
 
-            if (TryMove(Player, Player.Location + UnitMovement, out nPlayerTile))
-            {
-                isMoveOkay = true;
+            if (isMoveCommand)
+                if (TryMove(Player, Player.Location + UnitMovement, out nMoveTo, aRestriction))
+                {
+                    isMoveOkay = true;
 
-                if (OnPlayerMoved != null)
-                    OnPlayerMoved(this, new MoveEventArgs(Player, 
-                        nPlayerTile, Player.C
-            }
+                    if (OnPlayerMoved != null)
+                        OnPlayerMoved(this, new MoveEventArgs(Player, nMoveFrom, nMoveTo));
+                }
+                else 
+                {
+                    NPC.NonPlayerControlled tmpNPC = CurrentMap.GetNPC(
+                        Player.Location + UnitMovement);
+                    if (tmpNPC != null)
+                        new ActionMeleeAttack(Player, tmpNPC).Perform();
+                }
 
-            return isMoveOkay;
+            return true;
         }
-
-        /// <summary>
-        /// movement commands are registered under this delegate.
-        /// </summary>
-        // public MovementCommand ProcessMovementCommand { get; set; }
 
         public ActionCommand ProcessAction { get; set; }
 
@@ -136,21 +182,70 @@ namespace DotNetHack.Game
         public event ErrorEventHandler OnException;
 
         /// <summary>
+        /// Occurs specifically when a player moves onto a new tile.
+        /// </summary>
+        public event EventHandler<MoveEventArgs> OnPlayerMoved;
+
+        /// <summary>
         /// Occurs when any actor, including the play moves onto a new tile.
         /// </summary>
+        public event EventHandler<MoveEventArgs> OnActorMoved;
 
-        public event EventHandler<MoveEventArgs> OnPlayerMoved;
+        /// <summary>
+        /// occurs when *any* door is opended or closed.
+        /// </summary>
+        public event EventHandler<DoorEventArgs> OnDoorOpenedClosed;
 
         /// <summary>
         /// load monsters, weapons, potions.
         /// </summary>
         public bool Initialize()
         {
+            OnActorMoved += new EventHandler<MoveEventArgs>(GameEngine_OnActorMoved);
+            OnPlayerMoved += new EventHandler<MoveEventArgs>(GameEngine_OnPlayerMoved);
             OnException += new ErrorEventHandler(GameEngine_OnException);
+
             try { MonsterStore = Persisted.Read<List<Monster>>(R.MonsterFile); }
             catch { return false; }
 
             return true;
+        }
+
+        /// <summary>
+        /// triggered when any actor moves to a *different* tile.
+        /// <remarks>
+        /// - triggers traps,
+        /// ...
+        /// - triggers clear/rerender of location.
+        /// </remarks>
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the move event argument.</param>
+        void GameEngine_OnActorMoved(object sender, MoveEventArgs e)
+        {
+            if (e.MoveToTile.TileFlags == TileFlags.Trap)
+                ((Trap)e.MoveToTile).OnTrapTriggeredEvent(new Trap.TrapEventArgs(e.ActorInvolved));
+            
+            CurrentMap.DungeonRenderer.ClearLocation(Player.Location);
+        }
+
+        /// <summary>
+        /// occurs specifically when the player moves to a new tile
+        /// <remarks>used generally for diplay and ui purposes.</remarks>
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the event argument</param>
+        void GameEngine_OnPlayerMoved(object sender, MoveEventArgs e)
+        {
+            if (e.MoveToTile.HasItems)
+            {
+                if (e.MoveToTile.Items.Count == 1)
+                    UI.Graphics.Display.ShowMessage(e.MoveToTile.Items.First<IItem>().Name);
+                else
+                    UI.Graphics.Display.ShowMessage("{0}, {1} here",
+                        e.MoveToTile.Items.Count,
+                        Speech.Pluralize("item", e.MoveToTile.Items.Count));
+            }
         }
 
         /// <summary>
@@ -173,6 +268,45 @@ namespace DotNetHack.Game
         }
 
         /// <summary>
+        /// Try to open what *may* be a door at the given location.
+        /// <remarks>in the event there is a door the out param is populated.</remarks>
+        /// </summary>
+        /// <param name="aActor">the actor opening the door</param>
+        /// <param name="aLocation">the door location</param>
+        /// <returns>true if the door has been opened.</returns>
+        public bool TryOpenCloseDoor(Actor aActor, Location3i aLocation, out Door tmpDoor)
+        {
+            tmpDoor = null;
+
+            if (!CurrentMap.CheckBounds(aActor.Location + aLocation))
+                return false;
+
+            tmpDoor = (Door)CurrentMap.GetTile(aActor.Location + aLocation);
+
+            if (tmpDoor.TileFlags == TileFlags.Door) 
+            {
+                if (!tmpDoor.IsLocked)
+                {
+                    if (tmpDoor.IsOpen)
+                        tmpDoor.CloseDoor();
+                    else tmpDoor.OpenDoor();
+                }
+                else
+                {
+                    if (Player.KeyChain.CanUnLock(tmpDoor))
+                    {
+                        if (tmpDoor.IsOpen)
+                            tmpDoor.CloseDoor();
+                        else tmpDoor.OpenDoor();
+                    }
+                    else return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// - check the boundary ? return false
         /// - get the tile (set as out)
         /// - check the clipping ? return false
@@ -185,7 +319,7 @@ namespace DotNetHack.Game
         /// <param name="oMoveToTile">the tile the actor <c>moved</c> to. (out)</param>
         /// <returns>true on success</returns>
         private bool TryMove(IHasLocation aObject, Location3i aLocation,
-            out Tile oMoveToTile)
+            out Tile oMoveToTile, Func<ITile, bool> aPredicate = null)
         {
             oMoveToTile = null;
 
@@ -194,22 +328,25 @@ namespace DotNetHack.Game
 
             oMoveToTile = CurrentMap.GetTile(aLocation);
 
-            return !oMoveToTile.Impassable;
+            if (oMoveToTile == null)
+                return false;
+            else if (oMoveToTile.Impassable)
+                return false;
+
+            if (aPredicate != null)
+                if (!aPredicate(oMoveToTile))
+                    return false;
+
+            if (!CurrentMap.IsPassable(aLocation))
+                return false;
+
+            aObject.Location = aLocation;
+
+            return true;
         }
 
-
-        ///
-        /// 
-        /// a
-        /// a
-        /// a
-        /// a
-        /// a
-        /// a
-        /// a
-        /// 
-
-
+        
+        /*
         /// <summary>
         /// Run
         /// </summary>
@@ -378,7 +515,7 @@ namespace DotNetHack.Game
                 if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
                     goto redo_input;
 
-                var tmpMonster = CurrentMap.MonsterThere(Player.Location + UnitMovement);
+                var tmpMonster = CurrentMap.GetNPC(Player.Location + UnitMovement);
 
                 if (tmpMonster != null)
                 {
@@ -399,6 +536,7 @@ namespace DotNetHack.Game
                     if (((Door)nMoveToTile).IsClosed)
                         goto redo_input;
 
+                /*
                 if (nMoveToTile.HasItems)
                 {
                     if (nMoveToTile.Items.Count == 1)
@@ -422,7 +560,7 @@ namespace DotNetHack.Game
 
                 Player.Draw();
             }
-        }
+        }*/
 
         public void Update()
         {

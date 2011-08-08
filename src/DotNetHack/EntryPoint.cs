@@ -37,7 +37,7 @@ namespace DotNetHack
             if (R.IsDebug)
                 runFlags |= GameEngine.EngineRunFlags.Debug;
 
-            g.Run(runFlags);
+            g.Run(runFlags, ref args);
         }
     }
 }

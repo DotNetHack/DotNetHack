@@ -16,6 +16,7 @@ using DotNetHack.Game.Actions;
 using DotNetHack.Game.Items.Equipment.Weapons;
 using DotNetHack.Game.Events;
 using System.IO;
+using System.Threading;
 
 namespace DotNetHack.Game
 {
@@ -64,7 +65,7 @@ namespace DotNetHack.Game
         public void Run(EngineRunFlags aFlags, ref string[] args)
         {
             GameEngine.RunFlags = aFlags;
-            
+
             try
             {
                 Initialize();
@@ -72,9 +73,8 @@ namespace DotNetHack.Game
                 while (!Done)
                 {
                     Graphics.CursorToLocation(0, 0);
-                    var input = Console.ReadKey(false);
 
-                    ProcessCommand(input);
+                    ProcessCommand(Console.ReadKey(true));
 
                     Update();
 
@@ -83,6 +83,8 @@ namespace DotNetHack.Game
                     UI.Graphics.Display.ShowStatsBar(Player);
 
                     Player.Draw();
+
+                    Thread.Sleep(10);
                 }
             }
             catch (Exception ex)
@@ -160,7 +162,7 @@ namespace DotNetHack.Game
                     if (OnPlayerMoved != null)
                         OnPlayerMoved(this, new MoveEventArgs(Player, nMoveFrom, nMoveTo));
                 }
-                else 
+                else
                 {
                     NPC.NonPlayerControlled tmpNPC = CurrentMap.GetNPC(
                         Player.Location + UnitMovement);
@@ -220,7 +222,7 @@ namespace DotNetHack.Game
         {
             if (e.MoveToTile.TileFlags == TileFlags.Trap)
                 ((Trap)e.MoveToTile).OnTrapTriggeredEvent(new Trap.TrapEventArgs(e.ActorInvolved));
-            
+
             CurrentMap.DungeonRenderer.ClearLocation(Player.Location);
         }
 
@@ -278,7 +280,7 @@ namespace DotNetHack.Game
 
             tmpDoor = (Door)CurrentMap.GetTile(aActor.Location + aLocation);
 
-            if (tmpDoor.TileFlags == TileFlags.Door) 
+            if (tmpDoor.TileFlags == TileFlags.Door)
             {
                 if (!tmpDoor.IsLocked)
                 {

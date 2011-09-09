@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
+using DotNetHack.Game.Events;
 
 namespace DotNetHack.Game.Items.Potions
 {
@@ -37,9 +38,18 @@ namespace DotNetHack.Game.Items.Potions
         public PotionStrength PotionStrength { get; set; }
 
         /// <summary>
-        /// Quaff
+        /// Quaff, this base triggers event.
         /// </summary>
-        public abstract void Quaff(Actor aTarget);
+        public virtual void Quaff(Actor aTarget) 
+        {
+            if (OnQuaff != null)
+                OnQuaff(this, new PotionEventArgs(aTarget, this));
+        }
+
+        /// <summary>
+        /// Quaff event handler
+        /// </summary>
+        public event EventHandler<PotionEventArgs> OnQuaff;
 
         /// <summary>
         /// ToString

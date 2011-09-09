@@ -14,13 +14,30 @@ using DotNetHack.Game.NPC.Monsters;
 using System.Xml.Serialization.Persisted;
 using DotNetHack.Game.Actions;
 using DotNetHack.Game.Items.Equipment.Weapons;
+using DotNetHack.Game.Events;
+using System.IO;
+using System.Threading;
 
 namespace DotNetHack.Game
 {
     /// <summary>
+    /// Movement command delegate
+    /// </summary>
+    /// <param name="aUnitMovement">The unit movement</param>
+    /// <returns>true if the movement was sucessful</returns>
+    public delegate bool ProcessCommand(ConsoleKeyInfo input);
+
+    /// <summary>
+    /// Action commands are fired if and only if the player can act.
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public delegate DAction ActionCommand(ConsoleKeyInfo input);
+
+    /// <summary>
     /// GameEngine
     /// </summary>
-    public class GameEngine
+    public class GameEngine : IDisposable
     {
         /// <summary>
         /// GameEngine
@@ -37,226 +54,330 @@ namespace DotNetHack.Game
                 m.WieldedWeapons.CurrentWeapon = new ShortswordOfRending(null);
         }
 
+        static bool Done = false;
+
         /// <summary>
-        /// Run
+        /// Excecutes the game engine until !done.
         /// </summary>
-        public void Run(EngineRunFlags aFlags)
+        /// <param name="aFlags">Pass various flags to the game engine to
+        /// adjust context, perform tests, etc. </param>
+        /// <param name="args">The same args from entry point (ref)</param>
+        public void Run(EngineRunFlags aFlags, ref string[] args)
         {
-            // set engine run flags
             GameEngine.RunFlags = aFlags;
 
-            // CursorVisible
-            Console.CursorVisible = false;
-
-            // set to true for exit.
-            bool done = false;
-
-            /// Load all monsters.
-            try { MonsterStore = Persisted.Read<List<Monster>>(R.MonsterFile); }
-            catch { UI.Graphics.MessageBox.Show("DotNetHack", "Monster file not found!"); }
-            
-            while (!done)
+            try
             {
-            redo_input:
-                Graphics.CursorToLocation(1, 1); // So as not to pile up blanks.
-                ConsoleKeyInfo input = Console.ReadKey();
-                Location3i UnitMovement = new Location3i(0, 0, 0);
-                Tile nPlayerTile = CurrentMap.GetTile(Player.Location);
+                Initialize();
 
-                switch (input.Key)
+                while (!Done)
                 {
-                    default:
-                        continue;
-                    case ConsoleKey.LeftArrow:
-                        UnitMovement.X--; break;
-                    case ConsoleKey.RightArrow:
-                        UnitMovement.X++; break;
-                    case ConsoleKey.UpArrow:
-                        UnitMovement.Y--; break;
-                    case ConsoleKey.DownArrow:
-                        UnitMovement.Y++; break;
-                    case ConsoleKey.OemPeriod:
-                        if (nPlayerTile.TileType == TileType.StairsUp)
-                            UnitMovement.D--; break;
-                    case ConsoleKey.P:
-                        {
-                            // TODO: allow for dynamic selection of what to put on,
-                            // should be done via Func<IArmour, bool> for selecting
-                            // from the greater list.
-                            //
-                            // perhaps genericize the dropdown concept.
-                            var p = Player.Inventory.Armour.First<IArmour>();
-                            Player.WornArmour.PutOn(p, true);
-                            break;
+                    Graphics.CursorToLocation(0, 0);
 
-                        }
-                    case ConsoleKey.W:
-                        {
-                            // TODO: allow for dynamic selection of what to put on,
-                            // should be done via Func<IWeapon, bool> for selecting.
-                            Player.WieldedWeapons.Wield(
-                                Dice.RandomChoice<IWeapon>(
-                                Player.Inventory.Weapons.ToArray()));
-                            break;
-                        }
-                    case ConsoleKey.OemComma:
-                        if (input.Modifiers == ConsoleModifiers.Shift)
-                        {
-                            if (nPlayerTile.TileType == TileType.StairsDown)
-                                UnitMovement.D++; break;
-                        }
-                        else
-                        {
-                            Tile nTileUnderPlayer = CurrentMap.GetTile(Player.Location);
-                            while (nTileUnderPlayer.HasItems)
-                            {
-                                IItem cItem = nTileUnderPlayer.Items.Pop();
+                    ProcessCommand(Console.ReadKey(true));
 
-                                // switch by item type
-                                switch (cItem.ItemType)
-                                {
-                                    default:
-                                        // TODO: Inventory needs events.
-                                        Player.Inventory.Push(cItem);
-                                        break;
-                                    // Occurs when a player picks up a key.
-                                    case ItemType.Key:
-                                        Player.KeyChain.AddKey((Key)cItem);
-                                        break;
-                                    // Occurs when a player picks up currency.
-                                    case ItemType.Currency:
-                                        Player.Wallet += (Currency)cItem;
-                                        break;
-                                }
-                            }
+                    Update();
 
-                            CurrentMap.DungeonRenderer.ClearLocation(Player.Location);
-                        }
-                        break;
+                    CurrentMap.Render(Player.Location);
 
-                    // If the player has potions, then take one off the top shelf 
-                    // and drink it.
-                    // TODO: Allow player to select exactly which potion they'd like to quaff.
-                    case ConsoleKey.Q:
-                        {
-                            // TODO: allow for dynamic selection of potions to quaff.
+                    UI.Graphics.Display.ShowStatsBar(Player);
 
-                            var p = Player.Inventory.Potions.First<IPotion>();
+                    Player.Draw();
 
-                            Player.Inventory.Remove(p);
-
-                            p.Quaff(Player);
-
-                            break;
-                        }
-                    case ConsoleKey.O:
-                        {
-                            ConsoleKeyInfo tmpInput;
-                            Location3i tmpUnitLocation = new Location3i(0, 0, 0);
-                            switch (Input.Filter(x => x.Key == ConsoleKey.LeftArrow ||
-                                x.Key == ConsoleKey.RightArrow ||
-                                x.Key == ConsoleKey.UpArrow ||
-                                x.Key == ConsoleKey.DownArrow, out tmpInput).Key)
-                            {
-                                case ConsoleKey.RightArrow:
-                                    tmpUnitLocation.X++; break;
-                                case ConsoleKey.LeftArrow:
-                                    tmpUnitLocation.X--; break;
-                                case ConsoleKey.UpArrow:
-                                    tmpUnitLocation.Y--; break;
-                                case ConsoleKey.DownArrow:
-                                    tmpUnitLocation.Y++; break;
-                            }
-                            if (!CurrentMap.CheckBounds(
-                                Player.Location + tmpUnitLocation))
-                                goto redo_input;
-                            Tile nDoorTile = CurrentMap.GetTile(Player.Location + tmpUnitLocation);
-                            if (nDoorTile.TileFlags == TileFlags.Door)
-                            {
-                                Door tmpDoor = (Door)nDoorTile;
-
-                                if (!tmpDoor.IsLocked)
-                                {
-                                    if (tmpDoor.IsOpen)
-                                        tmpDoor.CloseDoor();
-                                    else tmpDoor.OpenDoor();
-                                }
-                                else
-                                {
-                                    if (Player.KeyChain.CanUnLock(tmpDoor))
-                                    {
-                                        if (tmpDoor.IsOpen)
-                                            tmpDoor.CloseDoor();
-                                        else tmpDoor.OpenDoor();
-                                    }
-                                }
-                            }
-
-                            break;
-                        }
-                    case ConsoleKey.Escape:
-                        done = true;
-                        break;
+                    Thread.Sleep(10);
                 }
+            }
+            catch (Exception ex)
+            {
+                if (OnException != null)
+                    OnException(this, new ErrorEventArgs(ex));
+            }
+            finally { Dispose(); }
+        }
 
-                if (!CurrentMap.CheckBounds(Player.Location + UnitMovement))
-                    goto redo_input;
+        /// <summary>
+        /// processes all incoming commands and triggers associated actions and events.
+        /// </summary>
+        /// <param name="input">raw input</param>
+        /// <returns></returns>
+        void ProcessCommand(ConsoleKeyInfo input)
+        {
+            bool isMoveCommand = false;
 
-                var tmpMonster = CurrentMap.MonsterThere(Player.Location + UnitMovement);
+            Func<ITile, bool> aRestriction = null;
 
-                if (tmpMonster != null)
+            Tile nMoveFrom = CurrentMap.GetTile(Player);
+            Tile nMoveTo = null;
+
+            Location3i UnitMovement = new Location3i(0, 0, 0);
+
+            switch (input.Key)
+            {
+                case ConsoleKey.LeftArrow:
+                    isMoveCommand = true;
+                    UnitMovement.X--; break;
+                case ConsoleKey.RightArrow:
+                    isMoveCommand = true;
+                    UnitMovement.X++; break;
+                case ConsoleKey.UpArrow:
+                    isMoveCommand = true;
+                    UnitMovement.Y--; break;
+                case ConsoleKey.DownArrow:
+                    isMoveCommand = true;
+                    UnitMovement.Y++; break;
+                case ConsoleKey.OemPeriod:
+                    if (input.Modifiers == ConsoleModifiers.Shift)
+                    {
+                        isMoveCommand = true;
+                        aRestriction = new Func<ITile, bool>(
+                            x => x.TileType == TileType.StairsDown);
+                        UnitMovement.D--;
+                    } break;
+                case ConsoleKey.OemComma:
+                    if (input.Modifiers == ConsoleModifiers.Shift)
+                    {
+                        isMoveCommand = true;
+                        aRestriction = new Func<ITile, bool>(
+                            x => x.TileType == TileType.StairsUp);
+                        UnitMovement.D++;
+                    } break;
+
+                case ConsoleKey.Tab:
+
+                    var tmpInRange = CurrentMap.NonPlayerControlled.Where(
+                        n => n.Distance(Player) < 10);
+
+                    if (tmpInRange.Count() > 0)
+                    {
+                        var tmpLoc = tmpInRange.First().Location;
+                        UI.Graphics.CursorToLocation(tmpLoc);
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        
+                    }
+
+
+                    break;
+
+                case ConsoleKey.C:
+
+                    // create a new character sheet for the player
+                    CharacterSheet characterSheet = new CharacterSheet(Player);
+
+                    characterSheet.Show();
+
+                    CurrentMap.DungeonRenderer.ClearBuffer();
+                    
+                    break;
+
+                case ConsoleKey.O:
+                    {
+                        Door tmpDoor;
+                        if (TryOpenCloseDoor(Player, Input.GetDirection(), out tmpDoor))
+                        {
+                            if (OnDoorOpenedClosed != null)
+                                OnDoorOpenedClosed(this, new DoorEventArgs(Player, tmpDoor));
+                        }
+                    } break;
+                case ConsoleKey.Escape:
+                    Done = true;
+                    break;
+            }
+
+            if (isMoveCommand)
+                if (TryMove(Player, Player.Location + UnitMovement, out nMoveTo, aRestriction))
                 {
-                    new ActionMeleeAttack(Player, tmpMonster).Perform();
-                    Time = Time.AddSeconds(3);
+                    if (OnPlayerMoved != null)
+                        OnPlayerMoved(this, new MoveEventArgs(Player, nMoveFrom, nMoveTo));
                 }
-
-                Tile nMoveToTile = CurrentMap.GetTile(Player.Location + UnitMovement);
-                if (nMoveToTile.TileType == TileType.Wall)
-                    goto redo_input;
-                else if (nMoveToTile.TileFlags == TileFlags.Trap)
+                else
                 {
-                    var nTrapTile = (Trap)nMoveToTile;
-                    nTrapTile.OnTrapTriggeredEvent(
-                        new Trap.TrapEventArgs(Player));
+                    NPC.NonPlayerControlled tmpNPC = CurrentMap.GetNPC(
+                        Player.Location + UnitMovement);
+                    if (tmpNPC != null)
+                        new ActionMeleeAttack(Player, tmpNPC).Perform();
                 }
-                else if (nMoveToTile.TileFlags == TileFlags.Door)
-                    if (((Door)nMoveToTile).IsClosed)
-                        goto redo_input;
+        }
 
-                if (nMoveToTile.HasItems)
-                {
-                    if (nMoveToTile.Items.Count == 1)
-                        UI.Graphics.Display.ShowMessage(nMoveToTile.Items.First<IItem>().Name);
-                    else
-                        UI.Graphics.Display.ShowMessage("{0}, {1} here",
-                            nMoveToTile.Items.Count,
-                            Speech.Pluralize("item", nMoveToTile.Items.Count));
-                }
+        public ActionCommand ProcessAction { get; set; }
 
-                // Apply the unit movement.
-                if (CurrentMap.IsPassable(Player.Location + UnitMovement))
-                {
-                    Player.Location += UnitMovement;
-                    Time = Time.AddSeconds(6);
-                }
+        /// <summary>
+        /// Occurs when errors are thrown.
+        /// </summary>
+        public event ErrorEventHandler OnException;
 
-                Update();
+        /// <summary>
+        /// Occurs specifically when a player moves onto a new tile.
+        /// </summary>
+        public event EventHandler<MoveEventArgs> OnPlayerMoved;
 
-                CurrentMap.Render(Player.Location);
+        /// <summary>
+        /// Occurs when any actor, including the play moves onto a new tile.
+        /// </summary>
+        public event EventHandler<MoveEventArgs> OnActorMoved;
 
-                Player.Draw();
+        /// <summary>
+        /// occurs when *any* door is opended or closed.
+        /// </summary>
+        public event EventHandler<DoorEventArgs> OnDoorOpenedClosed;
+
+        /// <summary>
+        /// load monsters, weapons, potions.
+        /// </summary>
+        public bool Initialize()
+        {
+            OnActorMoved += new EventHandler<MoveEventArgs>(GameEngine_OnActorMoved);
+            OnPlayerMoved += new EventHandler<MoveEventArgs>(GameEngine_OnPlayerMoved);
+            OnException += new ErrorEventHandler(GameEngine_OnException);
+
+            try { MonsterStore = Persisted.Read<List<Monster>>(R.MonsterFile); }
+            catch { return false; }
+
+            return true;
+        }
+
+        /// <summary>
+        /// triggered when any actor moves to a *different* tile.
+        /// <remarks>
+        /// - triggers traps,
+        /// ...
+        /// - triggers clear/rerender of location.
+        /// </remarks>
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the move event argument.</param>
+        void GameEngine_OnActorMoved(object sender, MoveEventArgs e)
+        {
+            if (e.MoveToTile.TileFlags == TileFlags.Trap)
+                ((Trap)e.MoveToTile).OnTrapTriggeredEvent(new Trap.TrapEventArgs(e.ActorInvolved));
+
+            CurrentMap.DungeonRenderer.ClearLocation(Player.Location);
+        }
+
+        /// <summary>
+        /// occurs specifically when the player moves to a new tile
+        /// <remarks>used generally for diplay and ui purposes.</remarks>
+        /// </summary>
+        /// <param name="sender">the event sender</param>
+        /// <param name="e">the event argument</param>
+        void GameEngine_OnPlayerMoved(object sender, MoveEventArgs e)
+        {
+            if (e.MoveToTile.HasItems)
+            {
+                if (e.MoveToTile.Items.Count == 1)
+                    UI.Graphics.Display.ShowMessage(e.MoveToTile.Items.First<IItem>().Name);
+                else
+                    UI.Graphics.Display.ShowMessage("{0}, {1} here",
+                        e.MoveToTile.Items.Count,
+                        Speech.Pluralize("item", e.MoveToTile.Items.Count));
             }
         }
 
+        /// <summary>
+        /// Occurs when an exception is caught.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="ex"></param>
+        void GameEngine_OnException(object sender, ErrorEventArgs ex)
+        {
+            UI.Graphics.MessageBox.Show("DNH Exception", ex.GetException());
+            ex.GetException().Write(R.ExceptionFile);
+        }
+
+        /// <summary>
+        /// Cleanup after the game-engine runs.
+        /// </summary>
+        public void Dispose()
+        {
+
+        }
+
+        /// <summary>
+        /// Try to open what *may* be a door at the given location.
+        /// <remarks>in the event there is a door the out param is populated.</remarks>
+        /// </summary>
+        /// <param name="aActor">the actor opening the door</param>
+        /// <param name="aLocation">the door location</param>
+        /// <returns>true if the door has been opened.</returns>
+        public bool TryOpenCloseDoor(Actor aActor, Location3i aLocation, out Door tmpDoor)
+        {
+            tmpDoor = null;
+
+            if (!CurrentMap.CheckBounds(aActor.Location + aLocation))
+                return false;
+
+            tmpDoor = (Door)CurrentMap.GetTile(aActor.Location + aLocation);
+
+            if (tmpDoor.TileFlags == TileFlags.Door)
+            {
+                if (!tmpDoor.IsLocked)
+                {
+                    if (tmpDoor.IsOpen)
+                        tmpDoor.CloseDoor();
+                    else tmpDoor.OpenDoor();
+                }
+                else
+                {
+                    if (Player.KeyChain.CanUnLock(tmpDoor))
+                    {
+                        if (tmpDoor.IsOpen)
+                            tmpDoor.CloseDoor();
+                        else tmpDoor.OpenDoor();
+                    }
+                    else return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// - check the boundary ? return false
+        /// - get the tile (set as out)
+        /// - check the clipping ? return false
+        /// - change actor location
+        /// - return true
+        /// <remarks>in the event the tile is invalid, expect oMoveToTile to be null.</remarks>
+        /// </summary>
+        /// <param name="aObject">the aObject being moved</param>
+        /// <param name="aLocation">the location the actor is moving to</param>
+        /// <param name="oMoveToTile">the tile the actor <c>moved</c> to. (out)</param>
+        /// <returns>true on success</returns>
+        private bool TryMove(IHasLocation aObject, Location3i aLocation,
+            out Tile oMoveToTile, Func<ITile, bool> aPredicate = null)
+        {
+            oMoveToTile = null;
+
+            if (!CurrentMap.CheckBounds(aLocation))
+                return false;
+
+            oMoveToTile = CurrentMap.GetTile(aLocation);
+
+            if (oMoveToTile == null)
+                return false;
+            else if (oMoveToTile.Impassable)
+                return false;
+
+            if (aPredicate != null)
+                if (!aPredicate(oMoveToTile))
+                    return false;
+
+            if (!CurrentMap.IsPassable(aLocation))
+                return false;
+
+            aObject.Location = aLocation;
+
+            return true;
+        }
+
+        /// <summary>
+        /// performs various stateful updates to game objects.
+        /// </summary>
         public void Update()
         {
             // Perform regeneration step for player.
             Player.RegenerateHealth();
             Player.RegenerateMagika();
             Player.ApplyEffects();
-
-            // Show the status bar.
-            UI.Graphics.Display.ShowStatsBar(Player);
 
             // Remove all NPC's that are dead, then run the ones that aren't (yet).
             CurrentMap.NonPlayerControlled.RemoveAll(x => x.Dead);
@@ -280,7 +401,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// 
         /// </summary>
-        public enum TimeScale 
+        public enum TimeScale
         {
             World, Dungeon,
         }

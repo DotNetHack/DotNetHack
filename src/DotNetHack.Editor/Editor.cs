@@ -169,7 +169,8 @@ namespace DotNetHack.Editor
                             Util.DeepCopy<Dungeon3>(CurrentMap));
 
                         // Run the full out game engine except with editor and debug run flags.
-                        g.Run(GameEngine.EngineRunFlags.Debug | GameEngine.EngineRunFlags.Editor);
+                        g.Run(GameEngine.EngineRunFlags.Debug | GameEngine.EngineRunFlags.Editor,
+                            ref args);
                         CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
                         break;
 

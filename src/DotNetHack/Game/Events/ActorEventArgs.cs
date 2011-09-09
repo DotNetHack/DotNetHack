@@ -24,4 +24,5 @@ namespace DotNetHack.Game.Events
         /// </summary>
         public Actor ActorInvolved { get; set; }
     }
+
 }

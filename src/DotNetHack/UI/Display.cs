@@ -212,7 +212,7 @@ namespace DotNetHack.UI
                     string.Format("Str:{0} Per:{1} End:{2} Chr:{3} Int:{4} Agi:{5} Luck:{6}",
                     aStats.Strength, aStats.Perception, aStats.Endurance, aStats.Charisma,
                     aStats.Intelligence, aStats.Agility, aStats.Luck, aStats.Level);
-                
+
                 Console.SetCursorPosition(0, Console.WindowHeight - 1);
                 Console.Write(strStats);
             }
@@ -268,6 +268,15 @@ namespace DotNetHack.UI
                 if (!ralign)
                     Box(aTile, x, y, w, h);
                 else Box(aTile, Console.WindowWidth - (((aTile.Length > w ? aTile.Length + 2 : w)) + x), y, w, h);
+            }
+
+            /// <summary>
+            /// Draw a bounding box around a display region.
+            /// </summary>
+            /// <param name="dr">The display region to draw a bounding box around.</param>
+            public static void Box(DisplayRegion dr)
+            {
+                Box(dr.P1.X, dr.P1.Y, dr.P2.X, dr.P2.Y);
             }
 
             /// <summary>

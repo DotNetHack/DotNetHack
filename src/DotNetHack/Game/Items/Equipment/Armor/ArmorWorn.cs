@@ -35,7 +35,7 @@ namespace DotNetHack.Game.Items.Equipment.Armour
                     WornArmour.Add(aArmour.ArmourLocation, aArmour);
             }
             else WornArmour.Add(aArmour.ArmourLocation, aArmour);
-            
+
             // fire off events.
             if (OnFinishedDressingManeuver != null)
                 OnFinishedDressingManeuver(this,
@@ -88,6 +88,18 @@ namespace DotNetHack.Game.Items.Equipment.Armour
         }
 
         /// <summary>
+        /// GetWornArmourByLocation
+        /// </summary>
+        /// <param name="aArmourLocation">The specific location to get armour at.</param>
+        /// <returns>The armour on equipped at this location.</returns>
+        public IArmour GetWornArmourByLocation(ArmourLocation aArmourLocation)
+        {
+            if (WornArmour.Keys.Contains(aArmourLocation))
+                return WornArmour[aArmourLocation];
+            return null;
+        }
+
+        /// <summary>
         /// Confirm delegate for remove armour.
         /// </summary>
         Input.Confirm RemoveArmourConfirm = null;
@@ -106,7 +118,6 @@ namespace DotNetHack.Game.Items.Equipment.Armour
         /// <summary>
         /// The associative dictionary of worn Armour.
         /// </summary>
-        
         [System.Xml.Serialization.XmlIgnore]
         public Dictionary<ArmourLocation, IArmour> WornArmour { get; set; }
     }

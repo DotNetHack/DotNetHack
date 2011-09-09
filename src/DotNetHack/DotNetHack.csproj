@@ -46,6 +46,8 @@
     <Compile Include="Disposition.cs" />
     <Compile Include="DNHackException.cs" />
     <Compile Include="Game\Actions\Attack.cs" />
+    <Compile Include="Game\Actions\Move.cs" />
+    <Compile Include="Game\Actions\Quaff.cs" />
     <Compile Include="Game\Actor.cs" />
     <Compile Include="Game\Direction.cs" />
     <Compile Include="Game\Dungeon\Dungeon.cs" />
@@ -63,9 +65,12 @@
     <Compile Include="Game\Dungeon\Tiles\Traps\TrapSpikePit.cs" />
     <Compile Include="Game\Effects\Effect.cs" />
     <Compile Include="Game\Events\ActorEventArgs.cs" />
+    <Compile Include="Game\Events\DNHExceptionEventArgs.cs" />
+    <Compile Include="Game\Events\DoorEventArgs.cs" />
     <Compile Include="Game\Events\GameEventArgs.cs" />
     <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
     <Compile Include="Game\Events\EquipmentEventArgs.cs" />
+    <Compile Include="Game\Events\MoveEventArgs.cs" />
     <Compile Include="Game\Interfaces\IArmor.cs" />
     <Compile Include="Game\Interfaces\ICanDrink.cs" />
     <Compile Include="Game\Interfaces\IKey.cs" />
@@ -124,6 +129,7 @@
     <Compile Include="Game\World.cs" />
     <Compile Include="Game\Colour.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="UI\CharacterSheet.cs" />
     <Compile Include="UI\DisplayRegion.cs" />
     <Compile Include="UI\Display.cs" />
     <Compile Include="EntryPoint.cs" />
@@ -147,6 +153,7 @@
     <Compile Include="Game\Interfaces\IReadable.cs" />
     <Compile Include="Game\Interfaces\IScroll.cs" />
     <Compile Include="Game\Interfaces\IWeapon.cs" />
+    <Compile Include="UI\Window.cs" />
     <Compile Include="Utility\Graph\Algorithm\AStar.cs" />
     <Compile Include="Utility\Graph\Algorithm\IAStar.cs" />
     <Compile Include="Utility\Graph\Algorithm\Node.cs" />

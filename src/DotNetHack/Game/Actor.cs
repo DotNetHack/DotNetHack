@@ -77,6 +77,8 @@ namespace DotNetHack.Game
         [XmlIgnore]
         public List<Effect> EffectStack { get; set; }
 
+
+
         /// <summary>
         /// ApplyEffects
         /// </summary>

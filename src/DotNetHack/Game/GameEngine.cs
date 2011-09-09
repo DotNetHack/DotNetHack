@@ -142,6 +142,33 @@ namespace DotNetHack.Game
                         UnitMovement.D++;
                     } break;
 
+                case ConsoleKey.Tab:
+
+                    var tmpInRange = CurrentMap.NonPlayerControlled.Where(
+                        n => n.Distance(Player) < 10);
+
+                    if (tmpInRange.Count() > 0)
+                    {
+                        var tmpLoc = tmpInRange.First().Location;
+                        UI.Graphics.CursorToLocation(tmpLoc);
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        
+                    }
+
+
+                    break;
+
+                case ConsoleKey.C:
+
+                    // create a new character sheet for the player
+                    CharacterSheet characterSheet = new CharacterSheet(Player);
+
+                    characterSheet.Show();
+
+                    CurrentMap.DungeonRenderer.ClearBuffer();
+                    
+                    break;
+
                 case ConsoleKey.O:
                     {
                         Door tmpDoor;

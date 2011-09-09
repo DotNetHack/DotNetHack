@@ -158,6 +158,16 @@ namespace DotNetHack.Game.Dungeon
         public Tile GetTile(int x, int y, int d) { return MapData[x, y, d]; }
 
         /// <summary>
+        /// Get the tile for an object that supports the HasLocation interface
+        /// </summary>
+        /// <param name="aHasLoc">Any object that has a location.</param>
+        /// <returns>The tile at that location.</returns>
+        public Tile GetTile(IHasLocation aHasLoc) 
+        {
+            return GetTile(aHasLoc.Location);
+        }
+
+        /// <summary>
         /// GetTile
         /// </summary>
         /// <param name="l"></param>
@@ -210,7 +220,7 @@ namespace DotNetHack.Game.Dungeon
             //if (GameEngine.Player.Location == l)
                 //return false;
             Tile tmpTile = GetTile(l);
-            if (MonsterThere(l) != null)
+            if (GetNPC(l) != null)
                 return false;
             return !tmpTile.Impassable;
         }
@@ -220,7 +230,7 @@ namespace DotNetHack.Game.Dungeon
         /// </summary>
         /// <param name="l">The location.</param>
         /// <returns></returns>
-        public NonPlayerControlled MonsterThere(Location3i l)
+        public NonPlayerControlled GetNPC(Location3i l)
         {
             return NonPlayerControlled.Where(m => m.Location == l)
                 .FirstOrDefault();

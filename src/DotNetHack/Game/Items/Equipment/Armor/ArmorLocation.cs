@@ -16,7 +16,7 @@ namespace DotNetHack.Game.Items.Equipment.Armour
         Arms,
         Hands,
         LeftFinger,
-        RightFinder,
+        RightFinger,
         Legs,
         Feet,
     }

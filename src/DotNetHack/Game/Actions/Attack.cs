@@ -9,7 +9,7 @@ namespace DotNetHack.Game.Actions
     /// <summary>
     /// An action.
     /// </summary>
-    public abstract class Action
+    public abstract class DAction
     {
         /// <summary>
         /// performs the action, returns boolean result.
@@ -21,7 +21,7 @@ namespace DotNetHack.Game.Actions
     /// <summary>
     /// ActionAttack
     /// </summary>
-    public abstract class ActionAttack : Action
+    public abstract class ActionAttack : DAction
     {
         /// <summary>
         /// Creates a new attack action to be performed.
@@ -86,24 +86,7 @@ namespace DotNetHack.Game.Actions
                 / aAttacker.WieldedWeapons.CurrentWeapon.WeaponProperties.MaxCondition + 1)
                 / 2;
 
-
             aDefender.Stats.Health -= (int)weaponRating;
-
-            if (aDefender.EffectStack.Count < 1)
-                aDefender.EffectStack.Add(new Effects.Effect()
-                {
-                    Duration = 10,
-                    EffectType = Effects.EffectType.Disease,
-                    Magnitude = 1,
-                    EffectModifiers = delegate(Effect e, Actor a) 
-                    {
-                        a.Stats.Speed++;
-                        a.Stats.Health -= e.Magnitude;
-                        if (e.Duration < 5)
-                            e.Magnitude *= 2;
-                        
-                    },
-                });
 
             return true;
         }

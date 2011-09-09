@@ -129,6 +129,7 @@
     <Compile Include="Game\World.cs" />
     <Compile Include="Game\Colour.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="UI\CharacterSheet.cs" />
     <Compile Include="UI\DisplayRegion.cs" />
     <Compile Include="UI\Display.cs" />
     <Compile Include="EntryPoint.cs" />

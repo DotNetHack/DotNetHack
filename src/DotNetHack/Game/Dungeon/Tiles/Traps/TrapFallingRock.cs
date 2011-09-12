@@ -26,7 +26,8 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
         /// <param name="e">The event argument(s)</param>
         void TrapFallingRock_TriggerEvent(object sender, Trap.TrapEventArgs e)
         {
-
+            GameEngine.DoSound(new Sound(e.TrapTarget, 40, 
+                "thunderous rumbling"));
         }
     }
 }

@@ -35,7 +35,11 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
                 Condition = 100,
                 MaxCondition = 100,
             }, WeaponLocation.MainHand,
-            WeaponSubType.MainHand | WeaponSubType.Thrown | WeaponSubType.DualWield)
-        { }
+            WeaponSubType.MainHand | WeaponSubType.Thrown | WeaponSubType.DualWield) { }
+
+        protected override void WeaponStrike()
+        {
+            base.WeaponStrike();
+        }
     }
 }

@@ -152,7 +152,7 @@ namespace DotNetHack.Game
                         var tmpLoc = tmpInRange.First().Location;
                         UI.Graphics.CursorToLocation(tmpLoc);
                         Console.BackgroundColor = ConsoleColor.DarkRed;
-                        
+
                     }
 
 
@@ -166,7 +166,7 @@ namespace DotNetHack.Game
                     characterSheet.Show();
 
                     CurrentMap.DungeonRenderer.ClearBuffer();
-                    
+
                     break;
 
                 case ConsoleKey.O:
@@ -221,6 +221,11 @@ namespace DotNetHack.Game
         public event EventHandler<DoorEventArgs> OnDoorOpenedClosed;
 
         /// <summary>
+        /// Occurs when DoSound is called.
+        /// </summary>
+        public static event EventHandler<SoundEventArgs> OnSound;
+
+        /// <summary>
         /// load monsters, weapons, potions.
         /// </summary>
         public bool Initialize()
@@ -261,7 +266,13 @@ namespace DotNetHack.Game
         /// <param name="e">the event argument</param>
         void GameEngine_OnPlayerMoved(object sender, MoveEventArgs e)
         {
-            if (e.MoveToTile.HasItems)
+            if (e.MoveToTile.TileFlags.HasFlag(TileFlags.Trap))
+            {
+                Trap t = ((Trap)e.MoveToTile);
+
+                t.OnTrapTriggeredEvent(new Trap.TrapEventArgs(Player));
+            }
+            else if (e.MoveToTile.HasItems)
             {
                 if (e.MoveToTile.Items.Count == 1)
                     UI.Graphics.Display.ShowMessage(e.MoveToTile.Items.First<IItem>().Name);
@@ -386,6 +397,16 @@ namespace DotNetHack.Game
                 npc.ApplyEffects();
                 npc.Execute(Player);
             }
+        }
+
+        /// <summary>
+        /// DoSound, generates a sound. Calls subscribed listeners.
+        /// </summary>
+        /// <param name="aSound">The sound that is generated.</param>
+        public static void DoSound(Sound aSound)
+        {
+            if (OnSound != null)
+                OnSound(null, new SoundEventArgs(aSound));
         }
 
         /// <summary>

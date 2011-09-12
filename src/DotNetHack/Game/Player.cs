@@ -23,7 +23,20 @@ namespace DotNetHack.Game
         /// <param name="aPlayerName"></param>
         public Player(string aPlayerName)
             : this(aPlayerName, new Location3i(0, 0, 0))
-        { }
+        {
+            
+        }
+
+        /// <summary>
+        /// GameEngine_OnSound
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void GameEngine_OnSound(object sender, SoundEventArgs e)
+        {
+            if (Stats.Perception >= e.Distance(this))
+                UI.Graphics.Display.ShowMessage(e.Description);
+        }
 
         /// <summary>
         /// Player
@@ -33,6 +46,8 @@ namespace DotNetHack.Game
         public Player(string aPlayerName, Location3i aLocation)
             : base()
         {
+            GameEngine.OnSound += new EventHandler<SoundEventArgs>(GameEngine_OnSound);
+
             // Create the players key-chain
             KeyChain = new KeyChain();
 

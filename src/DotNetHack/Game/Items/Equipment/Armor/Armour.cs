@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Items.Equipment.Armour;
+using DotNetHack.Game.Events;
 
 namespace DotNetHack.Game.Items.Equipment.Armor
 {
@@ -18,6 +19,7 @@ namespace DotNetHack.Game.Items.Equipment.Armor
             ArmourLocation = aArmourLocation;
             Condition = 100;
         }
+
 
         public ArmourLocation ArmourLocation { get; set; }
 

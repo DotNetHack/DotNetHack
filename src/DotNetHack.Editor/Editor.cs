@@ -645,7 +645,7 @@ namespace DotNetHack.Editor
                                     Name = "Elixer of Strength",
                                     MAction = delegate(object argv)
                                     {
-                                        SetItem(new ElixerOfStrength(PotionStrength.Strong));
+                                        SetItem(new ElixerOfOgreStrength(PotionStrength.Strong));
                                     },
                                     MenuActionFilter = (i => i.Key == ConsoleKey.D0),
                                 },

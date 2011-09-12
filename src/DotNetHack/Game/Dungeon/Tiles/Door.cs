@@ -83,7 +83,6 @@ namespace DotNetHack.Game.Dungeon.Tiles
             return new Door(aOpen) { KeyRef = Guid.Empty };
         }
 
-
         public Guid KeyRef { get; set; }
 
         /// <summary>

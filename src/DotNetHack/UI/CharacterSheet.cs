@@ -161,10 +161,6 @@ namespace DotNetHack.UI
 
             armour = null;
 
-
-
-
-
             Console.ReadKey(true);
         }
 

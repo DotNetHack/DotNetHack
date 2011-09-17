@@ -430,6 +430,8 @@ namespace DotNetHack.Editor
                         case ConsoleModifiers.Shift:
                             SetTile(new TrapSpikePit());
                             break;
+
+                            
                     }
                     break;
                 // mountain
@@ -476,10 +478,10 @@ namespace DotNetHack.Editor
                     switch (input.Modifiers)
                     {
                         default:
-                            SetTile(TileType.Bridge, Symbols.W_DBL_HORIZONTAL, Colour.Road);
+                            SetTile(TileType.Bridge, '■', Colour.Bridge);
                             break;
                         case ConsoleModifiers.Shift:
-                            SetTile(TileType.Bridge, Symbols.W_DBL_VERTICAL, Colour.Road);
+                            SetTile(TileType.Bridge, '▌', Colour.Bridge);
                             break;
                     }
                     break;

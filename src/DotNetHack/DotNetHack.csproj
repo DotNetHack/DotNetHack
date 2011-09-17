@@ -74,6 +74,7 @@
     <Compile Include="Game\Events\MoveEventArgs.cs" />
     <Compile Include="Game\Events\SoundEvent.cs" />
     <Compile Include="Game\Events\WeaponEvent.cs" />
+    <Compile Include="Game\Glyph.cs" />
     <Compile Include="Game\Interfaces\IArmor.cs" />
     <Compile Include="Game\Interfaces\ICanDrink.cs" />
     <Compile Include="Game\Interfaces\IKey.cs" />
@@ -178,6 +179,7 @@
     <Folder Include="Game\Items\Herbs\" />
     <Folder Include="Game\Items\Magical\Scrolls\" />
     <Folder Include="Game\Items\Magical\Tomes\" />
+    <Folder Include="Game\Items\Misc\" />
     <Folder Include="Game\Quests\" />
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,7 @@ using DotNetHack.Game.Items.Equipment.Weapons;
 using DotNetHack.Game.Events;
 using System.IO;
 using System.Threading;
+using DotNetHack.Game.NPC;
 
 namespace DotNetHack.Game
 {
@@ -55,6 +56,27 @@ namespace DotNetHack.Game
         }
 
         static bool Done = false;
+        TargetSelector TargetSelect = null;
+
+        public class TargetSelector
+        {
+            public TargetSelector(IEnumerable<NonPlayerControlled> aTargets)
+            {
+                SelectTargets = aTargets.ToArray();
+            }
+
+            public NonPlayerControlled NextTarget()
+            {
+                if (index >= SelectTargets.Length) index = 0;
+                return SelectTargets[index++];
+            }
+
+            public bool HasTargets { get { return SelectTargets.Length > 0; } }
+
+            NonPlayerControlled[] SelectTargets;
+
+            int index = 0;
+        }
 
         /// <summary>
         /// Excecutes the game engine until !done.
@@ -75,8 +97,11 @@ namespace DotNetHack.Game
                     Graphics.CursorToLocation(0, 0);
 
                     var input = Console.ReadKey(true);
-                    
-                    ProcessCommand(input);
+
+                    if (!ProcessCommand(input))
+                        continue;
+
+                    TargetSelect = null;
 
                     // TODO: Make a distintion between action(s)
                     // and general commands. ProcessAction(input);
@@ -105,9 +130,10 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="input">raw input</param>
         /// <returns></returns>
-        void ProcessCommand(ConsoleKeyInfo input)
+        bool ProcessCommand(ConsoleKeyInfo input)
         {
             bool isMoveCommand = false;
+            bool isTargetCommand = false;
 
             Func<ITile, bool> aRestriction = null;
 
@@ -146,14 +172,14 @@ namespace DotNetHack.Game
                             x => x.TileType == TileType.StairsUp);
                         UnitMovement.D++;
                     }
-                    else 
+                    else
                     {
                         // TODO: move this
                         DAction a = new ActionPickup(Player,
                             CurrentMap.GetTile(Player).Items);
                         a.Perform();
                     }
-                    
+
                     break;
 
                 case ConsoleKey.P:
@@ -165,16 +191,22 @@ namespace DotNetHack.Game
 
 
                 case ConsoleKey.Tab:
-
-                    var tmpInRange = CurrentMap.NonPlayerControlled.Where(
-                        n => n.Distance(Player) < 10);
-
-                    if (tmpInRange.Count() > 0)
+                    isTargetCommand = true;
+                    if (TargetSelect == null)
+                        TargetSelect = new TargetSelector(
+                        CurrentMap.NonPlayerControlled.Where(
+                            n => n.Distance(Player) < 10));
+                    if (TargetSelect.HasTargets)
                     {
-                        var tmpLoc = tmpInRange.First().Location;
-                        UI.Graphics.CursorToLocation(tmpLoc);
+                        var currentTarget = TargetSelect.NextTarget();
+                        var currentTargetLocation = currentTarget.Location;
+                        char currentSymbol = currentTarget.G;
+                        UI.Graphics.CursorToLocation(currentTargetLocation);
                         Console.BackgroundColor = ConsoleColor.DarkRed;
+                        Graphics.CursorToLocation(currentTargetLocation);
+                        Console.Write(currentSymbol);
                     }
+
                     break;
 
                 case ConsoleKey.C:
@@ -202,6 +234,9 @@ namespace DotNetHack.Game
                     break;
             }
 
+            if (isTargetCommand)
+                return false;
+
             if (isMoveCommand)
                 if (TryMove(Player, Player.Location + UnitMovement, out nMoveTo, aRestriction))
                 {
@@ -215,6 +250,8 @@ namespace DotNetHack.Game
                     if (tmpNPC != null)
                         new ActionMeleeAttack(Player, tmpNPC).Perform();
                 }
+
+            return true;
         }
 
         public ActionCommand ProcessAction(ConsoleKeyInfo input)

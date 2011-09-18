@@ -75,6 +75,7 @@
     <Compile Include="Game\Events\SoundEvent.cs" />
     <Compile Include="Game\Events\WeaponEvent.cs" />
     <Compile Include="Game\Glyph.cs" />
+    <Compile Include="Game\Interfaces\ICanBeEffected.cs" />
     <Compile Include="Game\Interfaces\IArmor.cs" />
     <Compile Include="Game\Interfaces\ICanDrink.cs" />
     <Compile Include="Game\Interfaces\IKey.cs" />

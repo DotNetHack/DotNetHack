@@ -88,6 +88,20 @@ namespace DotNetHack.Game.Items.Equipment.Armour
         }
 
         /// <summary>
+        /// Returns the summation of stats from items that meet the predicate.
+        /// </summary>
+        /// <param name="aPredicate">The predicate</param>
+        /// <returns>A <see cref="StatsBase"/> object.</returns>
+        public StatsBase CommutedStats(Func<IArmour, bool> aPredicate)
+        {
+            StatsBase stats = new StatsBase();
+            foreach (IArmour iArmour in WornArmour.Values)
+                if (aPredicate(iArmour))
+                    stats += iArmour.StatsBase; 
+            return stats;
+        }
+
+        /// <summary>
         /// GetWornArmourByLocation
         /// </summary>
         /// <param name="aArmourLocation">The specific location to get armour at.</param>

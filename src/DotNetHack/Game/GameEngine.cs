@@ -74,7 +74,12 @@ namespace DotNetHack.Game
                 {
                     Graphics.CursorToLocation(0, 0);
 
-                    ProcessCommand(Console.ReadKey(true));
+                    var input = Console.ReadKey(true);
+                    
+                    ProcessCommand(input);
+
+                    // TODO: Make a distintion between action(s)
+                    // and general commands. ProcessAction(input);
 
                     Update();
 
@@ -140,7 +145,24 @@ namespace DotNetHack.Game
                         aRestriction = new Func<ITile, bool>(
                             x => x.TileType == TileType.StairsUp);
                         UnitMovement.D++;
-                    } break;
+                    }
+                    else 
+                    {
+                        // TODO: move this
+                        DAction a = new ActionPickup(Player,
+                            CurrentMap.GetTile(Player).Items);
+                        a.Perform();
+                    }
+                    
+                    break;
+
+                case ConsoleKey.P:
+                    {
+                        Player.WornArmour.PutOn(
+                            Player.Inventory.Armour.First(), true);
+                        break;
+                    }
+
 
                 case ConsoleKey.Tab:
 
@@ -152,10 +174,7 @@ namespace DotNetHack.Game
                         var tmpLoc = tmpInRange.First().Location;
                         UI.Graphics.CursorToLocation(tmpLoc);
                         Console.BackgroundColor = ConsoleColor.DarkRed;
-
                     }
-
-
                     break;
 
                 case ConsoleKey.C:
@@ -198,7 +217,10 @@ namespace DotNetHack.Game
                 }
         }
 
-        public ActionCommand ProcessAction { get; set; }
+        public ActionCommand ProcessAction(ConsoleKeyInfo input)
+        {
+            return null;
+        }
 
         /// <summary>
         /// Occurs when errors are thrown.

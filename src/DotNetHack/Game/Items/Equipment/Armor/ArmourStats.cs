@@ -9,11 +9,7 @@ namespace DotNetHack.Game.Items.Equipment.Armor
     {
         public ArmourStats() { }
 
-        public int Strength { get; set; }
-        public int Perception { get; set; }
-        public int Endurance { get; set; }
-        public int Charisma { get; set; }
-        public int Agility { get; set; }
-        public int Luck { get; set; }
+        public double Weight { get; set; }
+        public int Condition { get; set; }
     }
 }

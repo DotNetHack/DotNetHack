@@ -594,13 +594,12 @@ namespace DotNetHack.Editor
                 // TODO: Remove this
                 case ConsoleKey.H:
                     {
-
                         if (input.Modifiers.HasFlag(ConsoleModifiers.Shift))
                         {
                             SetItem(
                             Dice.RandomChoice<IArmour>(new IArmour[] 
                         {
-                            new HauberkOfDefense(CurrentLocation),
+                            new ChestpieceOfDebugging(CurrentLocation),
                             new GauntletsOfBane(CurrentLocation),
                             new GauntletsOfWisdom(CurrentLocation),
                         })

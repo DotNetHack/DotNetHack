@@ -32,6 +32,8 @@ namespace DotNetHack.UI
 
             int y_coord = 0;
 
+            var xStats = Character.WornArmour.CommutedStats(x => x.Condition > 0);
+
             Console.SetCursorPosition(3, 3 + y_coord++);
             Console.Write("Mana:         {0}", Character.Stats.ManaPoints);
 
@@ -44,25 +46,25 @@ namespace DotNetHack.UI
             y_coord++;
 
             Console.SetCursorPosition(3, 3 + y_coord++);
-            Console.Write("Strength:     {0}", Character.Stats.Strength);
+            Console.Write("Strength:     {0}+{1}", Character.Stats.Strength, xStats.Strength);
 
             Console.SetCursorPosition(3, 3 + y_coord++);
-            Console.Write("Perception:   {0}", Character.Stats.Perception);
+            Console.Write("Perception:   {0}+{1}", Character.Stats.Perception, xStats.Perception);
 
             Console.SetCursorPosition(3, 3 + y_coord++);
-            Console.Write("Endurance:    {0}", Character.Stats.Endurance);
+            Console.Write("Endurance:    {0}+{1}", Character.Stats.Endurance, xStats.Endurance);
 
             Console.SetCursorPosition(3, 3 + y_coord++);
-            Console.Write("Charisma:     {0}", Character.Stats.Charisma);
+            Console.Write("Charisma:     {0}+{1}", Character.Stats.Charisma, xStats.Charisma);
 
             Console.SetCursorPosition(3, 3 + y_coord++);
-            Console.Write("Intelligence: {0}", Character.Stats.Intelligence);
+            Console.Write("Intelligence: {0}+{1}", Character.Stats.Intelligence, xStats.Intelligence);
 
             Console.SetCursorPosition(3, 3 + y_coord++);
-            Console.Write("Agility:      {0}", Character.Stats.Agility);
+            Console.Write("Agility:      {0}+{1}", Character.Stats.Agility, xStats.Agility);
 
             Console.SetCursorPosition(3, 3 + y_coord++);
-            Console.Write("Luck:         {0}", Character.Stats.Luck);
+            Console.Write("Luck:         {0}+{1}", Character.Stats.Luck, xStats.Luck);
 
             // skip 1
             y_coord = 0;
@@ -160,10 +162,6 @@ namespace DotNetHack.UI
                 Console.WriteLine("RightFinger:(none)");
 
             armour = null;
-
-
-
-
 
             Console.ReadKey(true);
         }

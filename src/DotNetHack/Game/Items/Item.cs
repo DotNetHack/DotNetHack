@@ -94,6 +94,11 @@ namespace DotNetHack.Game.Items
         public Colour C { get; set; }
 
         /// <summary>
+        /// Selected
+        /// </summary>
+        public bool Selected { get; set; }
+
+        /// <summary>
         /// Location
         /// </summary>
         public Location3i Location { get; set; }

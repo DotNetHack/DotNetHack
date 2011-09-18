@@ -74,7 +74,12 @@ namespace DotNetHack.Game
                 {
                     Graphics.CursorToLocation(0, 0);
 
-                    ProcessCommand(Console.ReadKey(true));
+                    var input = Console.ReadKey(true);
+                    
+                    ProcessCommand(input);
+
+                    // TODO: Make a distintion between action(s)
+                    // and general commands. ProcessAction(input);
 
                     Update();
 
@@ -140,7 +145,24 @@ namespace DotNetHack.Game
                         aRestriction = new Func<ITile, bool>(
                             x => x.TileType == TileType.StairsUp);
                         UnitMovement.D++;
-                    } break;
+                    }
+                    else 
+                    {
+                        // TODO: move this
+                        DAction a = new ActionPickup(Player,
+                            CurrentMap.GetTile(Player).Items);
+                        a.Perform();
+                    }
+                    
+                    break;
+
+                case ConsoleKey.P:
+                    {
+                        Player.WornArmour.PutOn(
+                            Player.Inventory.Armour.First(), true);
+                        break;
+                    }
+
 
                 case ConsoleKey.Tab:
 
@@ -152,10 +174,7 @@ namespace DotNetHack.Game
                         var tmpLoc = tmpInRange.First().Location;
                         UI.Graphics.CursorToLocation(tmpLoc);
                         Console.BackgroundColor = ConsoleColor.DarkRed;
-                        
                     }
-
-
                     break;
 
                 case ConsoleKey.C:
@@ -166,7 +185,7 @@ namespace DotNetHack.Game
                     characterSheet.Show();
 
                     CurrentMap.DungeonRenderer.ClearBuffer();
-                    
+
                     break;
 
                 case ConsoleKey.O:
@@ -198,7 +217,10 @@ namespace DotNetHack.Game
                 }
         }
 
-        public ActionCommand ProcessAction { get; set; }
+        public ActionCommand ProcessAction(ConsoleKeyInfo input)
+        {
+            return null;
+        }
 
         /// <summary>
         /// Occurs when errors are thrown.
@@ -219,6 +241,11 @@ namespace DotNetHack.Game
         /// occurs when *any* door is opended or closed.
         /// </summary>
         public event EventHandler<DoorEventArgs> OnDoorOpenedClosed;
+
+        /// <summary>
+        /// Occurs when DoSound is called.
+        /// </summary>
+        public static event EventHandler<SoundEventArgs> OnSound;
 
         /// <summary>
         /// load monsters, weapons, potions.
@@ -261,7 +288,13 @@ namespace DotNetHack.Game
         /// <param name="e">the event argument</param>
         void GameEngine_OnPlayerMoved(object sender, MoveEventArgs e)
         {
-            if (e.MoveToTile.HasItems)
+            if (e.MoveToTile.TileFlags.HasFlag(TileFlags.Trap))
+            {
+                Trap t = ((Trap)e.MoveToTile);
+
+                t.OnTrapTriggeredEvent(new Trap.TrapEventArgs(Player));
+            }
+            else if (e.MoveToTile.HasItems)
             {
                 if (e.MoveToTile.Items.Count == 1)
                     UI.Graphics.Display.ShowMessage(e.MoveToTile.Items.First<IItem>().Name);
@@ -386,6 +419,16 @@ namespace DotNetHack.Game
                 npc.ApplyEffects();
                 npc.Execute(Player);
             }
+        }
+
+        /// <summary>
+        /// DoSound, generates a sound. Calls subscribed listeners.
+        /// </summary>
+        /// <param name="aSound">The sound that is generated.</param>
+        public static void DoSound(Sound aSound)
+        {
+            if (OnSound != null)
+                OnSound(null, new SoundEventArgs(aSound));
         }
 
         /// <summary>

@@ -19,7 +19,6 @@ namespace DotNetHack.Game.Dungeon.Generator
             : base(aDungeon)
         { }
 
-
         /// <summary>
         /// Generates the dungeon using recursive descent model.
         /// </summary>

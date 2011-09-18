@@ -18,6 +18,11 @@ namespace DotNetHack.Game.Actions
         public abstract bool Perform();
     }
 
+    public abstract class DAction<T>
+    {
+        public abstract bool Perform(T on);
+    }
+
     /// <summary>
     /// ActionAttack
     /// </summary>

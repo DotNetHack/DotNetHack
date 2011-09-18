@@ -135,6 +135,11 @@ namespace DotNetHack.Game
             get { return new Colour(ConsoleColor.White, ConsoleColor.Blue); }
         }
 
+        public static Colour Bridge
+        {
+            get { return new Colour(ConsoleColor.DarkRed, ConsoleColor.Blue); }
+        }
+
         public static Colour DeepOcean
         {
             get { return new Colour(ConsoleColor.White, ConsoleColor.DarkBlue); }
@@ -167,7 +172,7 @@ namespace DotNetHack.Game
 
         public static Colour Road
         {
-            get { return new Colour(ConsoleColor.DarkRed, ConsoleColor.DarkYellow); }
+            get { return new Colour(ConsoleColor.DarkGreen, ConsoleColor.Black); }
         }
 
         public static Colour Fountain

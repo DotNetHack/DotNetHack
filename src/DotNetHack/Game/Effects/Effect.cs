@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DotNetHack.Game.Interfaces;
 
 namespace DotNetHack.Game.Effects
 {
@@ -10,7 +11,7 @@ namespace DotNetHack.Game.Effects
     /// </summary>
     /// <param name="effect">The effect itself</param>
     /// <param name="target">the effect target</param>
-    public delegate void EffectModifier(Effect effect, Actor target);
+    public delegate void EffectModifier(Effect effect, ICanBeEffected target);
 
     /*
     /// <summary>
@@ -47,7 +48,6 @@ namespace DotNetHack.Game.Effects
         /// Creates a new Effect.
         /// </summary>
         public Effect() { }
-
 
         /// <summary>
         /// Creates a new instance of Effect
@@ -114,8 +114,8 @@ namespace DotNetHack.Game.Effects
         /// <summary>
         /// The effect tick, exactly who this ticks on is important.
         /// </summary>
-        /// <param name="target">The effected target.</param>
-        public void Tick(Actor target)
+        /// <param name="targets">The effected target(s)</param>
+        public void Tick(ICanBeEffected[] targets)
         {
 #if DEBUG
             UI.Graphics.Display.ShowMessage("Type: {0}, Duration: {1}",
@@ -123,8 +123,24 @@ namespace DotNetHack.Game.Effects
 #endif
             if (Duration > 0)
                 Duration--;
-            if (EffectModifiers != null)
-                EffectModifiers(this, target);
+            if (EffectModifiers != null && targets.Length > 0)
+                for (int index = 0; index < targets.Length; ++index)
+                    if (targets[index] != null)
+                        EffectModifiers(this, targets[index]);
         }
+
+        /// <summary>
+        /// The effect tick, exactly who this ticks on is important.
+        /// </summary>
+        /// <param name="target">the (single) target this ticks on</param>
+        public void Tick(ICanBeEffected target)
+        {
+            Tick(new ICanBeEffected[] { target });
+        }
+
+        /// <summary>
+        /// PermanentDuration
+        /// </summary>
+        public const int PermanentDuration = -1;
     }
 }

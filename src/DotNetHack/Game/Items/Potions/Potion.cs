@@ -64,6 +64,36 @@ namespace DotNetHack.Game.Items.Potions
 
         /// <summary>
         /// StregthModifier
+        /// <list type="bullet">
+        /// <listheader>StregthModifier and Effect on Magnitude</listheader>
+        /// <item>Elixer
+        /// <list type="bullet">
+        /// <item>Light</item>
+        /// <item>Minor</item>
+        /// <item>Greater</item>
+        /// <item>Strong</item>
+        /// <item>Super</item>
+        /// </list>
+        /// </item>
+        /// <item>Poision
+        /// <list type="bullet">
+        /// <item>Light</item>
+        /// <item>Minor</item>
+        /// <item>Greater</item>
+        /// <item>Strong</item>
+        /// <item>Super</item>
+        /// </list>
+        /// </item>
+        /// <item>Healing
+        /// <list type="bullet">
+        /// <item>Light</item>
+        /// <item>Minor</item>
+        /// <item>Greater</item>
+        /// <item>Strong</item>
+        /// <item>Super</item>
+        /// </list>
+        /// </item>
+        /// </list>
         /// </summary>
         public double StregthModifier
         {
@@ -78,33 +108,45 @@ namespace DotNetHack.Game.Items.Potions
                         {
                             default:
                             case Potions.PotionStrength.Light:
+                                return 1;
                             case Potions.PotionStrength.Minor:
+                                return 2;
                             case Potions.PotionStrength.Greater:
+                                return 3;
                             case Potions.PotionStrength.Strong:
+                                return 4;
                             case Potions.PotionStrength.Super:
-                                return 1.0;
+                                return 5;
                         }
                     case Potions.PotionType.Poision:
                         switch (PotionStrength)
                         {
                             default:
                             case Potions.PotionStrength.Light:
+                                return 2.6;
                             case Potions.PotionStrength.Minor:
+                                return 3.4;
                             case Potions.PotionStrength.Greater:
+                                return 4.04;
                             case Potions.PotionStrength.Strong:
+                                return 4.54;
                             case Potions.PotionStrength.Super:
-                                return 1.0;
+                                return 4.96;
                         }
                     case Potions.PotionType.Healing:
                         switch (PotionStrength)
                         {
                             default:
                             case Potions.PotionStrength.Light:
+                                return 5;
                             case Potions.PotionStrength.Minor:
+                                return 5.2;
                             case Potions.PotionStrength.Greater:
+                                return 5.7;
                             case Potions.PotionStrength.Strong:
+                                return 6.5;
                             case Potions.PotionStrength.Super:
-                                return 1.0;
+                                return 7.7;
                         }
                 }
             }

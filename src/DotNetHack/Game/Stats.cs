@@ -19,6 +19,24 @@ namespace DotNetHack.Game
         public StatsBase() { }
 
         /// <summary>
+        /// Creates a new instance of stats base with all stats set to the same value.
+        /// </summary>
+        /// <param name="v">The value that all stats will be set to.</param>
+        public StatsBase(int v) 
+        {
+            Strength = v;
+            Perception = v;
+            Endurance = v;
+            Charisma = v;
+            Intelligence = v;
+            Agility = v;
+            Level = v;
+            Luck = v;
+            ArmourClass = v;
+            Wisdom = v;
+        }
+
+        /// <summary>
         /// the level
         /// </summary>
         [XmlAttribute]

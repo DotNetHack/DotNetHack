@@ -38,7 +38,7 @@ namespace DotNetHack.Game
     /// <summary>
     /// GameEngine
     /// </summary>
-    public class GameEngine : IDisposable
+    public partial class GameEngine : IDisposable
     {
         /// <summary>
         /// GameEngine
@@ -56,27 +56,8 @@ namespace DotNetHack.Game
         }
 
         static bool Done = false;
+
         TargetSelector TargetSelect = null;
-
-        public class TargetSelector
-        {
-            public TargetSelector(IEnumerable<NonPlayerControlled> aTargets)
-            {
-                SelectTargets = aTargets.ToArray();
-            }
-
-            public NonPlayerControlled NextTarget()
-            {
-                if (index >= SelectTargets.Length) index = 0;
-                return SelectTargets[index++];
-            }
-
-            public bool HasTargets { get { return SelectTargets.Length > 0; } }
-
-            NonPlayerControlled[] SelectTargets;
-
-            int index = 0;
-        }
 
         /// <summary>
         /// Excecutes the game engine until !done.
@@ -188,7 +169,6 @@ namespace DotNetHack.Game
                             Player.Inventory.Armour.First(), true);
                         break;
                     }
-
 
                 case ConsoleKey.Tab:
                     isTargetCommand = true;
@@ -358,7 +338,7 @@ namespace DotNetHack.Game
         /// </summary>
         public void Dispose()
         {
-
+            Done = false;
         }
 
         /// <summary>

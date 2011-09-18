@@ -16,7 +16,7 @@ namespace DotNetHack.Game
     /// Actor
     /// </summary>
     [Serializable]
-    public abstract class Actor : IDrawable
+    public abstract class Actor : IDrawable, ICanBeEffected
     {
         /// <summary>
         /// Create a new instance of Actor.
@@ -82,10 +82,12 @@ namespace DotNetHack.Game
         /// </summary>
         public void ApplyEffects() 
         {
+            // tick everything in the effect stack.
             foreach (var effect in EffectStack)
                 effect.Tick(this);
-            
-            EffectStack.RemoveAll(e => e.Duration <= 0);
+
+            // remove all depleated effects that are not perament.
+            EffectStack.RemoveAll(e => e.Duration <= 0 && e.Duration != Effect.PermanentDuration);
         }
 
         /// <summary>

@@ -47,7 +47,10 @@
     <Compile Include="DNHackException.cs" />
     <Compile Include="Game\Actions\Attack.cs" />
     <Compile Include="Game\Actions\Move.cs" />
+    <Compile Include="Game\Actions\Pickup.cs" />
+    <Compile Include="Game\Actions\PutOn.cs" />
     <Compile Include="Game\Actions\Quaff.cs" />
+    <Compile Include="Game\Actions\Wield.cs" />
     <Compile Include="Game\Actor.cs" />
     <Compile Include="Game\Direction.cs" />
     <Compile Include="Game\Dungeon\Dungeon.cs" />

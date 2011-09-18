@@ -48,20 +48,36 @@ namespace DotNetHack.Game.Effects
         /// </summary>
         public Effect() { }
 
+
         /// <summary>
         /// Creates a new instance of Effect
         /// </summary>
-        /// <param name="aDuration">The duration of the effect</param>
+        /// <param name="aEffectType">The type of effect.</param>
+        /// <param name="aMagnitude">The magnitude.</param>
+        /// <param name="aDuration">The duration.</param>
         public Effect(EffectType aEffectType, int aMagnitude, int aDuration = 1)
+            : this(new StatsBase(0), aEffectType, aMagnitude, aDuration) { }
+
+        /// <summary>
+        /// Creates a new instance of Effect
+        /// </summary>
+        /// <param name="aStats">The (initial) effect on stats.</param>
+        /// <param name="aEffectType">The type of effect.</param>
+        /// <param name="aMagnitude">The magnitude.</param>
+        /// <param name="aDuration">The duration.</param>
+        public Effect(StatsBase aStats, EffectType aEffectType, int aMagnitude, int aDuration = -1)
         {
+            // set effected stats
+            EffectedStats = aStats;
+
             // Set the effect type.
             EffectType = aEffectType;
 
-            // Set the duration of this effect.
-            Duration = aDuration;
-
             // Set the magnitude of this effect.
             Magnitude = aMagnitude;
+
+            // Set the duration of this effect.
+            Duration = aDuration;
         }
 
         /// <summary>
@@ -71,6 +87,9 @@ namespace DotNetHack.Game.Effects
 
         /// <summary>
         /// Magnitude
+        /// <remarks>Magnitude is used as a variable during effects 
+        /// computation for <c>this</c> effect.</remarks>
+        /// <example>a spell that gets stronger (or weaker) over time.</example>
         /// </summary>
         public int Magnitude { get; set; }
 
@@ -85,9 +104,17 @@ namespace DotNetHack.Game.Effects
         public EffectModifier EffectModifiers { get; set; }
 
         /// <summary>
+        /// The effect that this effect has on stats; this is assumed to be cumulative
+        /// for <c>this</c> effect. A "stack" of effects can expect to have each of these 
+        /// commuted for the final combat calculation. <see cref="StatsBase"/>
+        /// <remarks></remarks>
+        /// </summary>
+        public StatsBase EffectedStats { get; set; }
+
+        /// <summary>
         /// The effect tick, exactly who this ticks on is important.
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="target">The effected target.</param>
         public void Tick(Actor target)
         {
 #if DEBUG

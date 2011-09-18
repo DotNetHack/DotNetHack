@@ -47,7 +47,10 @@
     <Compile Include="DNHackException.cs" />
     <Compile Include="Game\Actions\Attack.cs" />
     <Compile Include="Game\Actions\Move.cs" />
+    <Compile Include="Game\Actions\Pickup.cs" />
+    <Compile Include="Game\Actions\PutOn.cs" />
     <Compile Include="Game\Actions\Quaff.cs" />
+    <Compile Include="Game\Actions\Wield.cs" />
     <Compile Include="Game\Actor.cs" />
     <Compile Include="Game\Direction.cs" />
     <Compile Include="Game\Dungeon\Dungeon.cs" />
@@ -65,12 +68,17 @@
     <Compile Include="Game\Dungeon\Tiles\Traps\TrapSpikePit.cs" />
     <Compile Include="Game\Effects\Effect.cs" />
     <Compile Include="Game\Events\ActorEventArgs.cs" />
+    <Compile Include="Game\Events\ArmourEventArgs.cs" />
     <Compile Include="Game\Events\DNHExceptionEventArgs.cs" />
     <Compile Include="Game\Events\DoorEventArgs.cs" />
     <Compile Include="Game\Events\GameEventArgs.cs" />
     <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
     <Compile Include="Game\Events\EquipmentEventArgs.cs" />
     <Compile Include="Game\Events\MoveEventArgs.cs" />
+    <Compile Include="Game\Events\SoundEvent.cs" />
+    <Compile Include="Game\Events\WeaponEvent.cs" />
+    <Compile Include="Game\Glyph.cs" />
+    <Compile Include="Game\Interfaces\ICanBeEffected.cs" />
     <Compile Include="Game\Interfaces\IArmor.cs" />
     <Compile Include="Game\Interfaces\ICanDrink.cs" />
     <Compile Include="Game\Interfaces\IKey.cs" />
@@ -84,6 +92,7 @@
     <Compile Include="Game\Items\Equipment\Armor\ArmorType.cs" />
     <Compile Include="Game\Items\Equipment\Armor\ArmorWorn.cs" />
     <Compile Include="Game\Items\Equipment\Armor\Armour.cs" />
+    <Compile Include="Game\Items\Equipment\Armor\ArmourStats.cs" />
     <Compile Include="Game\Items\Equipment\Armor\ExperimentalArmour.cs" />
     <Compile Include="Game\Items\Equipment\EquipUsage.cs" />
     <Compile Include="Game\Items\Equipment\Material.cs" />
@@ -107,7 +116,7 @@
     <Compile Include="Game\Items\Magical\Scroll.cs" />
     <Compile Include="Game\Items\Magical\Tome.cs" />
     <Compile Include="Game\Items\Potions\Elixer.cs" />
-    <Compile Include="Game\Items\Potions\Elixers\ElixerOfStrength.cs" />
+    <Compile Include="Game\Items\Potions\Elixers\ElixerOfOgreStrength.cs" />
     <Compile Include="Game\Items\Potions\HealthPotion.cs" />
     <Compile Include="Game\Items\Potions\Potion.cs" />
     <Compile Include="Game\Items\Potions\PotionStrength.cs" />
@@ -124,6 +133,7 @@
     <Compile Include="Game\NPC\Monsters\Monster.cs" />
     <Compile Include="Game\NPC\NPC.cs" />
     <Compile Include="Game\NPC\ShopKeeper.cs" />
+    <Compile Include="Game\Sound.cs" />
     <Compile Include="Game\Stats.cs" />
     <Compile Include="Game\Dungeon\Tiles\TileFlags.cs" />
     <Compile Include="Game\World.cs" />
@@ -171,6 +181,9 @@
   <ItemGroup>
     <Folder Include="Game\Items\Food\" />
     <Folder Include="Game\Items\Herbs\" />
+    <Folder Include="Game\Items\Magical\Scrolls\" />
+    <Folder Include="Game\Items\Magical\Tomes\" />
+    <Folder Include="Game\Items\Misc\" />
     <Folder Include="Game\Quests\" />
   </ItemGroup>
   <ItemGroup>

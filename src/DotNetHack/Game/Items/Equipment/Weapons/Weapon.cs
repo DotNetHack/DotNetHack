@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
+using DotNetHack.Game.Events;
 
 namespace DotNetHack.Game.Items.Equipment.Weapons
 {
+    
     /// <summary>
     /// Weapon
     /// </summary>
@@ -13,7 +15,8 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
     public abstract class Weapon : Item, IWeapon
     {
         public Weapon()
-        { }
+        {
+        }
 
         /// <summary>
         /// creates a new weapon
@@ -53,6 +56,20 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
         /// the various weapon subtypes allow for further classification.
         /// </summary>
         public WeaponSubType WeaponSubType { get; set; }
+
+        /// <summary>
+        /// WeaponStrikeEventHandler
+        /// </summary>
+        public event EventHandler<WeaponEventArgs> OnWeaponStrike;
+
+        /// <summary>
+        /// OnStrike
+        /// </summary>
+        protected virtual void WeaponStrike()
+        {
+            if (OnWeaponStrike != null)
+                OnWeaponStrike(this, new WeaponEventArgs(this));
+        }
 
         /// <summary>
         /// The overall health of this weapon.

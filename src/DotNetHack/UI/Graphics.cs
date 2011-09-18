@@ -37,8 +37,10 @@ namespace DotNetHack.UI
         /// </summary>
         public static void ShowGraphicsInfo()
         {
-            Console.WriteLine("Width: {0}, Height: {1}", Console.WindowWidth, Console.WindowHeight);
-            Console.WriteLine("Max-Width: {0}, Max-Height: {1}", Console.LargestWindowWidth, Console.LargestWindowHeight);
+            Console.WriteLine("Width: {0}, Height: {1}", 
+                Console.WindowWidth, Console.WindowHeight);
+            Console.WriteLine("Max-Width: {0}, Max-Height: {1}", 
+                Console.LargestWindowWidth, Console.LargestWindowHeight);
         }
 
         /// <summary>

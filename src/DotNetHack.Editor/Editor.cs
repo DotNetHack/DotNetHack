@@ -430,6 +430,8 @@ namespace DotNetHack.Editor
                         case ConsoleModifiers.Shift:
                             SetTile(new TrapSpikePit());
                             break;
+
+                            
                     }
                     break;
                 // mountain
@@ -476,10 +478,10 @@ namespace DotNetHack.Editor
                     switch (input.Modifiers)
                     {
                         default:
-                            SetTile(TileType.Bridge, Symbols.W_DBL_HORIZONTAL, Colour.Road);
+                            SetTile(TileType.Bridge, '■', Colour.Bridge);
                             break;
                         case ConsoleModifiers.Shift:
-                            SetTile(TileType.Bridge, Symbols.W_DBL_VERTICAL, Colour.Road);
+                            SetTile(TileType.Bridge, '▌', Colour.Bridge);
                             break;
                     }
                     break;
@@ -592,13 +594,12 @@ namespace DotNetHack.Editor
                 // TODO: Remove this
                 case ConsoleKey.H:
                     {
-
                         if (input.Modifiers.HasFlag(ConsoleModifiers.Shift))
                         {
                             SetItem(
                             Dice.RandomChoice<IArmour>(new IArmour[] 
                         {
-                            new HauberkOfDefense(CurrentLocation),
+                            new ChestpieceOfDebugging(CurrentLocation),
                             new GauntletsOfBane(CurrentLocation),
                             new GauntletsOfWisdom(CurrentLocation),
                         })
@@ -645,7 +646,7 @@ namespace DotNetHack.Editor
                                     Name = "Elixer of Strength",
                                     MAction = delegate(object argv)
                                     {
-                                        SetItem(new ElixerOfStrength(PotionStrength.Strong));
+                                        SetItem(new ElixerOfOgreStrength(PotionStrength.Strong));
                                     },
                                     MenuActionFilter = (i => i.Key == ConsoleKey.D0),
                                 },

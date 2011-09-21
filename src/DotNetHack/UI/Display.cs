@@ -193,7 +193,8 @@ namespace DotNetHack.UI
 
             public static void ShowStatsBar(Player aPlayer)
             {
-                Stats aStats = aPlayer.Stats;
+                StatsBase aStats = aPlayer.CommutedStats();
+                Stats statsBase = aPlayer.Stats;
 
                 string strPlayerInfo = string.Format(
                         "{0}, {1}, (hp){2}/{3}, (Ma){4}/{5}, {6}",
@@ -205,16 +206,36 @@ namespace DotNetHack.UI
                         aPlayer.Stats.ManaPoints,
                         GameEngine.Time
                     );
+                
                 Console.SetCursorPosition(0, Console.WindowHeight - 2);
                 Console.Write(strPlayerInfo);
-
-                string strStats =
-                    string.Format("Str:{0} Per:{1} End:{2} Chr:{3} Int:{4} Agi:{5} Luck:{6}",
-                    aStats.Strength, aStats.Perception, aStats.Endurance, aStats.Charisma,
-                    aStats.Intelligence, aStats.Agility, aStats.Luck, aStats.Level);
-
                 Console.SetCursorPosition(0, Console.WindowHeight - 1);
-                Console.Write(strStats);
+                ShowStat("Str", statsBase.Strength, aStats.Strength);
+                ShowStat("Per", statsBase.Perception, aStats.Perception);
+                ShowStat("End", statsBase.Endurance, aStats.Endurance);
+                ShowStat("Chr", statsBase.Charisma, aStats.Charisma);
+                ShowStat("Int", statsBase.Intelligence, aStats.Intelligence);
+                ShowStat("Agi", statsBase.Agility, aStats.Agility);
+                ShowStat("Luck", statsBase.Luck, aStats.Luck);
+            }
+
+            private static void ShowStat(string aStat, int lhs, int rhs)
+            {
+                if (rhs > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("{0}:{1} ", aStat, lhs + rhs);
+                }
+                else if (rhs < 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("{0}:{1} ", aStat, lhs + rhs);
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("{0}:{1} ", aStat, lhs);
+                }
             }
 
             /// <summary>

@@ -74,6 +74,7 @@
     <Compile Include="Game\Events\GameEventArgs.cs" />
     <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
     <Compile Include="Game\Events\EquipmentEventArgs.cs" />
+    <Compile Include="Game\Events\KeyPressEventArgs.cs" />
     <Compile Include="Game\Events\MoveEventArgs.cs" />
     <Compile Include="Game\Events\SoundEvent.cs" />
     <Compile Include="Game\Events\WeaponEvent.cs" />
@@ -140,7 +141,7 @@
     <Compile Include="Game\World.cs" />
     <Compile Include="Game\Colour.cs" />
     <Compile Include="Input.cs" />
-    <Compile Include="UI\CharacterSheet.cs" />
+    <Compile Include="UI\Windows\WindowCharacterSheet.cs" />
     <Compile Include="UI\DisplayRegion.cs" />
     <Compile Include="UI\Display.cs" />
     <Compile Include="EntryPoint.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Game\Interfaces\IScroll.cs" />
     <Compile Include="Game\Interfaces\IWeapon.cs" />
     <Compile Include="UI\Window.cs" />
+    <Compile Include="UI\Windows\WindowInventory.cs" />
     <Compile Include="Utility\Graph\Algorithm\AStar.cs" />
     <Compile Include="Utility\Graph\Algorithm\IAStar.cs" />
     <Compile Include="Utility\Graph\Algorithm\Node.cs" />

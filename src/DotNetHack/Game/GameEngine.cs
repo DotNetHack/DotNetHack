@@ -18,6 +18,7 @@ using DotNetHack.Game.Events;
 using System.IO;
 using System.Threading;
 using DotNetHack.Game.NPC;
+using DotNetHack.UI.Windows;
 
 namespace DotNetHack.Game
 {
@@ -169,7 +170,19 @@ namespace DotNetHack.Game
                             Player.Inventory.Armour.First(), true);
                         break;
                     }
-
+                case ConsoleKey.W:
+                    {
+                        Player.WieldedWeapons.Wield(
+                            Player.Inventory.Weapons.First(), true);
+                        break;
+                    }
+                case ConsoleKey.Q:
+                    {
+                        var potion = Player.Inventory.Potions.First();
+                        if (potion != null)
+                            potion.Quaff(Player);
+                        break;
+                    }
                 case ConsoleKey.Tab:
                     isTargetCommand = true;
                     if (TargetSelect == null)
@@ -192,7 +205,8 @@ namespace DotNetHack.Game
                 case ConsoleKey.C:
 
                     // create a new character sheet for the player
-                    CharacterSheet characterSheet = new CharacterSheet(Player);
+                    WindowCharacterSheet characterSheet =
+                        new WindowCharacterSheet(Player);
 
                     characterSheet.Show();
 
@@ -428,6 +442,7 @@ namespace DotNetHack.Game
             Player.RegenerateHealth();
             Player.RegenerateMagika();
             Player.ApplyEffects();
+
 
             // Remove all NPC's that are dead, then run the ones that aren't (yet).
             CurrentMap.NonPlayerControlled.RemoveAll(x => x.Dead);

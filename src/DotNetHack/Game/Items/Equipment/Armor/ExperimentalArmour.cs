@@ -16,6 +16,11 @@ namespace DotNetHack.Game.Items.Equipment.Armor
             : base("Chestpiece of Debugging", '{',
             Colour.Silver, l, Equipment.Armour.ArmourLocation.Chest)
         {
+            ArmourStats = new Armor.ArmourStats() 
+            {
+                Condition = 100,
+                Weight = 1,
+            };
             StatsBase = new StatsBase()
             {
                 Strength = 1,
@@ -68,6 +73,7 @@ namespace DotNetHack.Game.Items.Equipment.Armor
                 '{', Colour.Silver, l,
             Equipment.Armour.ArmourLocation.Arms)
         {
+
             StatsBase = new StatsBase()
             {
                 Strength = 1,

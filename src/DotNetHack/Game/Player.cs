@@ -22,10 +22,7 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="aPlayerName"></param>
         public Player(string aPlayerName)
-            : this(aPlayerName, new Location3i(0, 0, 0))
-        {
-            
-        }
+            : this(aPlayerName, new Location3i(0, 0, 0)) { }
 
         /// <summary>
         /// GameEngine_OnSound
@@ -80,7 +77,7 @@ namespace DotNetHack.Game
             base.Initialize();
 
             #region worn armour
-            
+
             WornArmour.OnFinishedDressingManeuver += new EventHandler<EquipmentEventArgs<ArmourWorn.DressingActionType, IArmour>>(WornArmour_OnFinishedDressingManeuver);
             #endregion
 
@@ -135,6 +132,21 @@ namespace DotNetHack.Game
                         e.EquipmentInvolved.Name);
                     break;
             }
+        }
+
+        /// <summary>
+        /// CommutedStats
+        /// </summary>
+        public StatsBase CommutedStats()
+        {
+            // commute worn armour stats
+            StatsBase statsBase = WornArmour.CommutedStats(a => a.Condition > 0);
+
+            // commute effect stats
+            foreach (var effect in EffectStack)
+                statsBase = statsBase + effect.EffectedStats;
+
+            return statsBase;
         }
 
         /// <summary>

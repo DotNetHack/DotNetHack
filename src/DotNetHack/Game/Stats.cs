@@ -119,7 +119,7 @@ namespace DotNetHack.Game
         {
             return new StatsBase()
             {
-                Strength = a.Speed + b.Speed,
+                Strength = a.Strength + b.Strength,
                 Perception = a.Perception + b.Perception,
                 Endurance = a.Endurance + b.Endurance,
                 Charisma = a.Charisma + b.Charisma,

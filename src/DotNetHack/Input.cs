@@ -19,6 +19,8 @@ namespace DotNetHack
         /// <returns></returns>
         public delegate bool Confirm(string aMessage, bool aDefault = true);
 
+        public delegate void RawInputDelegate(Func<ConsoleKeyInfo, bool> aFilter, out ConsoleKeyInfo k);
+
         /// <summary>
         /// Performs input filtering
         /// <remarks>Pass anonymous filter called "filter" be sure it returns a boolean, filtering will continue until the boolean condition is met.</remarks>

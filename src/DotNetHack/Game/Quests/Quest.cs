@@ -6,11 +6,16 @@ using DotNetHack.Game.Events;
 
 namespace DotNetHack.Game.Quests
 {
+    /// <summary>
+    /// Quest
+    /// </summary>
     public class Quest
     {
-        public Quest() { }
-        
-        public Quest[] SubQuest { }
+        public Quest() 
+        {
+        }
+
+        public Quest[] SubQuests { get; set; }
 
         public int Experience { get; set; }
 

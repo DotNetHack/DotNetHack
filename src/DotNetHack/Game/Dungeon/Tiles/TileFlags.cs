@@ -19,5 +19,6 @@ namespace DotNetHack.Game.Dungeon.Tiles
         Shop,
         Sacred,
         Stairs,
+        Spawn,
     }
 }

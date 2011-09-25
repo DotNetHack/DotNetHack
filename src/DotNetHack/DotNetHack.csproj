@@ -107,6 +107,7 @@
     <Compile Include="Game\Items\Equipment\Weapons\WeaponType.cs" />
     <Compile Include="Game\Items\Equipment\Armor\ArmorLocation.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\WeaponsWielded.cs" />
+    <Compile Include="Game\Items\Food\FoodBase.cs" />
     <Compile Include="Game\Items\Gems\Gem.cs" />
     <Compile Include="Game\Items\Gems\GemRuby.cs" />
     <Compile Include="Game\Items\Currency.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Game\NPC\Monsters\Monster.cs" />
     <Compile Include="Game\NPC\NPC.cs" />
     <Compile Include="Game\NPC\ShopKeeper.cs" />
+    <Compile Include="Game\Quests\Quest.cs" />
     <Compile Include="Game\Sound.cs" />
     <Compile Include="Game\Stats.cs" />
     <Compile Include="Game\Dungeon\Tiles\TileFlags.cs" />
@@ -182,12 +184,10 @@
     <Compile Include="Game\Dungeon\Tiles\TileType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Game\Items\Food\" />
     <Folder Include="Game\Items\Herbs\" />
     <Folder Include="Game\Items\Magical\Scrolls\" />
     <Folder Include="Game\Items\Magical\Tomes\" />
     <Folder Include="Game\Items\Misc\" />
-    <Folder Include="Game\Quests\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\Dungeon\Tiles\Traps\Traps.cd" />

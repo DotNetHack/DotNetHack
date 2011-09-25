@@ -62,6 +62,7 @@
     <Compile Include="Game\Dungeon\Generator\DungeonRegion.cs" />
     <Compile Include="Game\Dungeon\Generator\IDungeonGenerator.cs" />
     <Compile Include="Game\Dungeon\TileBuilder.cs" />
+    <Compile Include="Game\Dungeon\Tiles\HerbSpawn.cs" />
     <Compile Include="Game\Dungeon\Tiles\ITile.cs" />
     <Compile Include="Game\Dungeon\Tiles\Traps\Trap.cs" />
     <Compile Include="Game\Dungeon\Tiles\Traps\TrapFallingRock.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Game\Interfaces\ICanDrink.cs" />
     <Compile Include="Game\Interfaces\IKey.cs" />
     <Compile Include="Game\Interfaces\IPrayer.cs" />
+    <Compile Include="Game\Interfaces\ISpawn.cs" />
     <Compile Include="Game\Items\Containers\LootContainer.cs" />
     <Compile Include="Game\Interfaces\IMonster.cs" />
     <Compile Include="Game\Interfaces\ITome.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="Game\Items\Gems\Gem.cs" />
     <Compile Include="Game\Items\Gems\GemRuby.cs" />
     <Compile Include="Game\Items\Currency.cs" />
+    <Compile Include="Game\Items\Herbs\Herb.cs" />
     <Compile Include="Game\Items\Item.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\Weapon.cs" />
     <Compile Include="Game\Items\ItemCollection.cs" />
@@ -184,7 +187,6 @@
     <Compile Include="Game\Dungeon\Tiles\TileType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Game\Items\Herbs\" />
     <Folder Include="Game\Items\Magical\Scrolls\" />
     <Folder Include="Game\Items\Magical\Tomes\" />
     <Folder Include="Game\Items\Misc\" />

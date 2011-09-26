@@ -441,7 +441,8 @@ namespace DotNetHack.Editor
 
                 // home
                 case ConsoleKey.H:
-                    SetTile(TileType.Home, '⌂', Colour.CurrentColour);
+                    SetTile(HerbSpawn.NewHerbSpawn("Basil"));
+
                     break;
 
                 // gress
@@ -602,6 +603,7 @@ namespace DotNetHack.Editor
                             new ChestpieceOfDebugging(CurrentLocation),
                             new GauntletsOfBane(CurrentLocation),
                             new GauntletsOfWisdom(CurrentLocation),
+                            new BandOfSalvation(CurrentLocation),
                         })
                             );
                         }

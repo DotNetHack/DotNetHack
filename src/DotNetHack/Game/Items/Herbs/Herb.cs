@@ -18,9 +18,18 @@ namespace DotNetHack.Game.Items.Herbs
 
         /// <summary>
         /// Creates a new instance of Herb
+        /// <param name="aName">The name of the herb</param>
+        /// <param name="aColour">The colour of the herb</param>
         /// </summary>
+        public Herb(string aName, Colour aColour)
+            : base(aName, '"', aColour) { }
+
+        /// <summary>
+        /// Creates a new instance of Herb
+        /// <remarks>defaults colour to green.</remarks>
+        /// </summary>
+        /// <param name="aName">The name of the herb</param>
         public Herb(string aName)
-            : base(aName, '"', Colour.Grass)
-        { }
+            : this(aName, Colour.Green) { }
     }
 }

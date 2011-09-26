@@ -212,6 +212,21 @@ namespace DotNetHack.Game
             }
         }
 
+        [XmlIgnore]
+        public int Mana 
+        {
+            get { return _mana; }
+            set 
+            {
+                if (_mana != value)
+                    _mana = value;
+
+                // mana ceiling.
+                if (_mana >= ManaPoints)
+                    _mana = ManaPoints;
+            }
+        }
+
         /// <summary>
         /// Derrived attribute
         /// </summary>
@@ -241,5 +256,10 @@ namespace DotNetHack.Game
         /// Health backing store.
         /// </summary>
         private int _health;
+
+        /// <summary>
+        /// Mana backing store
+        /// </summary>
+        private int _mana;
     }
 }

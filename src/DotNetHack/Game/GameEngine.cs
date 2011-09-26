@@ -47,7 +47,7 @@ namespace DotNetHack.Game
         /// <param name="aPlayer"></param>
         public GameEngine(Player aPlayer, Dungeon3 aStartDungeon)
         {
-            Time = new DateTime(1688, 11, 16);
+            Time = 0L;
             Player = aPlayer;
             CurrentMap = aStartDungeon;
 
@@ -56,8 +56,14 @@ namespace DotNetHack.Game
                 m.WieldedWeapons.CurrentWeapon = new ShortswordOfRending(null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         static bool Done = false;
 
+        /// <summary>
+        /// 
+        /// </summary>
         TargetSelector TargetSelect = null;
 
         /// <summary>
@@ -87,6 +93,9 @@ namespace DotNetHack.Game
 
                     // TODO: Make a distintion between action(s)
                     // and general commands. ProcessAction(input);
+
+                    if (OnTick != null)
+                        OnTick(null, new EventArgs());
 
                     Update();
 
@@ -156,6 +165,13 @@ namespace DotNetHack.Game
                     }
                     else
                     {
+                        var t = CurrentMap.GetTile(Player);
+                        if (t.TileFlags == TileFlags.Spawn)
+                        {
+                            Player.Inventory.Add(
+                                ((HerbSpawn)t).Take());
+                        }
+
                         // TODO: move this
                         DAction a = new ActionPickup(Player,
                             CurrentMap.GetTile(Player).Items);
@@ -279,6 +295,11 @@ namespace DotNetHack.Game
         public static event EventHandler<SoundEventArgs> OnSound;
 
         /// <summary>
+        /// Tick
+        /// </summary>
+        public static event EventHandler OnTick;
+
+        /// <summary>
         /// load monsters, weapons, potions.
         /// </summary>
         public bool Initialize()
@@ -286,11 +307,22 @@ namespace DotNetHack.Game
             OnActorMoved += new EventHandler<MoveEventArgs>(GameEngine_OnActorMoved);
             OnPlayerMoved += new EventHandler<MoveEventArgs>(GameEngine_OnPlayerMoved);
             OnException += new ErrorEventHandler(GameEngine_OnException);
+            OnTick += new EventHandler(GameEngine_OnTick);
 
             try { MonsterStore = Persisted.Read<List<Monster>>(R.MonsterFile); }
             catch { return false; }
 
             return true;
+        }
+
+        /// <summary>
+        /// GameEngine_OnTick
+        /// </summary>
+        /// <param name="sender">Event sender</param>
+        /// <param name="e">Event args</param>
+        void GameEngine_OnTick(object sender, EventArgs e)
+        {
+            Time++; 
         }
 
         /// <summary>
@@ -319,7 +351,8 @@ namespace DotNetHack.Game
         /// <param name="e">the event argument</param>
         void GameEngine_OnPlayerMoved(object sender, MoveEventArgs e)
         {
-            if (e.MoveToTile.TileFlags.HasFlag(TileFlags.Trap))
+            if ((e.MoveToTile.TileFlags & TileFlags.Trap) == TileFlags.Trap)
+            // if (e.MoveToTile.TileFlags.HasFlag(TileFlags.Trap))
             {
                 Trap t = ((Trap)e.MoveToTile);
 
@@ -352,6 +385,9 @@ namespace DotNetHack.Game
         /// </summary>
         public void Dispose()
         {
+            GameEngine.OnSound = null;
+            GameEngine.OnTick = null;
+            GameEngine.Time = 0;
             Done = false;
         }
 
@@ -466,7 +502,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// Time
         /// </summary>
-        public static DateTime Time { get; private set; }
+        public static long Time { get; private set; }
 
         /// <summary>
         /// Player

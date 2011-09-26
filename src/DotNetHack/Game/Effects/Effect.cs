@@ -78,6 +78,9 @@ namespace DotNetHack.Game.Effects
 
             // Set the duration of this effect.
             Duration = aDuration;
+
+            // new guid.
+            Guid = Guid.NewGuid();
         }
 
         /// <summary>
@@ -92,6 +95,11 @@ namespace DotNetHack.Game.Effects
         /// <example>a spell that gets stronger (or weaker) over time.</example>
         /// </summary>
         public int Magnitude { get; set; }
+
+        /// <summary>
+        /// Guid
+        /// </summary>
+        public Guid Guid { get; set; }
 
         /// <summary>
         /// The Effect's type

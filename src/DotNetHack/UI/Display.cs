@@ -202,7 +202,7 @@ namespace DotNetHack.UI
                         aPlayer.Wallet,
                         aPlayer.Stats.Health,
                         aPlayer.Stats.HitPoints,
-                        0,
+                        aPlayer.Stats.Mana,
                         aPlayer.Stats.ManaPoints,
                         GameEngine.Time
                     );

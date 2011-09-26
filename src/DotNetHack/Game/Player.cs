@@ -144,7 +144,8 @@ namespace DotNetHack.Game
 
             // commute effect stats
             foreach (var effect in EffectStack)
-                statsBase = statsBase + effect.EffectedStats;
+                if (effect.EffectedStats != null)
+                    statsBase = statsBase + effect.EffectedStats;
 
             return statsBase;
         }

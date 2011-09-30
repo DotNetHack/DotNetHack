@@ -62,6 +62,7 @@
     <Compile Include="Game\Dungeon\Generator\DungeonRegion.cs" />
     <Compile Include="Game\Dungeon\Generator\IDungeonGenerator.cs" />
     <Compile Include="Game\Dungeon\TileBuilder.cs" />
+    <Compile Include="Game\Dungeon\Tiles\HerbSpawn.cs" />
     <Compile Include="Game\Dungeon\Tiles\ITile.cs" />
     <Compile Include="Game\Dungeon\Tiles\Traps\Trap.cs" />
     <Compile Include="Game\Dungeon\Tiles\Traps\TrapFallingRock.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Game\Events\GameEventArgs.cs" />
     <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
     <Compile Include="Game\Events\EquipmentEventArgs.cs" />
+    <Compile Include="Game\Events\KeyPressEventArgs.cs" />
     <Compile Include="Game\Events\MoveEventArgs.cs" />
     <Compile Include="Game\Events\SoundEvent.cs" />
     <Compile Include="Game\Events\WeaponEvent.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="Game\Interfaces\ICanDrink.cs" />
     <Compile Include="Game\Interfaces\IKey.cs" />
     <Compile Include="Game\Interfaces\IPrayer.cs" />
+    <Compile Include="Game\Interfaces\ISpawn.cs" />
     <Compile Include="Game\Items\Containers\LootContainer.cs" />
     <Compile Include="Game\Interfaces\IMonster.cs" />
     <Compile Include="Game\Interfaces\ITome.cs" />
@@ -106,9 +109,11 @@
     <Compile Include="Game\Items\Equipment\Weapons\WeaponType.cs" />
     <Compile Include="Game\Items\Equipment\Armor\ArmorLocation.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\WeaponsWielded.cs" />
+    <Compile Include="Game\Items\Food\FoodBase.cs" />
     <Compile Include="Game\Items\Gems\Gem.cs" />
     <Compile Include="Game\Items\Gems\GemRuby.cs" />
     <Compile Include="Game\Items\Currency.cs" />
+    <Compile Include="Game\Items\Herbs\Herb.cs" />
     <Compile Include="Game\Items\Item.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\Weapon.cs" />
     <Compile Include="Game\Items\ItemCollection.cs" />
@@ -133,13 +138,15 @@
     <Compile Include="Game\NPC\Monsters\Monster.cs" />
     <Compile Include="Game\NPC\NPC.cs" />
     <Compile Include="Game\NPC\ShopKeeper.cs" />
+    <Compile Include="Game\Quests\Quest.cs" />
     <Compile Include="Game\Sound.cs" />
     <Compile Include="Game\Stats.cs" />
     <Compile Include="Game\Dungeon\Tiles\TileFlags.cs" />
+    <Compile Include="Game\TargetSelector.cs" />
     <Compile Include="Game\World.cs" />
     <Compile Include="Game\Colour.cs" />
     <Compile Include="Input.cs" />
-    <Compile Include="UI\CharacterSheet.cs" />
+    <Compile Include="UI\Windows\WindowCharacterSheet.cs" />
     <Compile Include="UI\DisplayRegion.cs" />
     <Compile Include="UI\Display.cs" />
     <Compile Include="EntryPoint.cs" />
@@ -164,6 +171,7 @@
     <Compile Include="Game\Interfaces\IScroll.cs" />
     <Compile Include="Game\Interfaces\IWeapon.cs" />
     <Compile Include="UI\Window.cs" />
+    <Compile Include="UI\Windows\WindowInventory.cs" />
     <Compile Include="Utility\Graph\Algorithm\AStar.cs" />
     <Compile Include="Utility\Graph\Algorithm\IAStar.cs" />
     <Compile Include="Utility\Graph\Algorithm\Node.cs" />
@@ -179,12 +187,9 @@
     <Compile Include="Game\Dungeon\Tiles\TileType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Game\Items\Food\" />
-    <Folder Include="Game\Items\Herbs\" />
     <Folder Include="Game\Items\Magical\Scrolls\" />
     <Folder Include="Game\Items\Magical\Tomes\" />
     <Folder Include="Game\Items\Misc\" />
-    <Folder Include="Game\Quests\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Game\Dungeon\Tiles\Traps\Traps.cd" />

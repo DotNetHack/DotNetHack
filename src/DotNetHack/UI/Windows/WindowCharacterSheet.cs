@@ -6,18 +6,18 @@ using DotNetHack.Game;
 using DotNetHack.Game.Items.Equipment.Armor;
 using DotNetHack.Game.Interfaces;
 
-namespace DotNetHack.UI
+namespace DotNetHack.UI.Windows
 {
     /// <summary>
     /// 
     /// </summary>
-    public class CharacterSheet : Window
+    public class WindowCharacterSheet : Window
     {
         /// <summary>
         /// Create a new character sheet for the supplied actor.
         /// </summary>
         /// <param name="aActor">The supplied actor</param>
-        public CharacterSheet(Actor aActor)
+        public WindowCharacterSheet(Actor aActor)
             : base("Character Sheet for \"" + aActor.Name + "\" (lvl." +
                 aActor.Stats.Level + ")")
         { Character = aActor; }

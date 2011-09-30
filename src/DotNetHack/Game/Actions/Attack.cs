@@ -79,7 +79,7 @@ namespace DotNetHack.Game.Actions
         }
 
         static bool MeleeAttack(Actor aAttacker, Actor aDefender)
-        {
+        {            
             if (aAttacker.WieldedWeapons.CurrentWeapon == null)
                 return false;
 

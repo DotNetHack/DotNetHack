@@ -11,7 +11,7 @@ namespace DotNetHack.Game.Effects
     /// </summary>
     /// <param name="effect">The effect itself</param>
     /// <param name="target">the effect target</param>
-    public delegate void EffectModifier(Effect effect, ICanBeEffected target);
+    public delegate void EffectModifier(Effect effect, Actor target);
 
     /*
     /// <summary>
@@ -78,6 +78,9 @@ namespace DotNetHack.Game.Effects
 
             // Set the duration of this effect.
             Duration = aDuration;
+
+            // new guid.
+            Guid = Guid.NewGuid();
         }
 
         /// <summary>
@@ -92,6 +95,11 @@ namespace DotNetHack.Game.Effects
         /// <example>a spell that gets stronger (or weaker) over time.</example>
         /// </summary>
         public int Magnitude { get; set; }
+
+        /// <summary>
+        /// Guid
+        /// </summary>
+        public Guid Guid { get; set; }
 
         /// <summary>
         /// The Effect's type
@@ -115,7 +123,7 @@ namespace DotNetHack.Game.Effects
         /// The effect tick, exactly who this ticks on is important.
         /// </summary>
         /// <param name="targets">The effected target(s)</param>
-        public void Tick(ICanBeEffected[] targets)
+        public void Tick(Actor[] targets)
         {
 #if DEBUG
             UI.Graphics.Display.ShowMessage("Type: {0}, Duration: {1}",
@@ -133,9 +141,9 @@ namespace DotNetHack.Game.Effects
         /// The effect tick, exactly who this ticks on is important.
         /// </summary>
         /// <param name="target">the (single) target this ticks on</param>
-        public void Tick(ICanBeEffected target)
+        public void Tick(Actor target)
         {
-            Tick(new ICanBeEffected[] { target });
+            Tick(new Actor[] { target });
         }
 
         /// <summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
+using DotNetHack.Game.Events;
 
 namespace DotNetHack.UI
 {
@@ -11,13 +12,16 @@ namespace DotNetHack.UI
     /// </summary>
     public class Window
     {
+        protected event EventHandler<KeyPressEventArgs> OnPageUp;
+        protected event EventHandler<KeyPressEventArgs> OnPageDown;
+        protected event EventHandler<KeyPressEventArgs> OnEsc;
+
         /// <summary>
         /// Window
         /// </summary>
         /// <param name="aWindowTitle">The title for the window</param>
         public Window(string aWindowTitle)
-            : this(aWindowTitle, 0, 0, Graphics.ScreenWidth, Graphics.ScreenHeight)
-        { }
+            : this(aWindowTitle, 0, 0, Graphics.ScreenWidth, Graphics.ScreenHeight) { }
 
         /// <summary>
         /// Window

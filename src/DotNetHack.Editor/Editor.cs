@@ -401,7 +401,26 @@ namespace DotNetHack.Editor
                     switch (input.Modifiers)
                     {
                         default:
-                            SetTile(TileType.Water, Symbols.ALMOST_EQUAL, Colour.Ocean);
+                            char shade_glyph = Symbols.ALMOST_EQUAL; // default
+                            switch (CurrentMap.GetTile(CurrentLocation).G)
+                            {
+                                default:
+                                    shade_glyph = Symbols.ALMOST_EQUAL;
+                                    break;
+                                case Symbols.ALMOST_EQUAL:
+                                    shade_glyph = '~';
+                                    break;
+                                case '~':
+                                    shade_glyph = Symbols.ALMOST_EQUAL;
+                                    break;
+                            }
+
+                            SetTile(TileType.Water, shade_glyph, Dice.RandomChoice<Colour>(new Colour[] 
+                            {
+                                Colour.Ocean,
+                                Colour.DeepOcean,
+                            }));
+
                             break;
                         case ConsoleModifiers.Control:
                             bool water = Graphics.MessageBox.YesNo("Are you Sure?");
@@ -430,8 +449,6 @@ namespace DotNetHack.Editor
                         case ConsoleModifiers.Shift:
                             SetTile(new TrapSpikePit());
                             break;
-
-                            
                     }
                     break;
                 // mountain
@@ -441,7 +458,7 @@ namespace DotNetHack.Editor
 
                 // home
                 case ConsoleKey.H:
-                    SetTile(TileType.Home, '⌂', Colour.CurrentColour);
+                    SetTile(HerbSpawn.NewHerbSpawn(""));
                     break;
 
                 // gress
@@ -449,16 +466,42 @@ namespace DotNetHack.Editor
                     switch (input.Modifiers)
                     {
                         default:
-                            SetTile(TileType.Grass, Symbols.FILL_LIGHT, Colour.Grass);
+                            char shade_glyph = '\0';
+                            switch (CurrentMap.GetTile(CurrentLocation).G)
+                            {
+                                default:
+                                    shade_glyph = Symbols.FILL_MEDIUM; break;
+                                case Symbols.FILL_HEAVY:
+                                    shade_glyph = Symbols.FILL_LIGHT;
+                                    break;
+                                case Symbols.FILL_MEDIUM:
+                                    shade_glyph = Symbols.FILL_HEAVY;
+                                    break;
+                                case Symbols.FILL_LIGHT:
+                                    shade_glyph = Symbols.FILL_MEDIUM;
+                                    break;
+                            }
+                            SetTile(TileType.Grass, shade_glyph, Colour.Grass);
                             break;
                         case ConsoleModifiers.Shift:
                             SetTile(TileType.Grave, Symbols.SMALL_T, Colour.Grave);
                             break;
                         case ConsoleModifiers.Control:
-                            bool grass = Graphics.MessageBox.YesNo("Are you Sure?");
-                            if (grass)
+                            if (Graphics.MessageBox.YesNo("Are you Sure?"))
                             {
-                                clrScreen(TileType.Grass, Symbols.FILL_LIGHT, Colour.Grass);
+                                // clrScreen(TileType.Grass, Symbols.FILL_LIGHT, Colour.Grass);
+                                CurrentMap.IterateDungeonData(delegate(int x, int y, int d)
+                                {
+                                    CurrentLocation = new Location3i(x, y, d);
+                                    if (Dice.D(10.0))
+                                        SetTile(new Tile(Symbols.FILL_HEAVY, Colour.Grass, TileFlags.None));
+                                    else if (Dice.D(10))
+                                        SetTile(new Tile(Symbols.FILL_MEDIUM, Colour.Grass, TileFlags.None));
+                                    else if (Dice.D(10))
+                                        SetTile(new Tile(Symbols.FILL_LIGHT, Colour.Grass, TileFlags.None));
+                                    else
+                                        SetTile(new Tile(Symbols.FILL_LIGHT, Colour.Grass, TileFlags.None));
+                                });
                             }
                             break;
                     }
@@ -559,7 +602,7 @@ namespace DotNetHack.Editor
         /// <summary>
         /// ProcessItemModeCommands
         /// </summary>
-        /// <param name="input">The input</param>
+        /// <param name="input">The input</param>7
         static void ProcessItemModeCommands(ConsoleKeyInfo input)
         {
             switch (input.Key)
@@ -602,6 +645,7 @@ namespace DotNetHack.Editor
                             new ChestpieceOfDebugging(CurrentLocation),
                             new GauntletsOfBane(CurrentLocation),
                             new GauntletsOfWisdom(CurrentLocation),
+                            new BandOfSalvation(CurrentLocation),
                         })
                             );
                         }

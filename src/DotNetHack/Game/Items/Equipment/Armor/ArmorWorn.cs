@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Events;
+using DotNetHack.Game.Actions;
 
 namespace DotNetHack.Game.Items.Equipment.Armour
 {
@@ -88,6 +89,18 @@ namespace DotNetHack.Game.Items.Equipment.Armour
         }
 
         /// <summary>
+        /// ArmourMeleeStrike
+        /// </summary>
+        /// <param name="aAttacker"></param>
+        /// <param name="aDefender"></param>
+        public void ArmourMeleeStrike(Actor aAttacker, Actor aDefender)
+        {
+            foreach (var a in Where(x => x.Condition > 0))
+                a.ArmourStrike(new Events.ArmourStrikeEventArgs(
+                    aDefender, aAttacker, a));
+        }
+
+        /// <summary>
         /// Returns the summation of stats from items that meet the predicate.
         /// </summary>
         /// <param name="aPredicate">The predicate</param>
@@ -97,7 +110,7 @@ namespace DotNetHack.Game.Items.Equipment.Armour
             StatsBase stats = new StatsBase();
             foreach (IArmour iArmour in WornArmour.Values)
                 if (aPredicate(iArmour))
-                    stats += iArmour.StatsBase; 
+                    stats += iArmour.StatsBase;
             return stats;
         }
 

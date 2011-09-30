@@ -12,12 +12,13 @@ namespace DotNetHack.Game.Dungeon.Tiles
     [Flags]
     public enum TileFlags
     {
-        None,
-        Door,
-        Trap,
-        Secret,
-        Shop,
-        Sacred,
-        Stairs,
+        None = 1,
+        Door = 2,
+        Trap = 4,
+        Secret = 8,
+        Shop = 16,
+        Sacred = 32,
+        Stairs = 64,
+        Spawn = 128,
     }
 }

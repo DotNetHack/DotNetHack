@@ -17,6 +17,8 @@ using DotNetHack.Game.Items.Equipment.Weapons;
 using DotNetHack.Game.Events;
 using System.IO;
 using System.Threading;
+using DotNetHack.Game.NPC;
+using DotNetHack.UI.Windows;
 
 namespace DotNetHack.Game
 {
@@ -37,7 +39,7 @@ namespace DotNetHack.Game
     /// <summary>
     /// GameEngine
     /// </summary>
-    public class GameEngine : IDisposable
+    public partial class GameEngine : IDisposable
     {
         /// <summary>
         /// GameEngine
@@ -45,7 +47,7 @@ namespace DotNetHack.Game
         /// <param name="aPlayer"></param>
         public GameEngine(Player aPlayer, Dungeon3 aStartDungeon)
         {
-            Time = new DateTime(1688, 11, 16);
+            Time = 0L;
             Player = aPlayer;
             CurrentMap = aStartDungeon;
 
@@ -54,7 +56,15 @@ namespace DotNetHack.Game
                 m.WieldedWeapons.CurrentWeapon = new ShortswordOfRending(null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         static bool Done = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        TargetSelector TargetSelect = null;
 
         /// <summary>
         /// Excecutes the game engine until !done.
@@ -75,11 +85,17 @@ namespace DotNetHack.Game
                     Graphics.CursorToLocation(0, 0);
 
                     var input = Console.ReadKey(true);
-                    
-                    ProcessCommand(input);
+
+                    if (!ProcessCommand(input))
+                        continue;
+
+                    TargetSelect = null;
 
                     // TODO: Make a distintion between action(s)
                     // and general commands. ProcessAction(input);
+
+                    if (OnTick != null)
+                        OnTick(null, new EventArgs());
 
                     Update();
 
@@ -105,9 +121,10 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="input">raw input</param>
         /// <returns></returns>
-        void ProcessCommand(ConsoleKeyInfo input)
+        bool ProcessCommand(ConsoleKeyInfo input)
         {
             bool isMoveCommand = false;
+            bool isTargetCommand = false;
 
             Func<ITile, bool> aRestriction = null;
 
@@ -146,14 +163,21 @@ namespace DotNetHack.Game
                             x => x.TileType == TileType.StairsUp);
                         UnitMovement.D++;
                     }
-                    else 
+                    else
                     {
+                        var t = CurrentMap.GetTile(Player);
+                        if (t.TileFlags == TileFlags.Spawn)
+                        {
+                            Player.Inventory.Add(
+                                ((HerbSpawn)t).Take());
+                        }
+
                         // TODO: move this
                         DAction a = new ActionPickup(Player,
                             CurrentMap.GetTile(Player).Items);
                         a.Perform();
                     }
-                    
+
                     break;
 
                 case ConsoleKey.P:
@@ -162,25 +186,43 @@ namespace DotNetHack.Game
                             Player.Inventory.Armour.First(), true);
                         break;
                     }
-
-
-                case ConsoleKey.Tab:
-
-                    var tmpInRange = CurrentMap.NonPlayerControlled.Where(
-                        n => n.Distance(Player) < 10);
-
-                    if (tmpInRange.Count() > 0)
+                case ConsoleKey.W:
                     {
-                        var tmpLoc = tmpInRange.First().Location;
-                        UI.Graphics.CursorToLocation(tmpLoc);
-                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        Player.WieldedWeapons.Wield(
+                            Player.Inventory.Weapons.First(), true);
+                        break;
                     }
+                case ConsoleKey.Q:
+                    {
+                        var potion = Player.Inventory.Potions.First();
+                        if (potion != null)
+                            potion.Quaff(Player);
+                        break;
+                    }
+                case ConsoleKey.Tab:
+                    isTargetCommand = true;
+                    if (TargetSelect == null)
+                        TargetSelect = new TargetSelector(
+                        CurrentMap.NonPlayerControlled.Where(
+                            n => n.Distance(Player) < 10));
+                    if (TargetSelect.HasTargets)
+                    {
+                        var currentTarget = TargetSelect.NextTarget();
+                        var currentTargetLocation = currentTarget.Location;
+                        char currentSymbol = currentTarget.G;
+                        UI.Graphics.CursorToLocation(currentTargetLocation);
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        Graphics.CursorToLocation(currentTargetLocation);
+                        Console.Write(currentSymbol);
+                    }
+
                     break;
 
                 case ConsoleKey.C:
 
                     // create a new character sheet for the player
-                    CharacterSheet characterSheet = new CharacterSheet(Player);
+                    WindowCharacterSheet characterSheet =
+                        new WindowCharacterSheet(Player);
 
                     characterSheet.Show();
 
@@ -202,6 +244,9 @@ namespace DotNetHack.Game
                     break;
             }
 
+            if (isTargetCommand)
+                return false;
+
             if (isMoveCommand)
                 if (TryMove(Player, Player.Location + UnitMovement, out nMoveTo, aRestriction))
                 {
@@ -215,6 +260,8 @@ namespace DotNetHack.Game
                     if (tmpNPC != null)
                         new ActionMeleeAttack(Player, tmpNPC).Perform();
                 }
+
+            return true;
         }
 
         public ActionCommand ProcessAction(ConsoleKeyInfo input)
@@ -248,6 +295,11 @@ namespace DotNetHack.Game
         public static event EventHandler<SoundEventArgs> OnSound;
 
         /// <summary>
+        /// Tick
+        /// </summary>
+        public static event EventHandler OnTick;
+
+        /// <summary>
         /// load monsters, weapons, potions.
         /// </summary>
         public bool Initialize()
@@ -255,11 +307,22 @@ namespace DotNetHack.Game
             OnActorMoved += new EventHandler<MoveEventArgs>(GameEngine_OnActorMoved);
             OnPlayerMoved += new EventHandler<MoveEventArgs>(GameEngine_OnPlayerMoved);
             OnException += new ErrorEventHandler(GameEngine_OnException);
+            OnTick += new EventHandler(GameEngine_OnTick);
 
             try { MonsterStore = Persisted.Read<List<Monster>>(R.MonsterFile); }
             catch { return false; }
 
             return true;
+        }
+
+        /// <summary>
+        /// GameEngine_OnTick
+        /// </summary>
+        /// <param name="sender">Event sender</param>
+        /// <param name="e">Event args</param>
+        void GameEngine_OnTick(object sender, EventArgs e)
+        {
+            Time++; 
         }
 
         /// <summary>
@@ -288,7 +351,8 @@ namespace DotNetHack.Game
         /// <param name="e">the event argument</param>
         void GameEngine_OnPlayerMoved(object sender, MoveEventArgs e)
         {
-            if (e.MoveToTile.TileFlags.HasFlag(TileFlags.Trap))
+            if ((e.MoveToTile.TileFlags & TileFlags.Trap) == TileFlags.Trap)
+            // if (e.MoveToTile.TileFlags.HasFlag(TileFlags.Trap))
             {
                 Trap t = ((Trap)e.MoveToTile);
 
@@ -321,7 +385,10 @@ namespace DotNetHack.Game
         /// </summary>
         public void Dispose()
         {
-
+            GameEngine.OnSound = null;
+            GameEngine.OnTick = null;
+            GameEngine.Time = 0;
+            Done = false;
         }
 
         /// <summary>
@@ -412,6 +479,7 @@ namespace DotNetHack.Game
             Player.RegenerateMagika();
             Player.ApplyEffects();
 
+
             // Remove all NPC's that are dead, then run the ones that aren't (yet).
             CurrentMap.NonPlayerControlled.RemoveAll(x => x.Dead);
             foreach (var npc in CurrentMap.NonPlayerControlled)
@@ -434,7 +502,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// Time
         /// </summary>
-        public static DateTime Time { get; private set; }
+        public static long Time { get; private set; }
 
         /// <summary>
         /// Player

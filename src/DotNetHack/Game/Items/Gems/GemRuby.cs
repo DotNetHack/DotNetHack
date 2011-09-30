@@ -10,6 +10,9 @@ namespace DotNetHack.Game.Items.Gems
     /// </summary>
     public class GemRuby : Gem
     {
-        public GemRuby() : base("Ruby") { }
+        public GemRuby()
+            : base("Ruby", null) 
+        {
+        }
     }
 }

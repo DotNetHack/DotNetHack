@@ -16,7 +16,8 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
         /// </summary>
         public TrapFallingRock()
         {
-            TriggerEvent += new EventHandler<TrapEventArgs>(TrapFallingRock_TriggerEvent);
+            TriggerEvent += 
+                new EventHandler<TrapEventArgs>(TrapFallingRock_TriggerEvent);
         }
 
         /// <summary>

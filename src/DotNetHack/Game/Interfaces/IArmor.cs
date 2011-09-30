@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DotNetHack.Game.Items.Equipment.Armour;
 using DotNetHack.Game.Items.Equipment.Armor;
+using DotNetHack.Game.Events;
 
 namespace DotNetHack.Game.Interfaces
 {
@@ -12,5 +13,8 @@ namespace DotNetHack.Game.Interfaces
         ArmourLocation ArmourLocation { get; }
         StatsBase StatsBase { get; set; }
         ArmourStats ArmourStats { get; set; }
+        event EventHandler<ArmourStrikeEventArgs> OnMeleeStrike;
+        event EventHandler<ArmourStrikeEventArgs> OnSpellStrike;
+        void ArmourStrike(ArmourStrikeEventArgs args);
     }
 }

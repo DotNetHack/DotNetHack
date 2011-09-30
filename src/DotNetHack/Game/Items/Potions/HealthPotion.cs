@@ -29,7 +29,7 @@ namespace DotNetHack.Game.Items.Potions
             aActor.EffectStack.Add(
                 new Effects.Effect(Effects.EffectType.Healing, 5, 40)
                 {
-                    EffectModifiers = delegate(Effects.Effect e, ICanBeEffected t)
+                    EffectModifiers = delegate(Effects.Effect e, Actor t)
                     {
                         aActor.Stats.Health += e.Magnitude;
                     },

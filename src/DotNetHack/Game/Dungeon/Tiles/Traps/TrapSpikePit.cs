@@ -36,6 +36,7 @@ namespace DotNetHack.Game.Dungeon.Tiles.Traps
             else
             {
                 e.TrapTarget.Stats.Health -= 10;
+                e.TrapTarget.WornArmour.ArmourMeleeStrike(null, e.TrapTarget);
             }
 
             UI.Graphics.Display.ShowMessage(strMessage);

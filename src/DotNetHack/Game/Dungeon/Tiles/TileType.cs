@@ -29,5 +29,6 @@ namespace DotNetHack.Game.Dungeon.Tiles
         Bridge,
         Swamp,
         Forest,
+        Herb,
     }
 }

@@ -80,7 +80,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// ApplyEffects
         /// </summary>
-        public void ApplyEffects() 
+        public void ApplyEffects()
         {
             // tick everything in the effect stack.
             foreach (var effect in EffectStack)
@@ -112,6 +112,7 @@ namespace DotNetHack.Game
         public virtual void Initialize()
         {
             Stats.Health = Stats.HitPoints;
+            Stats.Mana = 0;
             WornArmour = new ArmourWorn();
             WieldedWeapons = new WeaponsWielded();
         }
@@ -126,6 +127,7 @@ namespace DotNetHack.Game
             if (++MagikaRegenTicks > (100 - (Stats.Intelligence + Stats.Wisdom)))
             {
                 MagikaRegenTicks = 0;
+                Stats.Mana++;
             }
         }
 
@@ -137,7 +139,10 @@ namespace DotNetHack.Game
         /// </summary>
         public virtual void RegenerateHealth()
         {
-            if (++HealthRegenTicks > (100 - Stats.Endurance))
+            StatsBase b = WornArmour.CommutedStats(a => 
+                a.ArmourStats.Condition > 0 && a.StatsBase.Endurance > 0 );
+
+            if (++HealthRegenTicks > (100 - (Stats.Endurance + b.Endurance)))
             {
                 HealthRegenTicks = 0;
                 Stats.Health++;
@@ -155,5 +160,7 @@ namespace DotNetHack.Game
         /// </summary>
         [XmlIgnore]
         public WeaponsWielded WieldedWeapons { get; set; }
+
+
     }
 }

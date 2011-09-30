@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
+using DotNetHack.Game.Effects;
 
 namespace DotNetHack.Game.Items.Equipment.Armor
 {
-
     [Serializable]
     public class ChestpieceOfDebugging : Armour
     {
@@ -16,13 +16,18 @@ namespace DotNetHack.Game.Items.Equipment.Armor
             : base("Chestpiece of Debugging", '{',
             Colour.Silver, l, Equipment.Armour.ArmourLocation.Chest)
         {
+            ArmourStats = new Armor.ArmourStats()
+            {
+                Condition = 100,
+                Weight = 1,
+            };
             StatsBase = new StatsBase()
             {
                 Strength = 1,
                 Perception = 1,
                 Endurance = 1,
                 Charisma = 1,
-                Intelligence = 1,
+                Intelligence = 12,
                 Agility = 1,
                 Luck = 1,
             };
@@ -48,15 +53,60 @@ namespace DotNetHack.Game.Items.Equipment.Armor
         {
             StatsBase = new StatsBase()
             {
-                Strength = 1,
-                Perception = 1,
-                Endurance = 1,
-                Charisma = 1,
-                Intelligence = 1,
-                Agility = 1,
-                Luck = 1,
+                Strength = 0,
+                Perception = 0,
+                Endurance = 6,
+                Charisma = 0,
+                Intelligence = 0,
+                Agility = 0,
+                Luck = 0,
             };
         }
+    }
+
+    [Serializable]
+    public class BandOfSalvation : Armour
+    {
+        /// <summary>
+        /// BandOfSalvation
+        /// </summary>
+        /// <param name="l"></param>
+        public BandOfSalvation(Location3i l)
+            : base("Band of Salvation", '/', Colour.Silver,
+            l, Equipment.Armour.ArmourLocation.LeftFinger)
+        {
+            StatsBase = new StatsBase() { Intelligence = 8 };
+            ArmourStats = new Armor.ArmourStats() 
+            { 
+                Condition = 100,
+                Weight = 0.1,
+            };
+
+            // occurs on melee strike.
+            OnMeleeStrike += 
+                new EventHandler<Events.ArmourStrikeEventArgs>(
+                    BandOfSalvation_OnMeleeStrike);
+        }
+
+        void BandOfSalvation_OnMeleeStrike(object sender, Events.ArmourStrikeEventArgs e)
+        {
+            if (Dice.D(50))
+            {
+                if (e.WornByActor.EffectStack.FirstOrDefault(
+                    x => x.Guid.Equals(BandOfSalvation_OnMeleeStrike_Guid)) == null)
+                    e.WornByActor.EffectStack.Add(
+                        new Effects.Effect()
+                        {
+                            Magnitude = 1,
+                            Duration = 30,
+                            EffectModifiers = delegate(Effect effect, Actor t) { t.Stats.Health += 1; },
+                            Guid = BandOfSalvation_OnMeleeStrike_Guid,
+                        });
+            }
+        }
+
+        readonly Guid BandOfSalvation_OnMeleeStrike_Guid =
+            new Guid("52ade84e-33c2-43c1-b295-bdd525e758d6");
     }
 
     [Serializable]
@@ -70,13 +120,13 @@ namespace DotNetHack.Game.Items.Equipment.Armor
         {
             StatsBase = new StatsBase()
             {
-                Strength = 1,
-                Perception = 1,
-                Endurance = 1,
-                Charisma = 1,
-                Intelligence = 1,
-                Agility = 1,
-                Luck = 1,
+                Strength = 5,
+                Perception = 0,
+                Endurance = 50,
+                Charisma = 0,
+                Intelligence = 0,
+                Agility = 0,
+                Luck = 0,
             };
         }
     }
@@ -92,13 +142,13 @@ namespace DotNetHack.Game.Items.Equipment.Armor
         {
             StatsBase = new StatsBase()
             {
-                Strength = 1,
-                Perception = 1,
-                Endurance = 1,
-                Charisma = 1,
-                Intelligence = 1,
-                Agility = 1,
-                Luck = 1,
+                Strength = 0,
+                Perception = 0,
+                Endurance = 0,
+                Charisma = 0,
+                Intelligence = 5,
+                Agility = 0,
+                Luck = 0,
             };
         }
     }

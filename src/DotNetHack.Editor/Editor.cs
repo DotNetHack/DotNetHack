@@ -22,6 +22,7 @@ using System.IO;
 using System.Reflection;
 using DotNetHack.Game.Items.Equipment.Armor;
 using DotNetHack.Game.Items.Equipment.Weapons;
+using DotNetHack.Game.NPC;
 
 namespace DotNetHack.Editor
 {
@@ -925,6 +926,12 @@ namespace DotNetHack.Editor
                         // hold on a second.
                         Thread.Sleep(100);
                     }
+                    break;
+                case ConsoleKey.S:
+                    ShopKeeper shopKeeper = new GulDarTheShopKeeper(CurrentLocation);
+                    shopKeeper.Brain = new Game.NPC.AI.Brain(shopKeeper, CurrentMap);
+                    CurrentMap.NonPlayerControlled.Add(shopKeeper);
+
                     break;
                 case ConsoleKey.N:
                     UI.Graphics.CursorToLocation(1, 1);

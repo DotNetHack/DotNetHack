@@ -31,8 +31,10 @@ namespace DotNetHack.Game
         /// <param name="e"></param>
         void GameEngine_OnSound(object sender, SoundEventArgs e)
         {
-            if (Stats.Perception >= e.Distance(this))
-                UI.Graphics.Display.ShowMessage(e.Description);
+            if (e.Sound.IsSoundAmbient)
+                UI.Graphics.Display.ShowSound(e.Sound);
+            else if (Stats.Perception >= e.Distance(this))
+                UI.Graphics.Display.ShowSound(e.Sound);
         }
 
         /// <summary>
@@ -86,6 +88,14 @@ namespace DotNetHack.Game
             #endregion
 
             Stats.OnHealthChanged += new EventHandler(Stats_OnHealthChanged);
+        }
+
+        /// <summary>
+        /// Eat
+        /// </summary>
+        public void Eat(IFood aFood)
+        {
+            aFood.Eat();
         }
 
         /// <summary>

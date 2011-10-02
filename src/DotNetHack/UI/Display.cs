@@ -158,6 +158,27 @@ namespace DotNetHack.UI
         /// </summary>
         public static class Display
         {
+            const ConsoleColor SOUND_COLOUR = ConsoleColor.Cyan;
+
+            /// <summary>
+            /// Show sound
+            /// </summary>
+            /// <param name="aSound">The sound to show.</param>
+            public static void ShowSound(Sound aSound) 
+            {
+                string strSoundDisplay = string.Format("[{0}]", aSound.SoundDescription);
+
+                CullMessageByLastMessage(strSoundDisplay);
+
+                CursorToLocation(1, 0);
+
+                Colour previousColour = Colour.CurrentColour;
+
+                Console.ForegroundColor = SOUND_COLOUR;
+
+                Console.Write(strSoundDisplay);
+            }
+
             /// <summary>
             /// ShowMessage
             /// </summary>
@@ -169,14 +190,7 @@ namespace DotNetHack.UI
                 // determine what the display string ends up being.
                 string tmpDisplayString = string.Format(aFormatString, aArgs);
 
-                // If the size of the last string is greater than this one,
-                // overwrite what was there with nothing.
-                if (_lastStringSize > tmpDisplayString.Length)
-                {
-                    CursorToLocation(1, 0);
-                    for (int c = 0; c < _lastStringSize; ++c)
-                        Console.Write(' ');
-                }
+                CullMessageByLastMessage(tmpDisplayString);
 
                 // Jump back over to starting location.
                 CursorToLocation(1, 0);
@@ -188,8 +202,23 @@ namespace DotNetHack.UI
                 _lastStringSize = tmpDisplayString.Length;
             }
 
-            static int _lastStringSize = 0;
+            /// <summary>
+            /// CullMessageByLastMessage, smartly set _lastStringSize
+            /// </summary>
+            /// <param name="tmpDisplayString">The display string to factor in</param>
+            private static void CullMessageByLastMessage(string tmpDisplayString)
+            {
+                // If the size of the last string is greater than this one,
+                // overwrite what was there with nothing.
+                if (_lastStringSize > tmpDisplayString.Length)
+                {
+                    CursorToLocation(1, 0);
+                    for (int c = 0; c < _lastStringSize; ++c)
+                        Console.Write(' ');
+                }
+            }
 
+            static int _lastStringSize = 0;
 
             public static void ShowStatsBar(Player aPlayer)
             {

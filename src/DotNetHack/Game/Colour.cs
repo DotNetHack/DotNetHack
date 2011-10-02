@@ -2,22 +2,77 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 namespace DotNetHack.Game
 {
-    public static class ColourExtensions 
+    public static class ColourExtensions
     {
         public static void Set(this Colour c)
         {
             Console.ForegroundColor = c.FG;
             Console.BackgroundColor = c.BG;
         }
+
+        public static ConsoleColor Negate(this ConsoleColor c)
+        {
+            switch (c)
+            {
+                default:
+                    return ConsoleColor.White;
+
+                case ConsoleColor.Gray:
+                    return ConsoleColor.DarkGray;
+
+                case ConsoleColor.DarkGray:
+                    return ConsoleColor.Gray;
+
+                case ConsoleColor.Black:
+                    return ConsoleColor.White;
+
+                case ConsoleColor.White:
+                    return ConsoleColor.Black;
+
+                case ConsoleColor.Yellow:
+                    return ConsoleColor.Cyan;
+
+                case ConsoleColor.Cyan:
+                    return ConsoleColor.Yellow;
+
+                case ConsoleColor.DarkCyan:
+                    return ConsoleColor.DarkYellow;
+
+                case ConsoleColor.DarkYellow:
+                    return ConsoleColor.DarkCyan;
+
+                case ConsoleColor.Green:
+                    return ConsoleColor.Red;
+
+                case ConsoleColor.Red:
+                    return ConsoleColor.Green;
+
+                case ConsoleColor.DarkMagenta:
+                    return ConsoleColor.DarkYellow;
+
+                case ConsoleColor.DarkBlue:
+                    return ConsoleColor.DarkRed;
+
+                case ConsoleColor.DarkRed:
+                    return ConsoleColor.DarkBlue;
+
+                case ConsoleColor.DarkGreen:
+                    return ConsoleColor.DarkMagenta;
+
+                case ConsoleColor.Magenta:
+                    return ConsoleColor.DarkGreen;
+            }
+        }
     }
 
     /// <summary>
     /// Colour
     /// </summary>
-    [Serializable]
+    [Serializable, DebuggerDisplay("{ToString()}")]
     public class Colour : IEquatable<Colour>
     {
         public Colour() { }
@@ -25,10 +80,20 @@ namespace DotNetHack.Game
             : this(aFG, ConsoleColor.Black)
         { }
 
-        public Colour(ConsoleColor aFG, ConsoleColor aBG) 
+        public Colour(ConsoleColor aFG, ConsoleColor aBG)
         {
             FG = aFG;
             BG = aBG;
+        }
+
+        /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        /// <param name="colour">The colour to copy</param>
+        public Colour(Colour colour)
+        {
+            BG = colour.BG;
+            FG = colour.FG;
         }
 
         public void SetBG(ConsoleColor aBG)
@@ -41,7 +106,31 @@ namespace DotNetHack.Game
             FG = aFG;
         }
 
+        /// <summary>
+        /// ToString
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format("({0},{1})", FG, BG);
+        }
+
+        /// <summary>
+        /// Return a colour that is <c>NOT</c> this colour.
+        /// <remarks>The inverse of the passed colour.</remarks>
+        /// </summary>
+        /// <param name="colour"></param>
+        /// <returns>The inverse of the passed colour.</returns>
+        public static Colour operator !(Colour colour)
+        {
+            Colour retVal = new Colour(colour);
+            retVal.BG = retVal.BG.Negate();
+            retVal.FG = retVal.FG.Negate();
+            return retVal;
+        }
+
         public ConsoleColor FG;
+
         public ConsoleColor BG;
 
         public static Colour CurrentColour
@@ -49,12 +138,12 @@ namespace DotNetHack.Game
             get { return new Colour(Console.ForegroundColor, Console.BackgroundColor); }
         }
 
-        public static Colour Standard 
+        public static Colour Standard
         {
             get { return new Colour(ConsoleColor.Gray); }
         }
 
-        public static Colour DarkRed 
+        public static Colour DarkRed
         {
             get { return new Colour(ConsoleColor.DarkRed); }
         }
@@ -108,7 +197,7 @@ namespace DotNetHack.Game
         {
             get { return new Colour(ConsoleColor.DarkGreen); }
         }
-        
+
         // TODO: Find the best color combination for copper and silver
         public static Colour Silver
         {

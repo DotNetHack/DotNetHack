@@ -80,6 +80,45 @@ namespace DotNetHack.Game
             {
                 Initialize();
 
+                ThreadPool.QueueUserWorkItem(delegate(object o)
+                {
+                    while (true)
+                    {
+                        CurrentMap.IterateDungeonData(delegate(int x, int y, int d)
+                        {
+                            var t = CurrentMap.GetTile(x, y, d);
+                            if (t.TileType.Equals(TileType.Water))
+                            {
+                                if (Dice.D(20))
+                                    switch (t.G)
+                                    {
+                                        default:
+                                            t.G = Symbols.ALMOST_EQUAL;
+                                            break;
+                                        case Symbols.ALMOST_EQUAL:
+                                            t.G = '~';
+                                            break;
+                                        case '~':
+                                            t.G = Symbols.ALMOST_EQUAL;
+                                            break;
+                                    }
+                                if (Dice.D(20))
+                                    switch (t.C.BG)
+                                    {
+                                        case ConsoleColor.DarkBlue:
+                                            t.C.BG = ConsoleColor.Blue;
+                                            break;
+                                        case ConsoleColor.Blue:
+                                            t.C.BG = ConsoleColor.DarkBlue;
+                                            break;
+                                    }
+                            }
+
+                        });
+                        Thread.Sleep(1000);
+                    }
+                });
+
                 while (!Done)
                 {
                     Graphics.CursorToLocation(0, 0);
@@ -322,7 +361,7 @@ namespace DotNetHack.Game
         /// <param name="e">Event args</param>
         void GameEngine_OnTick(object sender, EventArgs e)
         {
-            Time++; 
+            Time++;
         }
 
         /// <summary>

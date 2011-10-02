@@ -30,5 +30,6 @@ namespace DotNetHack.Game.Dungeon.Tiles
         Swamp,
         Forest,
         Herb,
+        Beach,
     }
 }

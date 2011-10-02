@@ -118,7 +118,9 @@ namespace DotNetHack.Editor
             CommandProcessor = ProcessLayoutModeCommands;
 
             // Set the game engine run flags
-            GameEngine.RunFlags = GameEngine.EngineRunFlags.Debug | GameEngine.EngineRunFlags.Editor;
+            GameEngine.RunFlags =
+                GameEngine.EngineRunFlags.Debug |
+                GameEngine.EngineRunFlags.Editor;
 
             #region Main Loop
         redo__main_input:
@@ -152,13 +154,64 @@ namespace DotNetHack.Editor
 
                     #region Editor Control Commands
                     case ConsoleKey.Escape:
-                        return;
+                        if (UI.Graphics.MessageBox.YesNo("Are you sure you want to exit?"))
+                            return;
+                        UI.Graphics.Display.Refresh(CurrentMap, CurrentLocation);
+                        break;
                     case ConsoleKey.F1:
                         {
                             // Show File Menu
                             // (1) Save
                             // (2) Load
                             // (3) Exit
+
+                            Menu fileMenu = new Menu("Editor Menu",
+                                new Menu.MenuAction[]
+                                {
+                                    new Menu.MenuAction()
+                                    {
+                                        Name = "Exit",
+                                        ConsoleKey = "Escape",
+                                        MenuActionFilter = x => x.Key== ConsoleKey.D1,
+                                        MAction = delegate(object o) 
+                                        {
+
+                                        },
+                                    },
+                                    new Menu.MenuAction()
+                                    {
+                                        Name = "2",
+                                        ConsoleKey = "2",
+                                        MenuActionFilter = x => x.Key== ConsoleKey.D2,
+                                        MAction = delegate(object o) 
+                                        {
+
+                                        },
+                                    },
+                                    new Menu.MenuAction()
+                                    {
+                                        Name = "3",
+                                        MenuActionFilter = x => x.Key== ConsoleKey.D3,
+                                        MAction = delegate(object o) 
+                                        {
+
+                                        },
+                                    },
+                                    new Menu.MenuAction()
+                                    {
+                                        Name = "4",
+                                        MenuActionFilter = x => x.Key== ConsoleKey.D4,
+                                        MAction = delegate(object o) 
+                                        {
+                                        },
+                                    },
+                                });
+
+                            fileMenu.Show(0, 0);
+
+                            fileMenu.Exec(null);
+
+                            UI.Graphics.Display.Refresh(CurrentMap, CurrentLocation);
 
                             break;
                         }
@@ -525,6 +578,27 @@ namespace DotNetHack.Editor
                             break;
                         case ConsoleModifiers.Shift:
                             SetTile(TileType.Bridge, '▌', Colour.Bridge);
+                            break;
+                        case ConsoleModifiers.Alt:
+                            SetTile(TileType.Beach, Symbols.FILL_LIGHT,
+                                new Colour(ConsoleColor.Yellow, ConsoleColor.Green),
+                                    CurrentLocation);
+                            break;
+                    }
+                    break;
+                case ConsoleKey.S:
+                    switch (input.Modifiers)
+                    {
+                        default:
+
+                            SetTile(TileType.Forest, '&',
+                                new Colour(ConsoleColor.Green, ConsoleColor.DarkGreen),
+                                CurrentLocation);
+                            break;
+                        case ConsoleModifiers.Shift:
+                            SetTile(TileType.Swamp, '&',
+                                new Colour(ConsoleColor.DarkGreen, ConsoleColor.Green),
+                                CurrentLocation);
                             break;
                     }
                     break;

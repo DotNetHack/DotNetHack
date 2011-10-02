@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DotNetHack.UI;
 
 namespace DotNetHack.Game.Items.Herbs
 {
@@ -22,7 +23,7 @@ namespace DotNetHack.Game.Items.Herbs
         /// <param name="aColour">The colour of the herb</param>
         /// </summary>
         public Herb(string aName, Colour aColour)
-            : base(aName, '"', aColour) { }
+            : base(aName, Symbols.YEN, aColour) { }
 
         /// <summary>
         /// Creates a new instance of Herb

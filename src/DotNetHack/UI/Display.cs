@@ -261,8 +261,17 @@ namespace DotNetHack.UI
                     string tmpPad = string.Empty;
                     for (int padIndex = 0; padIndex < Math.Abs(action.Name.Length - w) - 7; ++padIndex)
                         tmpPad += " ";
+
+                    // change colour(s) for the selected item.
+                    if (aMenu.SelectorLocation.Y == y)
+                        aMenu.SelectedColour.Set();
+                    
                     Console.Write("({0}). {1}", c, action.Name + tmpPad);
-                    Console.SetCursorPosition(x, y++);
+
+                    // reset to normal
+                    aMenu.MenuColour.Set();
+
+                    Console.SetCursorPosition(x, ++y);
                     ++c;
                 }
                 string tmpPad1 = string.Empty;

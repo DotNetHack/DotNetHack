@@ -134,10 +134,12 @@
     <Compile Include="Game\NPC\AI\FSM.cs" />
     <Compile Include="Game\NPC\AI\IAgent.cs" />
     <Compile Include="Game\NPC\AI\IShopKeeperAI.cs" />
+    <Compile Include="Game\NPC\AI\IVillagerAI.cs" />
     <Compile Include="Game\NPC\Monsters\FireAnt.cs" />
     <Compile Include="Game\NPC\Monsters\Monster.cs" />
     <Compile Include="Game\NPC\NPC.cs" />
     <Compile Include="Game\NPC\ShopKeeper.cs" />
+    <Compile Include="Game\NPC\Villager.cs" />
     <Compile Include="Game\Quests\Quest.cs" />
     <Compile Include="Game\Sound.cs" />
     <Compile Include="Game\Stats.cs" />

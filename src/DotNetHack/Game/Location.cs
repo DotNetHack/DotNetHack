@@ -191,6 +191,12 @@ namespace DotNetHack.Game
         public Location2i(int x, int y) { X = x; Y = y; }
 
         /// <summary>
+        /// Copy constructor
+        /// </summary>
+        /// <param name="l">The location to copy from.</param>
+        public Location2i(Location2i l) { X = l.X; Y = l.Y; }
+
+        /// <summary>
         /// Y-Coordinate
         /// <value>Gets or Sets the X-Coordinate of this location.</value>
         /// </summary>

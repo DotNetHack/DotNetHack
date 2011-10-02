@@ -34,11 +34,17 @@ namespace DotNetHack.Game.Dungeon.Tiles
 
         public virtual void CloseDoor()
         {
+            if (Dice.D(20))
+                GameEngine.DoSound(new Sound(10, "Thud!"));
+            else if (Dice.D(5))
+                GameEngine.DoSound(new Sound(10, "Ka-chunk."));
             InternalDoorState = DoorState.Closed;
         }
 
         public virtual void OpenDoor()
         {
+            if (Dice.D(20))
+                GameEngine.DoSound(new Sound(10, "Creeek"));
             InternalDoorState = DoorState.Opened;
         }
 
@@ -78,11 +84,19 @@ namespace DotNetHack.Game.Dungeon.Tiles
             return new Door(aOpen, true) { KeyRef = aGuid };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aOpen"></param>
+        /// <returns></returns>
         public static Door NewDoor(bool aOpen = false)
         {
             return new Door(aOpen) { KeyRef = Guid.Empty };
         }
 
+        /// <summary>
+        /// KeyRef
+        /// </summary>
         public Guid KeyRef { get; set; }
 
         /// <summary>

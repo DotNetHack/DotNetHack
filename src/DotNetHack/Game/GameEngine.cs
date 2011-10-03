@@ -113,7 +113,7 @@ namespace DotNetHack.Game
                                             break;
                                     }
                             }
-                            
+
                         });
 
                         Thread.Sleep(1300);
@@ -206,11 +206,21 @@ namespace DotNetHack.Game
                     else
                     {
                         var t = CurrentMap.GetTile(Player);
+
+                        foreach (IItem k in t.Items.Where(i => i.ItemType == ItemType.Key))
+                            Player.KeyChain.AddKey((IKey)k);
+                        foreach (IKey k in Player.KeyChain.KeyStore)
+                            t.Items.Remove((IItem)k);
+
+                        /*
                         if (t.TileFlags == TileFlags.Spawn)
                         {
-                            Player.Inventory.Add(
-                                ((HerbSpawn)t).Take());
-                        }
+                            var tmpHerbSpawn = ((HerbSpawn)t);
+                            var resource = tmpHerbSpawn.Take();
+                            if (resource != null)
+                                Player.Inventory.Add(resource);
+                            else UI.Graphics.Display.ShowMessage("Maybe come back later?");
+                        }*/
 
                         // TODO: move this
                         DAction a = new ActionPickup(Player,
@@ -406,6 +416,11 @@ namespace DotNetHack.Game
                     UI.Graphics.Display.ShowMessage("{0}, {1} here",
                         e.MoveToTile.Items.Count,
                         Speech.Pluralize("item", e.MoveToTile.Items.Count));
+            }
+            else if ((e.MoveFromTile.TileFlags & TileFlags.Spawn) == TileFlags.Spawn)
+            {
+                var tmpHerbSpawn = (HerbSpawn)e.MoveFromTile;
+                UI.Graphics.Display.ShowMessage(tmpHerbSpawn.Resource.Name);
             }
         }
 

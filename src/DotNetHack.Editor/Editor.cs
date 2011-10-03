@@ -23,6 +23,7 @@ using System.Reflection;
 using DotNetHack.Game.Items.Equipment.Armor;
 using DotNetHack.Game.Items.Equipment.Weapons;
 using DotNetHack.Game.NPC;
+using DotNetHack.Game.Items.Herbs;
 
 namespace DotNetHack.Editor
 {
@@ -436,7 +437,7 @@ namespace DotNetHack.Editor
                     switch (input.Modifiers)
                     {
                         default:
-                            SetTile(Door.NewDoor());
+                            SetTile(Door.NewDoor(CurrentLocation));
                             break;
                         case ConsoleModifiers.Shift:
                             if (CurrentGuid.Equals(Guid.Empty))
@@ -512,7 +513,50 @@ namespace DotNetHack.Editor
 
                 // home
                 case ConsoleKey.H:
-                    SetTile(HerbSpawn.NewHerbSpawn(""));
+                    int tmpAdditionalSpawnTime = 0; // + base of 500
+                    Herb.HerbType tmpHerbType = Herb.HerbType.MotherWort;
+                    switch (R.Random.Next(0, 8))
+                    { 
+                        case 0:
+                            tmpAdditionalSpawnTime = 10;
+                            tmpHerbType = Herb.HerbType.Amanita;
+                            break;
+                        case 1:
+                            tmpAdditionalSpawnTime = 20;
+                            tmpHerbType = Herb.HerbType.DeathCap;
+                            break;
+                        case 2:
+                            tmpAdditionalSpawnTime = 30;
+                            tmpHerbType = Herb.HerbType.Hibiscus;
+                            break;
+                        case 3:
+                            tmpAdditionalSpawnTime = 50;
+                            tmpHerbType = Herb.HerbType.MandrakeRoot;
+                            break;
+                        case 4:
+                            tmpAdditionalSpawnTime = 60;
+                            tmpHerbType = Herb.HerbType.MotherWort;
+                            break;
+                        case 5:
+                            tmpAdditionalSpawnTime = 70;
+                            tmpHerbType = Herb.HerbType.ShadeLeaf;
+                            break;
+                        case 6:
+                            tmpAdditionalSpawnTime = 80;
+                            tmpHerbType = Herb.HerbType.TigerLilly;
+                            break;
+                        case 7:
+                            tmpAdditionalSpawnTime = 90;
+                            tmpHerbType = Herb.HerbType.WhiteSage;
+                            break;
+                        case 8:
+                            tmpAdditionalSpawnTime = 100;
+                            tmpHerbType = Herb.HerbType.WolfsBane;
+                            break;
+                    }
+
+                    SetTile(HerbSpawn.NewHerbSpawn(tmpHerbType, tmpAdditionalSpawnTime));
+                    
                     break;
 
                 // gress

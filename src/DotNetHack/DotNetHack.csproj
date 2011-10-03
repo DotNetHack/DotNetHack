@@ -52,6 +52,7 @@
     <Compile Include="Game\Actions\Quaff.cs" />
     <Compile Include="Game\Actions\Wield.cs" />
     <Compile Include="Game\Actor.cs" />
+    <Compile Include="Game\Alchemy.cs" />
     <Compile Include="Game\Direction.cs" />
     <Compile Include="Game\Dungeon\Dungeon.cs" />
     <Compile Include="Game\Dice.cs" />

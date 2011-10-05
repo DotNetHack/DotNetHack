@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NAudio">
+      <HintPath>..\..\lib\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -178,8 +181,12 @@
     <Compile Include="Utility\Graph\Algorithm\AStar.cs" />
     <Compile Include="Utility\Graph\Algorithm\IAStar.cs" />
     <Compile Include="Utility\Graph\Algorithm\Node.cs" />
+    <Compile Include="Utility\Media\BaseSoundController.cs" />
+    <Compile Include="Utility\Media\SoundControllerCore.cs" />
+    <Compile Include="Utility\Media\SoundControllerEvents.cs" />
     <Compile Include="Utility\Persisted\Persisted.cs" />
     <Compile Include="Utility\Rectangle.cs" />
+    <Compile Include="Utility\Media\SoundController.cs" />
     <Compile Include="Utility\Util.cs" />
     <Compile Include="Utility\LockFile.cs" />
     <Compile Include="Game\Player.cs" />

@@ -24,6 +24,7 @@ using DotNetHack.Game.Items.Equipment.Armor;
 using DotNetHack.Game.Items.Equipment.Weapons;
 using DotNetHack.Game.NPC;
 using DotNetHack.Game.Items.Herbs;
+using DotNetHack.Utility.Media;
 
 namespace DotNetHack.Editor
 {
@@ -96,6 +97,10 @@ namespace DotNetHack.Editor
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            SoundController.Instance.Initialize();
+            SoundController.Instance.PlaySound(@"C:\Windows\Media\chimes.wav");
+            SoundController.Instance.PlaySound(@"C:\Windows\Media\chimes.wav");
+
             // Parse incoming args for the runtime env.
             R.ParseArgs(args);
 

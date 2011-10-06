@@ -19,6 +19,8 @@ namespace DotNetHack.Utility.Media
         {
             try
             {
+                SoundDisabled = false;
+
                 // Call down to base to fire up events.
                 base.Initialize();
 
@@ -33,7 +35,7 @@ namespace DotNetHack.Utility.Media
                 // Initialize the lazy loading hash
                 SoundCache = new Dictionary<string, CoreSample>();
             }
-            catch (Exception sound_ex) { }
+            catch (Exception sound_ex) { SoundDisabled = true; }
         }
 
         /// <summary>
@@ -44,6 +46,9 @@ namespace DotNetHack.Utility.Media
         /// <param name="aSoundFileName">The name of the sound file to play.</param>
         public override void PlaySound(string aSoundFileName)
         {
+            if (SoundDisabled)
+                return;
+
             if (!SoundCache.ContainsKey(aSoundFileName))
             {
                 WaveFileReader tmpWaveFileReader = new WaveFileReader(aSoundFileName);
@@ -61,24 +66,27 @@ namespace DotNetHack.Utility.Media
             }
 
             SoundCache[aSoundFileName].WaveChannel32.Position = 0x00;
-
-            WaveOutDevice.Play();
         }
 
         /// <summary>
         /// WaveOutDevice, interface(ed)
         /// </summary>
-        static  IWavePlayer WaveOutDevice = null;
+        IWavePlayer WaveOutDevice = null;
 
         /// <summary>
         /// The <c>Mixer</c>
         /// </summary>
-        static WaveMixerStream32 Mixer = null;
+        WaveMixerStream32 Mixer = null;
 
         /// <summary>
         /// LazyCoreShot
         /// </summary>
-        static Dictionary<string, CoreSample> SoundCache { get; set; }
+        Dictionary<string, CoreSample> SoundCache { get; set; }
+
+        /// <summary>
+        /// SoundDisabled
+        /// </summary>
+        bool SoundDisabled { get; set; }
 
         /// <summary>
         /// Aggregated objects required for playback

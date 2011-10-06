@@ -30,7 +30,7 @@ namespace DotNetHack
         public static ConsoleKeyInfo Filter(Func<ConsoleKeyInfo, bool> aFilter, out ConsoleKeyInfo k)
         {
         filter_input:
-            k = Console.ReadKey();
+            k = Console.ReadKey(true);
             if (!aFilter(k))
                 goto filter_input;
             return k;

@@ -222,6 +222,8 @@ namespace DotNetHack.UI
 
             public static void ShowStatsBar(Player aPlayer)
             {
+                Colour.Standard.Set();
+
                 StatsBase aStats = aPlayer.CommutedStats();
                 Stats statsBase = aPlayer.Stats;
 

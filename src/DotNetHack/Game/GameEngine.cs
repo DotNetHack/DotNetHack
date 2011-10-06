@@ -82,7 +82,7 @@ namespace DotNetHack.Game
 
                 ThreadPool.QueueUserWorkItem(delegate(object o)
                 {
-                    while (true)
+                    while (!Done)
                     {
                         CurrentMap.IterateDungeonData(delegate(int x, int y, int d)
                         {
@@ -116,6 +116,9 @@ namespace DotNetHack.Game
 
                         });
 
+                        CurrentMap.Render(Player.Location);
+                        Player.Draw();
+                        UI.Graphics.Display.ShowStatsBar(Player);
                         Thread.Sleep(1300);
                     }
                 });

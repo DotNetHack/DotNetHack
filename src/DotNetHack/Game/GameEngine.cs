@@ -59,7 +59,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// 
         /// </summary>
-        static bool Done = false;
+        public static volatile bool Done = false;
 
         /// <summary>
         /// 
@@ -116,9 +116,9 @@ namespace DotNetHack.Game
 
                         });
 
-                        CurrentMap.Render(Player.Location);
-                        Player.Draw();
-                        UI.Graphics.Display.ShowStatsBar(Player);
+                        //CurrentMap.Render(Player.Location);
+                        //Player.Draw();
+                        //UI.Graphics.Display.ShowStatsBar(Player);
                         Thread.Sleep(1300);
                     }
                 });
@@ -271,6 +271,13 @@ namespace DotNetHack.Game
 
                     break;
 
+                case ConsoleKey.I:
+                    WindowInventory inventoryWindow = 
+                        new WindowInventory(Player);
+                    inventoryWindow.Show();
+                    CurrentMap.DungeonRenderer.HardRefresh(Player.Location);
+                    break;
+
                 case ConsoleKey.C:
 
                     // create a new character sheet for the player
@@ -278,8 +285,7 @@ namespace DotNetHack.Game
                         new WindowCharacterSheet(Player);
 
                     characterSheet.Show();
-
-                    CurrentMap.DungeonRenderer.ClearBuffer();
+                    CurrentMap.DungeonRenderer.HardRefresh(Player.Location);
 
                     break;
 
@@ -446,7 +452,7 @@ namespace DotNetHack.Game
             GameEngine.OnSound = null;
             GameEngine.OnTick = null;
             GameEngine.Time = 0;
-            Done = false;
+            Done = true;
         }
 
         /// <summary>

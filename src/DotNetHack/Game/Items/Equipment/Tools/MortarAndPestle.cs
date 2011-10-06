@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DotNetHack.Game.Items.Herbs;
 
 namespace DotNetHack.Game.Items.Equipment.Tools
 {
@@ -17,14 +18,9 @@ namespace DotNetHack.Game.Items.Equipment.Tools
             : base("MortarAndPestle", 'ü', Colour.Standard)
         { }
 
-        /// <summary>
-        /// Occurs when the mortar and pestle is applied to a collection 
-        /// of items. (usually herbs)
-        /// </summary>
-        /// <param name="items">A collection of items</param>
         public override void Apply(Interfaces.IItem[] items)
         {
-
+            throw new NotImplementedException();
         }
 
         /// <summary>

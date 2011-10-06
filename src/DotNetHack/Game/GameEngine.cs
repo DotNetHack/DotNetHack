@@ -59,7 +59,7 @@ namespace DotNetHack.Game
         /// <summary>
         /// 
         /// </summary>
-        static bool Done = false;
+        public static volatile bool Done = false;
 
         /// <summary>
         /// 
@@ -79,6 +79,49 @@ namespace DotNetHack.Game
             try
             {
                 Initialize();
+
+                ThreadPool.QueueUserWorkItem(delegate(object o)
+                {
+                    while (!Done)
+                    {
+                        CurrentMap.IterateDungeonData(delegate(int x, int y, int d)
+                        {
+                            var t = CurrentMap.GetTile(x, y, d);
+                            if (t.TileType.Equals(TileType.Water))
+                            {
+                                if (Dice.D(20))
+                                    switch (t.G)
+                                    {
+                                        default:
+                                            t.G = Symbols.ALMOST_EQUAL;
+                                            break;
+                                        case Symbols.ALMOST_EQUAL:
+                                            t.G = '~';
+                                            break;
+                                        case '~':
+                                            t.G = Symbols.ALMOST_EQUAL;
+                                            break;
+                                    }
+                                if (Dice.D(20))
+                                    switch (t.C.BG)
+                                    {
+                                        case ConsoleColor.DarkBlue:
+                                            t.C.BG = ConsoleColor.Blue;
+                                            break;
+                                        case ConsoleColor.Blue:
+                                            t.C.BG = ConsoleColor.DarkBlue;
+                                            break;
+                                    }
+                            }
+
+                        });
+
+                        //CurrentMap.Render(Player.Location);
+                        //Player.Draw();
+                        //UI.Graphics.Display.ShowStatsBar(Player);
+                        Thread.Sleep(1300);
+                    }
+                });
 
                 while (!Done)
                 {
@@ -166,11 +209,21 @@ namespace DotNetHack.Game
                     else
                     {
                         var t = CurrentMap.GetTile(Player);
+
+                        foreach (IItem k in t.Items.Where(i => i.ItemType == ItemType.Key))
+                            Player.KeyChain.AddKey((IKey)k);
+                        foreach (IKey k in Player.KeyChain.KeyStore)
+                            t.Items.Remove((IItem)k);
+
+                        /*
                         if (t.TileFlags == TileFlags.Spawn)
                         {
-                            Player.Inventory.Add(
-                                ((HerbSpawn)t).Take());
-                        }
+                            var tmpHerbSpawn = ((HerbSpawn)t);
+                            var resource = tmpHerbSpawn.Take();
+                            if (resource != null)
+                                Player.Inventory.Add(resource);
+                            else UI.Graphics.Display.ShowMessage("Maybe come back later?");
+                        }*/
 
                         // TODO: move this
                         DAction a = new ActionPickup(Player,
@@ -218,6 +271,13 @@ namespace DotNetHack.Game
 
                     break;
 
+                case ConsoleKey.I:
+                    WindowInventory inventoryWindow = 
+                        new WindowInventory(Player);
+                    inventoryWindow.Show();
+                    CurrentMap.DungeonRenderer.HardRefresh(Player.Location);
+                    break;
+
                 case ConsoleKey.C:
 
                     // create a new character sheet for the player
@@ -225,8 +285,7 @@ namespace DotNetHack.Game
                         new WindowCharacterSheet(Player);
 
                     characterSheet.Show();
-
-                    CurrentMap.DungeonRenderer.ClearBuffer();
+                    CurrentMap.DungeonRenderer.HardRefresh(Player.Location);
 
                     break;
 
@@ -322,7 +381,7 @@ namespace DotNetHack.Game
         /// <param name="e">Event args</param>
         void GameEngine_OnTick(object sender, EventArgs e)
         {
-            Time++; 
+            Time++;
         }
 
         /// <summary>
@@ -367,6 +426,11 @@ namespace DotNetHack.Game
                         e.MoveToTile.Items.Count,
                         Speech.Pluralize("item", e.MoveToTile.Items.Count));
             }
+            else if ((e.MoveFromTile.TileFlags & TileFlags.Spawn) == TileFlags.Spawn)
+            {
+                var tmpHerbSpawn = (HerbSpawn)e.MoveFromTile;
+                UI.Graphics.Display.ShowMessage(tmpHerbSpawn.Resource.Name);
+            }
         }
 
         /// <summary>
@@ -388,7 +452,7 @@ namespace DotNetHack.Game
             GameEngine.OnSound = null;
             GameEngine.OnTick = null;
             GameEngine.Time = 0;
-            Done = false;
+            Done = true;
         }
 
         /// <summary>

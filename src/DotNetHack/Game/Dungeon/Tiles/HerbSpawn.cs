@@ -47,14 +47,14 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// <param name="e"></param>
         void GameEngine_OnTick(object sender, EventArgs e)
         {
-            if (TimeToRespawn > TicksSinceLastVisited)
+            // if (TimeToRespawn > TicksSinceLastVisited)
                 TicksSinceLastVisited++;
         }
 
         /// <summary>
         /// The last time this herb spawn was last visited.
         /// </summary>
-        public long TicksSinceLastVisited { get; set; }
+        public long TicksSinceLastVisited;
 
         /// <summary>
         /// The herb spawned up by this spawn tile.
@@ -77,12 +77,13 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// <returns></returns>
         public Herb Take()
         {
-            if (TimeToRespawn >= TicksSinceLastVisited)
+            TicksSinceLastVisited++;
+            if (TicksSinceLastVisited >= TimeToRespawn)
             {
                 TicksSinceLastVisited = 0L;
                 return Resource;
             }
-            return default(Herb);
+            return null;
         }
 
         /// <summary>
@@ -97,9 +98,9 @@ namespace DotNetHack.Game.Dungeon.Tiles
         /// NewHerbSpawn
         /// </summary>
         /// <returns>New HerbSpawn</returns>
-        public static HerbSpawn NewHerbSpawn(string aHerbName)
+        public static HerbSpawn NewHerbSpawn(Herb.HerbType aHerbType, int spawnTimeOffset = 0)
         {
-            return new HerbSpawn(new Herb(aHerbName), 10);
+            return new HerbSpawn(new Herb(aHerbType), 500 + spawnTimeOffset);
         }
     }
 }

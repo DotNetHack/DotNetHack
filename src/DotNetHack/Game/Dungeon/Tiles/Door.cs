@@ -12,7 +12,7 @@ namespace DotNetHack.Game.Dungeon.Tiles
     /// <see cref="http://en.wikipedia.org/wiki/Door"/>
     /// </summary>
     [Serializable]
-    public class Door : Tile, IGlyph, IHasLock
+    public class Door : Tile, IGlyph, IHasLock, IHasLocation
     {
         /// <summary>
         /// Creates a new instance of Door.
@@ -34,11 +34,17 @@ namespace DotNetHack.Game.Dungeon.Tiles
 
         public virtual void CloseDoor()
         {
+            if (Dice.D(5))
+                GameEngine.DoSound(new Sound(this, 40, "Thud!"));
+            else if (Dice.D(5))
+                GameEngine.DoSound(new Sound(this, 40, "Ka-chunk!"));
             InternalDoorState = DoorState.Closed;
         }
 
         public virtual void OpenDoor()
         {
+            if (Dice.D(5))
+                GameEngine.DoSound(new Sound(10, "Creeek ..."));
             InternalDoorState = DoorState.Opened;
         }
 
@@ -78,12 +84,39 @@ namespace DotNetHack.Game.Dungeon.Tiles
             return new Door(aOpen, true) { KeyRef = aGuid };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aOpen"></param>
+        /// <returns></returns>
         public static Door NewDoor(bool aOpen = false)
         {
             return new Door(aOpen) { KeyRef = Guid.Empty };
         }
 
+        /// <summary>
+        /// NewDoor
+        /// </summary>
+        /// <param name="l">The location of the door</param>
+        /// <param name="open">Is the door open?</param>
+        /// <returns>The new door</returns>
+        public static Door NewDoor(Location3i l, bool open = false) 
+        {
+            var retVal = new Door(open) { KeyRef = Guid.Empty };
+            retVal.Location = l;
+            return retVal;
+        }
+
+        /// <summary>
+        /// KeyRef
+        /// </summary>
         public Guid KeyRef { get; set; }
+
+        /// <summary>
+        /// The location of the door.
+        /// <remarks>Used for sound.</remarks>
+        /// </summary>
+        public Location3i Location { get; set; }
 
         /// <summary>
         /// Represents a closed door
@@ -99,7 +132,10 @@ namespace DotNetHack.Game.Dungeon.Tiles
         {
             if (IsLocked)
                 if (aKey.KeyGuid.Equals(KeyRef))
+                {
+                    GameEngine.DoSound(new Sound(this, 30, "click"));
                     IsLocked = false;
+                }
             return IsLocked;
         }
     }

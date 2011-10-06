@@ -41,7 +41,10 @@ namespace DotNetHack.Game.NPC
         [XmlIgnore]
         public Brain Brain { get; set; }
 
-
+        /// <summary>
+        /// The current waypoint for this NPC
+        /// <remarks>may be null</remarks>
+        /// </summary>
         IHasLocation WayPoint { get; set; }
 
         /// <summary>
@@ -65,7 +68,7 @@ namespace DotNetHack.Game.NPC
             if (nStack == null)
                 return;
 
-            if (_speedCounter % this.Stats.Speed == 0)
+            if (_speedCounter % this.Stats.Speed +1 == 0)
             {
                 // when the player is in range, don't pop, flag as melee range.
                 WayPoint = nStack.Pop();
@@ -93,7 +96,7 @@ namespace DotNetHack.Game.NPC
         /// <summary>
         /// No different than initialize.
         /// </summary>
-        /// <param name="aDungeon"></param>
+        /// <param name="aDungeon">The dungeon the NPC gets spawned into</param>
         public void Spawn(Dungeon.Dungeon3 aDungeon)
         {
             Brain = new AI.Brain(this, aDungeon);

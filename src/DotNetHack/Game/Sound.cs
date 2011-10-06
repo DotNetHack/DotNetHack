@@ -50,6 +50,19 @@ namespace DotNetHack.Game
         }
 
         /// <summary>
+        /// An ambient sound
+        /// </summary>
+        /// <param name="aDecibels">db</param>
+        /// <param name="aDescription">description</param>
+        public Sound(int aDecibels, string aDescription) 
+        {
+            IsSoundAmbient = true;
+            SoundDecibels = aDecibels;
+            SoundDescription = aDescription;
+            Location = Location3i.Origin3i;
+        }
+
+        /// <summary>
         /// if the sound is ambient.
         /// </summary>
         public bool IsSoundAmbient { get; set; }
@@ -74,6 +87,13 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="l"></param>
         /// <returns></returns>
-        public double DistanceTo(IHasLocation l) { return Location.Distance(l.Location); }
+        public double DistanceTo(IHasLocation l) 
+        {
+            if (l == null)
+                return 0D;
+            else if (l.Location == null)
+                return 0D;
+            return Location.Distance(l.Location); 
+        }
     }
 }

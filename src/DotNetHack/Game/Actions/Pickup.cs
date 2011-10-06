@@ -18,6 +18,7 @@ namespace DotNetHack.Game.Actions
 
         public override bool Perform() 
         {
+
             if (ItemCollectionInvolved.Count > 0)
             {
                 var item = ItemCollectionInvolved.Pop();

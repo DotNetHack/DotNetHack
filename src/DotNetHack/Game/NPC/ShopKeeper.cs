@@ -26,9 +26,10 @@ namespace DotNetHack.Game.NPC
         public ShopKeeper(string aShopKeeperName, Location3i l)
             : base(aShopKeeperName, '@', Colour.White, l)
         {
+            Brain = new Brain();
         }
 
-        public void Greet(Actor aActor) 
+        public void Greet(Actor aActor)
         {
             UI.Graphics.Display.ShowMessage(
                 "Hello {0}, welcome to {1}'s general store!", aActor.Name, this.Name);
@@ -42,22 +43,46 @@ namespace DotNetHack.Game.NPC
             remove { throw new NotImplementedException(); }
         }
 
-        void IShopKeeperAI.Greet(Actor aActor) { }
 
+        public override void Execute(Player aPlayer)
+        {
+            if (Dice.D(1))
+                Location.X++;
+            else if (Dice.D(1))
+                Location.X--;
+            else if (Dice.D(1))
+                Location.Y++;
+            else if (Dice.D(1))
+                Location.Y--;
 
+            if (this.Distance(aPlayer) < 5)
+            {
+                if (Dice.D(20))
+                {
+                    if (aPlayer.Stats.HealthPercent < 50)
+                        GameEngine.DoSound(new Sound(this, 
+                            10, "Perhaps I can interest you in a healing potion?"));
+                    else
+                        Greet(aPlayer);
+                }
+            }
+        }
     }
 
     /// <summary>
     /// TheShopKeeper
     /// </summary>
-    [Serializable]   
+    [Serializable]
     public class GulDarTheShopKeeper : ShopKeeper
     {
         /// <summary>
         /// Creates a new instance of the shop keeper.
         /// </summary>
         public GulDarTheShopKeeper(Location3i aLoc)
-            : base("Gul'dar", aLoc) { }
+            : base("Gul'dar", aLoc)
+        {
+            //            Brain = new Brain(
+        }
 
         /// <summary>
         /// should be called after stats exist.

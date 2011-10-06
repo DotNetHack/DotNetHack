@@ -4,9 +4,66 @@ using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Effects;
+using DotNetHack.Game.Items.Equipment.Armour;
 
 namespace DotNetHack.Game.Items.Equipment.Armor
 {
+    #region Cloth Set
+
+    [Serializable]
+    public class ClothSetPiece : Armour
+    {
+        public ClothSetPiece(Location3i l, ArmourLocation aArmourLocation)
+            : base(string.Empty, '{', Colour.Standard, l, aArmourLocation)
+        {
+            switch (aArmourLocation)
+            {
+                default: Name = "Cloth " + aArmourLocation;
+                    break;
+                case Equipment.Armour.ArmourLocation.Legs:
+                    Name = "Cloth Pants";
+                    break;
+            }
+            ArmourStats = new Armor.ArmourStats()
+            {
+                Condition = 100,
+                Weight = 0.5,
+            };
+            switch (aArmourLocation)
+            {
+                default:
+                    StatsBase = new StatsBase() { ArmourClass = 1, };
+                    break;
+                case Equipment.Armour.ArmourLocation.Chest:
+                    StatsBase = new StatsBase() { ArmourClass = 2, };
+                    break;
+            }
+        }
+    }
+
+    [Serializable]
+    public class ClothShoes : ClothSetPiece
+    {
+        public ClothShoes(Location3i l)
+            : base(l, ArmourLocation.Feet) { }
+    }
+
+    [Serializable]
+    public class ClothShirt : ClothSetPiece
+    {
+        public ClothShirt(Location3i l)
+            : base(l, ArmourLocation.Chest) { }
+    }
+
+    [Serializable]
+    public class ClothPants : ClothSetPiece
+    {
+        public ClothPants(Location3i l)
+            : base(l, ArmourLocation.Legs) { }
+    }
+
+    #endregion
+
     [Serializable]
     public class ChestpieceOfDebugging : Armour
     {
@@ -76,14 +133,14 @@ namespace DotNetHack.Game.Items.Equipment.Armor
             l, Equipment.Armour.ArmourLocation.LeftFinger)
         {
             StatsBase = new StatsBase() { Intelligence = 8 };
-            ArmourStats = new Armor.ArmourStats() 
-            { 
+            ArmourStats = new Armor.ArmourStats()
+            {
                 Condition = 100,
                 Weight = 0.1,
             };
 
             // occurs on melee strike.
-            OnMeleeStrike += 
+            OnMeleeStrike +=
                 new EventHandler<Events.ArmourStrikeEventArgs>(
                     BandOfSalvation_OnMeleeStrike);
         }

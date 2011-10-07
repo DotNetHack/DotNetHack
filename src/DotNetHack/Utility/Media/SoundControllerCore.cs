@@ -2,6 +2,7 @@
 using NAudio.Wave;
 using System.Collections.Generic;
 using System.Threading;
+using System.IO;
 
 namespace DotNetHack.Utility.Media
 {
@@ -12,6 +13,7 @@ namespace DotNetHack.Utility.Media
     /// </summary>
     public partial class SoundController : BaseSoundController
     {
+
         /// <summary>
         /// Initialize
         /// </summary>
@@ -26,11 +28,12 @@ namespace DotNetHack.Utility.Media
 
                 // Setup mixer
                 Mixer = new WaveMixerStream32();
-                Mixer.AutoStop = true;
+                Mixer.AutoStop = false;
 
                 // Create a new wave-out device.
-                WaveOutDevice = new WaveOut();
+                WaveOutDevice = new WaveOut(WaveCallbackInfo.FunctionCallback());
                 WaveOutDevice.Init(Mixer);
+                WaveOutDevice.Play();
 
                 // Initialize the lazy loading hash
                 SoundCache = new Dictionary<string, CoreSample>();
@@ -49,6 +52,12 @@ namespace DotNetHack.Utility.Media
             if (SoundDisabled)
                 return;
 
+            aSoundFileName = Path.Combine(
+                R.DatSoundsDirectory, aSoundFileName);
+
+            if (!File.Exists(aSoundFileName))
+                return;
+
             if (!SoundCache.ContainsKey(aSoundFileName))
             {
                 WaveFileReader tmpWaveFileReader = new WaveFileReader(aSoundFileName);
@@ -62,10 +71,20 @@ namespace DotNetHack.Utility.Media
                     WaveChannel32 = tmpWaveChannel32,
                 });
 
+
                 Mixer.AddInputStream(SoundCache[aSoundFileName].WaveChannel32);
             }
 
             SoundCache[aSoundFileName].WaveChannel32.Position = 0x00;
+        }
+
+        public override void Stop()
+        {
+            base.Stop();
+
+            WaveOutDevice.Stop();
+            WaveOutDevice.Dispose();
+            WaveOutDevice = null;
         }
 
         /// <summary>

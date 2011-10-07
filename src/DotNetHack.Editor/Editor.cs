@@ -96,11 +96,7 @@ namespace DotNetHack.Editor
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
-        {
-            SoundController.Instance.Initialize();
-            SoundController.Instance.PlaySound(@"C:\Windows\Media\chimes.wav");
-            SoundController.Instance.PlaySound(@"C:\Windows\Media\chimes.wav");
-
+        {            
             // Parse incoming args for the runtime env.
             R.ParseArgs(args);
 

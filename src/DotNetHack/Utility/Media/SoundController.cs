@@ -12,6 +12,7 @@ namespace DotNetHack.Utility.Media
     /// </summary>
     public partial class SoundController : BaseSoundController
     {
+
         #region constructor
 
         /// <summary>

@@ -96,7 +96,8 @@ namespace DotNetHack.Editor
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
-        {            
+        {
+            
             // Parse incoming args for the runtime env.
             R.ParseArgs(args);
 
@@ -517,7 +518,7 @@ namespace DotNetHack.Editor
                     int tmpAdditionalSpawnTime = 0; // + base of 500
                     Herb.HerbType tmpHerbType = Herb.HerbType.MotherWort;
                     switch (R.Random.Next(0, 8))
-                    { 
+                    {
                         case 0:
                             tmpAdditionalSpawnTime = 10;
                             tmpHerbType = Herb.HerbType.Amanita;
@@ -557,7 +558,7 @@ namespace DotNetHack.Editor
                     }
 
                     SetTile(HerbSpawn.NewHerbSpawn(tmpHerbType, tmpAdditionalSpawnTime));
-                    
+
                     break;
 
                 // gress
@@ -755,31 +756,62 @@ namespace DotNetHack.Editor
 
 
                 // TODO: Remove this
-                case ConsoleKey.H:
+                case ConsoleKey.W:
                     {
-                        if (input.Modifiers.HasFlag(ConsoleModifiers.Shift))
-                        {
-                            SetItem(
-                            Dice.RandomChoice<IArmour>(new IArmour[] 
-                        {
-                            new ChestpieceOfDebugging(CurrentLocation),
-                            new GauntletsOfBane(CurrentLocation),
-                            new GauntletsOfWisdom(CurrentLocation),
-                            new BandOfSalvation(CurrentLocation),
-                        })
-                            );
-                        }
-                        else
-                        {
-                            SetItem(Dice.RandomChoice<IWeapon>(new IWeapon[] 
+                        // Add armour menu
+                        // TODO: This is temporary until full out serialization.
+                        Menu mArmour = new Menu("Add Weapon", new[]
                             {
-                                new ShortswordOfRending(CurrentLocation),
-                                new ShortswordOfTheBear(CurrentLocation)
-                            }));
-                        }
-
-                        break;
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Rusted Shortsword",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new RustedShortsword(CurrentLocation));
+                                    },
+                                    MenuActionFilter = (i => i.Key.Equals(ConsoleKey.D1)),
+                                },
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Rusted Longsword",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new RustedLongsword(CurrentLocation));
+                                    },
+                                    MenuActionFilter = (i => i.Key.Equals(ConsoleKey.D2)),
+                                },
+                            });
+                        mArmour.Show(1, 1);
+                        mArmour.Exec(null);
+                        UI.Graphics.Display.Refresh(
+                            CurrentMap, CurrentLocation);
                     }
+
+                    break;
+                // TODO: Remove this
+                case ConsoleKey.A:
+                    {
+                        // Add armour menu
+                        // TODO: This is temporary until full out serialization.
+                        Menu mArmour = new Menu("Add Armour", new[]
+                            {
+                                new Menu.MenuAction() 
+                                {
+                                    Name = "Band of Salvation",
+                                    MAction = delegate(object argv)
+                                    {
+                                        SetItem(new BandOfSalvation(CurrentLocation));
+                                    },
+                                    MenuActionFilter = (i => i.Key.Equals(ConsoleKey.D1)),
+                                },
+                            });
+                        mArmour.Show(1, 1);
+                        mArmour.Exec(null);
+                        UI.Graphics.Display.Refresh(
+                            CurrentMap, CurrentLocation);
+                    }
+
+                    break;
 #endif
                 // Add a new potion, use menu to determine exactly which one.
                 case ConsoleKey.P:
@@ -855,8 +887,6 @@ namespace DotNetHack.Editor
                     break;
             }
         }
-
-
 
         /// <summary>
         /// ProcessMonsterModeCommands

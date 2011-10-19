@@ -87,6 +87,19 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
         }
 
         /// <summary>
+        /// HasSubTypeFlag
+        /// </summary>
+        /// <param name="aWeaponSubType">The subtype flag to check</param>
+        /// <returns></returns>
+        public bool HasSubTypeFlag(WeaponSubType aWeaponSubType)
+        {
+            if ((this.WeaponSubType & aWeaponSubType) == aWeaponSubType)
+                return true;
+            return false;
+        }
+
+
+        /// <summary>
         /// ToString
         /// </summary>
         /// <returns></returns>

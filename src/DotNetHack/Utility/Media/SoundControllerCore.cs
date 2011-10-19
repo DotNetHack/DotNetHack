@@ -3,6 +3,8 @@ using NAudio.Wave;
 using System.Collections.Generic;
 using System.Threading;
 using System.IO;
+using System.Media;
+using DotNetHack.Game;
 
 namespace DotNetHack.Utility.Media
 {

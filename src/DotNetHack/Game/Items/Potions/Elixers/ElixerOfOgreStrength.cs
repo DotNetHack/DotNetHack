@@ -14,6 +14,8 @@ namespace DotNetHack.Game.Items.Potions.Elixers
 
         public override void Quaff(Actor aTarget)
         {
+            base.Quaff(aTarget);
+
             aTarget.EffectStack.Add(new Effects.Effect()
             {
                 EffectedStats = new StatsBase() { Strength = 2 },

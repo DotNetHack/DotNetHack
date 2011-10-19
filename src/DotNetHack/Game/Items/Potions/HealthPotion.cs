@@ -24,6 +24,8 @@ namespace DotNetHack.Game.Items.Potions
         /// </summary>
         public override void Quaff(Actor aActor)
         {
+            base.Quaff(aActor);
+
             // experimental
             // TODO: Level impacts amount of healing done.
             aActor.EffectStack.Add(

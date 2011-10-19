@@ -9,6 +9,7 @@ using DotNetHack.Game.Dungeon;
 using DotNetHack.Game.Items;
 using DotNetHack.Game.Items.Equipment.Armour;
 using DotNetHack.Game.Items.Equipment.Weapons;
+using DotNetHack.Utility.Media;
 
 namespace DotNetHack.Game
 {
@@ -35,6 +36,7 @@ namespace DotNetHack.Game
                 UI.Graphics.Display.ShowSound(e.Sound);
             else if (Stats.Perception >= e.Distance(this))
                 UI.Graphics.Display.ShowSound(e.Sound);
+            SoundController.Instance.PlaySound(e.Description);
         }
 
         /// <summary>
@@ -116,6 +118,45 @@ namespace DotNetHack.Game
                     Inventory.Remove(e.EquipmentInvolved);
                     UI.Graphics.Display.ShowMessage(string.Format("You are now wielding {0}.",
                         e.EquipmentInvolved.Name));
+
+                    if (e.EquipmentInvolved.WeaponSubType.HasFlag(WeaponSubType.ShortBlade))
+                        Sound.DoSound(Sound.SoundEventType.WieldShortSowrd);
+                    else if (e.EquipmentInvolved.WeaponSubType.HasFlag(WeaponSubType.LongBlade))
+                        Sound.DoSound(Sound.SoundEventType.WieldLongSword);
+                    else if (e.EquipmentInvolved.WeaponSubType.HasFlag(WeaponSubType.Blunt))
+                        Sound.DoSound(Sound.SoundEventType.WieldBluntWeapon);
+
+                    /*
+                    switch (e.EquipmentInvolved.WeaponType)
+                    {
+                        case WeaponType.Rapier:
+                        case WeaponType.Stiletto:
+                        case WeaponType.Shortsword:
+                        case WeaponType.Scimitar:
+                        case WeaponType.Sabre:
+                        case WeaponType.Machete:
+                        case WeaponType.Kris:
+                            Sound.DoSound(Sound.SoundEventType.WieldShortSowrd);
+                            break;
+
+                        case WeaponType.BattleAxe:
+                        case WeaponType.Claymore:
+                        case WeaponType.Flamberge:
+                        case WeaponType.Longsword:
+                        case WeaponType.Pike:
+                        case WeaponType.Swordstaff:
+                        case WeaponType.Halberd:
+                            Sound.DoSound(Sound.SoundEventType.WieldLongSword);
+                            break;
+
+                        case WeaponType.Club:
+                        case WeaponType.Flail:
+                        case WeaponType.Mace:
+                        case WeaponType.Maul:
+                        case WeaponType.MorningStar:
+                            Sound.DoSound(Sound.SoundEventType.WieldBluntWeapon);
+                            break;
+                    }*/
                     break;
             }
         }

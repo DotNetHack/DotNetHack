@@ -14,6 +14,7 @@ namespace DotNetHack.UI
         /// Creates a new instance of <c>ProgressBar</c>
         /// </summary>
         public ProgressBar(string text)
+            : base(1, 1, 20, 20)
         {
             Value = 0.0;
             Text = text;

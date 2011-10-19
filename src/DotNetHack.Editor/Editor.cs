@@ -97,6 +97,9 @@ namespace DotNetHack.Editor
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+
+            ProgressBar p1 = new ProgressBar("loading");
+            p1.Show();
             
             // Parse incoming args for the runtime env.
             R.ParseArgs(args);

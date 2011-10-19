@@ -22,15 +22,20 @@ namespace DotNetHack.UI
     public enum Align { IOO, OIO, OOI };
 
     /// <summary>
-    /// 
+    /// Widget
     /// </summary>
     public class Widget
     {
-        public Widget() { }
+        public Widget(int x, int y, int width, int height)
+        {
+            X = x; Y = y; Width = width; Height = height;
+        }
 
         public event EventHandler OnShow;
 
         public event EventHandler OnHide;
+
+        public event EventHandler OnUpdate;
 
         public int X { get; set; }
 
@@ -58,10 +63,13 @@ namespace DotNetHack.UI
                 OnHide(this, null);
         }
 
-        public virtual void Refresh()
+        public virtual void Update() 
         {
-
+            if (OnUpdate != null)
+                OnUpdate(this, null);
         }
+
+        public virtual void Refresh() { }
 
         /// <summary>
         /// CursorState

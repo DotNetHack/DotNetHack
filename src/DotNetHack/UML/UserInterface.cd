@@ -18,7 +18,7 @@
       </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAEAAIwAAAAAAAAAEAABAAAAAAAAAAARAAAA=</HashCode>
+      <HashCode>AAAAAAAAAEAAJwAAAAAAAAAEAABAAAAAAAAAAARAAAA=</HashCode>
       <FileName>UI\Display.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -30,7 +30,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DotNetHack.UI.Menu">
-    <Position X="1.25" Y="8" Width="4.5" />
+    <Position X="1.25" Y="8.75" Width="4.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -59,7 +59,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DotNetHack.UI.Window">
-    <Position X="3.75" Y="0.75" Width="1.5" />
+    <Position X="6.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAggAAAAACAAAAAAAAAAAAAAAEAAAAAgBAAAAAAQQ=</HashCode>
       <FileName>UI\Window.cs</FileName>
@@ -80,9 +80,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DotNetHack.UI.Widget">
-    <Position X="6.25" Y="9.75" Width="3" />
+    <Position X="8.75" Y="13.5" Width="3" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABABAEgAAEAMAAEAABAAAAAABAAAAAAAEYAA=</HashCode>
+      <HashCode>AAQAAAAABABAEAAAEAEAAEAABAAEAAABAAAAAAEEYAA=</HashCode>
       <FileName>UI\Widget.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -90,9 +90,9 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="DotNetHack.UI.ProgressBar">
-    <Position X="6.5" Y="14.5" Width="2.5" />
+    <Position X="3.75" Y="14.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>ACACAAAAAEAAAgIAAAAAAAAAAAAAAAAACAIgCAAAAAA=</HashCode>
+      <HashCode>ACACAAAAAEAQAAIAAAAAAAAAAAAEAAAACAIgCAAAAAA=</HashCode>
       <FileName>UI\ProgressBar.cs</FileName>
     </TypeIdentifier>
   </Class>

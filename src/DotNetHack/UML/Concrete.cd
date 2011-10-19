@@ -10,18 +10,10 @@
   <Class Name="DotNetHack.Game.Player">
     <Position X="21.25" Y="15.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAACAQAAAAAAAAAFACAAAAAAAAAAAAAAAEA=</HashCode>
+      <HashCode>AAAAEAAAEAACAQEAAAAAAAAFICAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>Game\Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="DotNetHack.Game.DungeonExtensions">
-    <Position X="6.25" Y="0.5" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
-      <FileName>Game\Dungeon.cs</FileName>
-      <NewMemberFileName>Game\DungeonLevel.cs</NewMemberFileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="DotNetHack.Game.Items.Containers.LockBox">
     <Position X="4.75" Y="8.5" Width="1.5" />
@@ -48,7 +40,7 @@
   <Class Name="DotNetHack.Game.Items.Item">
     <Position X="5.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAIAAAQAAAAAAAAAAAAAiAAAAgA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAIAAAQAAAAAAAAAAAAAiAAAAgI=</HashCode>
       <FileName>Game\Items\Item.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -56,7 +48,7 @@
   <Class Name="DotNetHack.Game.Items.Equipment.Weapons.Weapon">
     <Position X="9.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgAAgAAAAACAAAAEAAAAAACAAAAAAAAABAAAAEAAAAA=</HashCode>
+      <HashCode>AgAAgAAAAACAAAAEAAAAQQCAAAAAAAAABAAAAEAAAAg=</HashCode>
       <FileName>Game\Items\Equipment\Weapons\Weapon.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -67,7 +59,7 @@
   <Class Name="DotNetHack.Game.Items.Gems.Gem">
     <Position X="0.5" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Game\Items\Gems\Gem.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -118,7 +110,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AgQAgEAAAiAAAQAAAAAAAAQAAIAAAAAAAAEAAwAAAQI=</HashCode>
+      <HashCode>AgRAgAAAACAAAQAAIAARAAAAgIAACAQABIEAAwkAAxI=</HashCode>
       <FileName>Game\GameEngine.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -137,62 +129,12 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DotNetHack.Game.ColourExtensions">
-    <Position X="2.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Game\Colour.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DotNetHack.Game.Colour" BaseTypeListCollapsed="true">
-    <Position X="16.5" Y="14" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ACAKACRBiAACAAAM4BAAAFAABIACAAAIABAMADACgAA=</HashCode>
-      <FileName>Game\Colour.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="DotNetHack.Game.Dice">
     <Position X="24" Y="18.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAA=</HashCode>
       <FileName>Game\Dice.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="DotNetHack.Game.Door">
-    <Position X="9.5" Y="9" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Game\Door.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DotNetHack.Game.Dungeon3">
-    <Position X="15" Y="5.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Nested Types" Collapsed="false" />
-    </Compartments>
-    <NestedTypes>
-      <Delegate Name="DotNetHack.Game.Dungeon3.DungeonIterator" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Game\Dungeon.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Delegate>
-      <Class Name="DotNetHack.Game.Dungeon3.DungeonLocation" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Game\Dungeon.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
-    <TypeIdentifier>
-      <HashCode>AVAAgAAAAAEAAAAAAAAABADAAAAAIAAAABIAAEAAAAA=</HashCode>
-      <FileName>Game\Dungeon.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="DungeonRenderer" />
-    </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="MapData" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="DotNetHack.Game.DungeonRenderer">
     <Position X="18" Y="7.25" Width="1.5" />
@@ -239,23 +181,8 @@
   <Class Name="DotNetHack.Game.Stats">
     <Position X="25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAAAAAEAACABCEAEBABBAABAAAABAAEACAAAUCA=</HashCode>
+      <HashCode>AgAACAAAAAEAACAAAAAEBAAAAAAAAAAAAAAAIAAAQAA=</HashCode>
       <FileName>Game\Stats.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="DotNetHack.Game.Tile">
-    <Position X="12.25" Y="7.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AEAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAA=</HashCode>
-      <FileName>Game\Tile.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="DotNetHack.Game.Affects.AffectModifiers">
-    <Position X="8.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Game\Affects\AffectModifiers.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DotNetHack.Game.Affects.AffectResistance">
@@ -334,6 +261,21 @@
       <FileName>Game\Items\Equipment\Weapons\WeaponProperties.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="DotNetHack.Game.ColourExtensions">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Game\Colour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Game.Colour" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAKACRBiAACAAAM4BAAAFAABIACAAgIABAMADACgAA=</HashCode>
+      <FileName>Game\Colour.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
   <Enum Name="DotNetHack.Game.Items.Equipment.Armour.ArmourLocation">
     <Position X="2.25" Y="11.5" Width="1.5" />
     <TypeIdentifier>
@@ -374,27 +316,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAASAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>Game\Items\Potions\PotionType.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="DotNetHack.Game.TileFlags">
-    <Position X="14.5" Y="11.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Game\TileFlags.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="DotNetHack.Game.TileType">
-    <Position X="12.75" Y="11.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>ABAQFAACCAoAAAiAAAAECABAAAAgAAAAAAAAACAADAA=</HashCode>
-      <FileName>Game\TileType.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="DotNetHack.Game.Affects.AffectType">
-    <Position X="11" Y="11.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAgAACAAAEAAAAEAAAAAAAAAAEAAIAAAAAAAEAAAA=</HashCode>
-      <FileName>Game\Affects\AffectType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

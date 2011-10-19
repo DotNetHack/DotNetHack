@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="DotNetHack.UI.Graphics">
+    <Position X="9" Y="0.5" Width="3.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="DotNetHack.UI.Graphics.MessageBox" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UI\Display.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="DotNetHack.UI.Graphics.Display" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UI\Display.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAIwAAAAAAAAAEAABAAAAAAAAAAARAAAA=</HashCode>
+      <FileName>UI\Display.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.UI.DisplayRegion">
+    <Position X="10.5" Y="10.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\DisplayRegion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.UI.Menu">
+    <Position X="1.25" Y="8" Width="4.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="DotNetHack.UI.Menu.MActionDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UI\Menu.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Struct Name="DotNetHack.UI.Menu.MenuAction" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UI\Menu.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAIAAAEAAAAAAAAAAAAQEABAAAECAgAAAAAA=</HashCode>
+      <FileName>UI\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.UI.Symbols" Collapsed="true">
+    <Position X="1.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GECFDwCMoxKgAtIYIEgeCEAEEMlCAAEBIAIAxFqhACE=</HashCode>
+      <FileName>UI\Symbols.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.UI.Window">
+    <Position X="3.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAggAAAAACAAAAAAAAAAAAAAAEAAAAAgBAAAAAAQQ=</HashCode>
+      <FileName>UI\Window.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.UI.Windows.WindowCharacterSheet">
+    <Position X="5" Y="5.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAACAA=</HashCode>
+      <FileName>UI\Windows\WindowCharacterSheet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.UI.Windows.WindowInventory">
+    <Position X="1.25" Y="5.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UI\Windows\WindowInventory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.UI.Widget">
+    <Position X="6.25" Y="9.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABABAEgAAEAMAAEAABAAAAAABAAAAAAAEYAA=</HashCode>
+      <FileName>UI\Widget.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DisplayRegion" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DotNetHack.UI.ProgressBar">
+    <Position X="6.5" Y="14.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAEAAAgIAAAAAAAAAAAAAAAAACAIgCAAAAAA=</HashCode>
+      <FileName>UI\ProgressBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.Utility.Rectangle">
+    <Position X="11" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAUBAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utility\Rectangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Events;
+using DotNetHack.UI;
 
 namespace DotNetHack.Game.Items.Potions
 {
@@ -27,6 +28,7 @@ namespace DotNetHack.Game.Items.Potions
             PotionStrength = aPotionStrength;
         }
 
+
         /// <summary>
         /// The type of potion
         /// </summary>
@@ -42,6 +44,7 @@ namespace DotNetHack.Game.Items.Potions
         /// </summary>
         public virtual void Quaff(Actor aTarget) 
         {
+            Sound.DoSound(Sound.SoundEventType.QuaffPotion);
             if (OnQuaff != null)
                 OnQuaff(this, new PotionEventArgs(aTarget, this));
         }

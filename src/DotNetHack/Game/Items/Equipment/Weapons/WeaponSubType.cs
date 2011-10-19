@@ -22,11 +22,6 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
         Thrown,
 
         /// <summary>
-        /// is this a ranged weapon (requires ammo)
-        /// </summary>
-        Ranged, 
-
-        /// <summary>
         /// is this a two handed weapon? (like bows)
         /// </summary>
         TwoHanded, 
@@ -39,6 +34,30 @@ namespace DotNetHack.Game.Items.Equipment.Weapons
         /// <summary>
         /// will this work as an offhand weapon?
         /// </summary>
-        OffHand 
+        OffHand,
+
+        #region additional classification
+
+        /// <summary>
+        /// A blunt weapon
+        /// </summary>
+        Blunt,
+
+        /// <summary>
+        /// is this a ranged weapon (requires ammo)
+        /// </summary>
+        Ranged,
+ 
+        /// <summary>
+        /// A longer blade
+        /// </summary>
+        LongBlade,
+
+        /// <summary>
+        /// A short blade
+        /// </summary>
+        ShortBlade,
+
+        #endregion
     }
 }

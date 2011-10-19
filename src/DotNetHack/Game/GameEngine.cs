@@ -19,6 +19,7 @@ using System.IO;
 using System.Threading;
 using DotNetHack.Game.NPC;
 using DotNetHack.UI.Windows;
+using DotNetHack.Utility.Media;
 
 namespace DotNetHack.Game
 {
@@ -272,7 +273,7 @@ namespace DotNetHack.Game
                     break;
 
                 case ConsoleKey.I:
-                    WindowInventory inventoryWindow = 
+                    WindowInventory inventoryWindow =
                         new WindowInventory(Player);
                     inventoryWindow.Show();
                     CurrentMap.DungeonRenderer.HardRefresh(Player.Location);
@@ -371,14 +372,16 @@ namespace DotNetHack.Game
             try { MonsterStore = Persisted.Read<List<Monster>>(R.MonsterFile); }
             catch { return false; }
 
+            SoundController.Instance.Initialize();
+
             return true;
         }
 
         /// <summary>
         /// GameEngine_OnTick
         /// </summary>
-        /// <param name="sender">Event sender</param>
-        /// <param name="e">Event args</param>
+        /// <param name="sender">OnShow sender</param>
+        /// <param name="e">OnShow args</param>
         void GameEngine_OnTick(object sender, EventArgs e)
         {
             Time++;

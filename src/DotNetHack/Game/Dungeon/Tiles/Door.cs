@@ -34,17 +34,13 @@ namespace DotNetHack.Game.Dungeon.Tiles
 
         public virtual void CloseDoor()
         {
-            if (Dice.D(5))
-                GameEngine.DoSound(new Sound(this, 40, "Thud!"));
-            else if (Dice.D(5))
-                GameEngine.DoSound(new Sound(this, 40, "Ka-chunk!"));
+            GameEngine.DoSound(new Sound(this, 40, "switch_1.wav"));    
             InternalDoorState = DoorState.Closed;
         }
 
         public virtual void OpenDoor()
         {
-            if (Dice.D(5))
-                GameEngine.DoSound(new Sound(10, "Creeek ..."));
+            GameEngine.DoSound(new Sound(10, "switch_1.wav"));
             InternalDoorState = DoorState.Opened;
         }
 

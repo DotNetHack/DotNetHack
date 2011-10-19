@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DotNetHack.Game.Interfaces;
+using DotNetHack.Utility.Media;
 
 namespace DotNetHack.Game
 {
@@ -35,12 +36,85 @@ namespace DotNetHack.Game
     /// </summary>
     public class Sound : IHasLocation
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void DoSound(SoundEventType aSoundEventType)
+        {
+            string strSound = "";
+            switch (aSoundEventType)
+            {
+                case SoundEventType.AlchemyPotionCreate:
+                    strSound = "alchemy_create_001"; break;
+                case SoundEventType.QuaffPotion:
+                    strSound = "quaff_potion_001"; break;
+                case SoundEventType.DropMetalArmour:
+                    strSound = "armour_drop_001"; break;
+                case SoundEventType.EquipMetalArmour:
+                    strSound = "armour_drop_001"; break;
+                case SoundEventType.FootStepHumanoid:
+                    strSound = ""; break;
+                case SoundEventType.SheathBluntWeapon:
+                    strSound = "shield_drop_001"; break;
+                case SoundEventType.WieldBluntWeapon:
+                    strSound = "pickup_mace_001"; break;
+                case SoundEventType.TrapTriggered:
+                    strSound = "trap_trigger_001"; break;
+                case SoundEventType.WieldLongSword:
+                    strSound = "wield_longsword_001"; break;
+                case SoundEventType.DropBladedWeapon:
+                    strSound = "weapon_drop_001"; break;
+                case SoundEventType.DropBluntWeapon:
+                    strSound = "drop_blunt_weapon_001"; break;
+                case SoundEventType.WieldShortSowrd:
+                    strSound = "blacksmith_001"; break;
+                case SoundEventType.PickupKey:
+                    strSound = "pickup_key_001"; break;
+                case SoundEventType.OpenLockedDoor:
+                    strSound = "open_door_locked_001"; break;
+                case SoundEventType.LowHealthIndicator:
+                    strSound = "heart_beating_001"; break;
+            }
+
+            strSound += ".wav";
+
+            if (!string.Empty.Equals(strSound))
+                SoundController.Instance.PlaySound(strSound);
+        }
+
+        /// <summary>
+        /// <remarks>
+        /// Naming Convention:
+        ///     "verb-class" - most descriptive attribute
+        ///     "subclass" - secondary attribute
+        /// </remarks>
+        /// </summary>
+        public enum SoundEventType
+        {
+            PickupKey,
+            OpenLockedDoor,
+            QuaffPotion,
+            AlchemyPotionCreate,
+            FootStepHumanoid,
+            WieldLongSword,
+            WieldShortSowrd,
+            WieldBluntWeapon,
+            SheathBluntWeapon,
+            DropBluntWeapon,
+            DropMetalArmour,
+            DropBladedWeapon,
+            EquipMetalArmour,
+            TrapTriggered,
+            LowHealthIndicator,
+        }
+
         /// <summary>
         /// A sound
         /// </summary>
         /// <param name="aSource">The source of the sound</param>
         /// <param name="aDecibels">The magnitude of the sound.</param>
-        public Sound(IHasLocation aSource, int aDecibels, string aDescription, 
+        public Sound(IHasLocation aSource, int aDecibels, string aDescription,
             bool aAmbient = false)
         {
             Location = aSource.Location;
@@ -54,7 +128,7 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="aDecibels">db</param>
         /// <param name="aDescription">description</param>
-        public Sound(int aDecibels, string aDescription) 
+        public Sound(int aDecibels, string aDescription)
         {
             IsSoundAmbient = true;
             SoundDecibels = aDecibels;
@@ -87,13 +161,13 @@ namespace DotNetHack.Game
         /// </summary>
         /// <param name="l"></param>
         /// <returns></returns>
-        public double DistanceTo(IHasLocation l) 
+        public double DistanceTo(IHasLocation l)
         {
             if (l == null)
                 return 0D;
             else if (l.Location == null)
                 return 0D;
-            return Location.Distance(l.Location); 
+            return Location.Distance(l.Location);
         }
     }
 }

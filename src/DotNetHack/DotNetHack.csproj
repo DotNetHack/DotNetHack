@@ -150,8 +150,10 @@
     <Compile Include="Game\Dungeon\Tiles\TileFlags.cs" />
     <Compile Include="Game\TargetSelector.cs" />
     <Compile Include="Game\World.cs" />
-    <Compile Include="Game\Colour.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="Game\Colour.cs" />
+    <Compile Include="UI\CursorState.cs" />
+    <Compile Include="UI\ProgressBar.cs" />
     <Compile Include="UI\Windows\WindowCharacterSheet.cs" />
     <Compile Include="UI\DisplayRegion.cs" />
     <Compile Include="UI\Display.cs" />
@@ -195,6 +197,7 @@
     <Compile Include="Game\Speech.cs" />
     <Compile Include="Game\Dungeon\Tiles\Tile.cs" />
     <Compile Include="Game\Dungeon\Tiles\TileType.cs" />
+    <Compile Include="UI\Widget.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Game\Items\Magical\Scrolls\" />
@@ -207,6 +210,7 @@
     <None Include="Game\NPC\NPC.cd" />
     <None Include="UML\Concrete.cd" />
     <None Include="UML\Interfaces.cd" />
+    <None Include="UML\UserInterface.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

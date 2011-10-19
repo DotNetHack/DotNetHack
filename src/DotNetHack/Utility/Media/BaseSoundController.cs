@@ -11,6 +11,7 @@ namespace DotNetHack.Utility.Media
     /// </summary>
     public abstract class BaseSoundController
     {
+
         /// <summary>
         /// Initialize
         /// </summary>
@@ -27,6 +28,14 @@ namespace DotNetHack.Utility.Media
         {
             if (OnSoundPlayback != null)
                 OnSoundPlayback(this, new EventArgs());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual void Stop() 
+        {
+        
         }
 
         /// <summary>

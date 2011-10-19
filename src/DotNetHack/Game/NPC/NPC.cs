@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using DotNetHack.Game.Interfaces;
 using DotNetHack.Game.Actions;
 
+
 namespace DotNetHack.Game.NPC
 {
     /// <summary>

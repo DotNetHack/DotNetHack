@@ -10,7 +10,7 @@ namespace DotNetHack.UI
     /// <summary>
     /// Window
     /// </summary>
-    public class Window
+    public class Window : Widget
     {
         protected event EventHandler<KeyPressEventArgs> OnPageUp;
         protected event EventHandler<KeyPressEventArgs> OnPageDown;
@@ -33,48 +33,50 @@ namespace DotNetHack.UI
         /// <param name="aWindowHeight"></param>
         public Window(string aWindowTitle, int x, int y,
             int aWindowWidth, int aWindowHeight)
+            : base(x, y, aWindowWidth, aWindowHeight)
         {
             if (aWindowHeight <= 0 || aWindowWidth <= 0)
                 throw new ArgumentException(
                     "Window size and coorinates must be greater than zero.");
 
             WindowTitle = aWindowTitle;
-            WindowRegion = new DisplayRegion(x, y,
-                x + aWindowWidth, y + (aWindowHeight - 1));
+            // WindowRegion = new DisplayRegion(x, y,
+            // x + aWindowWidth, y + (aWindowHeight - 1));
         }
 
         /// <summary>
-        /// 
+        /// WindowRegion
         /// </summary>
-        DisplayRegion WindowRegion { get; set; }
+        DisplayRegion WindowRegion { get { return base.DisplayRegion; } }
 
         /// <summary>
-        /// 
+        /// WindowTitle
         /// </summary>
         public string WindowTitle { get; set; }
 
         /// <summary>
-        /// 
+        /// WindowWidth
         /// </summary>
         public int WindowWidth
         {
-            get { return WindowRegion.Width; }
+            get { return Width; }
         }
 
         /// <summary>
-        /// 
+        /// WindowHeight
         /// </summary>
         public int WindowHeight
         {
-            get { return WindowRegion.Length; }
+            get { return Height; }
         }
 
         /// <summary>
-        /// Show this window.
+        /// Show
         /// </summary>
-        public virtual void Show()
+        public override void Show()
         {
-            // display bounding box around window region.
+            base.Show();
+
             UI.Graphics.Display.Box(WindowRegion);
             Console.SetCursorPosition(WindowRegion.P1.X + 3, WindowRegion.P1.Y);
             Console.Write(string.Format("{0} {1} {2}",

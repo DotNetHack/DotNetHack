@@ -39,7 +39,13 @@ namespace DotNetHack
 
             InitializePath(R.WorkingDirectory);
             InitializePath(R.DatDirectory);
+            InitializePath(R.DatSoundsDirectory);
 #endif
+        }
+
+        public static string DatSoundsDirectory
+        {
+            get { return Path.Combine(DatDirectory, DAT_SOUNDS_FOLDER); }
         }
 
         public static string DatDirectory
@@ -52,7 +58,7 @@ namespace DotNetHack
             get { return Path.Combine(DatDirectory, DAT_MONSTERS); }
         }
 
-        public static string ExceptionFile 
+        public static string ExceptionFile
         {
             get { return Path.Combine(DatDirectory, LOG_EXCEPTION); }
         }
@@ -74,6 +80,7 @@ namespace DotNetHack
         }
 
         const string DAT_FOLDER = "dat";
+        const string DAT_SOUNDS_FOLDER = "sounds";
         const string DAT_MONSTERS = "monsters.dat";
         const string LOG_EXCEPTION = "exceptions.log";
 

@@ -11,8 +11,19 @@ namespace DotNetHack.UI
     /// <summary>
     /// Graphics
     /// </summary>
-    public partial class Graphics
+    public static partial class Graphics
     {
+        /// <summary>
+        /// extension method allowing a CursorState to be set right off the bat.
+        /// </summary>
+        /// <param name="value">the cursor state to set effective immediate</param>
+        public static void Set(this CursorState value)
+        {
+            Console.SetCursorPosition(value.X, value.Y);
+            Console.ForegroundColor = value.FG;
+            Console.BackgroundColor = value.BG;
+        }
+
         /// <summary>
         /// Initialize
         /// </summary>

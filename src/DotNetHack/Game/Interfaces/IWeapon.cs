@@ -28,6 +28,13 @@ namespace DotNetHack.Game.Interfaces
         /// the type of weapon this is
         /// </summary>
         WeaponType WeaponType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aWeaponSubType"></param>
+        /// <returns></returns>
+        bool HasSubTypeFlag(WeaponSubType aWeaponSubType);
     }
 }
 

@@ -10,5 +10,9 @@ namespace DotNetHack.Game.Items.Equipment.Tools
         public Calcinator(double m)
             : base("Calcinator", new Glyph('π', Colour.Standard), 0.0, 0.0, 0.0, -m)
         { }
+
+        public override void Apply(Interfaces.IItem[] items) { }
+
+        public override void Use() { }
     }
 }

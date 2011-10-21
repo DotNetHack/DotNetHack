@@ -55,7 +55,11 @@
     <Compile Include="Game\Actions\Quaff.cs" />
     <Compile Include="Game\Actions\Wield.cs" />
     <Compile Include="Game\Actor.cs" />
-    <Compile Include="Game\Alchemy.cs" />
+    <Compile Include="Game\Alchemy\Alchemy.cs" />
+    <Compile Include="Game\Items\Equipment\Tools\AlchemyEquipment.cs" />
+    <Compile Include="Game\Items\Equipment\Tools\AlchemyEquipmentEffect.cs" />
+    <Compile Include="Game\Alchemy\Ingredient .cs" />
+    <Compile Include="Game\Alchemy\Recipe.cs" />
     <Compile Include="Game\Direction.cs" />
     <Compile Include="Game\Dungeon\Dungeon.cs" />
     <Compile Include="Game\Dice.cs" />
@@ -145,6 +149,7 @@
     <Compile Include="Game\NPC\ShopKeeper.cs" />
     <Compile Include="Game\NPC\Villager.cs" />
     <Compile Include="Game\Quests\Quest.cs" />
+    <Compile Include="Game\Quests\Task.cs" />
     <Compile Include="Game\Sound.cs" />
     <Compile Include="Game\Stats.cs" />
     <Compile Include="Game\Dungeon\Tiles\TileFlags.cs" />

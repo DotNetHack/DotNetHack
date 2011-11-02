@@ -60,6 +60,11 @@ X	Explodes
             Stats.OnHealthChanged += new EventHandler(Stats_OnHealthChanged);
         }
 
+        public override void Execute(Player aPlayer)
+        {
+            base.Execute(aPlayer);
+        }
+
         void Stats_OnHealthChanged(object sender, EventArgs e)
         {
             if (Stats.Health <= 0)

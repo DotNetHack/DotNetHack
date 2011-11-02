@@ -14,18 +14,14 @@ namespace DotNetHack.Game.Items.Herbs
             {
                 default:
                     return Colour.Grass;
-                    break;
                 case Herb.HerbType.TigerLilly:
                     return new Colour(ConsoleColor.Yellow, ConsoleColor.Green);
-                    break;
                 case Herb.HerbType.WhiteSage:
                     return new Colour(ConsoleColor.White, ConsoleColor.Green);
-                    break;
                 case Herb.HerbType.MandrakeRoot:
                 case Herb.HerbType.Amanita:
                 case Herb.HerbType.WolfsBane:
                     return new Colour(ConsoleColor.Red, ConsoleColor.Green);
-                    break;
             }
         }
     }
@@ -57,6 +53,9 @@ namespace DotNetHack.Game.Items.Herbs
         public Herb(HerbType aType)
             : this(aType, aType.GetHerbColourByType()) { }
 
+        /// <summary>
+        /// Various types of herbs
+        /// </summary>
         public enum HerbType
         {
             // Various

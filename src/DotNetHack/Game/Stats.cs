@@ -22,7 +22,7 @@ namespace DotNetHack.Game
         /// Creates a new instance of stats base with all stats set to the same value.
         /// </summary>
         /// <param name="v">The value that all stats will be set to.</param>
-        public StatsBase(int v) 
+        public StatsBase(int v)
         {
             Strength = v;
             Perception = v;
@@ -213,10 +213,10 @@ namespace DotNetHack.Game
         }
 
         [XmlIgnore]
-        public int Mana 
+        public int Mana
         {
             get { return _mana; }
-            set 
+            set
             {
                 if (_mana != value)
                     _mana = value;
@@ -235,9 +235,19 @@ namespace DotNetHack.Game
         /// <summary>
         /// Health as a percentage.
         /// </summary>
+        [XmlIgnore]
         public double HealthPercent
         {
-            get { return (Health / HitPoints) * 100.0; }
+            get { return (Health * 1.0 / HitPoints) * 100.0; }
+        }
+
+        /// <summary>
+        /// Mana remaining as a percentage
+        /// </summary>
+        [XmlIgnore]
+        public double ManaPercent
+        {
+            get { return (Mana * 1.0 / ManaPoints) * 100.0; }
         }
 
         /// <summary>

@@ -9,18 +9,23 @@ namespace DotNetHack.Game.Items.Equipment.Tools
     /// <summary>
     /// MortarAndPestle
     /// </summary>
-    public class MortarAndPestle : Tool
+    public class MortarAndPestle : AlchemyEquipment
     {
         /// <summary>
         /// MortarAndPestle
         /// </summary>
-        public MortarAndPestle()
-            : base("MortarAndPestle", 'ü', Colour.Standard)
+        public MortarAndPestle(double m)
+            : base("Mortar & Pestle", new Glyph('ü', Colour.Standard),
+            m, 0.0, 0.0, 0.0)
         { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="items"></param>
         public override void Apply(Interfaces.IItem[] items)
         {
-            throw new NotImplementedException();
+
         }
 
         /// <summary>
@@ -28,7 +33,7 @@ namespace DotNetHack.Game.Items.Equipment.Tools
         /// </summary>
         public override void Use()
         {
-            
+
         }
     }
 }

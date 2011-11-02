@@ -93,6 +93,20 @@ namespace DotNetHack.UI
         public static void Clear() { Clear(Colour.Standard); }
 
         /// <summary>
+        /// Clear the passed display region
+        /// </summary>
+        /// <param name="dr"></param>
+        public static void Clear(DisplayRegion dr)
+        {
+            for (int x = dr.P1.X; x < dr.P2.X; ++x)
+                for (int y = dr.P1.Y; y < dr.P2.Y; ++y)
+                {
+                    UI.Graphics.CursorToLocation(x, y);
+                    Console.Write(' ');
+                }
+        }
+
+        /// <summary>
         /// Draw
         /// </summary>
         /// <param name="aDrawable">A drawable object or thing</param>

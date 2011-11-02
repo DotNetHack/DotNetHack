@@ -69,22 +69,19 @@ namespace DotNetHack.Game.NPC
             if (nStack == null)
                 return;
 
-            if (_speedCounter % this.Stats.Speed +1 == 0)
+            // when the player is in range, don't pop, flag as melee range.
+            WayPoint = nStack.Pop();
+
+            // dont allow this baddy to go *onto* the player.
+            if (WayPoint.Location == GameEngine.Player.Location)
             {
-                // when the player is in range, don't pop, flag as melee range.
-                WayPoint = nStack.Pop();
-
-                // dont allow this baddy to go *onto* the player.
-                if (WayPoint.Location == GameEngine.Player.Location)
-                {
-                    // stay right here.
-                    WayPoint.Location = Location;
-                    meleeRange = true;
-                }
-
-                Location = WayPoint.Location;
-                _speedCounter = 0;
+                // stay right here.
+                WayPoint.Location = Location;
+                meleeRange = true;
             }
+
+            Location = WayPoint.Location;
+            _speedCounter = 0;
 
             if (meleeRange)
                 new ActionMeleeAttack(this, aPlayer).Perform();

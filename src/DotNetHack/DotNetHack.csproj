@@ -112,6 +112,7 @@
     <Compile Include="Game\Items\Equipment\Tools\Alembic .cs" />
     <Compile Include="Game\Items\Equipment\Tools\MortarAndPestle.cs" />
     <Compile Include="Game\Items\Equipment\Tools\Calcinator.cs" />
+    <Compile Include="Game\Items\Equipment\Tools\PickAxe.cs" />
     <Compile Include="Game\Items\Equipment\Tools\Tool.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\ExperimentalWeapons.cs" />
     <Compile Include="Game\Items\Equipment\Weapons\WeaponLocation.cs" />

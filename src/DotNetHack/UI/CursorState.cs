@@ -12,6 +12,11 @@ namespace DotNetHack.UI
     public class CursorState
     {
         /// <summary>
+        /// Static constructor; mainly for the CursorStateStack.
+        /// </summary>
+        static CursorState() { CursorStateStack = new Stack<CursorState>(); }
+
+        /// <summary>
         /// Create a new CursorState object
         /// </summary>
         /// <param name="x">x-coordinate</param>
@@ -22,7 +27,7 @@ namespace DotNetHack.UI
         {
             X = x; Y = y; FG = fg; BG = bg;
         }
-        
+
         /// <summary>
         /// the x-coordinate
         /// </summary>
@@ -54,5 +59,32 @@ namespace DotNetHack.UI
                     Console.ForegroundColor, Console.BackgroundColor);
             }
         }
+
+        #region Cursor State Stack
+
+        /// <summary>
+        /// Push the cursor state
+        /// </summary>
+        public static void PushCursorState()
+        {
+            CursorStateStack.Push(CurrentCursorState);
+        }
+
+        /// <summary>
+        /// Pops the cursor state
+        /// </summary>
+        public static void PopAndSetCursorState()
+        {
+            if (CursorStateStack.Count <= 0)
+                return;
+            CursorStateStack.Pop().Set();
+        }
+
+        /// <summary>
+        /// CursorStateStack
+        /// </summary>
+        static Stack<CursorState> CursorStateStack { get; set; }
+
+        #endregion
     }
 }

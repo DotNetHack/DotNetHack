@@ -3,14 +3,14 @@
   <Class Name="DotNetHack.Game.Location3i">
     <Position X="12.5" Y="0.75" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIEQACAAiAAAAAAAAAAAAAABAAABQA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAIEQACAAiAAAAAAAAAAAAAABAAAByA=</HashCode>
       <FileName>Game\Location.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DotNetHack.Game.Colour">
     <Position X="4.5" Y="1.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>ACAKACAAiAACAAAIoAAAAFAABIACAAAIABAMADACgAA=</HashCode>
+      <HashCode>ACAKACRBiAACAAAM4BAAAFAABIACAAgIABAMADACgAA=</HashCode>
       <FileName>Game\Colour.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -22,14 +22,14 @@
       <FileName>Game\Location.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="DotNetHack.Game.Interfaces.IWeapon" Collapsed="true">
-    <Position X="5.75" Y="8" Width="1.5" />
+  <Interface Name="DotNetHack.Game.Interfaces.IWeapon">
+    <Position X="5.75" Y="8" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAACAAAAAAAAABAAAAEAAAAg=</HashCode>
       <FileName>Game\Interfaces\IWeapon.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DotNetHack.Game.Interfaces.IConsumable" Collapsed="true">
+  <Interface Name="DotNetHack.Game.Interfaces.IConsumable">
     <Position X="13.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -50,7 +50,7 @@
       <FileName>Game\Interfaces\IDrawable.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DotNetHack.Game.Interfaces.IEquipment" Collapsed="true">
+  <Interface Name="DotNetHack.Game.Interfaces.IEquipment">
     <Position X="8" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -60,7 +60,7 @@
   <Interface Name="DotNetHack.Game.Interfaces.IFood">
     <Position X="12.5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>IAAAAAAIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Game\Interfaces\IFood.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -112,7 +112,7 @@
       <FileName>Game\Interfaces\IItem.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DotNetHack.Game.Interfaces.IMagical" Collapsed="true">
+  <Interface Name="DotNetHack.Game.Interfaces.IMagical">
     <Position X="10.25" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -157,8 +157,8 @@
   <Interface Name="DotNetHack.Game.Interfaces.IArmour" Collapsed="true">
     <Position X="4.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Game\Interfaces\IArmour.cs</FileName>
+      <HashCode>BAAAAAAAAAEQAAAAAAAECAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game\Interfaces\IArmor.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="DotNetHack.Game.Interfaces.ITool">

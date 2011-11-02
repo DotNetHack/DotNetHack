@@ -20,7 +20,10 @@ namespace DotNetHack.UI.Windows
         public WindowCharacterSheet(Actor aActor)
             : base("Character Sheet for \"" + aActor.Name + "\" (lvl." +
                 aActor.Stats.Level + ")")
-        { Character = aActor; }
+        {
+            Character = aActor;
+
+        }
 
         /// <summary>
         /// show the character sheet.
@@ -69,9 +72,19 @@ namespace DotNetHack.UI.Windows
             // skip 1
             y_coord = 0;
 
-            int x_coord = 22;
+            int x_coord = 44;
 
-            /// Head
+            Console.SetCursorPosition(x_coord, 3 + y_coord++);
+
+            new ProgressBar("mana", 44, 5,
+                GameEngine.Player.Stats.ManaPercent).Show();
+
+            new ProgressBar("hp", 44, 7,
+                GameEngine.Player.Stats.HealthPercent).Show();
+
+            x_coord = 22;
+
+            /// Head, 0 
             Console.SetCursorPosition(x_coord, 3 + y_coord++);
             IArmour armour = null;
             armour = Character.WornArmour.GetWornArmourByLocation(
@@ -80,7 +93,7 @@ namespace DotNetHack.UI.Windows
                 Console.WriteLine("Head: " + armour.Name);
             else Console.WriteLine("Head:       (none)");
 
-            /// Neck
+            /// Neck, 1
             Console.SetCursorPosition(x_coord, 3 + y_coord++);
             armour = null;
             armour = Character.WornArmour.GetWornArmourByLocation(
@@ -90,7 +103,7 @@ namespace DotNetHack.UI.Windows
             else Console.WriteLine("Neck:       (none)");
             armour = null;
 
-            /// Chest
+            /// Chest, 2
             Console.SetCursorPosition(x_coord, 3 + y_coord++);
             armour = null;
             armour = Character.WornArmour.GetWornArmourByLocation(
@@ -100,7 +113,7 @@ namespace DotNetHack.UI.Windows
             else Console.WriteLine("Chest:      (none)");
             armour = null;
 
-            /// Arms
+            /// Arms, 3
             Console.SetCursorPosition(x_coord, 3 + y_coord++);
             armour = null;
             armour = Character.WornArmour.GetWornArmourByLocation(
@@ -110,7 +123,7 @@ namespace DotNetHack.UI.Windows
             else Console.WriteLine("Arms:       (none)");
             armour = null;
 
-            /// Hands
+            /// Hands, 4
             Console.SetCursorPosition(x_coord, 3 + y_coord++);
             armour = null;
             armour = Character.WornArmour.GetWornArmourByLocation(
@@ -120,7 +133,7 @@ namespace DotNetHack.UI.Windows
             else Console.WriteLine("Hands:      (none)");
             armour = null;
 
-            /// Legs
+            /// Legs, 5
             Console.SetCursorPosition(x_coord, 3 + y_coord++);
             armour = null;
             armour = Character.WornArmour.GetWornArmourByLocation(
@@ -130,7 +143,7 @@ namespace DotNetHack.UI.Windows
             else Console.WriteLine("Legs:       (none)");
             armour = null;
 
-            /// Feet
+            /// Feet, 6
             Console.SetCursorPosition(x_coord, 3 + y_coord++);
             armour = null;
             armour = Character.WornArmour.GetWornArmourByLocation(
@@ -140,7 +153,7 @@ namespace DotNetHack.UI.Windows
             else Console.WriteLine("Feet:       (none)");
             armour = null;
 
-            /// LeftFinger
+            /// LeftFinger, 7
             Console.SetCursorPosition(x_coord, 3 + y_coord++);
             armour = null;
             armour = Character.WornArmour.GetWornArmourByLocation(
@@ -151,7 +164,7 @@ namespace DotNetHack.UI.Windows
                 Console.WriteLine("LeftFinger: (none)");
             armour = null;
 
-            /// RightFinger
+            /// RightFinger, 8
             Console.SetCursorPosition(x_coord, 3 + y_coord++);
             armour = null;
             armour = Character.WornArmour.GetWornArmourByLocation(
@@ -165,6 +178,8 @@ namespace DotNetHack.UI.Windows
 
             Console.ReadKey(true);
         }
+
+
 
         /// <summary>
         /// The character in this character sheet.

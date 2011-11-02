@@ -64,10 +64,15 @@ namespace DotNetHack.Game.Items.Herbs
             ShadeLeaf,
             WhiteSage,
             MandrakeRoot,
+            FeverFew,
+            Juniper,
+            ElderBerry,
+            CatsClaw,
 
             // floral
             Hibiscus,
             TigerLilly,
+            StarAnise,
 
             // Mushrooms & Fungi
             DeathCap,

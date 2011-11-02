@@ -21,7 +21,7 @@ namespace DotNetHack.UI
         /// </summary>
         /// <param name="aWindowTitle">The title for the window</param>
         public Window(string aWindowTitle)
-            : this(aWindowTitle, 0, 0, Graphics.ScreenWidth, Graphics.ScreenHeight) { }
+            : this(aWindowTitle, 0, 0, Graphics.ScreenWidth, Graphics.ScreenHeight - 1) { }
 
         /// <summary>
         /// Window

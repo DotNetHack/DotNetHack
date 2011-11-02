@@ -50,7 +50,6 @@ namespace DotNetHack.UI
         public virtual void Show()
         {
             IsVisible = true;
-            CursorState.PushCursorState();
             Console.SetCursorPosition(X, Y);
             if (OnShow != null)
                 OnShow(this, null);
@@ -59,7 +58,6 @@ namespace DotNetHack.UI
         public virtual void Hide()
         {
             IsVisible = false;
-            CursorState.PopAndSetCursorState();
             if (OnHide != null)
                 OnHide(this, null);
         }

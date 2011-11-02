@@ -14,16 +14,24 @@ namespace DotNetHack.UI
         /// Creates a new instance of <c>ProgressBar</c>
         /// </summary>
         public ProgressBar(string text)
-            : base(1, 1, 20, 20)
+            : this(text, 1, 1) { }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ProgressBar"/>
+        /// </summary>
+        /// <param name="text">The inner text</param>
+        /// <param name="x">x-coordinate</param>
+        /// <param name="y">y-coordinate</param>
+        public ProgressBar(string text, int x, int y, double v = 0.0)
+            : base(x, y, DefaultWidth, 1)
         {
-            Value = 0.0;
+            Value = v;
             Text = text;
-            Width = DefaultWidth;
 
             // init progress-bar colour scheme
             TC = ConsoleColor.Yellow;
             BG = ConsoleColor.Cyan;
-            FG = ConsoleColor.White;
+            FG = ConsoleColor.Black;
         }
 
         /// <summary>
@@ -31,6 +39,8 @@ namespace DotNetHack.UI
         /// </summary>
         public override void Show()
         {
+            CursorState.PushCursorState();
+
             base.Show();
 
             // set-up the colour scheme
@@ -42,6 +52,8 @@ namespace DotNetHack.UI
             {
                 // deliniate progress using colour.
                 if (index > (Width / 100.0) * Value && Value > 0)
+                    Console.BackgroundColor = TC;
+                else if (Value >= 100.0)
                     Console.BackgroundColor = TC;
 
                 // draw the text
@@ -62,6 +74,8 @@ namespace DotNetHack.UI
                 Console.Write(DisplayGlyph);
                 Console.SetCursorPosition(X + index, Y);
             }
+
+            CursorState.PopAndSetCursorState();
         }
 
         /// <summary>

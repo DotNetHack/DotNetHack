@@ -124,7 +124,9 @@ namespace DotNetHack.Game
         /// </summary>
         public virtual void RegenerateMagika()
         {
-            if (++MagikaRegenTicks > (100 - (Stats.Intelligence + Stats.Wisdom)))
+            StatsBase b = WornArmour.CommutedStats(a => a.ArmourStats.Condition > 0);
+
+            if (++MagikaRegenTicks > (100 - ((b.Intelligence + Stats.Intelligence) * 3)))
             {
                 MagikaRegenTicks = 0;
                 Stats.Mana++;
@@ -139,10 +141,10 @@ namespace DotNetHack.Game
         /// </summary>
         public virtual void RegenerateHealth()
         {
-            StatsBase b = WornArmour.CommutedStats(a => 
-                a.ArmourStats.Condition > 0 && a.StatsBase.Endurance > 0 );
+            StatsBase b = WornArmour.CommutedStats(a =>
+                a.ArmourStats.Condition > 0 && a.StatsBase.Endurance > 0);
 
-            if (++HealthRegenTicks > (100 - (Stats.Endurance + b.Endurance)))
+            if (++HealthRegenTicks > (100 - ((b.Endurance + Stats.Endurance) * 2)))
             {
                 HealthRegenTicks = 0;
                 Stats.Health++;

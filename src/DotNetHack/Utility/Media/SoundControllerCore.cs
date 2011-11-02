@@ -15,7 +15,6 @@ namespace DotNetHack.Utility.Media
     /// </summary>
     public partial class SoundController : BaseSoundController
     {
-
         /// <summary>
         /// Initialize
         /// </summary>
@@ -29,6 +28,7 @@ namespace DotNetHack.Utility.Media
                 base.Initialize();
 
                 // Setup mixer
+
                 Mixer = new WaveMixerStream32();
                 Mixer.AutoStop = false;
 
@@ -73,11 +73,11 @@ namespace DotNetHack.Utility.Media
                     WaveChannel32 = tmpWaveChannel32,
                 });
 
-
                 Mixer.AddInputStream(SoundCache[aSoundFileName].WaveChannel32);
             }
 
-            SoundCache[aSoundFileName].WaveChannel32.Position = 0x00;
+            try { SoundCache[aSoundFileName].WaveChannel32.Position = 0x00; }
+            catch { }
         }
 
         public override void Stop()

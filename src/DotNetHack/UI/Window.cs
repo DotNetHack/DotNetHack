@@ -76,7 +76,7 @@ namespace DotNetHack.UI
         public override void Show()
         {
             base.Show();
-
+            UI.Graphics.Clear(WindowRegion);
             UI.Graphics.Display.Box(WindowRegion);
             Console.SetCursorPosition(WindowRegion.P1.X + 3, WindowRegion.P1.Y);
             Console.Write(string.Format("{0} {1} {2}",

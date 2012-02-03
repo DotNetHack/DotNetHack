@@ -36,12 +36,13 @@ namespace DotNetHack.Game.NPC
         }
 
         public event EventHandler OnReceivePayment;
-
+		
+		/*
         event EventHandler IShopKeeperAI.OnReceivePayment
         {
             add { throw new NotImplementedException(); }
             remove { throw new NotImplementedException(); }
-        }
+        }*/
 
 
         public override void Execute(Player aPlayer)

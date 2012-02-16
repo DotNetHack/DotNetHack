@@ -18,7 +18,7 @@ namespace DotNetHack.Game.Items.Potions.Elixers
 
             aTarget.EffectStack.Add(new Effects.Effect()
             {
-                EffectedStats = new StatsBase() { Strength = 2 },
+                EffectedStats = new StatsBase() { Strength = 2, Endurance = 3 },
                 EffectType = Effects.EffectType.Enchantment,
                 Duration = 30,
                 Magnitude = 3,

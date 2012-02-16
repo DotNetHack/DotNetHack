@@ -74,14 +74,24 @@ namespace DotNetHack.UI.Windows
 
             int x_coord = 44;
 
-            Console.SetCursorPosition(x_coord, 3 + y_coord++);
 
-            new ProgressBar("mana", 44, 5,
+
+            new ProgressBar("mana", x_coord, 5,
                 GameEngine.Player.Stats.ManaPercent).Show();
 
-            new ProgressBar("hp", 44, 7,
+            new ProgressBar("hp", x_coord, 7,
                 GameEngine.Player.Stats.HealthPercent).Show();
 
+            y_coord = 9;
+            foreach (var a in GameEngine.Player.EffectStack)
+            {
+                Console.SetCursorPosition(x_coord, 3 + y_coord++);
+                Console.Write(a.EffectType);
+            }
+
+            y_coord = 0;
+
+            Console.SetCursorPosition(x_coord, 3 + y_coord++);
             x_coord = 22;
 
             /// Head, 0 

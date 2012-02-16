@@ -36,9 +36,8 @@ namespace DotNetHack.Game
     /// </summary>
     public class Sound : IHasLocation
     {
-
         /// <summary>
-        /// 
+        /// DoSound
         /// </summary>
         public static void DoSound(SoundEventType aSoundEventType)
         {

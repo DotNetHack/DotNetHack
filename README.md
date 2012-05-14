@@ -1,10 +1,9 @@
 # D O T N E T H A C K
 
-## Storyline
+Copyright (C) 2012 Peter J. Jensen
 
-> Under the shadow of Cape-Split, a monstrous outcropping of sheer stone, where the stormy waters of the Minas Basin collide with the rising tides of the Bay of Fundy - there lies the bustling merchant towne of Wolfville. A village on the frontier of the great divide, it's stategic importance cannot be underestimated.  Blacksmiths, shipbuilders, alchemists, villagers, shopkeepers and adventurers all call it home and have for generations.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-## Working on DNH
-Be sure to fork to your own personal repository and work from there, example, Contributor/DotNetHack once that your latest contribution has been completed fire off a *pull request* using GitHub. Your pull request will be reviewed and merged into the mainline.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

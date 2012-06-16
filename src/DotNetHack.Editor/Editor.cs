@@ -613,7 +613,7 @@ namespace DotNetHack.Editor
                 // WARNING: Experimental.
                 case ConsoleKey.D1:
                     {
-                        IDungeonGenerator g = new DungeonGeneratorRecursiveDescent(CurrentMap);
+                        DungeonGenerator g = new DungeonGeneratorRecursiveDescent(CurrentMap);
                         g.Generate(0);
                         CurrentMap.DungeonRenderer.HardRefresh(CurrentLocation);
                         break;

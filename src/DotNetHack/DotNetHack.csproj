@@ -69,7 +69,6 @@
     <Compile Include="Game\Dungeon\Generator\DungeonGenerator.cs" />
     <Compile Include="Game\Dungeon\Generator\DungeonGeneratorRecursiveDescent.cs" />
     <Compile Include="Game\Dungeon\Generator\DungeonRegion.cs" />
-    <Compile Include="Game\Dungeon\Generator\IDungeonGenerator.cs" />
     <Compile Include="Game\Dungeon\TileBuilder.cs" />
     <Compile Include="Game\Dungeon\Tiles\HerbSpawn.cs" />
     <Compile Include="Game\Dungeon\Tiles\ITile.cs" />
@@ -207,6 +206,7 @@
     <Compile Include="Game\Dungeon\Tiles\Tile.cs" />
     <Compile Include="Game\Dungeon\Tiles\TileType.cs" />
     <Compile Include="UI\Widget.cs" />
+    <Compile Include="Game\Dungeon\Generator\GenerationProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Game\Items\Magical\Scrolls\" />

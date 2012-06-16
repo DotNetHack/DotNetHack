@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 
 namespace DotNetHack.Game.Dungeon.Generator
-{
+{	
     /// <summary>
     /// DungeonGeneratorRecursiveDescent
     /// </summary>
-    public class DungeonGeneratorRecursiveDescent : DungeonGenerator, IDungeonGenerator
+    public class DungeonGeneratorRecursiveDescent : DungeonGenerator
     {
         /// <summary>
         /// DungeonGeneratorRecursiveDescent
@@ -17,7 +17,9 @@ namespace DotNetHack.Game.Dungeon.Generator
         /// <param name="aDungeon"></param>
         public DungeonGeneratorRecursiveDescent(Dungeon3 aDungeon)
             : base(aDungeon)
-        { }
+        { 
+			
+		}
 
         /// <summary>
         /// Generates the dungeon using recursive descent model.
@@ -26,7 +28,9 @@ namespace DotNetHack.Game.Dungeon.Generator
         {
             if (d >= Dungeon.DungeonDepth)
                 return;
+			
             Generate(++d);
         }
+		
     }
 }

@@ -1,11 +1,15 @@
 using System;
-namespace DotNetHack.Core
+
+namespace DotNetHack.GameEngine
 {
-	public class MyClass
+	public class GameEngine
 	{
-		public MyClass ()
+		public GameEngine ()
 		{
+		
 		}
+		
+		GameEngineFlags Flags { get; set; }
 	}
 }
 

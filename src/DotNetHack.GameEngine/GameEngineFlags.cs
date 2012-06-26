@@ -4,6 +4,7 @@ namespace DotNetHack.GameEngine
 {
 	public enum GameEngineFlags
 	{
+	
 	}
 }
 

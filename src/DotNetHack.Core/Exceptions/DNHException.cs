@@ -1,6 +1,6 @@
 using System;
 
-namespace DotNetHack.Core
+namespace DotNetHack.Core.Exceptions
 {
 	public class DNHException : Exception
 	{

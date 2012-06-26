@@ -1,11 +1,10 @@
 using System;
+
 namespace DotNetHack.GameEngine
 {
-	public class MyClass
+	public enum GameEngineFlags
 	{
-		public MyClass ()
-		{
-		}
+	
 	}
 }
 

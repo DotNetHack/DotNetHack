@@ -1,5 +1,5 @@
 using System;
-namespace DotNetHack.GameEngine
+namespace DotNetHack.Core
 {
 	public class MyClass
 	{

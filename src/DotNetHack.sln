@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Serialization", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.AI", "DotNetHack.AI\DotNetHack.AI.csproj", "{157A18FF-68CD-4C29-8F16-B0B85FBC13BA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{DE1A29D9-D9C1-4296-8108-100000EAF997}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{3B9C617D-F680-4713-BCB2-E80FA7B0B881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Plugin", "DotNetHack.Plugin\DotNetHack.Plugin.csproj", "{EA25AAA4-507F-4CFA-AB6D-ABC7F59D941A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Plugin", "Plugins\DotNetHack.Plugin\DotNetHack.Plugin.csproj", "{EA25AAA4-507F-4CFA-AB6D-ABC7F59D941A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,7 +53,7 @@ Global
 		{EA25AAA4-507F-4CFA-AB6D-ABC7F59D941A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EA25AAA4-507F-4CFA-AB6D-ABC7F59D941A} = {DE1A29D9-D9C1-4296-8108-100000EAF997}
+		{EA25AAA4-507F-4CFA-AB6D-ABC7F59D941A} = {3B9C617D-F680-4713-BCB2-E80FA7B0B881}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = DotNetHack\DotNetHack.csproj

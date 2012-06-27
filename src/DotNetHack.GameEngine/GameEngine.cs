@@ -7,7 +7,7 @@ namespace DotNetHack.GameEngine
 		public GameEngine ()
 		{
 		
-		}
+			}
 		
 		GameEngineFlags Flags { get; set; }
 	}

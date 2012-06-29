@@ -1,10 +1,10 @@
 //
-//  GameEngineFlags.cs
+//  a.cs
 //
 //  Author:
-//       PJensen <jensen.petej@gmail.com>
+//       pjensen <>
 //
-//  Copyright (c) 2012 Peter J. Jensen
+//  Copyright (c) 2012 pjensen
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU Lesser General Public License as published by
@@ -18,38 +18,15 @@
 //
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+using System;
 
-namespace DotNetHack.Engine
+namespace DotNetHack.GameEngine
 {
-    /// <summary>
-    /// Game engine flags.
-    /// </summary>
-    public enum GameEngineFlags
+    public class a
     {
-        /// <summary>
-        /// The none flag.
-        /// </summary>
-        Default,
-
-        /// <summary>
-        /// The debug flag.
-        /// </summary>
-        Debug,
-
-        /// <summary>
-        /// The editor flag.
-        /// </summary>
-        Editor,
-
-        /// <summary>
-        /// The god mode.
-        /// </summary>
-        GodMode,
-
-        /// <summary>
-        /// The no clip.
-        /// </summary>
-        NoClip,
+        public a()
+        {
+        }
     }
 }
 

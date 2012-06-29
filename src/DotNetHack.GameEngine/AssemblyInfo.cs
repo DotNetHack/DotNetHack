@@ -4,12 +4,12 @@ using System.Runtime.CompilerServices;
 // Information about this assembly is defined by the following attributes. 
 // Change them to the values specific to your project.
 
-[assembly: AssemblyTitle("DotNetHack.GameEngine")]
+[assembly: AssemblyTitle("DotNetHack.Engine")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("pjensen")]
+[assembly: AssemblyCopyright("PJensen")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

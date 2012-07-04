@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{3B9C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Plugin", "Plugins\DotNetHack.Plugin\DotNetHack.Plugin.csproj", "{EA25AAA4-507F-4CFA-AB6D-ABC7F59D941A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack", "DotNetHack\DotNetHack.csproj", "{2521E1C3-B45C-496D-A251-B50ADE00D4A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack", "DotNetHack\DotNetHack.csproj", "{65D67972-0DF3-4AEC-A3DA-18132A3863E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,6 @@ Global
 		{157A18FF-68CD-4C29-8F16-B0B85FBC13BA}.Debug|x86.Build.0 = Debug|Any CPU
 		{157A18FF-68CD-4C29-8F16-B0B85FBC13BA}.Release|x86.ActiveCfg = Release|Any CPU
 		{157A18FF-68CD-4C29-8F16-B0B85FBC13BA}.Release|x86.Build.0 = Release|Any CPU
-		{2521E1C3-B45C-496D-A251-B50ADE00D4A6}.Debug|x86.ActiveCfg = Debug|x86
-		{2521E1C3-B45C-496D-A251-B50ADE00D4A6}.Debug|x86.Build.0 = Debug|x86
-		{2521E1C3-B45C-496D-A251-B50ADE00D4A6}.Release|x86.ActiveCfg = Release|x86
-		{2521E1C3-B45C-496D-A251-B50ADE00D4A6}.Release|x86.Build.0 = Release|x86
 		{2B06942B-EA7A-4FE7-ABDF-B57544C31CA1}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{2B06942B-EA7A-4FE7-ABDF-B57544C31CA1}.Debug|x86.Build.0 = Debug|Any CPU
 		{2B06942B-EA7A-4FE7-ABDF-B57544C31CA1}.Release|x86.ActiveCfg = Release|Any CPU
@@ -43,6 +39,10 @@ Global
 		{5C263A08-247E-4454-9710-A16A521A6BA5}.Debug|x86.Build.0 = Debug|Any CPU
 		{5C263A08-247E-4454-9710-A16A521A6BA5}.Release|x86.ActiveCfg = Release|Any CPU
 		{5C263A08-247E-4454-9710-A16A521A6BA5}.Release|x86.Build.0 = Release|Any CPU
+		{65D67972-0DF3-4AEC-A3DA-18132A3863E8}.Debug|x86.ActiveCfg = Debug|x86
+		{65D67972-0DF3-4AEC-A3DA-18132A3863E8}.Debug|x86.Build.0 = Debug|x86
+		{65D67972-0DF3-4AEC-A3DA-18132A3863E8}.Release|x86.ActiveCfg = Release|x86
+		{65D67972-0DF3-4AEC-A3DA-18132A3863E8}.Release|x86.Build.0 = Release|x86
 		{BE13084A-561B-4B51-B546-68D662D64AF3}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{BE13084A-561B-4B51-B546-68D662D64AF3}.Debug|x86.Build.0 = Debug|Any CPU
 		{BE13084A-561B-4B51-B546-68D662D64AF3}.Release|x86.ActiveCfg = Release|Any CPU

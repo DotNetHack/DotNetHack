@@ -39,6 +39,11 @@ namespace DotNetHack
             {
                 throw new ArgumentException("Invalid arguments");
             }
+
+            Console.WriteLine("User Name: ");
+            string userName = Console.ReadLine();
+            Console.WriteLine("Password: ");
+            string password = Console.ReadLine();
 			
             // Note: This setup will change
 
@@ -46,8 +51,6 @@ namespace DotNetHack
             {
 				
             }
-
-
         }
 		
         /// <summary>

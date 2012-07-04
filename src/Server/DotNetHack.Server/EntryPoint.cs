@@ -19,13 +19,19 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+using DotNetHack.Data;
+
 namespace DotNetHack.Server
 {
     class EntryPoint
     {
         public static void Main(string[] args)
         {
+            Database db = new Database("localhost", "DNH", "pjensen");
 
+            db.Open();
+
+            db.Close();
         }
     }
 }

@@ -38,12 +38,28 @@ namespace DotNetHack.Data
         }
 
         /// <summary>
+        /// Open this instance.
+        /// </summary>
+        public void Open()
+        {
+            SqlConnection.Open();
+        }
+
+        /// <summary>
+        /// Close this instance.
+        /// </summary>
+        public void Close()
+        {
+            SqlConnection.Close();
+        }
+
+        /// <summary>
         /// Gets the sql connection.
         /// </summary>
         /// <value>
         /// The sql connection.
         /// </value>
-        public MySqlConnection SqlConnection{ get; private set; }
+        public MySqlConnection SqlConnection{ get; set; }
     }
 }
 

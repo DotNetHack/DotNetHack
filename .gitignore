@@ -68,3 +68,5 @@ c/DotNetHack.GameEngine/MyClass.cs
 src/DotNetHack/bin/Debug/DotNetHack.GameEngine.dll
 
 src/DotNetHack/bin/Debug/DotNetHack.GameEngine.dll.mdb
+
+src/il/DotNetHack/

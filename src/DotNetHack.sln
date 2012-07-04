@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Plugin", "Plugin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack", "DotNetHack\DotNetHack.csproj", "{65D67972-0DF3-4AEC-A3DA-18132A3863E8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{82488C48-CB3F-4D6F-8C25-6921000B286B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Server", "Server\DotNetHack.Server\DotNetHack.Server.csproj", "{CF2A5A92-69F8-4527-A573-EE10D612B697}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -47,6 +51,10 @@ Global
 		{BE13084A-561B-4B51-B546-68D662D64AF3}.Debug|x86.Build.0 = Debug|Any CPU
 		{BE13084A-561B-4B51-B546-68D662D64AF3}.Release|x86.ActiveCfg = Release|Any CPU
 		{BE13084A-561B-4B51-B546-68D662D64AF3}.Release|x86.Build.0 = Release|Any CPU
+		{CF2A5A92-69F8-4527-A573-EE10D612B697}.Debug|x86.ActiveCfg = Debug|x86
+		{CF2A5A92-69F8-4527-A573-EE10D612B697}.Debug|x86.Build.0 = Debug|x86
+		{CF2A5A92-69F8-4527-A573-EE10D612B697}.Release|x86.ActiveCfg = Release|x86
+		{CF2A5A92-69F8-4527-A573-EE10D612B697}.Release|x86.Build.0 = Release|x86
 		{EA25AAA4-507F-4CFA-AB6D-ABC7F59D941A}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{EA25AAA4-507F-4CFA-AB6D-ABC7F59D941A}.Debug|x86.Build.0 = Debug|Any CPU
 		{EA25AAA4-507F-4CFA-AB6D-ABC7F59D941A}.Release|x86.ActiveCfg = Release|Any CPU
@@ -54,6 +62,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EA25AAA4-507F-4CFA-AB6D-ABC7F59D941A} = {3B9C617D-F680-4713-BCB2-E80FA7B0B881}
+		{CF2A5A92-69F8-4527-A573-EE10D612B697} = {82488C48-CB3F-4D6F-8C25-6921000B286B}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = DotNetHack.Core\DotNetHack.Core.csproj

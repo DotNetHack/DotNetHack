@@ -1,0 +1,4 @@
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Core\bin\Debug\DotNetHack.Core.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Core\bin\Debug\DotNetHack.Core.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Core\obj\Debug\DotNetHack.Core.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Core\obj\Debug\DotNetHack.Core.pdb

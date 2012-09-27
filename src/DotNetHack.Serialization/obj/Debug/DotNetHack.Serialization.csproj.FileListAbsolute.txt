@@ -1,0 +1,4 @@
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Serialization\bin\Debug\DotNetHack.Serialization.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Serialization\bin\Debug\DotNetHack.Serialization.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Serialization\obj\Debug\DotNetHack.Serialization.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Serialization\obj\Debug\DotNetHack.Serialization.pdb

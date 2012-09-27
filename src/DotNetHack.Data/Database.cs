@@ -33,8 +33,8 @@ namespace DotNetHack.Data
         /// </summary>
         public Database(string aServer, string aCatalog, string aUser, string aPassword = "")
         {
-            SqlConnection = new MySqlConnection(
-                string.Format("Server={0};Database={1};Uid={2};Pwd={3};"));
+            // SqlConnection = new MySqlConnection(
+            // string.Format("Server={0};Database={1};Uid={2};Pwd={3};"));
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace DotNetHack.Data
         /// </summary>
         public void Open()
         {
-            SqlConnection.Open();
+            // SqlConnection.Open();
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace DotNetHack.Data
         /// </summary>
         public void Close()
         {
-            SqlConnection.Close();
+            // SqlConnection.Close();
         }
 
         /// <summary>
@@ -59,7 +59,6 @@ namespace DotNetHack.Data
         /// <value>
         /// The sql connection.
         /// </value>
-        public MySqlConnection SqlConnection{ get; set; }
+        /// public MySqlConnection SqlConnection{ get; set; }
     }
 }
-

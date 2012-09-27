@@ -1,0 +1,7 @@
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Data\obj\Debug\DotNetHack.Data.csprojResolveAssemblyReference.cache
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Data\bin\Debug\DotNetHack.Data.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Data\bin\Debug\DotNetHack.Data.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Data\bin\Debug\mysql.data.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Data\bin\Debug\mysql.data.entity.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Data\obj\Debug\DotNetHack.Data.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.Data\obj\Debug\DotNetHack.Data.pdb

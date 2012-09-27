@@ -1,0 +1,4 @@
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.AI\bin\Debug\DotNetHack.AI.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.AI\bin\Debug\DotNetHack.AI.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.AI\obj\Debug\DotNetHack.AI.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack.AI\obj\Debug\DotNetHack.AI.pdb

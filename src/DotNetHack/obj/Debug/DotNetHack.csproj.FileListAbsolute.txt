@@ -1,0 +1,16 @@
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\obj\Debug\DotNetHack.csprojResolveAssemblyReference.cache
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.exe.config
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.exe
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.AI.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.Core.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.GameEngine.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.Plugin.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.Serialization.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.AI.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.Core.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.GameEngine.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.Serialization.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\bin\Debug\DotNetHack.Plugin.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\obj\Debug\DotNetHack.exe
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\DotNetHack\obj\Debug\DotNetHack.pdb

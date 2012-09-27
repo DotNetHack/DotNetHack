@@ -46,6 +46,9 @@ namespace DotNetHack.Engine
 
         #region IDisposable implementation
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
 

@@ -1,0 +1,41 @@
+# GitIgnore for DotNetHack
+*/bin/*.*
+*/bin/**/*
+*/obj/**/*
+*/bin
+*/obj
+
+# ReSharper files
+_ReSharper.*/*
+_ReSharper.*/**/*
+*.resharper.user
+
+# Visual Studio files
+*.Publish.xml
+*.suo
+*.sln.cache
+*.csproj.user
+App_Data
+
+# MonoDevelop files
+*.pidb
+*.usertasks
+*.userprefs
+*.trx
+.DS_Store
+
+src/.DS_Store
+src/DotNetHack/bin/*
+src/Plugins/DotNetHack.Plugin/bin/*
+src/DotNetHack/bin/*
+src/DotNetHack.Data/bin/*
+src/DotNetHack.GameEngine/bin/*
+src/DotNetHack.Serialization/bin/*
+src/DotNetHack.Plugin/DotNetHack.Plugin.csproj
+src/DotNetHack.AI/bin/*
+src/DotNetHack.Serialization/bin/*
+src/Plugins/DotNetHack.Plugin/bin/*
+src/DotNetHack.Core/bin/*
+src/DotNetHack.AI/bin/*
+src/DotNetHack/bin/*
+*/bin/*

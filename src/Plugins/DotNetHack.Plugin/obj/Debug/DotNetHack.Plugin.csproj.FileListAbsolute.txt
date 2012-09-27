@@ -1,0 +1,4 @@
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Plugins\DotNetHack.Plugin\bin\Debug\DotNetHack.Plugin.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Plugins\DotNetHack.Plugin\bin\Debug\DotNetHack.Plugin.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Plugins\DotNetHack.Plugin\obj\Debug\DotNetHack.Plugin.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Plugins\DotNetHack.Plugin\obj\Debug\DotNetHack.Plugin.pdb

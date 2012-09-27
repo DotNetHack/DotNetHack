@@ -1,0 +1,8 @@
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server\bin\Debug\DotNetHack.Server.exe.config
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server\bin\Debug\DotNetHack.Server.exe
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server\bin\Debug\DotNetHack.Server.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server\bin\Debug\DotNetHack.Data.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server\bin\Debug\DotNetHack.Data.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server\obj\x86\Debug\DotNetHack.Server.csprojResolveAssemblyReference.cache
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server\obj\x86\Debug\DotNetHack.Server.exe
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server\obj\x86\Debug\DotNetHack.Server.pdb

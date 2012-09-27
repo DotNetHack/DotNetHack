@@ -1,43 +1,22 @@
-using System;
-using DotNetHack.Game;
-using DotNetHack.Game.Dungeon;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DotNetHack
 {
-    /// <summary>
-    /// EntryPoint
-    /// </summary>
-    class EntryPoint
+    static class EntryPoint
     {
         /// <summary>
-        /// Main
+        /// The main entry point for the application.
         /// </summary>
-        /// <param name="args">
-        /// A <see cref="System.String[]"/>
-        /// </param>
-        public static void Main(string[] args)
+        [STAThread]
+        static void Main()
         {
-            // Parse runtime arguments
-            R.ParseArgs(args);
-
-            // Initialize graphics
-            UI.Graphics.Initialize();
-
-            Dungeon3 d = new Dungeon3(UI.Graphics.ScreenWidth, 
-                UI.Graphics.ScreenHeight, 10);
-
-            // Create a new game engine
-            GameEngine g = new GameEngine(new Player("pete"), d);
-
-            // Run
-            GameEngine.EngineRunFlags runFlags =
-                GameEngine.EngineRunFlags.Normal;
-
-            // If runtime is setup for debug, set the run flags
-            if (R.IsDebug)
-                runFlags |= GameEngine.EngineRunFlags.Debug;
-
-            g.Run(runFlags, ref args);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
         }
     }
 }

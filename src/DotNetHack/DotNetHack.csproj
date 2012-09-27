@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0C36C4DD-060F-4E4F-A0A3-EFF2B8FD33BA}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6651B447-1042-4795-95E5-7E52201A841E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DotNetHack</RootNamespace>
     <AssemblyName>DotNetHack</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,11 +21,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <Externalconsole>true</Externalconsole>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,192 +32,47 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NAudio">
-      <HintPath>..\..\lib\NAudio.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Disposition.cs" />
-    <Compile Include="DNHackException.cs" />
-    <Compile Include="Game\Actions\Attack.cs" />
-    <Compile Include="Game\Actions\Move.cs" />
-    <Compile Include="Game\Actions\Pickup.cs" />
-    <Compile Include="Game\Actions\PutOn.cs" />
-    <Compile Include="Game\Actions\Quaff.cs" />
-    <Compile Include="Game\Actions\Wield.cs" />
-    <Compile Include="Game\Actor.cs" />
-    <Compile Include="Game\Alchemy\Alchemy.cs" />
-    <Compile Include="Game\Interfaces\IIngredient.cs" />
-    <Compile Include="Game\Items\Equipment\Tools\AlchemyEquipment.cs" />
-    <Compile Include="Game\Items\Equipment\Tools\AlchemyEquipmentEffect.cs" />
-    <Compile Include="Game\Alchemy\Ingredient .cs" />
-    <Compile Include="Game\Alchemy\Recipe.cs" />
-    <Compile Include="Game\Direction.cs" />
-    <Compile Include="Game\Dungeon\Dungeon.cs" />
-    <Compile Include="Game\Dice.cs" />
-    <Compile Include="Game\Dungeon\DungeonRenderer.cs" />
-    <Compile Include="Game\Dungeon\FogOfWar.cs" />
-    <Compile Include="Game\Dungeon\Generator\DungeonGenerator.cs" />
-    <Compile Include="Game\Dungeon\Generator\DungeonGeneratorRecursiveDescent.cs" />
-    <Compile Include="Game\Dungeon\Generator\DungeonRegion.cs" />
-    <Compile Include="Game\Dungeon\TileBuilder.cs" />
-    <Compile Include="Game\Dungeon\Tiles\HerbSpawn.cs" />
-    <Compile Include="Game\Dungeon\Tiles\ITile.cs" />
-    <Compile Include="Game\Dungeon\Tiles\Traps\Trap.cs" />
-    <Compile Include="Game\Dungeon\Tiles\Traps\TrapFallingRock.cs" />
-    <Compile Include="Game\Dungeon\Tiles\Traps\TrapSpikePit.cs" />
-    <Compile Include="Game\Effects\Effect.cs" />
-    <Compile Include="Game\Events\ActorEventArgs.cs" />
-    <Compile Include="Game\Events\ArmourEventArgs.cs" />
-    <Compile Include="Game\Events\DNHExceptionEventArgs.cs" />
-    <Compile Include="Game\Events\DoorEventArgs.cs" />
-    <Compile Include="Game\Events\GameEventArgs.cs" />
-    <Compile Include="Game\Dungeon\IDungeonLevel.cs" />
-    <Compile Include="Game\Events\EquipmentEventArgs.cs" />
-    <Compile Include="Game\Events\KeyPressEventArgs.cs" />
-    <Compile Include="Game\Events\MoveEventArgs.cs" />
-    <Compile Include="Game\Events\SoundEvent.cs" />
-    <Compile Include="Game\Events\WeaponEvent.cs" />
-    <Compile Include="Game\Glyph.cs" />
-    <Compile Include="Game\Interfaces\ICanBeEffected.cs" />
-    <Compile Include="Game\Interfaces\IArmor.cs" />
-    <Compile Include="Game\Interfaces\ICanDrink.cs" />
-    <Compile Include="Game\Interfaces\IKey.cs" />
-    <Compile Include="Game\Interfaces\IPrayer.cs" />
-    <Compile Include="Game\Interfaces\ISpawn.cs" />
-    <Compile Include="Game\Items\Containers\LootContainer.cs" />
-    <Compile Include="Game\Interfaces\IMonster.cs" />
-    <Compile Include="Game\Interfaces\ITome.cs" />
-    <Compile Include="Game\Interfaces\ITool.cs" />
-    <Compile Include="Game\Interfaces\IWand.cs" />
-    <Compile Include="Game\Items\Containers\LockBox.cs" />
-    <Compile Include="Game\Items\Equipment\Armor\ArmorType.cs" />
-    <Compile Include="Game\Items\Equipment\Armor\ArmorWorn.cs" />
-    <Compile Include="Game\Items\Equipment\Armor\Armour.cs" />
-    <Compile Include="Game\Items\Equipment\Armor\ArmourStats.cs" />
-    <Compile Include="Game\Items\Equipment\Armor\ExperimentalArmour.cs" />
-    <Compile Include="Game\Items\Equipment\EquipUsage.cs" />
-    <Compile Include="Game\Items\Equipment\Material.cs" />
-    <Compile Include="Game\Items\Equipment\Quality.cs" />
-    <Compile Include="Game\Items\Equipment\Tools\Alembic .cs" />
-    <Compile Include="Game\Items\Equipment\Tools\MortarAndPestle.cs" />
-    <Compile Include="Game\Items\Equipment\Tools\Calcinator.cs" />
-    <Compile Include="Game\Items\Equipment\Tools\PickAxe.cs" />
-    <Compile Include="Game\Items\Equipment\Tools\Tool.cs" />
-    <Compile Include="Game\Items\Equipment\Weapons\ExperimentalWeapons.cs" />
-    <Compile Include="Game\Items\Equipment\Weapons\WeaponLocation.cs" />
-    <Compile Include="Game\Items\Equipment\Weapons\WeaponProperties.cs" />
-    <Compile Include="Game\Items\Equipment\Weapons\WeaponSubType.cs" />
-    <Compile Include="Game\Items\Equipment\Weapons\WeaponType.cs" />
-    <Compile Include="Game\Items\Equipment\Armor\ArmorLocation.cs" />
-    <Compile Include="Game\Items\Equipment\Weapons\WeaponsWielded.cs" />
-    <Compile Include="Game\Items\Food\FoodBase.cs" />
-    <Compile Include="Game\Items\Gems\Gem.cs" />
-    <Compile Include="Game\Items\Gems\GemRuby.cs" />
-    <Compile Include="Game\Items\Currency.cs" />
-    <Compile Include="Game\Items\Herbs\Herb.cs" />
-    <Compile Include="Game\Items\Item.cs" />
-    <Compile Include="Game\Items\Equipment\Weapons\Weapon.cs" />
-    <Compile Include="Game\Items\ItemCollection.cs" />
-    <Compile Include="Game\Items\Key.cs" />
-    <Compile Include="Game\Items\Magical\Scroll.cs" />
-    <Compile Include="Game\Items\Magical\Tome.cs" />
-    <Compile Include="Game\Items\Potions\Elixer.cs" />
-    <Compile Include="Game\Items\Potions\Elixers\ElixerOfOgreStrength.cs" />
-    <Compile Include="Game\Items\Potions\HealthPotion.cs" />
-    <Compile Include="Game\Items\Potions\Potion.cs" />
-    <Compile Include="Game\Items\Potions\PotionStrength.cs" />
-    <Compile Include="Game\Items\Potions\PotionType.cs" />
-    <Compile Include="Game\KeyChain.cs" />
-    <Compile Include="Game\Effects\EffectType.cs" />
-    <Compile Include="Game\Dungeon\Tiles\Door.cs" />
-    <Compile Include="Game\NPC\Agression.cs" />
-    <Compile Include="Game\NPC\AI\Brain.cs" />
-    <Compile Include="Game\NPC\AI\FSM.cs" />
-    <Compile Include="Game\NPC\AI\IAgent.cs" />
-    <Compile Include="Game\NPC\AI\IShopKeeperAI.cs" />
-    <Compile Include="Game\NPC\AI\IVillagerAI.cs" />
-    <Compile Include="Game\NPC\Monsters\FireAnt.cs" />
-    <Compile Include="Game\NPC\Monsters\Monster.cs" />
-    <Compile Include="Game\NPC\NPC.cs" />
-    <Compile Include="Game\NPC\ShopKeeper.cs" />
-    <Compile Include="Game\NPC\Villager.cs" />
-    <Compile Include="Game\Quests\Quest.cs" />
-    <Compile Include="Game\Quests\Task.cs" />
-    <Compile Include="Game\Sound.cs" />
-    <Compile Include="Game\Stats.cs" />
-    <Compile Include="Game\Dungeon\Tiles\TileFlags.cs" />
-    <Compile Include="Game\TargetSelector.cs" />
-    <Compile Include="Game\World.cs" />
-    <Compile Include="Input.cs" />
-    <Compile Include="Game\Colour.cs" />
-    <Compile Include="UI\CursorState.cs" />
-    <Compile Include="UI\ProgressBar.cs" />
-    <Compile Include="UI\Windows\WindowCharacterSheet.cs" />
-    <Compile Include="UI\DisplayRegion.cs" />
-    <Compile Include="UI\Display.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="Game\GameEngine.cs" />
-    <Compile Include="UI\Graphics.cs" />
-    <Compile Include="UI\Menu.cs" />
-    <Compile Include="Game\Interfaces\IDrawable.cs" />
-    <Compile Include="Game\Interfaces\IHasLocation.cs" />
-    <Compile Include="Game\Location.cs" />
-    <Compile Include="UI\Symbols.cs" />
-    <Compile Include="Game\Interfaces\IConsumable.cs" />
-    <Compile Include="Game\Interfaces\IEquipment.cs" />
-    <Compile Include="Game\Interfaces\IFood.cs" />
-    <Compile Include="Game\Interfaces\IGlyph.cs" />
-    <Compile Include="Game\Interfaces\IHasCharges.cs" />
-    <Compile Include="Game\Interfaces\IHasCondition.cs" />
-    <Compile Include="Game\Interfaces\IHasUses.cs" />
-    <Compile Include="Game\Interfaces\IItem.cs" />
-    <Compile Include="Game\Interfaces\IMagical.cs" />
-    <Compile Include="Game\Interfaces\IPotion.cs" />
-    <Compile Include="Game\Interfaces\IReadable.cs" />
-    <Compile Include="Game\Interfaces\IScroll.cs" />
-    <Compile Include="Game\Interfaces\IWeapon.cs" />
-    <Compile Include="UI\Window.cs" />
-    <Compile Include="UI\Windows\WindowInventory.cs" />
-    <Compile Include="Utility\Graph\Algorithm\AStar.cs" />
-    <Compile Include="Utility\Graph\Algorithm\IAStar.cs" />
-    <Compile Include="Utility\Graph\Algorithm\Node.cs" />
-    <Compile Include="Utility\Media\BaseSoundController.cs" />
-    <Compile Include="Utility\Media\SoundControllerCore.cs" />
-    <Compile Include="Utility\Media\SoundControllerEvents.cs" />
-    <Compile Include="Utility\Persisted\Persisted.cs" />
-    <Compile Include="Utility\Rectangle.cs" />
-    <Compile Include="Utility\Media\SoundController.cs" />
-    <Compile Include="Utility\Util.cs" />
-    <Compile Include="Utility\LockFile.cs" />
-    <Compile Include="Game\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RuntimeEnviornment.cs" />
-    <Compile Include="Game\Speech.cs" />
-    <Compile Include="Game\Dungeon\Tiles\Tile.cs" />
-    <Compile Include="Game\Dungeon\Tiles\TileType.cs" />
-    <Compile Include="UI\Widget.cs" />
-    <Compile Include="Game\Dungeon\Generator\GenerationProperties.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Game\Items\Magical\Scrolls\" />
-    <Folder Include="Game\Items\Magical\Tomes\" />
-    <Folder Include="Game\Items\Misc\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Game\Dungeon\Tiles\Traps\Traps.cd" />
-    <None Include="Game\Effects\Effects.cd" />
-    <None Include="Game\NPC\NPC.cd" />
-    <None Include="UML\Concrete.cd" />
-    <None Include="UML\Interfaces.cd" />
-    <None Include="UML\UserInterface.cd" />
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

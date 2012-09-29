@@ -10,11 +10,39 @@ using System.Windows.Forms;
 
 namespace DotNetHack.Forms
 {
+    /// <summary>
+    /// MainForm
+    /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// MainForm
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
+        }
+
+
+        /// <summary>
+        /// MainForm_Load
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event argument</param>
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// helpToolStripMenuItem_Click
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event argument</param>
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (AboutBox frmAboutBox = new AboutBox())
+                frmAboutBox.ShowDialog(this);
         }
     }
 }

@@ -30,10 +30,10 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
-            this.labelProductName = new System.Windows.Forms.Label();
-            this.labelVersion = new System.Windows.Forms.Label();
-            this.labelCopyright = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
+            this.labelCopyright = new System.Windows.Forms.Label();
+            this.labelVersion = new System.Windows.Forms.Label();
+            this.labelProductName = new System.Windows.Forms.Label();
             this.buttonOkay = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -79,69 +79,70 @@
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 284F));
             this.tableLayoutPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 99F));
-            this.tableLayoutPanelMain.Controls.Add(this.labelProductName, 1, 0);
-            this.tableLayoutPanelMain.Controls.Add(this.labelVersion, 1, 1);
-            this.tableLayoutPanelMain.Controls.Add(this.labelCopyright, 1, 2);
-            this.tableLayoutPanelMain.Controls.Add(this.textBoxDescription, 1, 3);
-            this.tableLayoutPanelMain.Controls.Add(this.buttonOkay, 2, 4);
+            this.tableLayoutPanelMain.Controls.Add(this.textBoxDescription, 1, 4);
+            this.tableLayoutPanelMain.Controls.Add(this.labelCopyright, 1, 3);
+            this.tableLayoutPanelMain.Controls.Add(this.labelVersion, 1, 2);
+            this.tableLayoutPanelMain.Controls.Add(this.labelProductName, 1, 1);
+            this.tableLayoutPanelMain.Controls.Add(this.buttonOkay, 2, 5);
             this.tableLayoutPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelMain.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelMain.Name = "tableLayoutPanelMain";
-            this.tableLayoutPanelMain.RowCount = 5;
+            this.tableLayoutPanelMain.RowCount = 6;
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
-            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.tableLayoutPanelMain.Size = new System.Drawing.Size(436, 139);
             this.tableLayoutPanelMain.TabIndex = 0;
             // 
-            // labelProductName
+            // textBoxDescription
             // 
-            this.labelProductName.AutoSize = true;
-            this.labelProductName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProductName.Location = new System.Drawing.Point(56, 0);
-            this.labelProductName.Name = "labelProductName";
-            this.labelProductName.Size = new System.Drawing.Size(278, 25);
-            this.labelProductName.TabIndex = 0;
-            this.labelProductName.Text = "Product Name";
-            // 
-            // labelVersion
-            // 
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelVersion.Location = new System.Drawing.Point(56, 25);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(278, 26);
-            this.labelVersion.TabIndex = 1;
-            this.labelVersion.Text = "Version";
+            this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxDescription.Location = new System.Drawing.Point(56, 72);
+            this.textBoxDescription.Multiline = true;
+            this.textBoxDescription.Name = "textBoxDescription";
+            this.textBoxDescription.Size = new System.Drawing.Size(278, 33);
+            this.textBoxDescription.TabIndex = 5;
             // 
             // labelCopyright
             // 
             this.labelCopyright.AutoSize = true;
             this.labelCopyright.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCopyright.Location = new System.Drawing.Point(56, 51);
+            this.labelCopyright.Location = new System.Drawing.Point(56, 50);
             this.labelCopyright.Name = "labelCopyright";
             this.labelCopyright.Size = new System.Drawing.Size(278, 19);
             this.labelCopyright.TabIndex = 2;
-            this.labelCopyright.Text = "Company Name";
+            this.labelCopyright.Text = "Copyright";
             // 
-            // textBoxDescription
+            // labelVersion
             // 
-            this.textBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxDescription.Location = new System.Drawing.Point(56, 73);
-            this.textBoxDescription.Multiline = true;
-            this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(278, 34);
-            this.textBoxDescription.TabIndex = 3;
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelVersion.Location = new System.Drawing.Point(56, 31);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(278, 19);
+            this.labelVersion.TabIndex = 1;
+            this.labelVersion.Text = "Version";
+            // 
+            // labelProductName
+            // 
+            this.labelProductName.AutoSize = true;
+            this.labelProductName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelProductName.Location = new System.Drawing.Point(56, 5);
+            this.labelProductName.Name = "labelProductName";
+            this.labelProductName.Size = new System.Drawing.Size(278, 26);
+            this.labelProductName.TabIndex = 0;
+            this.labelProductName.Text = "Product Name";
             // 
             // buttonOkay
             // 
             this.buttonOkay.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOkay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonOkay.Location = new System.Drawing.Point(340, 113);
+            this.buttonOkay.Location = new System.Drawing.Point(340, 111);
             this.buttonOkay.Name = "buttonOkay";
-            this.buttonOkay.Size = new System.Drawing.Size(93, 23);
+            this.buttonOkay.Size = new System.Drawing.Size(93, 25);
             this.buttonOkay.TabIndex = 4;
             this.buttonOkay.Text = "Okay";
             this.buttonOkay.UseVisualStyleBackColor = true;
@@ -180,9 +181,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelMain;
         private System.Windows.Forms.Label labelProductName;
         private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Label labelCopyright;
-        private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Button buttonOkay;
+        private System.Windows.Forms.TextBox textBoxDescription;
+        private System.Windows.Forms.Label labelCopyright;
 
 
 

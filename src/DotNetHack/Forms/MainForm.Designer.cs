@@ -31,9 +31,9 @@
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.splitContainerMainVertical = new System.Windows.Forms.SplitContainer();
             this.splitContainerMainHorizontal = new System.Windows.Forms.SplitContainer();
-            this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStripMain = new System.Windows.Forms.MenuStrip();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainVertical)).BeginInit();
             this.splitContainerMainVertical.Panel2.SuspendLayout();
             this.splitContainerMainVertical.SuspendLayout();
@@ -73,6 +73,19 @@
             this.splitContainerMainHorizontal.SplitterDistance = 442;
             this.splitContainerMainHorizontal.TabIndex = 0;
             // 
+            // gameToolStripMenuItem
+            // 
+            this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
+            this.gameToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.gameToolStripMenuItem.Text = "GAME";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.helpToolStripMenuItem.Text = "HELP";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
             // menuStripMain
             // 
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -84,18 +97,6 @@
             this.menuStripMain.TabIndex = 2;
             this.menuStripMain.Text = "menuStrip1";
             // 
-            // gameToolStripMenuItem
-            // 
-            this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
-            this.gameToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.gameToolStripMenuItem.Text = "&GAME";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.helpToolStripMenuItem.Text = "HELP";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,9 +105,9 @@
             this.Controls.Add(this.splitContainerMainVertical);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.menuStripMain);
-            this.MainMenuStrip = this.menuStripMain;
             this.Name = "MainForm";
             this.Text = "DotNetHack";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainerMainVertical.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainVertical)).EndInit();
             this.splitContainerMainVertical.ResumeLayout(false);

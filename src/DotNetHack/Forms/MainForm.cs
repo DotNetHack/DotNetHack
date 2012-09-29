@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DotNetHack
+namespace DotNetHack.Forms
 {
     public partial class MainForm : Form
     {

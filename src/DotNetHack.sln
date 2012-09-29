@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack", "DotNetHack.csproj", "{6651B447-1042-4795-95E5-7E52201A841E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack", "DotNetHack\DotNetHack.csproj", "{6651B447-1042-4795-95E5-7E52201A841E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Core", "DotNetHack.Core\DotNetHack.Core.csproj", "{CAB13655-AE02-43B6-B1AB-64C25560324C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		{6651B447-1042-4795-95E5-7E52201A841E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6651B447-1042-4795-95E5-7E52201A841E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6651B447-1042-4795-95E5-7E52201A841E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAB13655-AE02-43B6-B1AB-64C25560324C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB13655-AE02-43B6-B1AB-64C25560324C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB13655-AE02-43B6-B1AB-64C25560324C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAB13655-AE02-43B6-B1AB-64C25560324C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

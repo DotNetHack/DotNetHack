@@ -90,6 +90,15 @@
   <ItemGroup>
     <None Include="Resources\logoDotNetHack.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetHack.Core\DotNetHack.Core.csproj">
+      <Project>{cab13655-ae02-43b6-b1ab-64c25560324c}</Project>
+      <Name>DotNetHack.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

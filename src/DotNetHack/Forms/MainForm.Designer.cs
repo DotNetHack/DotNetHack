@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.splitContainerMainVertical = new System.Windows.Forms.SplitContainer();
             this.splitContainerMainHorizontal = new System.Windows.Forms.SplitContainer();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
+            this.timerMain = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainVertical)).BeginInit();
             this.splitContainerMainVertical.Panel2.SuspendLayout();
             this.splitContainerMainVertical.SuspendLayout();
@@ -128,6 +130,7 @@
         private System.Windows.Forms.MenuStrip menuStripMain;
         private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.Timer timerMain;
     }
 }
 

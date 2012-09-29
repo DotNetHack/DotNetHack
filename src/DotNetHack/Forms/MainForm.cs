@@ -41,7 +41,7 @@ namespace DotNetHack.Forms
         /// <param name="e">event argument</param>
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (AboutBox frmAboutBox = new AboutBox())
+            using (AboutForm frmAboutBox = new AboutForm())
                 frmAboutBox.ShowDialog(this);
         }
     }

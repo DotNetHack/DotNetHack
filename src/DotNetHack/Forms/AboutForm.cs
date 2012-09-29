@@ -12,12 +12,12 @@ namespace DotNetHack.Forms
     /// <summary>
     /// AboutBox
     /// </summary>
-    partial class AboutBox : Form
+    partial class AboutForm : Form
     {
         /// <summary>
         /// AboutBox
         /// </summary>
-        public AboutBox()
+        public AboutForm()
         {
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);

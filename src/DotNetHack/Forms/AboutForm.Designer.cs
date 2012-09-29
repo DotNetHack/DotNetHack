@@ -1,6 +1,6 @@
 ﻿namespace DotNetHack.Forms
 {
-    partial class AboutBox
+    partial class AboutForm
     {
         /// <summary>
         /// Required designer variable.

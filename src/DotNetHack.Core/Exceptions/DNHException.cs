@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 namespace DotNetHack.Core.Exceptions
 {
     /// <summary>
-    /// 
+    /// DNHException
     /// </summary>
-    class DNHException : Exception
+    public class DNHException : Exception
     {
         /// <summary>
-        /// 
+        /// DNHException
         /// </summary>
         public DNHException() { }
 
         /// <summary>
-        /// 
+        /// DNHException
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">exception message</param>
         public DNHException(string message)
         {
         }
@@ -27,8 +27,8 @@ namespace DotNetHack.Core.Exceptions
         /// <summary>
         /// DNHException
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="inner"></param>
+        /// <param name="message">exception messahe</param>
+        /// <param name="inner">inner exception</param>
         public DNHException(string message, Exception inner)
         {
  

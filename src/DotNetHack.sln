@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack", "DotNetHack\Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Core", "DotNetHack.Core\DotNetHack.Core.csproj", "{CAB13655-AE02-43B6-B1AB-64C25560324C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Serialization", "DotNetHack.Serialization\DotNetHack.Serialization.csproj", "{FC69FF51-F478-4488-AA58-B01662550FD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{CAB13655-AE02-43B6-B1AB-64C25560324C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAB13655-AE02-43B6-B1AB-64C25560324C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAB13655-AE02-43B6-B1AB-64C25560324C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC69FF51-F478-4488-AA58-B01662550FD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC69FF51-F478-4488-AA58-B01662550FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC69FF51-F478-4488-AA58-B01662550FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC69FF51-F478-4488-AA58-B01662550FD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

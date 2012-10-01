@@ -44,5 +44,15 @@ namespace DotNetHack.Forms
             using (AboutForm frmAboutBox = new AboutForm())
                 frmAboutBox.ShowDialog(this);
         }
+
+        /// <summary>
+        /// MainForm_KeyDown
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event argument</param>
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

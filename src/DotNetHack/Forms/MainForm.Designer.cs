@@ -110,6 +110,7 @@
             this.Name = "MainForm";
             this.Text = "DotNetHack";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.splitContainerMainVertical.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainVertical)).EndInit();
             this.splitContainerMainVertical.ResumeLayout(false);

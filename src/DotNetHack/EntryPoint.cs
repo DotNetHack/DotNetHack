@@ -6,6 +6,9 @@ using System.Windows.Forms;
 using DotNetHack.Forms;
 namespace DotNetHack
 {
+    /// <summary>
+    /// EntryPoint
+    /// </summary>
     static class EntryPoint
     {
         /// <summary>

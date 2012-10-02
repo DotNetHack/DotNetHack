@@ -1,4 +1,5 @@
-﻿namespace DotNetHack.Forms
+﻿
+namespace DotNetHack.Forms
 {
     partial class MainForm
     {
@@ -36,10 +37,13 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.timerMain = new System.Windows.Forms.Timer(this.components);
+            this.mapViewControl = new DotNetHack.Controls.MapViewControl();
+            this.gameEngineController = new DotNetHack.Components.GameEngineController(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainVertical)).BeginInit();
             this.splitContainerMainVertical.Panel2.SuspendLayout();
             this.splitContainerMainVertical.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainHorizontal)).BeginInit();
+            this.splitContainerMainHorizontal.Panel1.SuspendLayout();
             this.splitContainerMainHorizontal.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
@@ -71,6 +75,10 @@
             this.splitContainerMainHorizontal.Location = new System.Drawing.Point(0, 0);
             this.splitContainerMainHorizontal.Name = "splitContainerMainHorizontal";
             this.splitContainerMainHorizontal.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerMainHorizontal.Panel1
+            // 
+            this.splitContainerMainHorizontal.Panel1.Controls.Add(this.mapViewControl);
             this.splitContainerMainHorizontal.Size = new System.Drawing.Size(464, 559);
             this.splitContainerMainHorizontal.SplitterDistance = 442;
             this.splitContainerMainHorizontal.TabIndex = 0;
@@ -99,6 +107,18 @@
             this.menuStripMain.TabIndex = 2;
             this.menuStripMain.Text = "menuStrip1";
             // 
+            // mapViewControl
+            // 
+            this.mapViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapViewControl.Location = new System.Drawing.Point(0, 0);
+            this.mapViewControl.Name = "mapViewControl";
+            this.mapViewControl.Size = new System.Drawing.Size(464, 442);
+            this.mapViewControl.TabIndex = 0;
+            // 
+            // gameEngineController
+            // 
+            this.gameEngineController.GameState = null;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -114,6 +134,7 @@
             this.splitContainerMainVertical.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainVertical)).EndInit();
             this.splitContainerMainVertical.ResumeLayout(false);
+            this.splitContainerMainHorizontal.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainHorizontal)).EndInit();
             this.splitContainerMainHorizontal.ResumeLayout(false);
             this.menuStripMain.ResumeLayout(false);
@@ -132,6 +153,8 @@
         private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Timer timerMain;
+        private DotNetHack.Components.GameEngineController gameEngineController;
+        private Controls.MapViewControl mapViewControl;
     }
 }
 

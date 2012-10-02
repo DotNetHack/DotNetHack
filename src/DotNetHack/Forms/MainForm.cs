@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using DotNetHack.Core;
+
 namespace DotNetHack.Forms
 {
     /// <summary>
@@ -31,7 +33,7 @@ namespace DotNetHack.Forms
         /// <param name="e">event argument</param>
         private void MainForm_Load(object sender, EventArgs e)
         {
-             
+            
         }
 
         /// <summary>
@@ -64,5 +66,10 @@ namespace DotNetHack.Forms
                     break;
             }
         }
+
+        /// <summary>
+        /// GameEngine
+        /// </summary>
+        GameEngine GameEngine { get; set; }
     }
 }

@@ -44,6 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\GameEngineController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\GameEngineController.Designer.cs">
+      <DependentUpon>GameEngineController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MapViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\MapViewControl.Designer.cs">
+      <DependentUpon>MapViewControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +70,9 @@
     </Compile>
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\MapViewControl.resx">
+      <DependentUpon>MapViewControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,9 +105,7 @@
   <ItemGroup>
     <None Include="Resources\logoDotNetHack.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DotNetHack.Core\DotNetHack.Core.csproj">
       <Project>{cab13655-ae02-43b6-b1ab-64c25560324c}</Project>

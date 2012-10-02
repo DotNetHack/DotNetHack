@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DotNetHack.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,7 +24,6 @@ namespace DotNetHack.Forms
             InitializeComponent();
         }
 
-
         /// <summary>
         /// MainForm_Load
         /// </summary>
@@ -31,7 +31,7 @@ namespace DotNetHack.Forms
         /// <param name="e">event argument</param>
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+             
         }
 
         /// <summary>
@@ -52,7 +52,17 @@ namespace DotNetHack.Forms
         /// <param name="e">event argument</param>
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                    break;
+                case Keys.Right:
+                    break;
+                case Keys.Up:
+                    break;
+                case Keys.Down:
+                    break;
+            }
         }
     }
 }

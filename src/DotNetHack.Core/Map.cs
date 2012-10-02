@@ -10,6 +10,11 @@ namespace DotNetHack.Core
     public class Map
     {
         /// <summary>
+        /// Supports serialization.
+        /// </summary>
+        public Map() { }
+
+        /// <summary>
         /// Map
         /// </summary>
         /// <param name="width">width of the map</param>

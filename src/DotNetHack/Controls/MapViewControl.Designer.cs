@@ -36,8 +36,9 @@
             this.panelMapView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMapView.Location = new System.Drawing.Point(0, 0);
             this.panelMapView.Name = "panelMapView";
-            this.panelMapView.Size = new System.Drawing.Size(100, 100);
+            this.panelMapView.Size = new System.Drawing.Size(500, 500);
             this.panelMapView.TabIndex = 0;
+            this.panelMapView.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMapView_Paint);
             // 
             // MapViewControl
             // 
@@ -45,7 +46,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelMapView);
             this.Name = "MapViewControl";
-            this.Size = new System.Drawing.Size(100, 100);
+            this.Size = new System.Drawing.Size(500, 500);
             this.ResumeLayout(false);
 
         }

@@ -27,6 +27,7 @@ namespace DotNetHack.Core
         /// </summary>
         public enum TileType
         {
+            Nothing,
 
         }
 
@@ -36,8 +37,14 @@ namespace DotNetHack.Core
         [Flags]
         public enum TileFlags
         {
-            [XmlEnum]
-            None,
+            None = 1,
+            Door = 2,
+            Trap = 4,
+            Secret = 8,
+            Sacred = 16,
+            Stairs = 32,
+            Spawn = 128,
+            Impassable = 256,
         }
     }
 }

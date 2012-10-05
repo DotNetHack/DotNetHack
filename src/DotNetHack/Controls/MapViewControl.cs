@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetHack.Core;
+using DotNetHack.Resources;
 
 namespace DotNetHack.Controls
 {
@@ -21,8 +22,9 @@ namespace DotNetHack.Controls
         /// <summary>
         /// MapViewControl
         /// </summary>
-        public MapViewControl(GameEngine.IGameEngineController controller)
+        public MapViewControl(GameEngine.IGameEngineController aController)
         {
+            Controller = aController;
             InitializeComponent();
         }
 
@@ -30,5 +32,17 @@ namespace DotNetHack.Controls
         /// Controller
         /// </summary>
         GameEngine.IGameEngineController Controller { get; set; }
+
+        /// <summary>
+        /// panelMapView_Paint
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event arguments</param>
+        private void panelMapView_Paint(object sender, PaintEventArgs e)
+        {
+            int size_t = Properties.Settings.Default.TileSize;
+            var tmpBitmap = R.GetTile(5, 5);
+            e.Graphics.DrawImage(tmpBitmap, 5, 5);
+        }
     }
 }

@@ -16,22 +16,19 @@ namespace DotNetHack.Controls
     /// </summary>
     [ToolboxItem(true)]
     [Description("DotNetHack MapView Control")]
-    public partial class MapViewControl : UserControl, GameEngine.IRenderingService
+    public partial class MapViewControl : UserControl
     {
         /// <summary>
         /// MapViewControl
         /// </summary>
-        public MapViewControl()
+        public MapViewControl(GameEngine.IGameEngineController controller)
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// 
+        /// Controller
         /// </summary>
-        /// <param name="gameState"></param>
-        public void Render(GameEngine.GameState gameState)
-        {
-        }
+        GameEngine.IGameEngineController Controller { get; set; }
     }
 }

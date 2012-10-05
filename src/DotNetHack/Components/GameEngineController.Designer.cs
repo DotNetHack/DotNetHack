@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
+            this.timerMain = new System.Windows.Forms.Timer(this.components);
+            // 
+            // timerMain
+            // 
+            this.timerMain.Interval = 1000;
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer timerMain;
     }
 }

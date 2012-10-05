@@ -14,14 +14,17 @@ namespace DotNetHack.Components
     /// </summary>
     [ToolboxItem(true)]
     [Description("DotNetHack GameEngine Controller")]
-    public partial class GameEngineController : Component, IComponent, GameEngine.IGameEngineComponent
+    public partial class GameEngineController : Component, IComponent, GameEngine.IGameEngineController
     {
         /// <summary>
         /// InitializeComponent
         /// </summary>
         public GameEngineController()
-        {
+        { 
             InitializeComponent();
+            Engine = new GameEngine(GameEngine.GameEngineFlags.Debug)
+                .RegisterStartStopCallbacks(timerMain.Start, timerMain.Stop);
+            timerMain.Tick += Engine.Update;
         }
 
         /// <summary>
@@ -31,13 +34,13 @@ namespace DotNetHack.Components
         public GameEngineController(IContainer container)
         {
             container.Add(this);
-
+            
             InitializeComponent();
         }
 
         /// <summary>
-        /// GameState
+        /// Engine
         /// </summary>
-        public GameEngine.GameState GameState { get; set; }
+        public GameEngine Engine { get; set; }
     }
 }

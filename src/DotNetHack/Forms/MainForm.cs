@@ -1,5 +1,4 @@
-﻿using DotNetHack.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,7 +32,7 @@ namespace DotNetHack.Forms
         /// <param name="e">event argument</param>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         /// <summary>
@@ -66,10 +65,5 @@ namespace DotNetHack.Forms
                     break;
             }
         }
-
-        /// <summary>
-        /// GameEngine
-        /// </summary>
-        GameEngine GameEngine { get; set; }
     }
 }

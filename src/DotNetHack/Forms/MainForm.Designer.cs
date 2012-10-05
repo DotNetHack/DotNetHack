@@ -30,15 +30,14 @@ namespace DotNetHack.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.gameEngineController = new DotNetHack.Components.GameEngineController(this.components);
+            this.mapViewControl = new DotNetHack.Controls.MapViewControl(this.gameEngineController);
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.splitContainerMainVertical = new System.Windows.Forms.SplitContainer();
             this.splitContainerMainHorizontal = new System.Windows.Forms.SplitContainer();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
-            this.timerMain = new System.Windows.Forms.Timer(this.components);
-            this.mapViewControl = new DotNetHack.Controls.MapViewControl();
-            this.gameEngineController = new DotNetHack.Components.GameEngineController(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainVertical)).BeginInit();
             this.splitContainerMainVertical.Panel2.SuspendLayout();
             this.splitContainerMainVertical.SuspendLayout();
@@ -83,6 +82,14 @@ namespace DotNetHack.Forms
             this.splitContainerMainHorizontal.SplitterDistance = 442;
             this.splitContainerMainHorizontal.TabIndex = 0;
             // 
+            // mapViewControl
+            // 
+            this.mapViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapViewControl.Location = new System.Drawing.Point(0, 0);
+            this.mapViewControl.Name = "mapViewControl";
+            this.mapViewControl.Size = new System.Drawing.Size(464, 442);
+            this.mapViewControl.TabIndex = 0;
+            // 
             // gameToolStripMenuItem
             // 
             this.gameToolStripMenuItem.Name = "gameToolStripMenuItem";
@@ -107,17 +114,9 @@ namespace DotNetHack.Forms
             this.menuStripMain.TabIndex = 2;
             this.menuStripMain.Text = "menuStrip1";
             // 
-            // mapViewControl
-            // 
-            this.mapViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapViewControl.Location = new System.Drawing.Point(0, 0);
-            this.mapViewControl.Name = "mapViewControl";
-            this.mapViewControl.Size = new System.Drawing.Size(464, 442);
-            this.mapViewControl.TabIndex = 0;
-            // 
             // gameEngineController
             // 
-            this.gameEngineController.GameState = null;
+            this.gameEngineController.Engine = null;
             // 
             // MainForm
             // 
@@ -152,7 +151,6 @@ namespace DotNetHack.Forms
         private System.Windows.Forms.MenuStrip menuStripMain;
         private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.Timer timerMain;
         private DotNetHack.Components.GameEngineController gameEngineController;
         private Controls.MapViewControl mapViewControl;
     }

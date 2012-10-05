@@ -24,7 +24,131 @@ namespace DotNetHack.Core
         public GameEngine(GameEngineFlags flags)
         {
             Flags = flags;
+            State = GameState.New();
         }
+
+        #region Methods
+
+        /// <summary>
+        /// Start the <see cref="GameEngine"/>
+        /// </summary>
+        public void Start()
+        {
+            if (StartCallback != null)
+            {
+                StartCallback();
+            }
+        }
+
+        /// <summary>
+        /// Stop the <see cref="GameEngine"/>
+        /// </summary>
+        public void Stop()
+        {
+            if (StopCallback != null)
+            {
+                StopCallback();
+            }
+        }
+
+        /// <summary>
+        /// Updates the state of the GameEngines status.
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        public void Update(object sender, EventArgs e)
+        {
+            State.Update();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// RegisterStartStopCallbacks
+        /// </summary>
+        /// <param name="startCallback">Start callback</param>
+        /// <param name="stopCallback">Stop callback</param>
+        /// <returns><see cref="GameEngine"/> for chaining.</returns>
+        public GameEngine RegisterStartStopCallbacks(Action startCallback, Action stopCallback) 
+        {
+            if (startCallback == null && stopCallback == null)
+            {
+                throw new ArgumentException("GameEngine::StartCallback and GameEngine::StopCallback cannot be set to null.");
+            }
+            else if (startCallback == null || stopCallback == null) 
+            {
+                if (startCallback == null)
+                {
+                    throw new ArgumentException("GameEngine::StartCallback cannot be set to null.");
+                }
+
+                throw new ArgumentException("GameEngine::StopCallback cannot be set to null.");
+            }
+
+            return RegisterStopCallback(stopCallback).RegisterStartCallback(startCallback);
+        }
+
+        /// <summary>
+        /// RegisterStartCallback
+        /// </summary>
+        /// <param name="startCallback">The method called on GameEngine.Start</param>
+        /// <returns><see cref="GameEngine"/> for chaining</returns>
+        public GameEngine RegisterStartCallback(Action aStartCallback)
+        {
+            if (aStartCallback == null)
+            {
+                throw new ArgumentException("GameEngine::StartCallback cannot be set to null.");
+            }
+
+            StartCallback = aStartCallback;
+
+            return this;
+        }
+
+        /// <summary>
+        /// RegisterStopCallback
+        /// </summary>
+        /// <param name="stopCallback">The method called on GameEngine.Stop()</param>
+        /// <returns><see cref="GameEngine"/> for chaining.</returns>
+        public GameEngine RegisterStopCallback(Action aStopCallback) 
+        {
+            if (aStopCallback == null)
+            {
+                throw new ArgumentException("GameEngine::StopCallback cannot be set to null.");
+            }
+
+            StopCallback = aStopCallback;
+
+            return this;
+        }
+
+        #region IDisposable implementation
+
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        public void Dispose()
+        {
+
+        }
+
+        #endregion
+
+        #region Fields
+
+        /// <summary>
+        /// StopFunction
+        /// </summary>
+        private Action StartCallback = null;
+
+        /// <summary>
+        /// StartFunction
+        /// </summary>
+        private Action StopCallback = null;
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets the flags.
@@ -35,24 +159,9 @@ namespace DotNetHack.Core
         public GameEngineFlags Flags { get; private set; }
 
         /// <summary>
-        /// Run
+        /// GameState
         /// </summary>
-        public void Run()
-        {
-            while(true)
-            {
-
-            }
-        }
-
-        #region IDisposable implementation
-
-        /// <summary>
-        /// Dispose
-        /// </summary>
-        public void Dispose()
-        {
-        }
+        public GameState State { get; set; }
 
         #endregion
 
@@ -87,30 +196,72 @@ namespace DotNetHack.Core
             NoClip,
         }
 
-        /// <summary>
-        /// IGameEngineController
-        /// </summary>
-        public interface IGameEngineComponent
-        {
-            /// <summary>
-            /// GameState
-            /// </summary>
-            GameState GameState { get; set; }
-        }
+        #region Sub-Interfaces
 
         /// <summary>
         /// IGameEngineController
         /// </summary>
-        public interface IRenderingControl
+        public interface IRenderingAgent
         {
-            void Render(IGameEngineComponent gameState);
+            void Render(IGameEngineController gameState);
         }
+
+        /// <summary>
+        /// GameEngine
+        /// </summary>
+        public interface IGameEngineController
+        {
+            GameEngine Engine { get; set; }
+        }
+
+        #endregion
+
+        #region Subclasses
 
         /// <summary>
         /// GameState
         /// </summary>
         public class GameState
         {
+            /// <summary>
+            /// Explicitly deny construction such that a <c>bad</c> <see cref="GameState"/> cannot be created. A bad 
+            /// <see cref="GameState"/> for example would be one with a <c>NULL</c> current map.
+            /// </summary>
+            private GameState() { Ticks = 0x0000L; }
+
+            /// <summary>
+            /// Safely return a new <see cref="GameState"/> following a strict set of conditions.
+            /// </summary>
+            internal static GameState New()
+            {
+                return new GameState()
+                {
+                    CurrentMap = new Map() { },
+                };
+            }
+
+            /// <summary>
+            /// UpdateCallback
+            /// </summary>
+            Action<GameState> UpdateCallback;
+
+            /// <summary>
+            /// Register an action such that it takes place in the update pipeline.
+            /// </summary>
+            /// <param name="action">The action to register</param>
+            /// <returns><see cref="GameState"/> for chaining.</returns>
+            public GameState Register(Action<GameState> action) 
+            {
+                if (action == null)
+                {
+                    throw new ArgumentException("GameState::Register cannot register null callback.");
+                }
+
+                UpdateCallback += action;
+
+                return this;
+            }
+
             /// <summary>
             /// CurrentMap
             /// </summary>
@@ -119,7 +270,49 @@ namespace DotNetHack.Core
             /// <summary>
             /// Ticks
             /// </summary>
-            long Ticks { get; set; }
+            public long Ticks { get; private set; }
+
+            /// <summary>
+            /// Update
+            /// </summary>
+            /// <param name="updateDelegate">The update delegation to execute.</param>
+            public void Update()
+            {
+                UpdateCallback(this);
+                ++Ticks;
+                if (OnUpdateEvent != null)
+                    OnUpdateEvent(this, null);
+            }
+
+            /// <summary>
+            /// GameStateUpdateEventArgs
+            /// </summary>
+            public class GameStateUpdateEventArgs : EventArgs
+            {
+                /// <summary>
+                /// GameStateUpdateEventArgs
+                /// </summary>
+                public GameStateUpdateEventArgs(GameState aGameState) 
+                    : base()
+                {
+                    if (aGameState == null)
+                        throw new ArgumentException("GameState cannot be set to null.");
+
+                    GameState = aGameState;
+                }
+
+                /// <summary>
+                /// GameState
+                /// </summary>
+                GameState GameState { get; set; }
+            }
+
+            /// <summary>
+            /// OnUpdateEvent
+            /// </summary>
+            public event EventHandler<GameStateUpdateEventArgs> OnUpdateEvent;
         }
+
+        #endregion
     }
 }

@@ -70,6 +70,9 @@
     </Compile>
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Components\GameEngineController.resx">
+      <DependentUpon>GameEngineController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\MapViewControl.resx">
       <DependentUpon>MapViewControl.cs</DependentUpon>
     </EmbeddedResource>

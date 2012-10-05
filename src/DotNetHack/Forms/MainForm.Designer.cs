@@ -30,8 +30,12 @@ namespace DotNetHack.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+
+            #region DotNetHack Specific Initialization Controls and Components
             this.gameEngineController = new DotNetHack.Components.GameEngineController(this.components);
             this.mapViewControl = new DotNetHack.Controls.MapViewControl(this.gameEngineController);
+            #endregion
+
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.splitContainerMainVertical = new System.Windows.Forms.SplitContainer();
             this.splitContainerMainHorizontal = new System.Windows.Forms.SplitContainer();

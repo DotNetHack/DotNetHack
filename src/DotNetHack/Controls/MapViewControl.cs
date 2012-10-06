@@ -41,8 +41,7 @@ namespace DotNetHack.Controls
         private void panelMapView_Paint(object sender, PaintEventArgs e)
         {
             int size_t = Properties.Settings.Default.TileSize;
-            var tmpBitmap = R.GetTile(5, 5);
-            e.Graphics.DrawImage(tmpBitmap, 5, 5);
+            panelMapView.CreateGraphics().DrawImage(R.GetTile(1, 1), 0, 0);
         }
     }
 }

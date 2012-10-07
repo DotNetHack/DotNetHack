@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetHack.Core.Game
+namespace DotNetHack.Core.Game.Skills
 {
     /// <summary>
-    /// Item
+    /// Skill
     /// </summary>
-    [Serializable]
-    public abstract class Item
+    public abstract class Skill
     {
     }
 }

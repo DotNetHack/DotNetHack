@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetHack.Core.Game
+namespace DotNetHack.Core.Game.Actors
 {
     /// <summary>
     /// A Game Actor

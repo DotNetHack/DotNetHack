@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace DotNetHack.Core.Game
+namespace DotNetHack.Core.Game.World
 {
     /// <summary>
     /// Tile

@@ -33,5 +33,25 @@ namespace DotNetHack.Editor.Components
 
             InitializeComponent();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Undo() { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Redo() { }
+
+        /// <summary>
+        /// UndoStack
+        /// </summary>
+        private Stack<string> UndoStack { get; set; }
+
+        /// <summary>
+        /// RedoStack
+        /// </summary>
+        private Stack<string> RedoStack { get; set; }
     }
 }

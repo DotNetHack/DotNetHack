@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Serialization", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Editor", "DotNetHack.Editor\DotNetHack.Editor.csproj", "{860A4EEC-4B2A-4017-87D4-87964A07BA85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.GameEngine", "DotNetHack.GameEngine\DotNetHack.GameEngine.csproj", "{443149D6-6951-4231-9A5A-18E79C5DFD22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Engine", "DotNetHack.GameEngine\DotNetHack.Engine.csproj", "{443149D6-6951-4231-9A5A-18E79C5DFD22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

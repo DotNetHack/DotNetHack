@@ -40,14 +40,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\DNHException.cs" />
-    <Compile Include="GameEngine.cs" />
-    <Compile Include="Map.cs" />
+    <Compile Include="Game\Action.cs" />
+    <Compile Include="Game\Actor.cs" />
+    <Compile Include="Game\Item.cs" />
+    <Compile Include="Game\Map.cs" />
+    <Compile Include="Game\Skill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tile.cs" />
+    <Compile Include="Game\Tile.cs" />
     <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Actions\" />
+    <Folder Include="Game\Actions\" />
+    <Folder Include="Game\Actors\" />
+    <Folder Include="Game\Items\" />
+    <Folder Include="Game\Skills\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
   <ItemGroup>

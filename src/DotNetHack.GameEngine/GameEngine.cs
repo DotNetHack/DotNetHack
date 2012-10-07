@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DotNetHack.Core.Game;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetHack.GameEngine
+namespace DotNetHack.Engine
 {
     /// <summary>
     /// Game engine.
@@ -16,10 +17,10 @@ namespace DotNetHack.GameEngine
     /// localization support, and a scene graph.
     /// </remarks>
     /// </summary>
-    public class GameEngine : IDisposable
+    public partial class GameEngine : IDisposable
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DotNetHack.GameEngine.GameEngine"/> class.
+        /// Initializes a new instance of the <see cref="DotNetHack.Engine.GameEngine"/> class.
         /// </summary>
         public GameEngine(GameEngineFlags flags)
         {
@@ -69,7 +70,7 @@ namespace DotNetHack.GameEngine
         /// <param name="startCallback">Start callback</param>
         /// <param name="stopCallback">Stop callback</param>
         /// <returns><see cref="GameEngine"/> for chaining.</returns>
-        public GameEngine RegisterStartStopCallbacks(Action startCallback, Action stopCallback) 
+        public GameEngine RegisterStartStopCallbacks(System.Action startCallback, System.Action stopCallback) 
         {
             if (startCallback == null && stopCallback == null)
             {
@@ -93,7 +94,7 @@ namespace DotNetHack.GameEngine
         /// </summary>
         /// <param name="startCallback">The method called on GameEngine.Start</param>
         /// <returns><see cref="GameEngine"/> for chaining</returns>
-        public GameEngine RegisterStartCallback(Action aStartCallback)
+        public GameEngine RegisterStartCallback(System.Action aStartCallback)
         {
             if (aStartCallback == null)
             {
@@ -110,7 +111,7 @@ namespace DotNetHack.GameEngine
         /// </summary>
         /// <param name="stopCallback">The method called on GameEngine.Stop()</param>
         /// <returns><see cref="GameEngine"/> for chaining.</returns>
-        public GameEngine RegisterStopCallback(Action aStopCallback) 
+        public GameEngine RegisterStopCallback(System.Action aStopCallback) 
         {
             if (aStopCallback == null)
             {
@@ -139,12 +140,12 @@ namespace DotNetHack.GameEngine
         /// <summary>
         /// StopFunction
         /// </summary>
-        private Action StartCallback = null;
+        private System.Action StartCallback = null;
 
         /// <summary>
         /// StartFunction
         /// </summary>
-        private Action StopCallback = null;
+        private System.Action StopCallback = null;
 
         #endregion
 
@@ -162,57 +163,6 @@ namespace DotNetHack.GameEngine
         /// GameState
         /// </summary>
         public GameState State { get; set; }
-
-        #endregion
-
-        /// <summary>
-        /// Game engine flags.
-        /// </summary>
-        public enum GameEngineFlags
-        {
-            /// <summary>
-            /// The none flag.
-            /// </summary>
-            Default,
-
-            /// <summary>
-            /// The debug flag.
-            /// </summary>
-            Debug,
-
-            /// <summary>
-            /// The editor flag.
-            /// </summary>
-            Editor,
-
-            /// <summary>
-            /// The god mode.
-            /// </summary>
-            GodMode,
-
-            /// <summary>
-            /// The no clip.
-            /// </summary>
-            NoClip,
-        }
-
-        #region Sub-Interfaces
-
-        /// <summary>
-        /// IGameEngineController
-        /// </summary>
-        public interface IRenderingAgent
-        {
-            void Render(IGameEngineController gameState);
-        }
-
-        /// <summary>
-        /// GameEngine
-        /// </summary>
-        public interface IGameEngineController
-        {
-            GameEngine Engine { get; set; }
-        }
 
         #endregion
 

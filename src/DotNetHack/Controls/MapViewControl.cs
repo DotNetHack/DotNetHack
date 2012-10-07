@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetHack.Core;
 using DotNetHack.Resources;
+using DotNetHack.Engine.Interfaces;
 
 namespace DotNetHack.Controls
 {
@@ -22,7 +23,7 @@ namespace DotNetHack.Controls
         /// <summary>
         /// MapViewControl
         /// </summary>
-        public MapViewControl(GameEngine.IGameEngineController aController)
+        public MapViewControl(IGameEngineController aController)
         {
             Controller = aController;
             InitializeComponent();
@@ -31,7 +32,7 @@ namespace DotNetHack.Controls
         /// <summary>
         /// Controller
         /// </summary>
-        GameEngine.IGameEngineController Controller { get; set; }
+        IGameEngineController Controller { get; set; }
 
         /// <summary>
         /// panelMapView_Paint

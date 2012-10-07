@@ -114,6 +114,18 @@
       <Project>{cab13655-ae02-43b6-b1ab-64c25560324c}</Project>
       <Name>DotNetHack.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DotNetHack.Editor\DotNetHack.Editor.csproj">
+      <Project>{860a4eec-4b2a-4017-87d4-87964a07ba85}</Project>
+      <Name>DotNetHack.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotNetHack.GameEngine\DotNetHack.Engine.csproj">
+      <Project>{443149d6-6951-4231-9a5a-18e79c5dfd22}</Project>
+      <Name>DotNetHack.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotNetHack.Serialization\DotNetHack.Serialization.csproj">
+      <Project>{fc69ff51-f478-4488-aa58-b01662550fd4}</Project>
+      <Name>DotNetHack.Serialization</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\X11tiles-32-32.bmp" />

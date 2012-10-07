@@ -7,7 +7,7 @@
     <ProjectGuid>{443149D6-6951-4231-9A5A-18E79C5DFD22}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DotNetHack.GameEngine</RootNamespace>
+    <RootNamespace>DotNetHack.Engine</RootNamespace>
     <AssemblyName>DotNetHack.GameEngine</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -40,7 +40,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameEngine.cs" />
+    <Compile Include="GameEngineFlags.cs" />
+    <Compile Include="Interfaces\IGameEngineController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripting\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetHack.Core\DotNetHack.Core.csproj">
+      <Project>{cab13655-ae02-43b6-b1ab-64c25560324c}</Project>
+      <Name>DotNetHack.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

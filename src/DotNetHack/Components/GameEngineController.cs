@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DotNetHack.Core;
+using DotNetHack.Engine;
+using DotNetHack.Engine.Interfaces;
 
 namespace DotNetHack.Components
 {
@@ -14,7 +16,7 @@ namespace DotNetHack.Components
     /// </summary>
     [ToolboxItem(true)]
     [Description("DotNetHack GameEngine Controller")]
-    public partial class GameEngineController : Component, IComponent, GameEngine.IGameEngineController
+    public partial class GameEngineController : Component, IComponent, IGameEngineController
     {
         /// <summary>
         /// InitializeComponent

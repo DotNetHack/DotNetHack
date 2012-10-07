@@ -47,23 +47,14 @@ namespace DotNetHack.Forms
         }
 
         /// <summary>
-        /// MainForm_KeyDown
+        /// editorToolStripMenuItem_Click
         /// </summary>
         /// <param name="sender">event sender</param>
-        /// <param name="e">event argument</param>
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        /// <param name="e">event args</param>
+        private void editorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            switch (e.KeyCode)
-            {
-                case Keys.Left:
-                    break;
-                case Keys.Right:
-                    break;
-                case Keys.Up:
-                    break;
-                case Keys.Down:
-                    break;
-            }
+            using (Editor.Forms.EditorForm frmEditor = new Editor.Forms.EditorForm())
+                frmEditor.ShowDialog();
         }
     }
 }

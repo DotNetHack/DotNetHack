@@ -23,5 +23,35 @@ namespace DotNetHack.Editor.Controls
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// ScriptEditorControl_Load
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void ScriptEditorControl_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        /// <summary>
+        /// richTextBoxCodeSet_TextChanged
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void richTextBoxCodeSet_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        /// <summary>
+        /// ScriptEditorControl_KeyUp
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void ScriptEditorControl_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

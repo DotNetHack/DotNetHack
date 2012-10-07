@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(667, 632);
+            this.ClientSize = new System.Drawing.Size(759, 632);
             this.Name = "ScriptEditorForm";
             this.Text = "DotNetHack Script Editor";
             this.ResumeLayout(false);

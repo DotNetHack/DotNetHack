@@ -29,15 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.textEditorController = new DotNetHack.Editor.Components.TextEditorController(this.components);
             this.richTextBoxCodeSet = new System.Windows.Forms.RichTextBox();
+            this.textEditorController = new DotNetHack.Editor.Components.TextEditorController(this.components);
             this.SuspendLayout();
             // 
             // richTextBoxCodeSet
             // 
-            this.richTextBoxCodeSet.Location = new System.Drawing.Point(155, 109);
+            this.richTextBoxCodeSet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxCodeSet.Location = new System.Drawing.Point(0, 0);
             this.richTextBoxCodeSet.Name = "richTextBoxCodeSet";
-            this.richTextBoxCodeSet.Size = new System.Drawing.Size(100, 96);
+            this.richTextBoxCodeSet.Size = new System.Drawing.Size(571, 448);
             this.richTextBoxCodeSet.TabIndex = 0;
             this.richTextBoxCodeSet.Text = "";
             this.richTextBoxCodeSet.TextChanged += new System.EventHandler(this.richTextBoxCodeSet_TextChanged);

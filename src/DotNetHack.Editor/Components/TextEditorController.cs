@@ -64,6 +64,16 @@ namespace DotNetHack.Editor.Components
             InitializeComponent();
         }
 
+        public void Save() 
+        { 
+
+        }
+
+        public void SaveAs() 
+        {
+
+        }
+
         /// <summary>
         /// Clear
         /// </summary>

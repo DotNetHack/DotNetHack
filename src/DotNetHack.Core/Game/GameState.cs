@@ -22,7 +22,7 @@ namespace DotNetHack.Core.Game
         /// <summary>
         /// Safely return a new <see cref="GameState"/> following a strict set of conditions.
         /// </summary>
-        internal static GameState New()
+        public static GameState New()
         {
             return new GameState()
             {

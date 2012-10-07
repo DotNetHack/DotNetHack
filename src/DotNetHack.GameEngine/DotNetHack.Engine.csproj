@@ -43,10 +43,10 @@
     <Compile Include="GameEngineFlags.cs" />
     <Compile Include="Interfaces\IGameEngineController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripting\Script.cs" />
+    <Compile Include="Scripting\ScriptLoader.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripting\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DotNetHack.Core\DotNetHack.Core.csproj">
       <Project>{cab13655-ae02-43b6-b1ab-64c25560324c}</Project>

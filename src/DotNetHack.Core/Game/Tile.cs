@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace DotNetHack.Core
+namespace DotNetHack.Core.Game
 {
     /// <summary>
     /// Tile
     /// </summary>
+    [Serializable]
     public class Tile
     {
         /// <summary>
@@ -28,7 +29,7 @@ namespace DotNetHack.Core
         public enum TileType
         {
             Nothing,
-
+            Wall,
         }
 
         /// <summary>

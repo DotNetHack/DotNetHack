@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetHack.Core
+namespace DotNetHack.Core.Game
 {
+    /// <summary>
+    /// A DotNetHack Map.
+    /// </summary>
     [Serializable]
     public class Map
     {

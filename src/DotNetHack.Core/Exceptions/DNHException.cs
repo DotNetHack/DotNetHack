@@ -21,17 +21,16 @@ namespace DotNetHack.Core.Exceptions
         /// </summary>
         /// <param name="message">exception message</param>
         public DNHException(string message)
-        {
-        }
+            : base(message)
+        { }
 
         /// <summary>
         /// DNHException
         /// </summary>
         /// <param name="message">exception messahe</param>
         /// <param name="inner">inner exception</param>
-        public DNHException(string message, Exception inner)
-        {
- 
-        }
+        public DNHException(string message, Exception inner) 
+            : base(message, inner)
+        { }
     }
 }

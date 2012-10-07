@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetHack.Core
+namespace DotNetHack.GameEngine
 {
     /// <summary>
     /// Game engine.

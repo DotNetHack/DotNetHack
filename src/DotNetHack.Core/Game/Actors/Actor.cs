@@ -13,11 +13,19 @@ namespace DotNetHack.Core.Game.Actors
     /// </remarks>
     /// </summary>
     [Serializable]
-    public abstract class Actor
+    public abstract class Actor : IScriptedObject<Actor>
     {
         /// <summary>
         /// Default .ctor supports serialization.
         /// </summary>
-        public Actor() { }
+        public Actor()
+        {
+
+        }
+
+        /// <summary>
+        /// ScriptedCallback
+        /// </summary>
+        public ScriptedCallback<Actor> ScriptedCallback { get; set; }
     }
 }

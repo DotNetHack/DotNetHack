@@ -42,6 +42,7 @@
     <Compile Include="Exceptions\DNHException.cs" />
     <Compile Include="Game\Actions\Action.cs" />
     <Compile Include="Game\Actors\Actor.cs" />
+    <Compile Include="Game\GameObject.cs" />
     <Compile Include="Game\GameState.cs" />
     <Compile Include="Game\Items\Item.cs" />
     <Compile Include="Game\World\Map.cs" />

@@ -41,6 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\TextEditorController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Components\TextEditorController.Designer.cs">
+      <DependentUpon>TextEditorController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ScriptEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ScriptEditorControl.Designer.cs">
+      <DependentUpon>ScriptEditorControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,13 +67,16 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Components\" />
-    <Folder Include="Controls\" />
-  </ItemGroup>
-  <ItemGroup>
+    <EmbeddedResource Include="Controls\ScriptEditorControl.resx">
+      <DependentUpon>ScriptEditorControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ScriptEditorForm.resx">
+      <DependentUpon>ScriptEditorForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

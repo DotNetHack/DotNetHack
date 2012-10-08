@@ -1,57 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DotNetHack.Core;
 
-namespace DotNetHack.Editor.Controls
+namespace DotNetHack.Forms
 {
     /// <summary>
-    /// ScriptEditorControl
+    /// MainForm
     /// </summary>
-    [ToolboxItem(true)]
-    public partial class ScriptEditorControl : UserControl, IContainerControl
+    public partial class Main : Form
     {
         /// <summary>
-        /// ScriptEditorControl
+        /// MainForm
         /// </summary>
-        public ScriptEditorControl()
+        public Main()
         {
             InitializeComponent();
         }
 
         /// <summary>
-        /// ScriptEditorControl_Load
+        /// MainForm_Load
         /// </summary>
         /// <param name="sender">event sender</param>
-        /// <param name="e">event args</param>
-        private void ScriptEditorControl_Load(object sender, EventArgs e)
+        /// <param name="e">event argument</param>
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         /// <summary>
-        /// richTextBoxCodeSet_TextChanged
+        /// helpToolStripMenuItem_Click
         /// </summary>
         /// <param name="sender">event sender</param>
-        /// <param name="e">event args</param>
-        private void richTextBoxCodeSet_TextChanged(object sender, EventArgs e)
+        /// <param name="e">event argument</param>
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            using (About frmAboutBox = new About())
+                frmAboutBox.ShowDialog(this);
         }
 
         /// <summary>
-        /// ScriptEditorControl_KeyUp
+        /// editorToolStripMenuItem_Click
         /// </summary>
         /// <param name="sender">event sender</param>
         /// <param name="e">event args</param>
-        private void ScriptEditorControl_KeyUp(object sender, KeyEventArgs e)
+        private void editorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetHack.Resources
+namespace DotNetHack.Shared
 {
     /// <summary>
     /// Resource Access

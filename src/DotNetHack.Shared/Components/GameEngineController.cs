@@ -5,9 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DotNetHack.Core;
-using DotNetHack.Engine;
-using DotNetHack.Engine.Interfaces;
 
 namespace DotNetHack.Components
 {
@@ -16,7 +13,7 @@ namespace DotNetHack.Components
     /// </summary>
     [ToolboxItem(true)]
     [Description("DotNetHack GameEngine Controller")]
-    public partial class GameEngineController : Component, IComponent, IGameEngineController
+    public partial class GameEngineController : Component, IComponent
     {
         /// <summary>
         /// InitializeComponent
@@ -24,9 +21,9 @@ namespace DotNetHack.Components
         public GameEngineController()
         { 
             InitializeComponent();
-            Engine = new GameEngine(GameEngine.GameEngineFlags.Debug)
-                .RegisterStartStopCallbacks(timerMain.Start, timerMain.Stop);
-            timerMain.Tick += Engine.Update;
+            //Engine = new GameEngine(GameEngine.GameEngineFlags.Debug)
+                //.RegisterStartStopCallbacks(timerMain.Start, timerMain.Stop);
+            //timerMain.Tick += Engine.Update;
         }
 
         /// <summary>
@@ -39,10 +36,5 @@ namespace DotNetHack.Components
             
             InitializeComponent();
         }
-
-        /// <summary>
-        /// Engine
-        /// </summary>
-        public GameEngine Engine { get; set; }
     }
 }

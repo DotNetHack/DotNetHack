@@ -7,9 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Core", "DotNetHa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Serialization", "DotNetHack.Serialization\DotNetHack.Serialization.csproj", "{FC69FF51-F478-4488-AA58-B01662550FD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Editor", "DotNetHack.Editor\DotNetHack.Editor.csproj", "{860A4EEC-4B2A-4017-87D4-87964A07BA85}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Engine", "DotNetHack.GameEngine\DotNetHack.Engine.csproj", "{443149D6-6951-4231-9A5A-18E79C5DFD22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Editor", "DotNetHack.Editor\DotNetHack.Editor.csproj", "{FC99BB19-015A-40DE-AAE9-E29961EE61EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Shared", "DotNetHack.Shared\DotNetHack.Shared.csproj", "{BD92DF2D-27CC-419D-B7EE-35A511841BDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,14 +31,18 @@ Global
 		{FC69FF51-F478-4488-AA58-B01662550FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC69FF51-F478-4488-AA58-B01662550FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC69FF51-F478-4488-AA58-B01662550FD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{860A4EEC-4B2A-4017-87D4-87964A07BA85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{860A4EEC-4B2A-4017-87D4-87964A07BA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{860A4EEC-4B2A-4017-87D4-87964A07BA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{860A4EEC-4B2A-4017-87D4-87964A07BA85}.Release|Any CPU.Build.0 = Release|Any CPU
 		{443149D6-6951-4231-9A5A-18E79C5DFD22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{443149D6-6951-4231-9A5A-18E79C5DFD22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{443149D6-6951-4231-9A5A-18E79C5DFD22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{443149D6-6951-4231-9A5A-18E79C5DFD22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC99BB19-015A-40DE-AAE9-E29961EE61EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC99BB19-015A-40DE-AAE9-E29961EE61EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC99BB19-015A-40DE-AAE9-E29961EE61EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC99BB19-015A-40DE-AAE9-E29961EE61EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD92DF2D-27CC-419D-B7EE-35A511841BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD92DF2D-27CC-419D-B7EE-35A511841BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD92DF2D-27CC-419D-B7EE-35A511841BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD92DF2D-27CC-419D-B7EE-35A511841BDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

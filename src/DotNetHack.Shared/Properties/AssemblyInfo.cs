@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DotNetHack.Editor")]
+[assembly: AssemblyTitle("DotNetHack.Shared")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DotNetHack.Editor")]
+[assembly: AssemblyProduct("DotNetHack.Shared")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("fa1b1a94-a0f1-454b-8379-1a9cdd7a6c08")]
+[assembly: Guid("e2c2bbc5-851c-4301-ae6c-8d73ba0c3736")]
 
 // Version information for an assembly consists of the following four values:
 //

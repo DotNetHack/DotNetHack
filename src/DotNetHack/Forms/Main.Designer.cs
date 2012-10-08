@@ -1,7 +1,7 @@
 ﻿
 namespace DotNetHack.Forms
 {
-    partial class MainForm
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace DotNetHack.Forms
         {
             this.components = new System.ComponentModel.Container();
             this.gameEngineController = new DotNetHack.Components.GameEngineController(this.components);
-            this.mapViewControl = new Controls.MapViewControl(gameEngineController);
+            this.mapViewControl = new DotNetHack.Controls.MapViewControl();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.splitContainerMainVertical = new System.Windows.Forms.SplitContainer();
             this.splitContainerMainHorizontal = new System.Windows.Forms.SplitContainer();
@@ -123,7 +123,7 @@ namespace DotNetHack.Forms
             this.editorToolStripMenuItem.Text = "EDITOR";
             this.editorToolStripMenuItem.Click += new System.EventHandler(this.editorToolStripMenuItem_Click);
             // 
-            // MainForm
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -131,7 +131,7 @@ namespace DotNetHack.Forms
             this.Controls.Add(this.splitContainerMainVertical);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.menuStripMain);
-            this.Name = "MainForm";
+            this.Name = "Main";
             this.Text = "DotNetHack";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainerMainVertical.Panel2.ResumeLayout(false);

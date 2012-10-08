@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DotNetHack.Forms;
-using DotNetHack.Core;
-namespace DotNetHack
+
+namespace DotNetHack.Editor
 {
-    /// <summary>
-    /// EntryPoint
-    /// </summary>
     static class EntryPoint
     {
         /// <summary>
@@ -20,7 +16,7 @@ namespace DotNetHack
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+            //Application.Run(new EditorMain());
         }
     }
 }

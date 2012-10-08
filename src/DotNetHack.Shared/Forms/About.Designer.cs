@@ -1,6 +1,6 @@
 ﻿namespace DotNetHack.Forms
 {
-    partial class AboutForm
+    public partial class About
     {
         /// <summary>
         /// Required designer variable.
@@ -64,7 +64,6 @@
             // pictureBoxLogo
             // 
             this.pictureBoxLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxLogo.Image = global::DotNetHack.Properties.Resources.logoDotNetHack;
             this.pictureBoxLogo.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
             this.pictureBoxLogo.Size = new System.Drawing.Size(436, 156);

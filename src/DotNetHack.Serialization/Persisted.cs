@@ -78,6 +78,8 @@ namespace DotNetHack.Serialization
                 string strDirectory = Path.GetDirectoryName(strFullPath);
                 if (!Directory.Exists(strDirectory) && !string.Empty.Equals(strDirectory))
                     Directory.CreateDirectory(strDirectory);
+                if (File.Exists(strFullPath))
+                    File.Delete(strFullPath);
                 using (FileStream tmpRawStream = File.Open(strFullPath, FileMode.OpenOrCreate))
                 using (XmlTextWriter tmpXmlWriter = new XmlTextWriter(tmpRawStream, new System.Text.UTF8Encoding()))
                     new XmlSerializer(aObj.GetType()).Serialize(tmpXmlWriter, aObj);

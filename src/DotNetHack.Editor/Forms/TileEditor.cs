@@ -39,16 +39,30 @@ namespace DotNetHack.Editor.Forms
 
             int xTile = Math.Abs((tmpOffset.X - MousePosition.X) / tileSize);
             int yTile = Math.Abs((tmpOffset.Y - MousePosition.Y) / tileSize);
-            var tmpPoint = new Point(xTile, yTile);
-
-            if (!ImageCache.ContainsKey(tmpPoint))
-                ImageCache.Add(tmpPoint, Shared.R.GetTile(xTile, yTile));
-
-            pictureBoxSecondary.Image = ImageCache[tmpPoint];
 
             CurrentTile = new EditorTile(xTile, yTile);
 
-            propertyGridMain.SelectedObject = CurrentTile;
+            UpdateImage(CurrentTile);
+            UpdateTileProperties(CurrentTile);
+        }
+
+        /// <summary>
+        /// UpdateTileProperties();
+        /// </summary>
+        private void UpdateTileProperties(EditorTile tile)
+        {
+            UpdateImage(tile);
+            
+            propertyGridMain.SelectedObject = tile;
+            propertyGridMain.Refresh();
+        }
+
+        private void UpdateImage(EditorTile tile)
+        {
+            Point tmpPoint = new Point(tile.X, tile.Y);
+            if (!ImageCache.ContainsKey(tmpPoint))
+                ImageCache.Add(tmpPoint, Shared.R.GetTile(tmpPoint.X, tmpPoint.Y));
+            pictureBoxSecondary.Image = ImageCache[tmpPoint];
         }
 
         /// <summary>
@@ -204,9 +218,9 @@ namespace DotNetHack.Editor.Forms
         {
             if (!Saved)
             {
-                switch (MessageBox.Show("Save your work?"))
+                switch (MessageBox.Show("Save your work?","DotNetHack Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                 {
-                    case System.Windows.Forms.DialogResult.OK:
+                    case System.Windows.Forms.DialogResult.Yes:
                         e.Cancel = true;
                         break;
                 }
@@ -223,6 +237,9 @@ namespace DotNetHack.Editor.Forms
             if (listBoxMapping.SelectedItem != null)
             {
                 CurrentTile = new EditorTile(((TileMapping.MappedTile)(listBoxMapping.SelectedItem)));
+                UpdateTileProperties(CurrentTile);
+                UpdateImage(CurrentTile);
+
                 listBoxMapping.Refresh();
             }
         }

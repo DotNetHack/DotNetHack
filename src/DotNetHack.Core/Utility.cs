@@ -13,6 +13,8 @@ namespace DotNetHack.Core
     /// </summary>
     public static class Util
     {
+
+
         /// <summary>
         /// Compute a as a percentage in relation to b.
         /// (a/b)*100

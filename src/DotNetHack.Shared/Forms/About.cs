@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DotNetHack.Forms
+namespace DotNetHack.Shared.Forms
 {
     /// <summary>
     /// AboutBox
@@ -124,5 +124,10 @@ namespace DotNetHack.Forms
             }
         }
         #endregion
+
+        private void About_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

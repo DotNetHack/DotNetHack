@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DotNetHack.Core;
 
+using DotNetHack.Core;
 using DotNetHack.Core.Game.World;
 
-namespace DotNetHack.Controls
+namespace DotNetHack.Shared.Controls
 {
     /// <summary>
     /// MapViewControl
@@ -26,6 +26,8 @@ namespace DotNetHack.Controls
         public MapViewControl()
         {
             InitializeComponent();
+
+            Map = new Map();
         }
 
         /// <summary>
@@ -37,6 +39,22 @@ namespace DotNetHack.Controls
         {
             //int size_t = Properties.Settings.Default.TileSize;
             //panelMapView.CreateGraphics().DrawImage(R.GetTile(1, 1), 0, 0);
+
+
+            var size_t = Shared.Properties.Settings.Default.TileSize;
+            var g = panelMapView.CreateGraphics();
+            for (int x = 0; x < this.Width; x += size_t)
+            {
+                for (int y = 0; y < this.Height; y += size_t)
+                {
+
+                }
+            }
         }
+
+        /// <summary>
+        /// Map
+        /// </summary>
+        public Map Map { get; set; }
     }
 }

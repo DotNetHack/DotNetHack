@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetHack.Core;
+using DotNetHack.Shared.Forms;
 
 namespace DotNetHack.Forms
 {

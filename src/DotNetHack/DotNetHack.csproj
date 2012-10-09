@@ -86,10 +86,6 @@
       <Project>{443149d6-6951-4231-9a5a-18e79c5dfd22}</Project>
       <Name>DotNetHack.Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DotNetHack.Serialization\DotNetHack.Serialization.csproj">
-      <Project>{fc69ff51-f478-4488-aa58-b01662550fd4}</Project>
-      <Name>DotNetHack.Serialization</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DotNetHack.Shared\DotNetHack.Shared.csproj">
       <Project>{bd92df2d-27cc-419d-b7ee-35a511841bdf}</Project>
       <Name>DotNetHack.Shared</Name>

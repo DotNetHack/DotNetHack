@@ -34,7 +34,7 @@ namespace DotNetHack.Core.Game.World
                 {
                     for (int z = 0; z < depth; ++z)
                     {
-                        Tiles[x, y, z] = new Tile(x, y, z) 
+                        Tiles[x, y, z] = new Tile()
                         {
                             Type = Tile.TileType.Nothing,
                         };

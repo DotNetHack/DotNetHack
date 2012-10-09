@@ -1,4 +1,4 @@
-﻿namespace DotNetHack.Components
+﻿namespace DotNetHack.Shared.Components
 {
     partial class GameEngineController
     {

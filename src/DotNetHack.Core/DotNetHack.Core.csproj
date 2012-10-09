@@ -56,6 +56,12 @@
     <Folder Include="Game\Items\Containers\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetHack.Serialization\DotNetHack.Serialization.csproj">
+      <Project>{fc69ff51-f478-4488-aa58-b01662550fd4}</Project>
+      <Name>DotNetHack.Serialization</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

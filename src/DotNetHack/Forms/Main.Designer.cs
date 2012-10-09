@@ -30,15 +30,14 @@ namespace DotNetHack.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.gameEngineController = new DotNetHack.Components.GameEngineController(this.components);
-            this.mapViewControl = new DotNetHack.Controls.MapViewControl();
+            this.gameEngineController = new Shared.Components.GameEngineController();
+            this.mapViewControl = new Shared.Controls.MapViewControl();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.splitContainerMainVertical = new System.Windows.Forms.SplitContainer();
             this.splitContainerMainHorizontal = new System.Windows.Forms.SplitContainer();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
-            this.editorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMainVertical)).BeginInit();
             this.splitContainerMainVertical.Panel2.SuspendLayout();
             this.splitContainerMainVertical.SuspendLayout();
@@ -108,20 +107,12 @@ namespace DotNetHack.Forms
             // 
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gameToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.editorToolStripMenuItem});
+            this.helpToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
             this.menuStripMain.Size = new System.Drawing.Size(702, 24);
             this.menuStripMain.TabIndex = 2;
             this.menuStripMain.Text = "menuStrip1";
-            // 
-            // editorToolStripMenuItem
-            // 
-            this.editorToolStripMenuItem.Name = "editorToolStripMenuItem";
-            this.editorToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.editorToolStripMenuItem.Text = "EDITOR";
-            this.editorToolStripMenuItem.Click += new System.EventHandler(this.editorToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -155,9 +146,8 @@ namespace DotNetHack.Forms
         private System.Windows.Forms.MenuStrip menuStripMain;
         private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private DotNetHack.Components.GameEngineController gameEngineController;
-        private Controls.MapViewControl mapViewControl;
-        private System.Windows.Forms.ToolStripMenuItem editorToolStripMenuItem;
+        private DotNetHack.Shared.Components.GameEngineController gameEngineController;
+        private DotNetHack.Shared.Controls.MapViewControl mapViewControl;
     }
 }
 

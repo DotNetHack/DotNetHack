@@ -1,4 +1,6 @@
-﻿using DotNetHack.Core.Game.World;
+﻿using DotNetHack.Core.Game.Tiles;
+using DotNetHack.Core.Game.World;
+using DotNetHack.Shared.Objects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,12 +22,23 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// TileEditor
         /// </summary>
-        public TileEditor()
+        TileEditor()
         {
             InitializeComponent();
             TileMapping = new TileMapping();
             ImageCache = new Dictionary<Point, Image>();
         }
+
+        /// <summary>
+        /// _instance
+        /// </summary>
+        static readonly TileEditor _instance = new TileEditor();
+
+        /// <summary>
+        /// Instance
+        /// </summary>
+        public static TileEditor Instance { get { return _instance; } }
+
 
         /// <summary>
         /// pictureBoxMain_Click
@@ -40,10 +53,10 @@ namespace DotNetHack.Editor.Forms
             int xTile = Math.Abs((tmpOffset.X - MousePosition.X) / tileSize);
             int yTile = Math.Abs((tmpOffset.Y - MousePosition.Y) / tileSize);
 
-            CurrentTile = new EditorTile(xTile, yTile);
+            // CurrentTile = new EditorTile(xTile, yTile, CurrentTile);
 
-            UpdateImage(CurrentTile);
-            UpdateTileProperties(CurrentTile);
+            // UpdateImage(CurrentTile);
+            // UpdateTileProperties(CurrentTile);
         }
 
         /// <summary>
@@ -57,6 +70,10 @@ namespace DotNetHack.Editor.Forms
             propertyGridMain.Refresh();
         }
 
+        /// <summary>
+        /// UpdateImage
+        /// </summary>
+        /// <param name="tile">tile</param>
         private void UpdateImage(EditorTile tile)
         {
             Point tmpPoint = new Point(tile.X, tile.Y);
@@ -83,7 +100,7 @@ namespace DotNetHack.Editor.Forms
                     {
                         try
                         {
-                            TileMapping.Save(saveFileDialog.FileName);
+                            TileMapping.Save(TileMapping, saveFileDialog.FileName);
                             toolStripStatusLabel.Text = string.Format("Saved: {0}", openFileDialog.FileName);
 
                             Saved = true;
@@ -186,13 +203,16 @@ namespace DotNetHack.Editor.Forms
             {
                 Name = CurrentTile.Name,
                 Tile = CurrentTile.Tile,
-                X = CurrentTile.X,
-                Y = CurrentTile.Y,
+                XMapping = CurrentTile.X,
+                YMapping = CurrentTile.Y,
             });
 
             UpdateListBox();
         }
 
+        /// <summary>
+        /// UpdateListBox
+        /// </summary>
         private void UpdateListBox()
         {
             listBoxMapping.Items.Clear();
@@ -210,10 +230,10 @@ namespace DotNetHack.Editor.Forms
         }
 
         /// <summary>
-        /// 
+        /// TileEditor_FormClosing
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">sender</param>
+        /// <param name="e">e</param>
         private void TileEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!Saved)
@@ -243,6 +263,16 @@ namespace DotNetHack.Editor.Forms
                 listBoxMapping.Refresh();
             }
         }
+
+        /// <summary>
+        /// exitToolStripMenuItem_Click
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">args</param>
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 
     /// <summary>
@@ -261,14 +291,13 @@ namespace DotNetHack.Editor.Forms
         /// </summary>
         /// <param name="x">x-mapping coord</param>
         /// <param name="y">y-mapping coord</param>
-        public EditorTile(int x, int y)
+        public EditorTile(int x, int y, Tile tile)
         {
             MappedTile = new TileMapping.MappedTile()
             {
-                Tile = new Tile(),
-                Name = "",
-                X = x,
-                Y = y,
+                Tile = tile,
+                XMapping = x,
+                YMapping = y,
             };
         }
 
@@ -295,15 +324,8 @@ namespace DotNetHack.Editor.Forms
         /// Flags
         /// </summary>
         [CategoryAttribute("Tile Flags")]
-        [DescriptionAttribute("Set the flags for this tile.")]
-        public Tile.TileFlags Flags { get; set; }
-
-        /// <summary>
-        /// Type
-        /// </summary>
-        [CategoryAttribute("Tile Flags")]
-        [DescriptionAttribute("The type of tile this is.")]
-        public Tile.TileType Type { get; set; }
+        [DescriptionAttribute("Set the tile type of this tile.")]
+        public Tile.TileType TileType { get; set; }
 
         /// <summary>
         /// Name
@@ -316,12 +338,12 @@ namespace DotNetHack.Editor.Forms
         /// X-Mapping Coord
         /// </summary>
         [CategoryAttribute("Tileset Mapping")]
-        public int X { get { return MappedTile.X; } }
+        public int X { get { return MappedTile.XMapping; } }
 
         /// <summary>
         /// Y-Mapping Coord
         /// </summary>
         [CategoryAttribute("Tileset Mapping")]
-        public int Y { get { return MappedTile.Y; } }
+        public int Y { get { return MappedTile.YMapping; } }
     }
 }

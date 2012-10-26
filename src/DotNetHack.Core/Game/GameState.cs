@@ -26,7 +26,7 @@ namespace DotNetHack.Core.Game
         {
             return new GameState()
             {
-                CurrentMap = new Map() { },
+                Substrate = new Substrate()
             };
         }
 
@@ -55,7 +55,7 @@ namespace DotNetHack.Core.Game
         /// <summary>
         /// CurrentMap
         /// </summary>
-        public Map CurrentMap { get; set; }
+        public Substrate Substrate { get; set; }
 
         /// <summary>
         /// Ticks

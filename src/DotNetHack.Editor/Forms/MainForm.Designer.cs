@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStripEditorMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditorMain = new System.Windows.Forms.StatusStrip();
             this.splitContainerEditorMain = new System.Windows.Forms.SplitContainer();
             this.mapViewControl1 = new DotNetHack.Shared.Controls.MapViewControl();
+            this.flowLayoutPanelEditorMain = new System.Windows.Forms.FlowLayoutPanel();
             this.menuStripEditorMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEditorMain)).BeginInit();
             this.splitContainerEditorMain.Panel2.SuspendLayout();
@@ -81,6 +81,7 @@
             // 
             // splitContainerEditorMain.Panel2
             // 
+            this.splitContainerEditorMain.Panel2.Controls.Add(this.flowLayoutPanelEditorMain);
             this.splitContainerEditorMain.Panel2.Controls.Add(this.mapViewControl1);
             this.splitContainerEditorMain.Size = new System.Drawing.Size(692, 513);
             this.splitContainerEditorMain.SplitterDistance = 230;
@@ -90,10 +91,17 @@
             // 
             this.mapViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mapViewControl1.Location = new System.Drawing.Point(0, 0);
-            this.mapViewControl1.Map = ((DotNetHack.Core.Game.World.Map)(resources.GetObject("mapViewControl1.Map")));
             this.mapViewControl1.Name = "mapViewControl1";
             this.mapViewControl1.Size = new System.Drawing.Size(458, 513);
             this.mapViewControl1.TabIndex = 0;
+            // 
+            // flowLayoutPanelEditorMain
+            // 
+            this.flowLayoutPanelEditorMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelEditorMain.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanelEditorMain.Name = "flowLayoutPanelEditorMain";
+            this.flowLayoutPanelEditorMain.Size = new System.Drawing.Size(458, 513);
+            this.flowLayoutPanelEditorMain.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -125,5 +133,6 @@
         private Shared.Controls.MapViewControl mapViewControl1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tilesToolStripMenuItem;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelEditorMain;
     }
 }

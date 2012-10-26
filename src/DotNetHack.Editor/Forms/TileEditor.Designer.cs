@@ -29,27 +29,27 @@
         private void InitializeComponent()
         {
             this.statusStripTileEditMain = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
-            this.pictureBoxMain = new System.Windows.Forms.PictureBox();
-            this.pictureBoxSecondary = new System.Windows.Forms.PictureBox();
             this.listBoxMapping = new System.Windows.Forms.ListBox();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.propertyGridMain = new System.Windows.Forms.PropertyGrid();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonAddMapping = new System.Windows.Forms.Button();
             this.buttonRemoveMapping = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.pictureBoxMain = new System.Windows.Forms.PictureBox();
+            this.pictureBoxSecondary = new System.Windows.Forms.PictureBox();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStripTileEditMain.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -60,6 +60,8 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
@@ -67,8 +69,6 @@
             this.splitContainer4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecondary)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStripTileEditMain
@@ -80,6 +80,11 @@
             this.statusStripTileEditMain.Size = new System.Drawing.Size(888, 22);
             this.statusStripTileEditMain.TabIndex = 0;
             this.statusStripTileEditMain.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // menuStripMain
             // 
@@ -102,30 +107,31 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // loadToolStripMenuItem
-            // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.loadToolStripMenuItem.Text = "&Open";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
-            // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // loadToolStripMenuItem
+            // 
+            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.loadToolStripMenuItem.Text = "&Open";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
@@ -162,54 +168,6 @@
             this.splitContainer2.SplitterDistance = 186;
             this.splitContainer2.TabIndex = 0;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.splitContainer4);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(588, 397);
-            this.panel1.TabIndex = 0;
-            // 
-            // splitContainer4
-            // 
-            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer4.Name = "splitContainer4";
-            // 
-            // splitContainer4.Panel1
-            // 
-            this.splitContainer4.Panel1.Controls.Add(this.pictureBoxMain);
-            // 
-            // splitContainer4.Panel2
-            // 
-            this.splitContainer4.Panel2.Controls.Add(this.pictureBoxSecondary);
-            this.splitContainer4.Size = new System.Drawing.Size(588, 397);
-            this.splitContainer4.SplitterDistance = 393;
-            this.splitContainer4.TabIndex = 1;
-            // 
-            // pictureBoxMain
-            // 
-            this.pictureBoxMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxMain.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxMain.Name = "pictureBoxMain";
-            this.pictureBoxMain.Size = new System.Drawing.Size(393, 397);
-            this.pictureBoxMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBoxMain.TabIndex = 1;
-            this.pictureBoxMain.TabStop = false;
-            this.pictureBoxMain.Click += new System.EventHandler(this.pictureBoxMain_Click);
-            // 
-            // pictureBoxSecondary
-            // 
-            this.pictureBoxSecondary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxSecondary.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxSecondary.Name = "pictureBoxSecondary";
-            this.pictureBoxSecondary.Size = new System.Drawing.Size(191, 397);
-            this.pictureBoxSecondary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxSecondary.TabIndex = 1;
-            this.pictureBoxSecondary.TabStop = false;
-            // 
             // listBoxMapping
             // 
             this.listBoxMapping.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -219,11 +177,6 @@
             this.listBoxMapping.Size = new System.Drawing.Size(296, 186);
             this.listBoxMapping.TabIndex = 0;
             this.listBoxMapping.SelectedIndexChanged += new System.EventHandler(this.listBoxMapping_SelectedIndexChanged);
-            // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.DefaultExt = "xml";
-            this.saveFileDialog.Title = "Save TileSet";
             // 
             // tableLayoutPanel1
             // 
@@ -285,25 +238,76 @@
             this.buttonRemoveMapping.UseVisualStyleBackColor = true;
             this.buttonRemoveMapping.Click += new System.EventHandler(this.buttonRemoveMapping_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.splitContainer4);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(588, 397);
+            this.panel1.TabIndex = 0;
+            // 
+            // splitContainer4
+            // 
+            this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer4.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer4.Name = "splitContainer4";
+            // 
+            // splitContainer4.Panel1
+            // 
+            this.splitContainer4.Panel1.Controls.Add(this.pictureBoxMain);
+            // 
+            // splitContainer4.Panel2
+            // 
+            this.splitContainer4.Panel2.Controls.Add(this.pictureBoxSecondary);
+            this.splitContainer4.Size = new System.Drawing.Size(588, 397);
+            this.splitContainer4.SplitterDistance = 393;
+            this.splitContainer4.TabIndex = 1;
+            // 
+            // pictureBoxMain
+            // 
+            this.pictureBoxMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pictureBoxMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxMain.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxMain.Name = "pictureBoxMain";
+            this.pictureBoxMain.Size = new System.Drawing.Size(393, 397);
+            this.pictureBoxMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxMain.TabIndex = 1;
+            this.pictureBoxMain.TabStop = false;
+            this.pictureBoxMain.Click += new System.EventHandler(this.pictureBoxMain_Click);
+            // 
+            // pictureBoxSecondary
+            // 
+            this.pictureBoxSecondary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxSecondary.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxSecondary.Name = "pictureBoxSecondary";
+            this.pictureBoxSecondary.Size = new System.Drawing.Size(191, 397);
+            this.pictureBoxSecondary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxSecondary.TabIndex = 1;
+            this.pictureBoxSecondary.TabStop = false;
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "xml";
+            this.saveFileDialog.Title = "Save TileSet";
+            // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog1";
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // TileEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(888, 443);
+            this.ControlBox = false;
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStripTileEditMain);
             this.Controls.Add(this.menuStripMain);
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "TileEditor";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "TileEditor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TileEditor_FormClosing);
             this.Load += new System.EventHandler(this.TileEditor_Load);
@@ -319,6 +323,8 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel1.PerformLayout();
@@ -327,8 +333,6 @@
             this.splitContainer4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecondary)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

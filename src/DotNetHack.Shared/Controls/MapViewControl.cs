@@ -18,7 +18,7 @@ namespace DotNetHack.Shared.Controls
     /// </summary>
     [ToolboxItem(true)]
     [Description("DotNetHack MapView Control")]
-    public partial class MapViewControl : UserControl
+    public partial class MapViewControl : UserControl, IComponent
     {
         /// <summary>
         /// MapViewControl
@@ -27,7 +27,6 @@ namespace DotNetHack.Shared.Controls
         {
             InitializeComponent();
 
-            Map = new Map();
         }
 
         /// <summary>
@@ -39,8 +38,6 @@ namespace DotNetHack.Shared.Controls
         {
             //int size_t = Properties.Settings.Default.TileSize;
             //panelMapView.CreateGraphics().DrawImage(R.GetTile(1, 1), 0, 0);
-
-
             var size_t = Shared.Properties.Settings.Default.TileSize;
             var g = panelMapView.CreateGraphics();
             for (int x = 0; x < this.Width; x += size_t)
@@ -51,10 +48,5 @@ namespace DotNetHack.Shared.Controls
                 }
             }
         }
-
-        /// <summary>
-        /// Map
-        /// </summary>
-        public Map Map { get; set; }
     }
 }

@@ -1,27 +1,14 @@
-﻿using System;
+﻿using DotNetHack.Core.Game.Tiles;
+using DotNetHack.Core.Game.World;
+using DotNetHack.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
-using DotNetHack.Serialization;
 
-namespace DotNetHack.Core.Game.World
+namespace DotNetHack.Shared.Objects
 {
-    /// <summary>
-    /// Extension Methods
-    /// </summary>
-    public static class Extension
-    {
-        /// <summary>
-        /// Saves a <see cref="TileMapping"/>.
-        /// </summary>
-        public static void Save(this TileMapping tileMapping, string fileName)
-        {
-            tileMapping.Write(fileName);
-        }
-    }
-
     /// <summary>
     /// TileMapping
     /// </summary>
@@ -41,9 +28,17 @@ namespace DotNetHack.Core.Game.World
         /// <summary>
         /// TileMapping
         /// </summary>
-        public TileMapping() 
+        public TileMapping()
         {
             Mapping = new List<MappedTile>();
+        }
+
+        /// <summary>
+        /// Saves a <see cref="TileMapping"/>.
+        /// </summary>
+        public static void Save(TileMapping tileMapping, string fileName)
+        {
+            tileMapping.Write(fileName);
         }
 
         /// <summary>
@@ -70,12 +65,12 @@ namespace DotNetHack.Core.Game.World
             /// <summary>
             /// X-Coord
             /// </summary>
-            public int X { get; set; }
+            public int XMapping { get; set; }
 
             /// <summary>
             /// Y-Coord
             /// </summary>
-            public int Y { get; set; }
+            public int YMapping { get; set; }
 
             /// <summary>
             /// The mapped tile
@@ -88,7 +83,7 @@ namespace DotNetHack.Core.Game.World
             /// <returns></returns>
             public override string ToString()
             {
-                return string.Format("{0}, {1}", Name, Tile.Type);
+                return string.Format("{0}, {1}", Name);
             }
 
             /// <summary>
@@ -98,74 +93,10 @@ namespace DotNetHack.Core.Game.World
             /// <returns>true if the the two are equally mapped</returns>
             public bool Equals(MappedTile other)
             {
-                return this.X == other.X && this.Y == other.Y && this.Name == other.Name;
+                return this.XMapping == other.XMapping && 
+                    this.YMapping == other.YMapping && 
+                    this.Name == other.Name;
             }
-        }
-    }
-
-    /// <summary>
-    /// Tile
-    /// </summary>
-    [Serializable]
-    public class Tile
-    {
-        /// <summary>
-        /// Supports serialization.
-        /// </summary>
-        public Tile() { }
-        
-        /// <summary>
-        /// Type
-        /// </summary>
-        public TileType Type { get; set; }
-
-        /// <summary>
-        /// Flags
-        /// </summary>
-        public TileFlags Flags { get; set; }
-
-        /// <summary>
-        /// TileType
-        /// </summary>
-        
-        public enum TileType
-        {
-            [XmlEnum]
-            Nothing,
-
-            [XmlEnum]
-            Wall,
-        }
-
-        /// <summary>
-        /// TileFlags
-        /// </summary>
-        [Flags]
-        public enum TileFlags
-        {
-            [XmlEnum]
-            None = 1,
-
-            [XmlEnum]
-            Door = 2,
-
-            [XmlEnum]
-            Trap = 4,
-
-            [XmlEnum]
-            Secret = 8,
-
-            [XmlEnum]
-            Sacred = 16,
-
-            [XmlEnum]
-            Stairs = 32,
-
-            [XmlEnum]
-            Spawn = 128,
-
-            [XmlEnum]
-            Impassable = 256,
         }
     }
 }

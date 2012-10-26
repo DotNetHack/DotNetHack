@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.statusStripTileEditMain = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
@@ -50,6 +51,8 @@
             this.pictureBoxSecondary = new System.Windows.Forms.PictureBox();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.contextMenuStripAddRemove = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripTileEditMain.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -69,6 +72,7 @@
             this.splitContainer4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecondary)).BeginInit();
+            this.contextMenuStripAddRemove.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStripTileEditMain
@@ -129,7 +133,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -177,6 +181,7 @@
             this.listBoxMapping.Size = new System.Drawing.Size(296, 186);
             this.listBoxMapping.TabIndex = 0;
             this.listBoxMapping.SelectedIndexChanged += new System.EventHandler(this.listBoxMapping_SelectedIndexChanged);
+            this.listBoxMapping.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxMapping_MouseDoubleClick);
             // 
             // tableLayoutPanel1
             // 
@@ -295,6 +300,20 @@
             // 
             this.openFileDialog.FileName = "openFileDialog1";
             // 
+            // contextMenuStripAddRemove
+            // 
+            this.contextMenuStripAddRemove.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemRemove});
+            this.contextMenuStripAddRemove.Name = "contextMenuStripAddRemove";
+            this.contextMenuStripAddRemove.Size = new System.Drawing.Size(118, 26);
+            // 
+            // toolStripMenuItemRemove
+            // 
+            this.toolStripMenuItemRemove.Name = "toolStripMenuItemRemove";
+            this.toolStripMenuItemRemove.Size = new System.Drawing.Size(117, 22);
+            this.toolStripMenuItemRemove.Text = "Remove";
+            this.toolStripMenuItemRemove.Click += new System.EventHandler(this.toolStripMenuItemRemove_Click);
+            // 
             // TileEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -333,6 +352,7 @@
             this.splitContainer4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecondary)).EndInit();
+            this.contextMenuStripAddRemove.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -362,6 +382,8 @@
         private System.Windows.Forms.Button buttonRemoveMapping;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripAddRemove;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemove;
 
     }
 }

@@ -27,6 +27,7 @@ namespace DotNetHack.Editor.Forms
             InitializeComponent();
             TileMapping = new TileMapping();
             ImageCache = new Dictionary<Point, Image>();
+
         }
 
         /// <summary>
@@ -38,7 +39,6 @@ namespace DotNetHack.Editor.Forms
         /// Instance
         /// </summary>
         public static TileEditor Instance { get { return _instance; } }
-
 
         /// <summary>
         /// pictureBoxMain_Click
@@ -54,18 +54,19 @@ namespace DotNetHack.Editor.Forms
             int yTile = Math.Abs((tmpOffset.Y - MousePosition.Y) / tileSize);
 
             // CurrentTile = new EditorTile(xTile, yTile, CurrentTile);
+            CurrentTile = new TileMapping.MappedTile(xTile, yTile, Tile.TileType.None);
 
-            // UpdateImage(CurrentTile);
-            // UpdateTileProperties(CurrentTile);
+            UpdateImage(CurrentTile);
+            UpdateTileProperties(CurrentTile);
         }
 
         /// <summary>
         /// UpdateTileProperties();
         /// </summary>
-        private void UpdateTileProperties(EditorTile tile)
+        private void UpdateTileProperties(TileMapping.MappedTile tile)
         {
             UpdateImage(tile);
-            
+
             propertyGridMain.SelectedObject = tile;
             propertyGridMain.Refresh();
         }
@@ -74,9 +75,9 @@ namespace DotNetHack.Editor.Forms
         /// UpdateImage
         /// </summary>
         /// <param name="tile">tile</param>
-        private void UpdateImage(EditorTile tile)
+        private void UpdateImage(TileMapping.MappedTile tile)
         {
-            Point tmpPoint = new Point(tile.X, tile.Y);
+            Point tmpPoint = new Point(tile.XMapping, tile.YMapping);
             if (!ImageCache.ContainsKey(tmpPoint))
                 ImageCache.Add(tmpPoint, Shared.R.GetTile(tmpPoint.X, tmpPoint.Y));
             pictureBoxSecondary.Image = ImageCache[tmpPoint];
@@ -124,11 +125,19 @@ namespace DotNetHack.Editor.Forms
         {
             Saved = false;
 
+            if (listBoxMapping.Items.Contains(tmpMappedTile))
+            {
+
+            }
+            else
+            {
+
+            }
+
             if (TileMapping.Mapping.Contains(tmpMappedTile))
             {
-                TileMapping.MappedTile tmpLookupTile = TileMapping.Mapping.Single(t => t.Equals(tmpMappedTile));
-
-                // overwrite
+                TileMapping.MappedTile tmpLookupTile =
+                    TileMapping.Mapping.Single(t => t.Equals(tmpMappedTile));
                 tmpLookupTile = tmpMappedTile;
             }
             else
@@ -140,7 +149,7 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// CurrentTile
         /// </summary>
-        EditorTile CurrentTile { get; set; }
+        TileMapping.MappedTile CurrentTile { get; set; }
 
         /// <summary>
         /// TileMapping
@@ -199,14 +208,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e"></param>
         private void buttonAddMapping_Click(object sender, EventArgs e)
         {
-            AddUpdateMapping(new TileMapping.MappedTile()
-            {
-                Name = CurrentTile.Name,
-                Tile = CurrentTile.Tile,
-                XMapping = CurrentTile.X,
-                YMapping = CurrentTile.Y,
-            });
-
+            AddUpdateMapping(CurrentTile);
             UpdateListBox();
         }
 
@@ -222,8 +224,8 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// buttonRemoveMapping_Click
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
         private void buttonRemoveMapping_Click(object sender, EventArgs e)
         {
             UpdateListBox();
@@ -232,13 +234,13 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// TileEditor_FormClosing
         /// </summary>
-        /// <param name="sender">sender</param>
-        /// <param name="e">e</param>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
         private void TileEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!Saved)
             {
-                switch (MessageBox.Show("Save your work?","DotNetHack Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                switch (MessageBox.Show("Save your work?", "DotNetHack Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                 {
                     case System.Windows.Forms.DialogResult.Yes:
                         e.Cancel = true;
@@ -256,7 +258,8 @@ namespace DotNetHack.Editor.Forms
         {
             if (listBoxMapping.SelectedItem != null)
             {
-                CurrentTile = new EditorTile(((TileMapping.MappedTile)(listBoxMapping.SelectedItem)));
+                // CurrentTile = new EditorTile(((TileMapping.MappedTile)(listBoxMapping.SelectedItem)));
+
                 UpdateTileProperties(CurrentTile);
                 UpdateImage(CurrentTile);
 
@@ -267,83 +270,37 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// exitToolStripMenuItem_Click
         /// </summary>
-        /// <param name="sender">sender</param>
-        /// <param name="e">args</param>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }
-    }
 
-    /// <summary>
-    /// EditorTile
-    /// 
-    /// TODO: 
-    /// Make a decision about using full out wrappers w/o subclassing 
-    /// -- or -- 
-    /// adding attributes directly to game objects.
-    /// </summary>
-    [DefaultPropertyAttribute("Name")]
-    public class EditorTile
-    {
         /// <summary>
-        /// EditorTile
+        /// toolStripMenuItemRemove_Click
         /// </summary>
-        /// <param name="x">x-mapping coord</param>
-        /// <param name="y">y-mapping coord</param>
-        public EditorTile(int x, int y, Tile tile)
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void toolStripMenuItemRemove_Click(object sender, EventArgs e)
         {
-            MappedTile = new TileMapping.MappedTile()
+            if (listBoxMapping.SelectedItem != null)
+                listBoxMapping.Items.Remove(listBoxMapping.SelectedItem);   
+        }
+
+        /// <summary>
+        /// listBoxMapping_MouseDoubleClick
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void listBoxMapping_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
             {
-                Tile = tile,
-                XMapping = x,
-                YMapping = y,
-            };
+                case System.Windows.Forms.MouseButtons.Left:
+                    contextMenuStripAddRemove.Show(this, e.Location);
+                    break;
+            }
         }
-
-        /// <summary>
-        /// EditorTile
-        /// </summary>
-        /// <param name="mappedTile">mapped tile</param>
-        public EditorTile(TileMapping.MappedTile mappedTile)
-        {
-            MappedTile = mappedTile;
-        }
-
-        /// <summary>
-        /// <see cref="TileMapping.MappedTile"/> backing store.
-        /// </summary>
-        private TileMapping.MappedTile MappedTile { get; set; }
-
-        /// <summary>
-        /// Get the mapped <see cref="Tile"/>
-        /// </summary>
-        public Tile Tile { get { return MappedTile.Tile; } }
-
-        /// <summary>
-        /// Flags
-        /// </summary>
-        [CategoryAttribute("Tile Flags")]
-        [DescriptionAttribute("Set the tile type of this tile.")]
-        public Tile.TileType TileType { get; set; }
-
-        /// <summary>
-        /// Name
-        /// </summary>
-        [CategoryAttribute("Tile Name")]
-        [DescriptionAttribute("The name of this specific tile.")]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// X-Mapping Coord
-        /// </summary>
-        [CategoryAttribute("Tileset Mapping")]
-        public int X { get { return MappedTile.XMapping; } }
-
-        /// <summary>
-        /// Y-Mapping Coord
-        /// </summary>
-        [CategoryAttribute("Tileset Mapping")]
-        public int Y { get { return MappedTile.YMapping; } }
     }
 }

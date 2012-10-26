@@ -31,9 +31,8 @@ namespace DotNetHack.Shared
             {
                 graphics.DrawImage(Properties.Resources.X11tiles_32_32,
                     new Rectangle(0, 0, tileSize, tileSize),
-                    new Rectangle(tileSize * xCoord, tileSize * yCoord, 
-                        tileSize * (xCoord + 1), tileSize * (yCoord + 1)), 
-                        GraphicsUnit.Pixel);
+                    new Rectangle(xCoord * tileSize, yCoord * tileSize, tileSize, tileSize),
+                    GraphicsUnit.Pixel);
             }
 
             return result;

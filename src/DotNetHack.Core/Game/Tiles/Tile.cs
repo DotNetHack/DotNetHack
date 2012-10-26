@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DotNetHack.Core.Game.Tiles
 {
     /// <summary>
-    /// ITile
+    /// Tile
     /// </summary>
     [Serializable]
     public abstract class Tile
@@ -21,25 +21,10 @@ namespace DotNetHack.Core.Game.Tiles
         /// <summary>
         /// Tile
         /// </summary>
-        protected Tile(TileType tileType) 
+        protected Tile(TileType tileType)
         {
             Type = tileType;
         }
-
-        /// <summary>
-        /// MapLayer
-        /// </summary>
-        public MapTile MapLayer { get; set; }
-
-        /// <summary>
-        /// ItemLayer
-        /// </summary>
-        public ItemTile ItemLayer { get; set; }
-
-        /// <summary>
-        /// ActorLayer
-        /// </summary>
-        public ActorTile ActorLayer { get; set; }
 
         /// <summary>
         /// The type of tile this is
@@ -49,6 +34,6 @@ namespace DotNetHack.Core.Game.Tiles
         /// <summary>
         /// The type of tile this is
         /// </summary>
-        public enum TileType { Map, Actor, Item};
+        public enum TileType { None, Map, Actor, Item};
     }
 }

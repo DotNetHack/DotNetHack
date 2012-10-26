@@ -163,7 +163,7 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.listBoxMapping);
+            this.splitContainer2.Panel1.Controls.Add(this.pictureBoxSecondary);
             // 
             // splitContainer2.Panel2
             // 
@@ -176,9 +176,9 @@
             // 
             this.listBoxMapping.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxMapping.FormattingEnabled = true;
-            this.listBoxMapping.Location = new System.Drawing.Point(0, 0);
+            this.listBoxMapping.Location = new System.Drawing.Point(3, 3);
             this.listBoxMapping.Name = "listBoxMapping";
-            this.listBoxMapping.Size = new System.Drawing.Size(296, 186);
+            this.listBoxMapping.Size = new System.Drawing.Size(290, 163);
             this.listBoxMapping.TabIndex = 0;
             this.listBoxMapping.SelectedIndexChanged += new System.EventHandler(this.listBoxMapping_SelectedIndexChanged);
             this.listBoxMapping.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxMapping_MouseDoubleClick);
@@ -187,7 +187,7 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.propertyGridMain, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.listBoxMapping, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -201,9 +201,9 @@
             // propertyGridMain
             // 
             this.propertyGridMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyGridMain.Location = new System.Drawing.Point(3, 3);
+            this.propertyGridMain.Location = new System.Drawing.Point(0, 0);
             this.propertyGridMain.Name = "propertyGridMain";
-            this.propertyGridMain.Size = new System.Drawing.Size(290, 163);
+            this.propertyGridMain.Size = new System.Drawing.Size(191, 397);
             this.propertyGridMain.TabIndex = 2;
             // 
             // tableLayoutPanel2
@@ -264,7 +264,7 @@
             // 
             // splitContainer4.Panel2
             // 
-            this.splitContainer4.Panel2.Controls.Add(this.pictureBoxSecondary);
+            this.splitContainer4.Panel2.Controls.Add(this.propertyGridMain);
             this.splitContainer4.Size = new System.Drawing.Size(588, 397);
             this.splitContainer4.SplitterDistance = 393;
             this.splitContainer4.TabIndex = 1;
@@ -286,7 +286,7 @@
             this.pictureBoxSecondary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxSecondary.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxSecondary.Name = "pictureBoxSecondary";
-            this.pictureBoxSecondary.Size = new System.Drawing.Size(191, 397);
+            this.pictureBoxSecondary.Size = new System.Drawing.Size(296, 186);
             this.pictureBoxSecondary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxSecondary.TabIndex = 1;
             this.pictureBoxSecondary.TabStop = false;

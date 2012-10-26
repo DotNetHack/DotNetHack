@@ -183,7 +183,6 @@ namespace DotNetHack.Editor.Forms
             {
                 case System.Windows.Forms.DialogResult.OK:
                     {
-
                         try
                         {
                             TileMapping.Load(openFileDialog.FileName, out TileMapping);

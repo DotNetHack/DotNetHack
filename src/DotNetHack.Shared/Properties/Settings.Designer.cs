@@ -31,5 +31,17 @@ namespace DotNetHack.Shared.Properties {
                 return ((int)(this["TileSize"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string TileSetPath {
+            get {
+                return ((string)(this["TileSetPath"]));
+            }
+            set {
+                this["TileSetPath"] = value;
+            }
+        }
     }
 }

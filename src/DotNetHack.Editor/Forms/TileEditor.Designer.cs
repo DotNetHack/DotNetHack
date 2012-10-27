@@ -39,20 +39,22 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.listBoxMapping = new System.Windows.Forms.ListBox();
+            this.pictureBoxSecondary = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.propertyGridMain = new System.Windows.Forms.PropertyGrid();
+            this.listBoxMapping = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.buttonAddMapping = new System.Windows.Forms.Button();
             this.buttonRemoveMapping = new System.Windows.Forms.Button();
+            this.textBoxTileSetPath = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
-            this.pictureBoxSecondary = new System.Windows.Forms.PictureBox();
+            this.propertyGridMain = new System.Windows.Forms.PropertyGrid();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStripAddRemove = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialogTileSet = new System.Windows.Forms.OpenFileDialog();
             this.statusStripTileEditMain.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -63,6 +65,7 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecondary)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -71,7 +74,6 @@
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecondary)).BeginInit();
             this.contextMenuStripAddRemove.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -169,19 +171,18 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel1);
             this.splitContainer2.Size = new System.Drawing.Size(296, 397);
-            this.splitContainer2.SplitterDistance = 186;
+            this.splitContainer2.SplitterDistance = 89;
             this.splitContainer2.TabIndex = 0;
             // 
-            // listBoxMapping
+            // pictureBoxSecondary
             // 
-            this.listBoxMapping.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxMapping.FormattingEnabled = true;
-            this.listBoxMapping.Location = new System.Drawing.Point(3, 3);
-            this.listBoxMapping.Name = "listBoxMapping";
-            this.listBoxMapping.Size = new System.Drawing.Size(290, 163);
-            this.listBoxMapping.TabIndex = 0;
-            this.listBoxMapping.SelectedIndexChanged += new System.EventHandler(this.listBoxMapping_SelectedIndexChanged);
-            this.listBoxMapping.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxMapping_MouseDoubleClick);
+            this.pictureBoxSecondary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxSecondary.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxSecondary.Name = "pictureBoxSecondary";
+            this.pictureBoxSecondary.Size = new System.Drawing.Size(296, 89);
+            this.pictureBoxSecondary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxSecondary.TabIndex = 1;
+            this.pictureBoxSecondary.TabStop = false;
             // 
             // tableLayoutPanel1
             // 
@@ -189,22 +190,27 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.listBoxMapping, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBoxTileSetPath, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 82.1256F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.8744F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(296, 207);
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 84.22939F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.77061F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(296, 304);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // propertyGridMain
+            // listBoxMapping
             // 
-            this.propertyGridMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyGridMain.Location = new System.Drawing.Point(0, 0);
-            this.propertyGridMain.Name = "propertyGridMain";
-            this.propertyGridMain.Size = new System.Drawing.Size(191, 397);
-            this.propertyGridMain.TabIndex = 2;
+            this.listBoxMapping.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxMapping.FormattingEnabled = true;
+            this.listBoxMapping.Location = new System.Drawing.Point(3, 3);
+            this.listBoxMapping.Name = "listBoxMapping";
+            this.listBoxMapping.Size = new System.Drawing.Size(290, 229);
+            this.listBoxMapping.TabIndex = 0;
+            this.listBoxMapping.SelectedIndexChanged += new System.EventHandler(this.listBoxMapping_SelectedIndexChanged);
+            this.listBoxMapping.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxMapping_MouseDoubleClick);
             // 
             // tableLayoutPanel2
             // 
@@ -214,11 +220,11 @@
             this.tableLayoutPanel2.Controls.Add(this.buttonAddMapping, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.buttonRemoveMapping, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 172);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 238);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(290, 32);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(290, 38);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // buttonAddMapping
@@ -226,7 +232,7 @@
             this.buttonAddMapping.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonAddMapping.Location = new System.Drawing.Point(3, 3);
             this.buttonAddMapping.Name = "buttonAddMapping";
-            this.buttonAddMapping.Size = new System.Drawing.Size(132, 26);
+            this.buttonAddMapping.Size = new System.Drawing.Size(132, 32);
             this.buttonAddMapping.TabIndex = 0;
             this.buttonAddMapping.Text = "Map Tile";
             this.buttonAddMapping.UseVisualStyleBackColor = true;
@@ -237,11 +243,20 @@
             this.buttonRemoveMapping.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonRemoveMapping.Location = new System.Drawing.Point(141, 3);
             this.buttonRemoveMapping.Name = "buttonRemoveMapping";
-            this.buttonRemoveMapping.Size = new System.Drawing.Size(146, 26);
+            this.buttonRemoveMapping.Size = new System.Drawing.Size(146, 32);
             this.buttonRemoveMapping.TabIndex = 1;
             this.buttonRemoveMapping.Text = "Remove Mapping";
             this.buttonRemoveMapping.UseVisualStyleBackColor = true;
             this.buttonRemoveMapping.Click += new System.EventHandler(this.buttonRemoveMapping_Click);
+            // 
+            // textBoxTileSetPath
+            // 
+            this.textBoxTileSetPath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxTileSetPath.Location = new System.Drawing.Point(3, 282);
+            this.textBoxTileSetPath.Name = "textBoxTileSetPath";
+            this.textBoxTileSetPath.Size = new System.Drawing.Size(290, 20);
+            this.textBoxTileSetPath.TabIndex = 4;
+            this.textBoxTileSetPath.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxTileSetPath_MouseDoubleClick);
             // 
             // panel1
             // 
@@ -260,7 +275,9 @@
             // 
             // splitContainer4.Panel1
             // 
+            this.splitContainer4.Panel1.AutoScroll = true;
             this.splitContainer4.Panel1.Controls.Add(this.pictureBoxMain);
+            this.splitContainer4.Panel1.Cursor = System.Windows.Forms.Cursors.Cross;
             // 
             // splitContainer4.Panel2
             // 
@@ -280,16 +297,17 @@
             this.pictureBoxMain.TabIndex = 1;
             this.pictureBoxMain.TabStop = false;
             this.pictureBoxMain.Click += new System.EventHandler(this.pictureBoxMain_Click);
+            this.pictureBoxMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxMain_Paint);
+            this.pictureBoxMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMain_MouseDown);
+            this.pictureBoxMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMain_MouseUp);
             // 
-            // pictureBoxSecondary
+            // propertyGridMain
             // 
-            this.pictureBoxSecondary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxSecondary.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxSecondary.Name = "pictureBoxSecondary";
-            this.pictureBoxSecondary.Size = new System.Drawing.Size(296, 186);
-            this.pictureBoxSecondary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxSecondary.TabIndex = 1;
-            this.pictureBoxSecondary.TabStop = false;
+            this.propertyGridMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGridMain.Location = new System.Drawing.Point(0, 0);
+            this.propertyGridMain.Name = "propertyGridMain";
+            this.propertyGridMain.Size = new System.Drawing.Size(191, 397);
+            this.propertyGridMain.TabIndex = 2;
             // 
             // saveFileDialog
             // 
@@ -314,6 +332,11 @@
             this.toolStripMenuItemRemove.Text = "Remove";
             this.toolStripMenuItemRemove.Click += new System.EventHandler(this.toolStripMenuItemRemove_Click);
             // 
+            // openFileDialogTileSet
+            // 
+            this.openFileDialogTileSet.FileName = "openFileDialog1";
+            this.openFileDialogTileSet.Filter = "\"JPEG Images|*.jpg|GIF Images|*.gif|BMP Images|*.bmp\";";
+            // 
             // TileEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -328,6 +351,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "TileEditor";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TileEditor_FormClosing);
             this.Load += new System.EventHandler(this.TileEditor_Load);
             this.statusStripTileEditMain.ResumeLayout(false);
@@ -342,7 +366,9 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecondary)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.splitContainer4.Panel1.ResumeLayout(false);
@@ -351,7 +377,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMain)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSecondary)).EndInit();
             this.contextMenuStripAddRemove.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -384,6 +409,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripAddRemove;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemove;
+        private System.Windows.Forms.TextBox textBoxTileSetPath;
+        private System.Windows.Forms.OpenFileDialog openFileDialogTileSet;
 
     }
 }

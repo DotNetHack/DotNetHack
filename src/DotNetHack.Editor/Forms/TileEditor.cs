@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,23 +23,13 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// TileEditor
         /// </summary>
-        TileEditor()
+        public TileEditor()
         {
             InitializeComponent();
             TileMapping = new TileMapping();
             ImageCache = new Dictionary<Point, Image>();
-
+            TopLevel = false;
         }
-
-        /// <summary>
-        /// _instance
-        /// </summary>
-        static readonly TileEditor _instance = new TileEditor();
-
-        /// <summary>
-        /// Instance
-        /// </summary>
-        public static TileEditor Instance { get { return _instance; } }
 
         /// <summary>
         /// pictureBoxMain_Click
@@ -147,29 +138,39 @@ namespace DotNetHack.Editor.Forms
         }
 
         /// <summary>
-        /// CurrentTile
-        /// </summary>
-        TileMapping.MappedTile CurrentTile { get; set; }
-
-        /// <summary>
-        /// TileMapping
-        /// </summary>
-        TileMapping TileMapping;
-
-        /// <summary>
-        /// Saved
-        /// <remarks>Set to false within AddUpdateMapping</remarks>
-        /// </summary>
-        bool Saved = true;
-
-        /// <summary>
         /// TileEditor_Load
         /// </summary>
         /// <param name="sender">event sender</param>
         /// <param name="e">event args</param>
         private void TileEditor_Load(object sender, EventArgs e)
         {
-            pictureBoxMain.Image = Shared.Properties.Resources.X11tiles_32_32;
+            if (!File.Exists(Shared.Properties.Settings.Default.TileSetPath) &&
+                string.IsNullOrEmpty(Shared.Properties.Settings.Default.TileSetPath))
+                SaveUpdateTileSetPath();
+            UpdateTileSetTextBoxAndImage();
+        }
+
+        /// <summary>
+        /// UpdateTileSetTextBoxAndImage
+        /// </summary>
+        private void UpdateTileSetTextBoxAndImage()
+        {
+            textBoxTileSetPath.Text = Shared.Properties.Settings.Default.TileSetPath;
+            pictureBoxMain.Image = Image.FromFile(Shared.Properties.Settings.Default.TileSetPath);
+            WorkingImage = Image.FromFile(Shared.Properties.Settings.Default.TileSetPath);
+            CurrentTileSetSize = pictureBoxMain.Size;
+        }
+
+        /// <summary>
+        /// SaveUpdateTileSetPath
+        /// </summary>
+        private void SaveUpdateTileSetPath()
+        {
+            if (openFileDialogTileSet.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            {
+                Shared.Properties.Settings.Default.TileSetPath = openFileDialogTileSet.FileName;
+                Shared.Properties.Settings.Default.Save();
+            }
         }
 
         /// <summary>
@@ -284,7 +285,7 @@ namespace DotNetHack.Editor.Forms
         private void toolStripMenuItemRemove_Click(object sender, EventArgs e)
         {
             if (listBoxMapping.SelectedItem != null)
-                listBoxMapping.Items.Remove(listBoxMapping.SelectedItem);   
+                listBoxMapping.Items.Remove(listBoxMapping.SelectedItem);
         }
 
         /// <summary>
@@ -301,5 +302,106 @@ namespace DotNetHack.Editor.Forms
                     break;
             }
         }
+
+        /// <summary>
+        /// pictureBoxMain_MouseDown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureBoxMain_MouseDown(object sender, MouseEventArgs e)
+        {
+            var tStart = DateTime.Now;
+
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                MouseUpPostUpdateCallback += (DateTime tEnd, Cursor c) =>
+                {
+                    c = Cursor.Current;
+                    return tEnd - tStart > TimeSpan.FromMilliseconds(MouseDownDragMilliseconds);
+                };
+
+                Cursor.Current = Cursors.SizeAll;
+            }
+        }
+
+        /// <summary>
+        /// pictureBoxMain_MouseUp
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void pictureBoxMain_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (MouseUpPostUpdateCallback != null)
+            {
+                if (MouseUpPostUpdateCallback(DateTime.Now, Cursor.Current))
+                {
+
+                    pictureBoxMain.Image = Shared.R.MoveImageByOffsetPoint(WorkingImage, e.Location);
+
+                    // imageBounds.Location = (Point)(SizeOfImageOffset + (Size)e.Location);
+                    // force re-paint of picture box
+                    pictureBoxMain.Refresh();
+                }
+            }
+        }
+
+        /// <summary>
+        /// textBoxTileSetPath_MouseDoubleClick
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void textBoxTileSetPath_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            SaveUpdateTileSetPath();
+            UpdateTileSetTextBoxAndImage();
+        }
+
+        /// <summary>
+        /// pictureBoxMain_Paint
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void pictureBoxMain_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// MouseUpPostUpdateCallback
+        /// </summary>
+        Func<DateTime, Cursor, bool> MouseUpPostUpdateCallback = null;
+
+        /// <summary>
+        /// MouseDownDragMilliseconds
+        /// </summary>
+        const int MouseDownDragMilliseconds = 100;
+
+        /// <summary>
+        /// CurrentOffset
+        /// </summary>
+        Point CurrentOffset = new Point();
+
+        /// <summary>
+        /// CurrentTileSetSize
+        /// </summary>
+        Size CurrentTileSetSize = new Size();
+
+        Image WorkingImage;
+
+        /// <summary>
+        /// CurrentTile
+        /// </summary>
+        TileMapping.MappedTile CurrentTile { get; set; }
+
+        /// <summary>
+        /// TileMapping
+        /// </summary>
+        TileMapping TileMapping;
+
+        /// <summary>
+        /// Saved
+        /// <remarks>Set to false within AddUpdateMapping</remarks>
+        /// </summary>
+        bool Saved = true;
     }
 }

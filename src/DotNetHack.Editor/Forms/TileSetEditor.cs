@@ -15,20 +15,20 @@ using System.Windows.Forms;
 namespace DotNetHack.Editor.Forms
 {
     /// <summary>
-    /// TileEditor
-    /// TODO: 
+    /// TileSetEditor
     /// </summary>
     public partial class TileSetEditor : Form
     {
         /// <summary>
-        /// TileEditor
+        /// TileSetEditor
         /// </summary>
         public TileSetEditor()
         {
             InitializeComponent();
             TileMapping = new TileMapping();
             ImageCache = new Dictionary<Point, Image>();
-            TopLevel = false;
+            OriginalFormTitle = Text;
+            TopLevel = false;            
         }
 
         /// <summary>
@@ -82,25 +82,6 @@ namespace DotNetHack.Editor.Forms
         Dictionary<Point, Image> ImageCache;
 
         /// <summary>
-        /// saveToolStripMenuItem_Click
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            switch (saveFileDialog.ShowDialog(this))
-            {
-                case System.Windows.Forms.DialogResult.OK:
-                    {
-                        try { SaveTileSet(saveFileDialog.FileName); }
-                        catch (Exception ex) { UpdateStatus(ex.Message); }
-
-                        break;
-                    }
-            }
-        }
-
-        /// <summary>
         /// SaveTileSet
         /// </summary>
         /// <param name="fullPath"></param>
@@ -142,6 +123,19 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void TileEditor_Load(object sender, EventArgs e)
         {
+            LoadRecent();
+
+            if (!File.Exists(Shared.Properties.Settings.Default.TileSetPath) &&
+                string.IsNullOrEmpty(Shared.Properties.Settings.Default.TileSetPath))
+                SaveUpdateTileSetPath();
+            UpdateTileSetTextBoxAndImage();
+        }
+
+        /// <summary>
+        /// LoadRecent
+        /// </summary>
+        private void LoadRecent()
+        {
             #region Recent TileSets
 
             if (Properties.Settings.Default.RecentTileSets == null)
@@ -160,11 +154,6 @@ namespace DotNetHack.Editor.Forms
                 }
 
             #endregion
-
-            if (!File.Exists(Shared.Properties.Settings.Default.TileSetPath) &&
-                string.IsNullOrEmpty(Shared.Properties.Settings.Default.TileSetPath))
-                SaveUpdateTileSetPath();
-            UpdateTileSetTextBoxAndImage();
         }
 
         /// <summary>
@@ -207,6 +196,25 @@ namespace DotNetHack.Editor.Forms
             {
                 Shared.Properties.Settings.Default.TileSetPath = openFileDialogTileSet.FileName;
                 Shared.Properties.Settings.Default.Save();
+            }
+        }
+
+        /// <summary>
+        /// saveToolStripMenuItem_Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            switch (saveFileDialog.ShowDialog(this))
+            {
+                case System.Windows.Forms.DialogResult.OK:
+                    {
+                        try { SaveTileSet(saveFileDialog.FileName); }
+                        catch (Exception ex) { UpdateStatus(ex.Message); }
+
+                        break;
+                    }
             }
         }
 
@@ -342,6 +350,16 @@ namespace DotNetHack.Editor.Forms
         }
 
         /// <summary>
+        /// pictureBoxMain_Move
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void pictureBoxMain_Move(object sender, EventArgs e)
+        {
+            CurrentOffset = pictureBoxMain.Location;
+        }
+
+        /// <summary>
         /// pictureBoxMain_Paint
         /// </summary>
         /// <param name="sender">event sender</param>
@@ -370,13 +388,8 @@ namespace DotNetHack.Editor.Forms
         bool Saved = true;
 
         /// <summary>
-        /// 
+        /// OriginalFormTitle
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void pictureBoxMain_Move(object sender, EventArgs e)
-        {
-            CurrentOffset = pictureBoxMain.Location;
-        }
+        readonly string OriginalFormTitle;
     }
 }

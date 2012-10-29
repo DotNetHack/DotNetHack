@@ -49,7 +49,7 @@ namespace DotNetHack.Shared.Objects
             /// </summary>
             [CategoryAttribute("Tile Info")]
             [DescriptionAttribute("The description of this specific tile mapping.")]
-            public string Descriptions { get; set; }
+            public string Description { get; set; }
 
             /// <summary>
             /// XMapping
@@ -76,6 +76,16 @@ namespace DotNetHack.Shared.Objects
                     this.YMapping == other.YMapping &&
                     this.Name == other.Name;
             }
+
+            /// <summary>
+            /// ToString
+            /// </summary>
+            /// <returns></returns>
+            public override string ToString()
+            {
+                return string.Format("{0}, {1}", Name,
+                    string.Format("({0},{1})", XMapping, YMapping));
+            }          
         }
     }
 }

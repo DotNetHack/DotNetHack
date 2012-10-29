@@ -18,12 +18,12 @@ namespace DotNetHack.Editor.Forms
     /// TileEditor
     /// TODO: 
     /// </summary>
-    public partial class TileEditor : Form
+    public partial class TileSetEditor : Form
     {
         /// <summary>
         /// TileEditor
         /// </summary>
-        public TileEditor()
+        public TileSetEditor()
         {
             InitializeComponent();
             TileMapping = new TileMapping();
@@ -58,9 +58,9 @@ namespace DotNetHack.Editor.Forms
         /// </summary>
         private void UpdateTileProperties(TileMapping.MappedTile tile)
         {
-            UpdateImage(tile);
+            UpdateImage(CurrentTile);
 
-            propertyGridMain.SelectedObject = tile;
+            propertyGridMain.SelectedObject = CurrentTile;
             propertyGridMain.Refresh();
         }
 
@@ -92,23 +92,29 @@ namespace DotNetHack.Editor.Forms
             {
                 case System.Windows.Forms.DialogResult.OK:
                     {
-                        try
-                        {
-                            TileMapping.Save(TileMapping, saveFileDialog.FileName);
-                            toolStripStatusLabel.Text = string.Format("Saved: {0}", openFileDialog.FileName);
-
-                            Saved = true;
-
-                            UpdateListBox();
-                        }
-                        catch (Exception ex)
-                        {
-                            toolStripStatusLabel.Text = ex.Message;
-                        }
+                        try { SaveTileSet(saveFileDialog.FileName); }
+                        catch (Exception ex) { UpdateStatus(ex.Message); }
 
                         break;
                     }
             }
+        }
+
+        /// <summary>
+        /// SaveTileSet
+        /// </summary>
+        /// <param name="fullPath"></param>
+        private void SaveTileSet(string fullPath)
+        {
+            TileMapping.Save(TileMapping, fullPath);
+            UpdateStatus("Saved: {0}", saveFileDialog.FileName);
+
+            Saved = true;
+
+            if (!Properties.Settings.Default.RecentTileSets.Contains(saveFileDialog.FileName))
+                Properties.Settings.Default.RecentTileSets.Add(saveFileDialog.FileName);
+
+            UpdateListBox();
         }
 
         /// <summary>
@@ -118,14 +124,7 @@ namespace DotNetHack.Editor.Forms
         {
             Saved = false;
 
-            if (listBoxMapping.Items.Contains(tmpMappedTile))
-            {
-
-            }
-            else
-            {
-
-            }
+            Text = "*" + Text;
 
             if (TileMapping.Mapping.Contains(tmpMappedTile))
             {
@@ -133,10 +132,7 @@ namespace DotNetHack.Editor.Forms
                     TileMapping.Mapping.Single(t => t.Equals(tmpMappedTile));
                 tmpLookupTile = tmpMappedTile;
             }
-            else
-            {
-                TileMapping.Mapping.Add(tmpMappedTile);
-            }
+            else { TileMapping.Mapping.Add(tmpMappedTile); }
         }
 
         /// <summary>
@@ -146,10 +142,48 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void TileEditor_Load(object sender, EventArgs e)
         {
+            #region Recent TileSets
+
+            if (Properties.Settings.Default.RecentTileSets == null)
+            {
+                Properties.Settings.Default.RecentTileSets = new System.Collections.Specialized.StringCollection();
+                Properties.Settings.Default.Save();
+            }
+
+            recentToolStripMenuItem.DropDownItems.Clear();
+            if (Properties.Settings.Default.RecentTileSets != null)
+                foreach (string s in Properties.Settings.Default.RecentTileSets)
+                {
+                    ToolStripMenuItem tmpNewMenuItem = new ToolStripMenuItem(s);
+                    tmpNewMenuItem.Click += (object senderInner, EventArgs eInner) => { LoadTileSet(s); };
+                    recentToolStripMenuItem.DropDownItems.Add(tmpNewMenuItem);
+                }
+
+            #endregion
+
             if (!File.Exists(Shared.Properties.Settings.Default.TileSetPath) &&
                 string.IsNullOrEmpty(Shared.Properties.Settings.Default.TileSetPath))
                 SaveUpdateTileSetPath();
             UpdateTileSetTextBoxAndImage();
+        }
+
+        /// <summary>
+        /// LoadTileSet
+        /// </summary>
+        /// <param name="fullPath"></param>
+        private void LoadTileSet(string fullPath)
+        {
+            TileMapping.Load(fullPath, out TileMapping);
+            UpdateStatus("Loaded: {0}", fullPath);
+            UpdateListBox();
+        }
+
+        /// <summary>
+        /// UpdateStatus
+        /// </summary>
+        private void UpdateStatus(string frmt, params object[] argv) 
+        {
+            toolStripStatusLabel.Text = string.Format(frmt, argv);
         }
 
         /// <summary>
@@ -187,18 +221,7 @@ namespace DotNetHack.Editor.Forms
             {
                 case System.Windows.Forms.DialogResult.OK:
                     {
-                        try
-                        {
-                            TileMapping.Load(openFileDialog.FileName, out TileMapping);
-                            toolStripStatusLabel.Text = string.Format("Loaded: {0}", openFileDialog.FileName);
-
-                            UpdateListBox();
-                        }
-                        catch (Exception ex)
-                        {
-                            toolStripStatusLabel.Text = ex.Message;
-                        }
-
+                        LoadTileSet(openFileDialog.FileName);
                         break;
                     }
             }
@@ -247,6 +270,7 @@ namespace DotNetHack.Editor.Forms
                 {
                     case System.Windows.Forms.DialogResult.Yes:
                         e.Cancel = true;
+                        saveToolStripMenuItem_Click(sender, e);
                         break;
                 }
             }
@@ -261,7 +285,7 @@ namespace DotNetHack.Editor.Forms
         {
             if (listBoxMapping.SelectedItem != null)
             {
-                // CurrentTile = new EditorTile(((TileMapping.MappedTile)(listBoxMapping.SelectedItem)));
+                CurrentTile = (TileMapping.MappedTile)listBoxMapping.SelectedItem;
 
                 UpdateTileProperties(CurrentTile);
                 UpdateImage(CurrentTile);
@@ -301,11 +325,10 @@ namespace DotNetHack.Editor.Forms
             switch (e.Button)
             {
                 case System.Windows.Forms.MouseButtons.Left:
-                    contextMenuStripAddRemove.Show(this, e.Location);
+                    contextMenuStripTileSet.Show(this, e.Location);
                     break;
             }
         }
-
 
         /// <summary>
         /// textBoxTileSetPath_MouseDoubleClick
@@ -323,15 +346,7 @@ namespace DotNetHack.Editor.Forms
         /// </summary>
         /// <param name="sender">event sender</param>
         /// <param name="e">event args</param>
-        private void pictureBoxMain_Paint(object sender, PaintEventArgs e)
-        {
-            textBox1.Text = CurrentOffset.ToString();
-        }
-
-        /// <summary>
-        /// MouseDownDragMilliseconds
-        /// </summary>
-        const int MouseDownDragMilliseconds = 100;
+        private void pictureBoxMain_Paint(object sender, PaintEventArgs e) { }
 
         /// <summary>
         /// CurrentOffset

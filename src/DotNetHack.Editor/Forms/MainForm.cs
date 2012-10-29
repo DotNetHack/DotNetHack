@@ -40,7 +40,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e"></param>
         private void tilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form frmTileSetEditor = new TileEditor();
+            Form frmTileSetEditor = new TileSetEditor();
             flowLayoutPanelEditorMain.Controls.Add(frmTileSetEditor);
             frmTileSetEditor.Show();
         }

@@ -35,12 +35,12 @@ namespace DotNetHack.Shared.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string TileSetPath {
+        public string TileSetImagePath {
             get {
-                return ((string)(this["TileSetPath"]));
+                return ((string)(this["TileSetImagePath"]));
             }
             set {
-                this["TileSetPath"] = value;
+                this["TileSetImagePath"] = value;
             }
         }
     }

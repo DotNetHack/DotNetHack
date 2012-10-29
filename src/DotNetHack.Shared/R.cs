@@ -9,6 +9,45 @@ using System.Threading.Tasks;
 namespace DotNetHack.Shared
 {
     /// <summary>
+    /// Extension methods
+    /// </summary>
+    public static class Extension
+    {
+        /// <summary>
+        /// Color2RtfRGB
+        /// </summary>
+        /// <param name="c">The color</param>
+        /// <returns>RTF color string</returns>
+        public static string Color2RtfRGB(this Color c)
+        {
+            return string.Format(@"\red{0}\green{1}\blue{2};", c.R, c.G, c.B);
+        }
+
+        /// <summary>
+        /// ColorArr2RtfRBG
+        /// </summary>
+        /// <param name="colors">colors</param>
+        /// <returns>RTF color string</returns>
+        public static string ColorArr2RtfRBG(this Color[] colors)
+        {
+            string outValue = string.Empty;
+            foreach (var c in colors)
+                outValue += c.Color2RtfRGB();
+            return outValue;
+        }
+
+        /// <summary>
+        /// Safe
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string Safe(this string input)
+        {
+            return input.Replace("'", "''");
+        }
+    }
+
+    /// <summary>
     /// Shared Runtime and Resources
     /// </summary>
     public static class R
@@ -20,7 +59,7 @@ namespace DotNetHack.Shared
         /// <param name="xCoord">the xCoord mod tile-size</param>
         /// <param name="yCoord">the yCoord mod tile--size</param>
         /// <returns>the tile that exist within the selected bounding(tileSize) location</returns>
-        public static Bitmap GetTile(int xCoord, int yCoord)
+        public static Bitmap GetTile(Image sourceImage, int xCoord, int yCoord)
         {
             int tileSize = Properties.Settings.Default.TileSize;
 
@@ -30,7 +69,7 @@ namespace DotNetHack.Shared
             //use a graphics object to draw the resized image into the bitmap
             using (Graphics graphics = Graphics.FromImage(result))
             {
-                graphics.DrawImage(Properties.Resources.X11tiles_32_32,
+                graphics.DrawImage(sourceImage,
                     new Rectangle(0, 0, tileSize, tileSize),
                     new Rectangle(xCoord * tileSize, yCoord * tileSize, tileSize, tileSize),
                     GraphicsUnit.Pixel);
@@ -59,9 +98,6 @@ namespace DotNetHack.Shared
                 graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
                 Point tmpPointMod32 = new Point(32 % offsetVector.X, 32 % offsetVector.Y);
-
-                // imageBounds.Location = (Point)(SizeOfImageOffset + (Size)e.Location);
-
 
                 //draw the image into the target bitmap
                 graphics.DrawImage(image, tmpPointMod32.X, tmpPointMod32.Y, result.Width - offsetVector.X, result.Height - offsetVector.Y);

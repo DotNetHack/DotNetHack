@@ -35,6 +35,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -54,8 +55,7 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStripTileSet = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialogTileSet = new System.Windows.Forms.OpenFileDialog();
-            this.recentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialogTileSetImage = new System.Windows.Forms.OpenFileDialog();
             this.statusStripTileEditMain.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -118,26 +118,32 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.loadToolStripMenuItem.Text = "&Open";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // recentToolStripMenuItem
+            // 
+            this.recentToolStripMenuItem.Name = "recentToolStripMenuItem";
+            this.recentToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.recentToolStripMenuItem.Text = "&Recent";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(107, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -331,16 +337,10 @@
             this.toolStripMenuItemRemove.Text = "Remove";
             this.toolStripMenuItemRemove.Click += new System.EventHandler(this.toolStripMenuItemRemove_Click);
             // 
-            // openFileDialogTileSet
+            // openFileDialogTileSetImage
             // 
-            this.openFileDialogTileSet.FileName = "openFileDialog1";
-            this.openFileDialogTileSet.Filter = "\"JPEG Images|*.jpg|GIF Images|*.gif|BMP Images|*.bmp\";";
-            // 
-            // recentToolStripMenuItem
-            // 
-            this.recentToolStripMenuItem.Name = "recentToolStripMenuItem";
-            this.recentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.recentToolStripMenuItem.Text = "&Recent";
+            this.openFileDialogTileSetImage.Filter = "JPEG Images|*.jpg|GIF Images|*.gif|BMP Images|*.bmp";
+            this.openFileDialogTileSetImage.Title = "Select Tileset Image Source";
             // 
             // TileSetEditor
             // 
@@ -414,7 +414,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTileSet;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemove;
         private System.Windows.Forms.TextBox textBoxTileSetPath;
-        private System.Windows.Forms.OpenFileDialog openFileDialogTileSet;
+        private System.Windows.Forms.OpenFileDialog openFileDialogTileSetImage;
         private System.Windows.Forms.ToolStripMenuItem recentToolStripMenuItem;
 
     }

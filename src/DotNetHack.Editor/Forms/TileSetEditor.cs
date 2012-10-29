@@ -73,14 +73,9 @@ namespace DotNetHack.Editor.Forms
         {
             Point tmpPoint = new Point(tile.XMapping, tile.YMapping);
             if (!ImageCache.ContainsKey(tmpPoint))
-                ImageCache.Add(tmpPoint, Shared.R.GetTile(tmpPoint.X, tmpPoint.Y));
+                ImageCache.Add(tmpPoint, Shared.R.GetTile(pictureBoxMain.Image, tmpPoint.X, tmpPoint.Y));
             pictureBoxSecondary.Image = ImageCache[tmpPoint];
         }
-
-        /// <summary>
-        /// ImageCache
-        /// </summary>
-        Dictionary<Point, Image> ImageCache;
 
         /// <summary>
         /// SaveTileSet
@@ -90,12 +85,14 @@ namespace DotNetHack.Editor.Forms
         {
             TileMapping.Save(TileMapping, fullPath);
             UpdateStatus("Saved: {0}", saveFileDialog.FileName);
-            CurrentObject.FileName = fullPath;
-            CurrentObject.Saved = true;
-            TileMapping.TileSetPath = saveFileDialog.FileName;
+
+            TileSetEditorEntity.Saved = true;
+            TileSetEditorEntity.FileName = saveFileDialog.FileName;
+            TileSetEditorEntity.LastUpdated = DateTime.Now;
 
             if (!Properties.Settings.Default.RecentTileSets.Contains(saveFileDialog.FileName))
                 Properties.Settings.Default.RecentTileSets.Add(saveFileDialog.FileName);
+            Properties.Settings.Default.Save();
 
             UpdateListBox();
         }
@@ -107,7 +104,8 @@ namespace DotNetHack.Editor.Forms
         private void LoadTileSet(string fullPath)
         {
             TileMapping.Load(fullPath, out TileMapping);
-            CurrentObject.FileName = fullPath;
+            TileSetEditorEntity.FileName = fullPath;
+
             UpdateStatus("Loaded: {0}", fullPath);
             UpdateListBox();
         }
@@ -117,7 +115,7 @@ namespace DotNetHack.Editor.Forms
         /// </summary>
         private void AddUpdateMapping(TileMapping.MappedTile tmpMappedTile)
         {
-            CurrentObject.Saved = false;
+            TileSetEditorEntity.Saved = false;
 
             if (TileMapping.Mapping.Contains(tmpMappedTile))
             {
@@ -135,10 +133,10 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void TileEditor_Load(object sender, EventArgs e)
         {
-            LoadRecent();
+            LoadRecentMappings();
 
-            if (!File.Exists(Shared.Properties.Settings.Default.TileSetPath) &&
-                string.IsNullOrEmpty(Shared.Properties.Settings.Default.TileSetPath))
+            if (!File.Exists(Shared.Properties.Settings.Default.TileSetImagePath) &&
+                string.IsNullOrEmpty(Shared.Properties.Settings.Default.TileSetImagePath))
                 SaveUpdateTileSetPath();
             UpdateTileSetTextBoxAndImage();
         }
@@ -146,7 +144,7 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// LoadRecent
         /// </summary>
-        private void LoadRecent()
+        private void LoadRecentMappings()
         {
             #region Recent TileSets
 
@@ -156,7 +154,6 @@ namespace DotNetHack.Editor.Forms
                 Properties.Settings.Default.Save();
             }
 
-            recentToolStripMenuItem.DropDownItems.Clear();
             if (Properties.Settings.Default.RecentTileSets != null)
                 foreach (string s in Properties.Settings.Default.RecentTileSets)
                 {
@@ -181,10 +178,13 @@ namespace DotNetHack.Editor.Forms
         /// </summary>
         private void UpdateTileSetTextBoxAndImage()
         {
-            textBoxTileSetPath.Text = Shared.Properties.Settings.Default.TileSetPath;
-            pictureBoxMain.Image = Image.FromFile(Shared.Properties.Settings.Default.TileSetPath);
+            textBoxTileSetPath.Text = Shared.Properties.Settings.Default.TileSetImagePath;
+            TileMapping.TileSetPath = Shared.Properties.Settings.Default.TileSetImagePath;
+            pictureBoxMain.Image = Image.FromFile(Shared.Properties.Settings.Default.TileSetImagePath);
+
             pictureBoxMain.Width = pictureBoxMain.Image.Width * 2;
             pictureBoxMain.Height = pictureBoxMain.Image.Height * 2;
+
             CurrentOffset = new Point();
         }
 
@@ -193,9 +193,9 @@ namespace DotNetHack.Editor.Forms
         /// </summary>
         private void SaveUpdateTileSetPath()
         {
-            if (openFileDialogTileSet.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            if (openFileDialogTileSetImage.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
-                Shared.Properties.Settings.Default.TileSetPath = openFileDialogTileSet.FileName;
+                Shared.Properties.Settings.Default.TileSetImagePath = openFileDialogTileSetImage.FileName;
                 Shared.Properties.Settings.Default.Save();
             }
         }
@@ -207,15 +207,20 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e"></param>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            switch (saveFileDialog.ShowDialog(this))
+            if (!string.IsNullOrEmpty(TileSetEditorEntity.FileName))
             {
-                case System.Windows.Forms.DialogResult.OK:
-                    {
-                        try { SaveTileSet(saveFileDialog.FileName); }
-                        catch (Exception ex) { UpdateStatus(ex.Message); }
-
-                        break;
-                    }
+                try { SaveTileSet(TileSetEditorEntity.FileName); }
+                catch (Exception ex) { UpdateStatus(ex.Message); }
+            }
+            else
+            {
+                switch (saveFileDialog.ShowDialog(this))
+                {
+                    case System.Windows.Forms.DialogResult.OK:
+                        {
+                            break;
+                        }
+                }
             }
         }
 
@@ -273,7 +278,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void TileEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!CurrentObject.Saved)
+            if (!TileSetEditorEntity.Saved)
             {
                 switch (MessageBox.Show("Save your work?", "DotNetHack Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                 {
@@ -374,6 +379,7 @@ namespace DotNetHack.Editor.Forms
 
         /// <summary>
         /// CurrentTile
+        /// <remarks>This tile may or may not be mapped & saved.</remarks>
         /// </summary>
         TileMapping.MappedTile CurrentTile { get; set; }
 
@@ -383,13 +389,18 @@ namespace DotNetHack.Editor.Forms
         TileMapping TileMapping;
 
         /// <summary>
-        /// CurrentObject
-        /// </summary>
-        EditorObject CurrentObject;
-
-        /// <summary>
         /// OriginalFormTitle
         /// </summary>
         readonly string OriginalFormTitle;
+
+        /// <summary>
+        /// TileSetEditorEntity
+        /// </summary>
+        EditorEntity TileSetEditorEntity;
+
+        /// <summary>
+        /// ImageCache
+        /// </summary>
+        Dictionary<Point, Image> ImageCache;
     }
 }

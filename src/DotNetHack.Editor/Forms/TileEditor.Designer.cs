@@ -39,6 +39,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.pictureBoxSecondary = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.listBoxMapping = new System.Windows.Forms.ListBox();
@@ -81,9 +82,9 @@
             // 
             this.statusStripTileEditMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStripTileEditMain.Location = new System.Drawing.Point(0, 421);
+            this.statusStripTileEditMain.Location = new System.Drawing.Point(0, 435);
             this.statusStripTileEditMain.Name = "statusStripTileEditMain";
-            this.statusStripTileEditMain.Size = new System.Drawing.Size(888, 22);
+            this.statusStripTileEditMain.Size = new System.Drawing.Size(773, 22);
             this.statusStripTileEditMain.TabIndex = 0;
             this.statusStripTileEditMain.Text = "statusStrip1";
             // 
@@ -98,7 +99,7 @@
             this.fileToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripMain.Name = "menuStripMain";
-            this.menuStripMain.Size = new System.Drawing.Size(888, 24);
+            this.menuStripMain.Size = new System.Drawing.Size(773, 24);
             this.menuStripMain.TabIndex = 1;
             this.menuStripMain.Text = "menuStrip1";
             // 
@@ -152,8 +153,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel1);
-            this.splitContainer1.Size = new System.Drawing.Size(888, 397);
-            this.splitContainer1.SplitterDistance = 296;
+            this.splitContainer1.Size = new System.Drawing.Size(773, 411);
+            this.splitContainer1.SplitterDistance = 257;
             this.splitContainer1.TabIndex = 2;
             // 
             // splitContainer2
@@ -165,21 +166,29 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.textBox1);
             this.splitContainer2.Panel1.Controls.Add(this.pictureBoxSecondary);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer2.Size = new System.Drawing.Size(296, 397);
-            this.splitContainer2.SplitterDistance = 89;
+            this.splitContainer2.Size = new System.Drawing.Size(257, 411);
+            this.splitContainer2.SplitterDistance = 92;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 52);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(245, 20);
+            this.textBox1.TabIndex = 2;
             // 
             // pictureBoxSecondary
             // 
             this.pictureBoxSecondary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBoxSecondary.Location = new System.Drawing.Point(0, 0);
             this.pictureBoxSecondary.Name = "pictureBoxSecondary";
-            this.pictureBoxSecondary.Size = new System.Drawing.Size(296, 89);
+            this.pictureBoxSecondary.Size = new System.Drawing.Size(257, 92);
             this.pictureBoxSecondary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxSecondary.TabIndex = 1;
             this.pictureBoxSecondary.TabStop = false;
@@ -198,7 +207,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 84.22939F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.77061F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(296, 304);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(257, 315);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // listBoxMapping
@@ -207,7 +216,7 @@
             this.listBoxMapping.FormattingEnabled = true;
             this.listBoxMapping.Location = new System.Drawing.Point(3, 3);
             this.listBoxMapping.Name = "listBoxMapping";
-            this.listBoxMapping.Size = new System.Drawing.Size(290, 229);
+            this.listBoxMapping.Size = new System.Drawing.Size(251, 239);
             this.listBoxMapping.TabIndex = 0;
             this.listBoxMapping.SelectedIndexChanged += new System.EventHandler(this.listBoxMapping_SelectedIndexChanged);
             this.listBoxMapping.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBoxMapping_MouseDoubleClick);
@@ -220,11 +229,11 @@
             this.tableLayoutPanel2.Controls.Add(this.buttonAddMapping, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.buttonRemoveMapping, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 238);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 248);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(290, 38);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(251, 39);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // buttonAddMapping
@@ -232,7 +241,7 @@
             this.buttonAddMapping.Dock = System.Windows.Forms.DockStyle.Fill;
             this.buttonAddMapping.Location = new System.Drawing.Point(3, 3);
             this.buttonAddMapping.Name = "buttonAddMapping";
-            this.buttonAddMapping.Size = new System.Drawing.Size(132, 32);
+            this.buttonAddMapping.Size = new System.Drawing.Size(93, 33);
             this.buttonAddMapping.TabIndex = 0;
             this.buttonAddMapping.Text = "Map Tile";
             this.buttonAddMapping.UseVisualStyleBackColor = true;
@@ -241,9 +250,9 @@
             // buttonRemoveMapping
             // 
             this.buttonRemoveMapping.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonRemoveMapping.Location = new System.Drawing.Point(141, 3);
+            this.buttonRemoveMapping.Location = new System.Drawing.Point(102, 3);
             this.buttonRemoveMapping.Name = "buttonRemoveMapping";
-            this.buttonRemoveMapping.Size = new System.Drawing.Size(146, 32);
+            this.buttonRemoveMapping.Size = new System.Drawing.Size(146, 33);
             this.buttonRemoveMapping.TabIndex = 1;
             this.buttonRemoveMapping.Text = "Remove Mapping";
             this.buttonRemoveMapping.UseVisualStyleBackColor = true;
@@ -252,9 +261,9 @@
             // textBoxTileSetPath
             // 
             this.textBoxTileSetPath.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxTileSetPath.Location = new System.Drawing.Point(3, 282);
+            this.textBoxTileSetPath.Location = new System.Drawing.Point(3, 293);
             this.textBoxTileSetPath.Name = "textBoxTileSetPath";
-            this.textBoxTileSetPath.Size = new System.Drawing.Size(290, 20);
+            this.textBoxTileSetPath.Size = new System.Drawing.Size(251, 20);
             this.textBoxTileSetPath.TabIndex = 4;
             this.textBoxTileSetPath.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.textBoxTileSetPath_MouseDoubleClick);
             // 
@@ -264,7 +273,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(588, 397);
+            this.panel1.Size = new System.Drawing.Size(512, 411);
             this.panel1.TabIndex = 0;
             // 
             // splitContainer4
@@ -282,31 +291,28 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.propertyGridMain);
-            this.splitContainer4.Size = new System.Drawing.Size(588, 397);
-            this.splitContainer4.SplitterDistance = 393;
+            this.splitContainer4.Size = new System.Drawing.Size(512, 411);
+            this.splitContainer4.SplitterDistance = 342;
             this.splitContainer4.TabIndex = 1;
             // 
             // pictureBoxMain
             // 
             this.pictureBoxMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBoxMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxMain.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxMain.Location = new System.Drawing.Point(-1, 0);
             this.pictureBoxMain.Name = "pictureBoxMain";
-            this.pictureBoxMain.Size = new System.Drawing.Size(393, 397);
-            this.pictureBoxMain.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxMain.Size = new System.Drawing.Size(157, 174);
             this.pictureBoxMain.TabIndex = 1;
             this.pictureBoxMain.TabStop = false;
             this.pictureBoxMain.Click += new System.EventHandler(this.pictureBoxMain_Click);
             this.pictureBoxMain.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxMain_Paint);
-            this.pictureBoxMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMain_MouseDown);
-            this.pictureBoxMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMain_MouseUp);
+            this.pictureBoxMain.Move += new System.EventHandler(this.pictureBoxMain_Move);
             // 
             // propertyGridMain
             // 
             this.propertyGridMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propertyGridMain.Location = new System.Drawing.Point(0, 0);
             this.propertyGridMain.Name = "propertyGridMain";
-            this.propertyGridMain.Size = new System.Drawing.Size(191, 397);
+            this.propertyGridMain.Size = new System.Drawing.Size(166, 411);
             this.propertyGridMain.TabIndex = 2;
             // 
             // saveFileDialog
@@ -341,7 +347,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(888, 443);
+            this.ClientSize = new System.Drawing.Size(773, 457);
             this.ControlBox = false;
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStripTileEditMain);
@@ -363,6 +369,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
@@ -372,7 +379,6 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.splitContainer4.Panel1.ResumeLayout(false);
-            this.splitContainer4.Panel1.PerformLayout();
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
@@ -411,6 +417,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemove;
         private System.Windows.Forms.TextBox textBoxTileSetPath;
         private System.Windows.Forms.OpenFileDialog openFileDialogTileSet;
+        private System.Windows.Forms.TextBox textBox1;
 
     }
 }

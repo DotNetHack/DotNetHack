@@ -44,7 +44,6 @@ namespace DotNetHack.Editor.Forms
             int xTile = Math.Abs((tmpOffset.X - MousePosition.X) / tileSize);
             int yTile = Math.Abs((tmpOffset.Y - MousePosition.Y) / tileSize);
 
-            // CurrentTile = new EditorTile(xTile, yTile, CurrentTile);
             CurrentTile = new TileMapping.MappedTile(xTile, yTile, Tile.TileType.None);
 
             UpdateImage(CurrentTile);
@@ -157,8 +156,9 @@ namespace DotNetHack.Editor.Forms
         {
             textBoxTileSetPath.Text = Shared.Properties.Settings.Default.TileSetPath;
             pictureBoxMain.Image = Image.FromFile(Shared.Properties.Settings.Default.TileSetPath);
-            WorkingImage = Image.FromFile(Shared.Properties.Settings.Default.TileSetPath);
-            CurrentTileSetSize = pictureBoxMain.Size;
+            pictureBoxMain.Width = pictureBoxMain.Image.Width * 2;
+            pictureBoxMain.Height = pictureBoxMain.Image.Height * 2;
+            CurrentOffset = new Point();
         }
 
         /// <summary>
@@ -303,47 +303,6 @@ namespace DotNetHack.Editor.Forms
             }
         }
 
-        /// <summary>
-        /// pictureBoxMain_MouseDown
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void pictureBoxMain_MouseDown(object sender, MouseEventArgs e)
-        {
-            var tStart = DateTime.Now;
-
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                MouseUpPostUpdateCallback += (DateTime tEnd, Cursor c) =>
-                {
-                    c = Cursor.Current;
-                    return tEnd - tStart > TimeSpan.FromMilliseconds(MouseDownDragMilliseconds);
-                };
-
-                Cursor.Current = Cursors.SizeAll;
-            }
-        }
-
-        /// <summary>
-        /// pictureBoxMain_MouseUp
-        /// </summary>
-        /// <param name="sender">event sender</param>
-        /// <param name="e">event args</param>
-        private void pictureBoxMain_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (MouseUpPostUpdateCallback != null)
-            {
-                if (MouseUpPostUpdateCallback(DateTime.Now, Cursor.Current))
-                {
-
-                    pictureBoxMain.Image = Shared.R.MoveImageByOffsetPoint(WorkingImage, e.Location);
-
-                    // imageBounds.Location = (Point)(SizeOfImageOffset + (Size)e.Location);
-                    // force re-paint of picture box
-                    pictureBoxMain.Refresh();
-                }
-            }
-        }
 
         /// <summary>
         /// textBoxTileSetPath_MouseDoubleClick
@@ -367,11 +326,6 @@ namespace DotNetHack.Editor.Forms
         }
 
         /// <summary>
-        /// MouseUpPostUpdateCallback
-        /// </summary>
-        Func<DateTime, Cursor, bool> MouseUpPostUpdateCallback = null;
-
-        /// <summary>
         /// MouseDownDragMilliseconds
         /// </summary>
         const int MouseDownDragMilliseconds = 100;
@@ -380,13 +334,6 @@ namespace DotNetHack.Editor.Forms
         /// CurrentOffset
         /// </summary>
         Point CurrentOffset = new Point();
-
-        /// <summary>
-        /// CurrentTileSetSize
-        /// </summary>
-        Size CurrentTileSetSize = new Size();
-
-        Image WorkingImage;
 
         /// <summary>
         /// CurrentTile
@@ -403,5 +350,16 @@ namespace DotNetHack.Editor.Forms
         /// <remarks>Set to false within AddUpdateMapping</remarks>
         /// </summary>
         bool Saved = true;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pictureBoxMain_Move(object sender, EventArgs e)
+        {
+            CurrentOffset = pictureBoxMain.Location;
+        }
+
     }
 }

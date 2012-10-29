@@ -60,6 +60,9 @@ namespace DotNetHack.Shared
 
                 Point tmpPointMod32 = new Point(32 % offsetVector.X, 32 % offsetVector.Y);
 
+                // imageBounds.Location = (Point)(SizeOfImageOffset + (Size)e.Location);
+
+
                 //draw the image into the target bitmap
                 graphics.DrawImage(image, tmpPointMod32.X, tmpPointMod32.Y, result.Width - offsetVector.X, result.Height - offsetVector.Y);
             }

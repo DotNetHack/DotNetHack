@@ -18,9 +18,10 @@ namespace DotNetHack.Editor.Objects
         /// EditorEntity
         /// </summary>
         /// <param name="fileName">the file name of this editor entity</param>
-        public EditorEntity(string fileName)
+        public EditorEntity(EditorEntityType entityType, string fileName)
             : this()
         {
+            EditorEntityType = entityType;
             FileName = fileName;
             LastUpdated = DateTime.Now;
             Saved = true;
@@ -40,5 +41,10 @@ namespace DotNetHack.Editor.Objects
         /// LastUpdated
         /// </summary>
         public DateTime LastUpdated { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public EditorEntityType EditorEntityType { get; private set; }
     }
 }

@@ -31,7 +31,7 @@ namespace DotNetHack.Editor.Forms
         public ScriptEditor(string fileName)
             : this()    // be sure to get init component in there.
         {
-            CurrentScriptEntity = new EditorEntity(fileName);
+            CurrentScriptEntity = new EditorEntity(EditorEntityType.Script, fileName);
         }
 
         /// <summary>

@@ -30,17 +30,21 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            Utility.LoadRecentTileSetMappings(tilesSetToolStripMenuItem,
+                delegate(string s) 
+                {
+                    OpenTileSetEditor(s);
+                });
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tilesToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <param name="fileName"></param>
+        private void OpenTileSetEditor(string fileName = "")
         {
-            Form frmTileSetEditor = new TileSetEditor();
+            Form frmTileSetEditor = string.IsNullOrEmpty(fileName) ?
+                new TileSetEditor() : new TileSetEditor(fileName);            
             flowLayoutPanelEditorMain.Controls.Add(frmTileSetEditor);
             frmTileSetEditor.Show();
         }

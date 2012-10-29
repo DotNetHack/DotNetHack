@@ -30,7 +30,7 @@
         {
             this.menuStripEditorMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tilesSetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditorMain = new System.Windows.Forms.StatusStrip();
             this.splitContainerEditorMain = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanelEditorMain = new System.Windows.Forms.FlowLayoutPanel();
@@ -46,7 +46,7 @@
             // 
             this.menuStripEditorMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.tilesToolStripMenuItem,
+            this.tilesSetToolStripMenuItem,
             this.scriptEditorToolStripMenuItem});
             this.menuStripEditorMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripEditorMain.Name = "menuStripEditorMain";
@@ -60,12 +60,11 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // tilesToolStripMenuItem
+            // tilesSetToolStripMenuItem
             // 
-            this.tilesToolStripMenuItem.Name = "tilesToolStripMenuItem";
-            this.tilesToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.tilesToolStripMenuItem.Text = "&Tileset";
-            this.tilesToolStripMenuItem.Click += new System.EventHandler(this.tilesToolStripMenuItem_Click);
+            this.tilesSetToolStripMenuItem.Name = "tilesSetToolStripMenuItem";
+            this.tilesSetToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.tilesSetToolStripMenuItem.Text = "&Tileset";
             // 
             // statusStripEditorMain
             // 
@@ -140,7 +139,7 @@
         private System.Windows.Forms.SplitContainer splitContainerEditorMain;
         private Shared.Controls.MapViewControl mapViewControl1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tilesSetToolStripMenuItem;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelEditorMain;
         private System.Windows.Forms.ToolStripMenuItem scriptEditorToolStripMenuItem;
     }

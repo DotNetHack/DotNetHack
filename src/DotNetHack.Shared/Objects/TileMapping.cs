@@ -46,5 +46,10 @@ namespace DotNetHack.Shared.Objects
         /// Mapping
         /// </summary>
         public List<MappedTile> Mapping { get; set; }
+
+        /// <summary>
+        /// The path of the tile set that the mapping applies to.
+        /// </summary>
+        public string TileSetPath { get; set; }
     }
 }

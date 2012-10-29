@@ -1,5 +1,6 @@
 ﻿using DotNetHack.Core.Game.Tiles;
 using DotNetHack.Core.Game.World;
+using DotNetHack.Editor.Objects;
 using DotNetHack.Shared.Objects;
 using System;
 using System.Collections.Generic;
@@ -89,8 +90,9 @@ namespace DotNetHack.Editor.Forms
         {
             TileMapping.Save(TileMapping, fullPath);
             UpdateStatus("Saved: {0}", saveFileDialog.FileName);
-
-            Saved = true;
+            CurrentObject.FileName = fullPath;
+            CurrentObject.Saved = true;
+            TileMapping.TileSetPath = saveFileDialog.FileName;
 
             if (!Properties.Settings.Default.RecentTileSets.Contains(saveFileDialog.FileName))
                 Properties.Settings.Default.RecentTileSets.Add(saveFileDialog.FileName);
@@ -99,13 +101,23 @@ namespace DotNetHack.Editor.Forms
         }
 
         /// <summary>
+        /// LoadTileSet
+        /// </summary>
+        /// <param name="fullPath"></param>
+        private void LoadTileSet(string fullPath)
+        {
+            TileMapping.Load(fullPath, out TileMapping);
+            CurrentObject.FileName = fullPath;
+            UpdateStatus("Loaded: {0}", fullPath);
+            UpdateListBox();
+        }
+
+        /// <summary>
         /// AddUpdateMapping();
         /// </summary>
         private void AddUpdateMapping(TileMapping.MappedTile tmpMappedTile)
         {
-            Saved = false;
-
-            Text = "*" + Text;
+            CurrentObject.Saved = false;
 
             if (TileMapping.Mapping.Contains(tmpMappedTile))
             {
@@ -154,17 +166,6 @@ namespace DotNetHack.Editor.Forms
                 }
 
             #endregion
-        }
-
-        /// <summary>
-        /// LoadTileSet
-        /// </summary>
-        /// <param name="fullPath"></param>
-        private void LoadTileSet(string fullPath)
-        {
-            TileMapping.Load(fullPath, out TileMapping);
-            UpdateStatus("Loaded: {0}", fullPath);
-            UpdateListBox();
         }
 
         /// <summary>
@@ -272,7 +273,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void TileEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!Saved)
+            if (!CurrentObject.Saved)
             {
                 switch (MessageBox.Show("Save your work?", "DotNetHack Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                 {
@@ -382,10 +383,9 @@ namespace DotNetHack.Editor.Forms
         TileMapping TileMapping;
 
         /// <summary>
-        /// Saved
-        /// <remarks>Set to false within AddUpdateMapping</remarks>
+        /// CurrentObject
         /// </summary>
-        bool Saved = true;
+        EditorObject CurrentObject;
 
         /// <summary>
         /// OriginalFormTitle

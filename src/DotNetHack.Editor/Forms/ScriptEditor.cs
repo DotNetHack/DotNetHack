@@ -30,8 +30,9 @@ namespace DotNetHack.Editor.Forms
         /// <param name="fileName">the file name to create this script editor with</param>
         public ScriptEditor(string fileName)
             : this()    // be sure to get init component in there.
-        {
-            CurrentScriptEntity = new EditorEntity(EditorEntityType.Script, fileName);
+        {           
+            CurrentScriptEntity = new EditorEntity(EditorEntityType.Script, fileName);          
+           
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void ScriptEditor_Load(object sender, EventArgs e)
         {
-
+            Text = CurrentScriptEntity.FileName;
         }
 
         /// <summary>

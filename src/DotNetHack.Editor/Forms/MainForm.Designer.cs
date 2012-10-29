@@ -28,16 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Scripts");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Quests");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Maps");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Items");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Actors");
             this.menuStripEditorMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tilesSetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scriptEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditorMain = new System.Windows.Forms.StatusStrip();
             this.splitContainerEditorMain = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanelEditorMain = new System.Windows.Forms.FlowLayoutPanel();
             this.mapViewControl1 = new DotNetHack.Shared.Controls.MapViewControl();
-            this.scriptEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.treeViewMain = new System.Windows.Forms.TreeView();
             this.menuStripEditorMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEditorMain)).BeginInit();
+            this.splitContainerEditorMain.Panel1.SuspendLayout();
             this.splitContainerEditorMain.Panel2.SuspendLayout();
             this.splitContainerEditorMain.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +73,12 @@
             this.tilesSetToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.tilesSetToolStripMenuItem.Text = "&Tileset";
             // 
+            // scriptEditorToolStripMenuItem
+            // 
+            this.scriptEditorToolStripMenuItem.Name = "scriptEditorToolStripMenuItem";
+            this.scriptEditorToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.scriptEditorToolStripMenuItem.Text = "&Script Editor";
+            // 
             // statusStripEditorMain
             // 
             this.statusStripEditorMain.Location = new System.Drawing.Point(0, 537);
@@ -79,6 +92,10 @@
             this.splitContainerEditorMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerEditorMain.Location = new System.Drawing.Point(0, 24);
             this.splitContainerEditorMain.Name = "splitContainerEditorMain";
+            // 
+            // splitContainerEditorMain.Panel1
+            // 
+            this.splitContainerEditorMain.Panel1.Controls.Add(this.treeViewMain);
             // 
             // splitContainerEditorMain.Panel2
             // 
@@ -104,11 +121,34 @@
             this.mapViewControl1.Size = new System.Drawing.Size(458, 513);
             this.mapViewControl1.TabIndex = 0;
             // 
-            // scriptEditorToolStripMenuItem
+            // treeViewMain
             // 
-            this.scriptEditorToolStripMenuItem.Name = "scriptEditorToolStripMenuItem";
-            this.scriptEditorToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
-            this.scriptEditorToolStripMenuItem.Text = "&Script Editor";
+            this.treeViewMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewMain.Location = new System.Drawing.Point(0, 0);
+            this.treeViewMain.Name = "treeViewMain";
+            treeNode1.Name = "NodeScripts";
+            treeNode1.Text = "Scripts";
+            treeNode1.ToolTipText = "Scripts from the global namespace.";
+            treeNode2.Name = "NodeQuests";
+            treeNode2.Text = "Quests";
+            treeNode2.ToolTipText = "All quests.";
+            treeNode3.Name = "NodeActors";
+            treeNode3.Text = "Maps";
+            treeNode3.ToolTipText = "All maps";
+            treeNode4.Name = "NodeItems";
+            treeNode4.Text = "Items";
+            treeNode4.ToolTipText = "All items";
+            treeNode5.Name = "NodeActors";
+            treeNode5.Text = "Actors";
+            treeNode5.ToolTipText = "All non-player controlled actors";
+            this.treeViewMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5});
+            this.treeViewMain.Size = new System.Drawing.Size(230, 513);
+            this.treeViewMain.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -124,6 +164,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStripEditorMain.ResumeLayout(false);
             this.menuStripEditorMain.PerformLayout();
+            this.splitContainerEditorMain.Panel1.ResumeLayout(false);
             this.splitContainerEditorMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEditorMain)).EndInit();
             this.splitContainerEditorMain.ResumeLayout(false);
@@ -142,5 +183,6 @@
         private System.Windows.Forms.ToolStripMenuItem tilesSetToolStripMenuItem;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelEditorMain;
         private System.Windows.Forms.ToolStripMenuItem scriptEditorToolStripMenuItem;
+        private System.Windows.Forms.TreeView treeViewMain;
     }
 }

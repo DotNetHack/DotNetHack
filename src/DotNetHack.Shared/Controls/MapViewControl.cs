@@ -26,7 +26,6 @@ namespace DotNetHack.Shared.Controls
         public MapViewControl()
         {
             InitializeComponent();
-
         }
 
         /// <summary>

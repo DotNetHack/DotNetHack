@@ -41,6 +41,9 @@ namespace DotNetHack.Editor.Forms
             int tileSize = Shared.Properties.Settings.Default.TileSize;
             Point tmpOffset = pictureBoxMain.PointToScreen(pictureBoxMain.Location);
 
+            tmpOffset.X += Math.Abs(CurrentOffset.X);
+            tmpOffset.Y += Math.Abs(CurrentOffset.Y);
+
             int xTile = Math.Abs((tmpOffset.X - MousePosition.X) / tileSize);
             int yTile = Math.Abs((tmpOffset.Y - MousePosition.Y) / tileSize);
 
@@ -322,7 +325,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void pictureBoxMain_Paint(object sender, PaintEventArgs e)
         {
-
+            textBox1.Text = CurrentOffset.ToString();
         }
 
         /// <summary>
@@ -360,6 +363,5 @@ namespace DotNetHack.Editor.Forms
         {
             CurrentOffset = pictureBoxMain.Location;
         }
-
     }
 }

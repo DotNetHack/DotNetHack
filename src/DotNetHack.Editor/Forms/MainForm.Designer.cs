@@ -33,8 +33,9 @@
             this.tilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripEditorMain = new System.Windows.Forms.StatusStrip();
             this.splitContainerEditorMain = new System.Windows.Forms.SplitContainer();
-            this.mapViewControl1 = new DotNetHack.Shared.Controls.MapViewControl();
             this.flowLayoutPanelEditorMain = new System.Windows.Forms.FlowLayoutPanel();
+            this.mapViewControl1 = new DotNetHack.Shared.Controls.MapViewControl();
+            this.scriptEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripEditorMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEditorMain)).BeginInit();
             this.splitContainerEditorMain.Panel2.SuspendLayout();
@@ -45,7 +46,8 @@
             // 
             this.menuStripEditorMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.tilesToolStripMenuItem});
+            this.tilesToolStripMenuItem,
+            this.scriptEditorToolStripMenuItem});
             this.menuStripEditorMain.Location = new System.Drawing.Point(0, 0);
             this.menuStripEditorMain.Name = "menuStripEditorMain";
             this.menuStripEditorMain.Size = new System.Drawing.Size(692, 24);
@@ -87,6 +89,14 @@
             this.splitContainerEditorMain.SplitterDistance = 230;
             this.splitContainerEditorMain.TabIndex = 2;
             // 
+            // flowLayoutPanelEditorMain
+            // 
+            this.flowLayoutPanelEditorMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelEditorMain.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanelEditorMain.Name = "flowLayoutPanelEditorMain";
+            this.flowLayoutPanelEditorMain.Size = new System.Drawing.Size(458, 513);
+            this.flowLayoutPanelEditorMain.TabIndex = 1;
+            // 
             // mapViewControl1
             // 
             this.mapViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -95,13 +105,11 @@
             this.mapViewControl1.Size = new System.Drawing.Size(458, 513);
             this.mapViewControl1.TabIndex = 0;
             // 
-            // flowLayoutPanelEditorMain
+            // scriptEditorToolStripMenuItem
             // 
-            this.flowLayoutPanelEditorMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelEditorMain.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanelEditorMain.Name = "flowLayoutPanelEditorMain";
-            this.flowLayoutPanelEditorMain.Size = new System.Drawing.Size(458, 513);
-            this.flowLayoutPanelEditorMain.TabIndex = 1;
+            this.scriptEditorToolStripMenuItem.Name = "scriptEditorToolStripMenuItem";
+            this.scriptEditorToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.scriptEditorToolStripMenuItem.Text = "&Script Editor";
             // 
             // MainForm
             // 
@@ -134,5 +142,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tilesToolStripMenuItem;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelEditorMain;
+        private System.Windows.Forms.ToolStripMenuItem scriptEditorToolStripMenuItem;
     }
 }

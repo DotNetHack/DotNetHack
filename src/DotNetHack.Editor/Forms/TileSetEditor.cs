@@ -141,8 +141,6 @@ namespace DotNetHack.Editor.Forms
             UpdateTileSetTextBoxAndImage();
         }
 
-
-
         /// <summary>
         /// UpdateStatus
         /// </summary>
@@ -225,8 +223,8 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// buttonAddMapping_Click
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
         private void buttonAddMapping_Click(object sender, EventArgs e)
         {
             AddUpdateMapping(CurrentTile);

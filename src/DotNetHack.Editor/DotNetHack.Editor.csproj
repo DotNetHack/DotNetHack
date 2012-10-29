@@ -64,6 +64,7 @@
       <DependentUpon>TileSetEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\EditorEntity.cs" />
+    <Compile Include="Objects\EditorEntityType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility.cs" />
     <EmbeddedResource Include="Forms\MainForm.resx">

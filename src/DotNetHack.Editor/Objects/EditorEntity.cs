@@ -4,9 +4,28 @@ namespace DotNetHack.Editor.Objects
 {
     /// <summary>
     /// EditorEntity
+    /// <remarks>
+    /// An editor entity if any high level editor object that can be saved:
+    /// <list type="bullet">
+    /// <item>TileSetMapping</item>
+    /// <item>ScriptFile</item>
+    /// </list>
+    /// </remarks>
     /// </summary>
     internal struct EditorEntity
     {
+        /// <summary>
+        /// EditorEntity
+        /// </summary>
+        /// <param name="fileName">the file name of this editor entity</param>
+        public EditorEntity(string fileName)
+            : this()
+        {
+            FileName = fileName;
+            LastUpdated = DateTime.Now;
+            Saved = true;
+        }
+
         /// <summary>
         /// Saved
         /// </summary>

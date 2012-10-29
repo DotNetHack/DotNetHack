@@ -84,14 +84,14 @@ namespace DotNetHack.Editor.Forms
         private void SaveTileSet(string fullPath)
         {
             TileMapping.Save(TileMapping, fullPath);
-            UpdateStatus("Saved: {0}", saveFileDialog.FileName);
+            UpdateStatus("Saved: {0}", fullPath);
 
             TileSetEditorEntity.Saved = true;
-            TileSetEditorEntity.FileName = saveFileDialog.FileName;
+            TileSetEditorEntity.FileName = fullPath;
             TileSetEditorEntity.LastUpdated = DateTime.Now;
 
-            if (!Properties.Settings.Default.RecentTileSets.Contains(saveFileDialog.FileName))
-                Properties.Settings.Default.RecentTileSets.Add(saveFileDialog.FileName);
+            if (!Properties.Settings.Default.RecentTileSets.Contains(fullPath))
+                Properties.Settings.Default.RecentTileSets.Add(fullPath);
             Properties.Settings.Default.Save();
 
             UpdateListBox();
@@ -133,7 +133,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void TileEditor_Load(object sender, EventArgs e)
         {
-            LoadRecentMappings();
+            LoadRecentTileSetMappings(recentToolStripMenuItem, LoadTileSet); 
 
             if (!File.Exists(Shared.Properties.Settings.Default.TileSetImagePath) &&
                 string.IsNullOrEmpty(Shared.Properties.Settings.Default.TileSetImagePath))
@@ -141,29 +141,7 @@ namespace DotNetHack.Editor.Forms
             UpdateTileSetTextBoxAndImage();
         }
 
-        /// <summary>
-        /// LoadRecent
-        /// </summary>
-        private void LoadRecentMappings()
-        {
-            #region Recent TileSets
 
-            if (Properties.Settings.Default.RecentTileSets == null)
-            {
-                Properties.Settings.Default.RecentTileSets = new System.Collections.Specialized.StringCollection();
-                Properties.Settings.Default.Save();
-            }
-
-            if (Properties.Settings.Default.RecentTileSets != null)
-                foreach (string s in Properties.Settings.Default.RecentTileSets)
-                {
-                    ToolStripMenuItem tmpNewMenuItem = new ToolStripMenuItem(s);
-                    tmpNewMenuItem.Click += (object senderInner, EventArgs eInner) => { LoadTileSet(s); };
-                    recentToolStripMenuItem.DropDownItems.Add(tmpNewMenuItem);
-                }
-
-            #endregion
-        }
 
         /// <summary>
         /// UpdateStatus
@@ -218,6 +196,9 @@ namespace DotNetHack.Editor.Forms
                 {
                     case System.Windows.Forms.DialogResult.OK:
                         {
+                            try { SaveTileSet(TileSetEditorEntity.FileName); }
+                            catch (Exception ex) { UpdateStatus(ex.Message); }
+
                             break;
                         }
                 }
@@ -339,7 +320,7 @@ namespace DotNetHack.Editor.Forms
             switch (e.Button)
             {
                 case System.Windows.Forms.MouseButtons.Left:
-                    contextMenuStripTileSet.Show(this, e.Location);
+                    contextMenuStripTileSet.Show(PointToScreen(e.Location));
                     break;
             }
         }
@@ -371,6 +352,33 @@ namespace DotNetHack.Editor.Forms
         /// <param name="sender">event sender</param>
         /// <param name="e">event args</param>
         private void pictureBoxMain_Paint(object sender, PaintEventArgs e) { }
+
+        /// <summary>
+        /// LoadRecentTileSetMappings
+        /// </summary>
+        /// <param name="parent">the parent toolstrip menu item</param>
+        /// <param name="action">the action that occurs when it's clicked.</param>
+        internal static void LoadRecentTileSetMappings(ToolStripMenuItem parent, Action<string> action)
+        {
+            #region Recent TileSets
+
+            if (Properties.Settings.Default.RecentTileSets == null)
+            {
+                Properties.Settings.Default.RecentTileSets = new System.Collections.Specialized.StringCollection();
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                foreach (string s in Properties.Settings.Default.RecentTileSets)
+                {
+                    ToolStripMenuItem tmpNewMenuItem = new ToolStripMenuItem(s);
+                    tmpNewMenuItem.Click += (object senderInner, EventArgs eInner) => { action(s); };
+                    parent.DropDownItems.Add(tmpNewMenuItem);
+                }
+            }
+
+            #endregion
+        }
 
         /// <summary>
         /// CurrentOffset

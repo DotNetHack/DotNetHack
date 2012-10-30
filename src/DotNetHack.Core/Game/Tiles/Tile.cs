@@ -34,6 +34,6 @@ namespace DotNetHack.Core.Game.Tiles
         /// <summary>
         /// The type of tile this is
         /// </summary>
-        public enum TileType { None, Map, Actor, Item};
+        public enum TileType { None, Map, Actor, Item, Effect };
     }
 }

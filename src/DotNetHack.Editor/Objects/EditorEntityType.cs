@@ -13,6 +13,7 @@ namespace DotNetHack.Editor.Objects
     {
         TileSet,
         Script,
+        Items,
         Map,
     }
 }

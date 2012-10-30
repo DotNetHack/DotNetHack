@@ -57,6 +57,12 @@
     <Compile Include="Forms\MapEditor.Designer.cs">
       <DependentUpon>MapEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ScriptEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +85,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MapEditor.resx">
       <DependentUpon>MapEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ScriptEditor.resx">
       <DependentUpon>ScriptEditor.cs</DependentUpon>
@@ -112,6 +121,10 @@
     <ProjectReference Include="..\DotNetHack.Core\DotNetHack.Core.csproj">
       <Project>{cab13655-ae02-43b6-b1ab-64c25560324c}</Project>
       <Name>DotNetHack.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotNetHack.Serialization\DotNetHack.Serialization.csproj">
+      <Project>{fc69ff51-f478-4488-aa58-b01662550fd4}</Project>
+      <Name>DotNetHack.Serialization</Name>
     </ProjectReference>
     <ProjectReference Include="..\DotNetHack.Shared\DotNetHack.Shared.csproj">
       <Project>{bd92df2d-27cc-419d-b7ee-35a511841bdf}</Project>

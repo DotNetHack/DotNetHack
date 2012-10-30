@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DotNetHack.Serialization;
+using System;
+using System.IO;
 
 namespace DotNetHack.Editor.Objects
 {
@@ -12,8 +14,34 @@ namespace DotNetHack.Editor.Objects
     /// </list>
     /// </remarks>
     /// </summary>
-    internal struct EditorEntity
+    public struct EditorEntity
     {
+        /// <summary>
+        /// EditorEntity
+        /// </summary>
+        /// <param name="fileName">The list of editor entities to load</param>
+        /// <returns>An array of editor entities.</returns>
+        public static void Load(out EditorEntity[] entities)
+        {
+            if (File.Exists(EntitiesFileName))
+            {
+                entities = Persisted.Read<EditorEntity[]>(EntitiesFileName);
+            }
+            else
+            {
+                entities = default(EditorEntity[]);
+            }
+        }
+
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="entities">entities to be saved</param>
+        public static void Save(ref EditorEntity[] entities)
+        {
+            entities.Write(EntitiesFileName);
+        }
+
         /// <summary>
         /// EditorEntity
         /// </summary>
@@ -43,8 +71,13 @@ namespace DotNetHack.Editor.Objects
         public DateTime LastUpdated { get; set; }
 
         /// <summary>
-        /// 
+        /// EditorEntityType
         /// </summary>
-        public EditorEntityType EditorEntityType { get; private set; }
+        public EditorEntityType EditorEntityType { get; set; }
+
+        /// <summary>
+        /// EntitiesFileName
+        /// </summary>
+        const string EntitiesFileName = "editor-entities.xml";
     }
 }

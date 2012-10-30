@@ -144,7 +144,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void TileEditor_Load(object sender, EventArgs e)
         {
-            Utility.LoadRecentTileSetMappings(recentToolStripMenuItem, LoadTileSet); 
+            
 
             if (!File.Exists(Shared.Properties.Settings.Default.TileSetImagePath) &&
                 string.IsNullOrEmpty(Shared.Properties.Settings.Default.TileSetImagePath))

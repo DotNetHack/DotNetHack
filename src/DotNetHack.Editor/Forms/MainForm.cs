@@ -24,29 +24,43 @@ namespace DotNetHack.Editor.Forms
         }
 
         /// <summary>
-        /// 
+        /// MainForm_Load
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Utility.LoadRecentTileSetMappings(tilesSetToolStripMenuItem,
-                delegate(string s) 
+            Utility.RecentTileSetMappings().ForEach((string s) => 
+            {
+                ToolStripMenuItem tmpNewMenuItem = new ToolStripMenuItem(s);
+                tmpNewMenuItem.Click += (object innerSender, EventArgs innerArgs) => 
                 {
                     OpenTileSetEditor(s);
-                });
+                };
+                contextMenuStripTileSet.Items.Add(tmpNewMenuItem);
+            });                   
         }
 
         /// <summary>
-        /// 
+        /// OpenTileSetEditor
         /// </summary>
         /// <param name="fileName"></param>
         private void OpenTileSetEditor(string fileName = "")
         {
             Form frmTileSetEditor = string.IsNullOrEmpty(fileName) ?
-                new TileSetEditor() : new TileSetEditor(fileName);            
+                new TileSetEditor() : new TileSetEditor(fileName);
             flowLayoutPanelEditorMain.Controls.Add(frmTileSetEditor);
             frmTileSetEditor.Show();
+        }
+
+        /// <summary>
+        /// treeViewMain_AfterSelect
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void treeViewMain_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
         }
     }
 }

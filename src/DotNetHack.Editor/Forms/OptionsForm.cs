@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DotNetHack.Shared.Objects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -44,7 +45,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void OptionsForm_Load(object sender, EventArgs e)
         {
-            textBoxEntities.Text = Properties.Settings.Default.EditorEntitiesPath;
+            textBoxEntities.Text = MetaEntity.MetaEntitiesPath;
         }
 
         /// <summary>
@@ -54,8 +55,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void OptionsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.EditorEntitiesPath = textBoxEntities.Text;
-            Properties.Settings.Default.Save();
+            MetaEntity.MetaEntitiesPath = textBoxEntities.Text;
         }
 
         /// <summary>

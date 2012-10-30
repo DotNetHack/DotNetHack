@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetHack.Editor.Objects
+namespace DotNetHack.Shared.Objects
 {
     /// <summary>
     /// EditorEntityType
     /// </summary>
-    public enum EditorEntityType 
+    public enum MetaEntityType 
     {
         TileSet,
         Script,

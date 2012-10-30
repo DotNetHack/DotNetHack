@@ -33,17 +33,5 @@ namespace DotNetHack.Editor.Properties {
                 this["RecentTileSets"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string EditorEntitiesPath {
-            get {
-                return ((string)(this["EditorEntitiesPath"]));
-            }
-            set {
-                this["EditorEntitiesPath"] = value;
-            }
-        }
     }
 }

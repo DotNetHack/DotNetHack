@@ -1,4 +1,4 @@
-﻿using DotNetHack.Editor.Objects;
+﻿using DotNetHack.Shared.Objects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,9 +30,8 @@ namespace DotNetHack.Editor.Forms
         /// <param name="fileName">the file name to create this script editor with</param>
         public ScriptEditor(string fileName)
             : this()    // be sure to get init component in there.
-        {           
-            CurrentScriptEntity = new EditorEntity(EditorEntityType.Script, fileName);          
-           
+        {
+            CurrentScriptEntity = new MetaEntity(MetaEntityType.Script, fileName);       
         }
 
         /// <summary>
@@ -48,6 +47,6 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// CurrentScriptEntity
         /// </summary>
-        EditorEntity CurrentScriptEntity { get; set; }
+        MetaEntity CurrentScriptEntity { get; set; }
     }
 }

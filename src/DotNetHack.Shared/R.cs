@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DotNetHack.Shared.Objects;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -52,6 +53,14 @@ namespace DotNetHack.Shared
     /// </summary>
     public static class R
     {
+        /// <summary>
+        /// R
+        /// </summary>
+        static R()
+        {
+            
+        }
+
         /// <summary>
         /// GetTile
         /// </summary>

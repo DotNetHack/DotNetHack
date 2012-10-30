@@ -43,5 +43,17 @@ namespace DotNetHack.Shared.Properties {
                 this["TileSetImagePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string MetaEntitiesPath {
+            get {
+                return ((string)(this["MetaEntitiesPath"]));
+            }
+            set {
+                this["MetaEntitiesPath"] = value;
+            }
+        }
     }
 }

@@ -60,7 +60,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void treeViewMain_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
+            MessageBox.Show(e.Node.Name);
         }
     }
 }

@@ -58,7 +58,8 @@ namespace DotNetHack.Shared
         /// </summary>
         static R()
         {
-            
+            if (!Directory.Exists(ScriptFullPath))
+                Directory.CreateDirectory(ScriptFullPath);
         }
 
         /// <summary>
@@ -144,5 +145,12 @@ namespace DotNetHack.Shared
             //return the resulting bitmap
             return result;
         }
+
+        /// <summary>
+        /// ScriptFullPath
+        /// </summary>
+        public static readonly string ScriptFullPath
+            = Path.Combine(Properties.Settings.Default.MetaEntitiesPath,
+                    Properties.Settings.Default.ScriptPath);
     }
 }

@@ -54,8 +54,16 @@
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
+            this.openFileDialogScriptEditor = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialogScriptEditor = new System.Windows.Forms.SaveFileDialog();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.richTextBoxScriptEditorMain = new System.Windows.Forms.RichTextBox();
+            this.propertyGridScriptMain = new System.Windows.Forms.PropertyGrid();
             this.menuStripMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStripMain
@@ -95,6 +103,7 @@
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "&New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -104,6 +113,7 @@
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "&Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
@@ -118,12 +128,14 @@
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "&Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -157,6 +169,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -242,13 +255,13 @@
             // customizeToolStripMenuItem
             // 
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.customizeToolStripMenuItem.Text = "&Customize";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // statusStripMain
@@ -259,30 +272,64 @@
             this.statusStripMain.TabIndex = 1;
             this.statusStripMain.Text = "statusStrip1";
             // 
+            // saveFileDialogScriptEditor
+            // 
+            this.saveFileDialogScriptEditor.Filter = "C# files|*.cs|All files|*.*";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.propertyGridScriptMain);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.richTextBoxScriptEditorMain);
+            this.splitContainer1.Size = new System.Drawing.Size(695, 407);
+            this.splitContainer1.SplitterDistance = 157;
+            this.splitContainer1.TabIndex = 2;
+            // 
             // richTextBoxScriptEditorMain
             // 
             this.richTextBoxScriptEditorMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBoxScriptEditorMain.Location = new System.Drawing.Point(0, 24);
+            this.richTextBoxScriptEditorMain.Location = new System.Drawing.Point(0, 0);
             this.richTextBoxScriptEditorMain.Name = "richTextBoxScriptEditorMain";
             this.richTextBoxScriptEditorMain.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBoxScriptEditorMain.Size = new System.Drawing.Size(695, 407);
-            this.richTextBoxScriptEditorMain.TabIndex = 2;
+            this.richTextBoxScriptEditorMain.Size = new System.Drawing.Size(534, 407);
+            this.richTextBoxScriptEditorMain.TabIndex = 4;
             this.richTextBoxScriptEditorMain.Text = "";
+            // 
+            // propertyGridScriptMain
+            // 
+            this.propertyGridScriptMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGridScriptMain.Location = new System.Drawing.Point(0, 0);
+            this.propertyGridScriptMain.Name = "propertyGridScriptMain";
+            this.propertyGridScriptMain.Size = new System.Drawing.Size(157, 407);
+            this.propertyGridScriptMain.TabIndex = 0;
             // 
             // ScriptEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(695, 453);
-            this.Controls.Add(this.richTextBoxScriptEditorMain);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.menuStripMain);
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "ScriptEditor";
             this.Text = "ScriptEditor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScriptEditor_FormClosing);
             this.Load += new System.EventHandler(this.ScriptEditor_Load);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -315,6 +362,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem customizeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialogScriptEditor;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogScriptEditor;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.PropertyGrid propertyGridScriptMain;
         private System.Windows.Forms.RichTextBox richTextBoxScriptEditorMain;
     }
 }

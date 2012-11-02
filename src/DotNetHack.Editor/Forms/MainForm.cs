@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,10 +37,33 @@ namespace DotNetHack.Editor.Forms
 
             toolStripDropDownButtonTileSets.Image = Shared.Properties.Resources.artificial_hive;
             toolStripDropDownButtonScripts.Image = Shared.Properties.Resources.cog;
+            toolStripDropDownButtonMaps.Image = Shared.Properties.Resources.globe;
 
             TileSetsRootNode = treeViewMain.Nodes[KeyTileSets];
+            ScriptsRootNode = treeViewMain.Nodes[KeyScripts];
 
             MetaEntity.MetaEntities.ForEach(AddEntityToToolStrip);
+            MetaEntity.MetaEntities.ForEach(AddEntityToTree);
+        }
+
+        /// <summary>
+        /// AddEntityToTree
+        /// </summary>
+        /// <param name="entity"></param>
+        private void AddEntityToTree(MetaEntity entity)
+        {
+            string tmpEntityName = Path.GetFileName(entity.FileName);
+            switch (entity.MetaEntityType)
+            {
+                case MetaEntityType.TileSet:
+                    TileSetsRootNode.Nodes.Add(tmpEntityName);
+                    break;
+                case MetaEntityType.Map:              
+                    break;
+                case MetaEntityType.Script:
+                    ScriptsRootNode.Nodes.Add(tmpEntityName);
+                    break;
+            }
         }
 
         /// <summary>
@@ -47,12 +71,18 @@ namespace DotNetHack.Editor.Forms
         /// <remarks>will add the entity to the appropriate toolstrip</remarks>
         /// </summary>
         /// <param name="entity">entity</param>
-        private void AddEntityToToolStrip(MetaEntity entity) 
+        private void AddEntityToToolStrip(MetaEntity entity)
         {
             switch (entity.MetaEntityType)
             {
                 case MetaEntityType.TileSet:
                     AddNewMenuItemFromEntity(toolStripDropDownButtonTileSets, entity);
+                    break;
+                case MetaEntityType.Script:
+                    AddNewMenuItemFromEntity(toolStripDropDownButtonScripts, entity);
+                    break;
+                case MetaEntityType.Map:
+                    AddNewMenuItemFromEntity(toolStripDropDownButtonMaps, entity);
                     break;
             }
         }
@@ -87,6 +117,16 @@ namespace DotNetHack.Editor.Forms
                     break;
             }
 
+            OpenForm(tmpForm);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tmpForm"></param>
+        private void OpenForm(Form tmpForm)
+        {
+            tmpForm.TopLevel = false;
             flowLayoutPanelEditorMain.Controls.Add(tmpForm);
             tmpForm.Show();
         }
@@ -98,6 +138,11 @@ namespace DotNetHack.Editor.Forms
         /// </summary>
         TreeNode TileSetsRootNode = null;
 
+        /// <summary>
+        /// ScriptsRootNode
+        /// </summary>
+        TreeNode ScriptsRootNode = null;
+
         #endregion
 
         #region Constants
@@ -106,6 +151,11 @@ namespace DotNetHack.Editor.Forms
         /// KeyTileSets
         /// </summary>
         const string KeyTileSets = "NodeTileSets";
+
+        /// <summary>
+        /// KeyScripts
+        /// </summary>
+        const string KeyScripts = "NodeScripts";
 
         #endregion
 
@@ -177,6 +227,16 @@ namespace DotNetHack.Editor.Forms
         private void splitContainerEditorMain_Panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// toolStripDropDownButtonScripts_Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripDropDownButtonScripts_Click(object sender, EventArgs e)
+        {
+            OpenForm(new ScriptEditor());
         }
     }
 }

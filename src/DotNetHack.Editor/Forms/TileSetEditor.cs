@@ -266,19 +266,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void TileEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!TileSetMetaEntity.Saved)
-            {
-                switch (MessageBox.Show("Save your work?", "DotNetHack Editor", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
-                {
-                    case System.Windows.Forms.DialogResult.Yes:
-                        e.Cancel = true;
-                        saveToolStripMenuItem_Click(sender, e);
-                        break;
-                }
-            }
-
-            if (!MetaEntity.MetaEntities.Contains(TileSetMetaEntity))
-                MetaEntity.MetaEntities.Add(TileSetMetaEntity);
+            TileSetMetaEntity.CloseForm(sender, e);
         }
 
         /// <summary>

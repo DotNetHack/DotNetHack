@@ -20,8 +20,8 @@ namespace DotNetHack.Engine.Scripting
         }
 
         /// <summary>
-        /// The code set for this script.
+        /// CodeSet
         /// </summary>
-        private readonly string _codeSet;
+        public string CodeSet { get; set; }
     }
 }

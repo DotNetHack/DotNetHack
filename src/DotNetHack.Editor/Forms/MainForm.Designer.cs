@@ -81,6 +81,7 @@
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButtonTileSets = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripDropDownButtonScripts = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripDropDownButtonMaps = new System.Windows.Forms.ToolStripDropDownButton();
             this.menuStripEditorMain.SuspendLayout();
             this.toolStripContainerMain.ContentPanel.SuspendLayout();
             this.toolStripContainerMain.TopToolStripPanel.SuspendLayout();
@@ -365,7 +366,7 @@
             this.splitContainerEditorMain.Panel2.Controls.Add(this.flowLayoutPanelEditorMain);
             this.splitContainerEditorMain.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainerEditorMain_Panel2_Paint);
             this.splitContainerEditorMain.Size = new System.Drawing.Size(692, 488);
-            this.splitContainerEditorMain.SplitterDistance = 229;
+            this.splitContainerEditorMain.SplitterDistance = 111;
             this.splitContainerEditorMain.TabIndex = 3;
             // 
             // treeViewMain
@@ -442,7 +443,7 @@
             treeNode25,
             treeNode26});
             this.treeViewMain.SelectedImageIndex = 0;
-            this.treeViewMain.Size = new System.Drawing.Size(229, 488);
+            this.treeViewMain.Size = new System.Drawing.Size(111, 488);
             this.treeViewMain.TabIndex = 0;
             // 
             // flowLayoutPanelEditorMain
@@ -450,7 +451,7 @@
             this.flowLayoutPanelEditorMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelEditorMain.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanelEditorMain.Name = "flowLayoutPanelEditorMain";
-            this.flowLayoutPanelEditorMain.Size = new System.Drawing.Size(459, 488);
+            this.flowLayoutPanelEditorMain.Size = new System.Drawing.Size(577, 488);
             this.flowLayoutPanelEditorMain.TabIndex = 1;
             // 
             // toolStripMain
@@ -458,29 +459,37 @@
             this.toolStripMain.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButtonTileSets,
-            this.toolStripDropDownButtonScripts});
+            this.toolStripDropDownButtonScripts,
+            this.toolStripDropDownButtonMaps});
             this.toolStripMain.Location = new System.Drawing.Point(3, 0);
             this.toolStripMain.Name = "toolStripMain";
-            this.toolStripMain.Size = new System.Drawing.Size(70, 25);
+            this.toolStripMain.Size = new System.Drawing.Size(287, 25);
             this.toolStripMain.TabIndex = 0;
             // 
             // toolStripDropDownButtonTileSets
             // 
-            this.toolStripDropDownButtonTileSets.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButtonTileSets.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonTileSets.Image")));
             this.toolStripDropDownButtonTileSets.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonTileSets.Name = "toolStripDropDownButtonTileSets";
-            this.toolStripDropDownButtonTileSets.Size = new System.Drawing.Size(29, 22);
-            this.toolStripDropDownButtonTileSets.Text = "toolStripDropDownButton1";
+            this.toolStripDropDownButtonTileSets.Size = new System.Drawing.Size(79, 22);
+            this.toolStripDropDownButtonTileSets.Text = "Tile Sets";
             // 
             // toolStripDropDownButtonScripts
             // 
-            this.toolStripDropDownButtonScripts.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButtonScripts.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonScripts.Image")));
             this.toolStripDropDownButtonScripts.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonScripts.Name = "toolStripDropDownButtonScripts";
-            this.toolStripDropDownButtonScripts.Size = new System.Drawing.Size(29, 22);
-            this.toolStripDropDownButtonScripts.Text = "toolStripDropDownButton2";
+            this.toolStripDropDownButtonScripts.Size = new System.Drawing.Size(71, 22);
+            this.toolStripDropDownButtonScripts.Text = "Scripts";
+            this.toolStripDropDownButtonScripts.Click += new System.EventHandler(this.toolStripDropDownButtonScripts_Click);
+            // 
+            // toolStripDropDownButtonMaps
+            // 
+            this.toolStripDropDownButtonMaps.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonMaps.Image")));
+            this.toolStripDropDownButtonMaps.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButtonMaps.Name = "toolStripDropDownButtonMaps";
+            this.toolStripDropDownButtonMaps.Size = new System.Drawing.Size(94, 22);
+            this.toolStripDropDownButtonMaps.Text = "Map Editor";
             // 
             // MainForm
             // 
@@ -549,5 +558,6 @@
         private System.Windows.Forms.ToolStrip toolStripMain;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonTileSets;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonScripts;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonMaps;
     }
 }

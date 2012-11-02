@@ -55,5 +55,14 @@ namespace DotNetHack.Shared.Properties {
                 this["MetaEntitiesPath"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("scripts")]
+        public string ScriptPath {
+            get {
+                return ((string)(this["ScriptPath"]));
+            }
+        }
     }
 }

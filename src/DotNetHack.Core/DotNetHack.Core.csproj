@@ -45,6 +45,7 @@
     <Compile Include="Game\GameObject.cs" />
     <Compile Include="Game\GameState.cs" />
     <Compile Include="Game\Items\Item.cs" />
+    <Compile Include="Game\Items\ItemType.cs" />
     <Compile Include="Game\Tiles\ActorTile.cs" />
     <Compile Include="Game\Tiles\ItemTile.cs" />
     <Compile Include="Game\Skills\Skill.cs" />

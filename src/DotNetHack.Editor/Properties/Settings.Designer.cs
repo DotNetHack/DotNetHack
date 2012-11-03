@@ -33,5 +33,17 @@ namespace DotNetHack.Editor.Properties {
                 this["RecentTileSets"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastPackage {
+            get {
+                return ((string)(this["LastPackage"]));
+            }
+            set {
+                this["LastPackage"] = value;
+            }
+        }
     }
 }

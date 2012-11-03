@@ -112,15 +112,7 @@ namespace DotNetHack.Shared.Objects
         /// <summary>
         /// MetaEntitiesPath
         /// </summary>
-        public static string MetaEntitiesPath
-        {
-            get { return Properties.Settings.Default.MetaEntitiesPath; }
-            set
-            {
-                Properties.Settings.Default.MetaEntitiesPath = value;
-                Properties.Settings.Default.Save();
-            }
-        }
+        public static string MetaEntitiesPath { get { return R.DataFullPath; } }
 
         /// <summary>
         /// EntitiesFileName

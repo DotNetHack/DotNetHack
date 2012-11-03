@@ -33,10 +33,6 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
@@ -51,12 +47,27 @@
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.pictureBoxMain = new System.Windows.Forms.PictureBox();
             this.propertyGridMain = new System.Windows.Forms.PropertyGrid();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStripTileSet = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.createActorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.weaponToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.containerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consumableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.potionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.foodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scrollToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.armorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.armorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.helmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chestpieceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.legsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shouldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.handsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wristsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogTileSetImage = new System.Windows.Forms.OpenFileDialog();
-            this.openInBeastiaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripTileEditMain.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -107,44 +118,15 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStripMenuItem,
-            this.loadToolStripMenuItem,
-            this.recentToolStripMenuItem,
-            this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "&Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
-            // 
-            // loadToolStripMenuItem
-            // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.loadToolStripMenuItem.Text = "&Open";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
-            // 
-            // recentToolStripMenuItem
-            // 
-            this.recentToolStripMenuItem.Name = "recentToolStripMenuItem";
-            this.recentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.recentToolStripMenuItem.Text = "&Recent";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -315,42 +297,156 @@
             this.propertyGridMain.Size = new System.Drawing.Size(166, 411);
             this.propertyGridMain.TabIndex = 2;
             // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.DefaultExt = "xml";
-            this.saveFileDialog.Filter = "DotNetHack Object|*.dnh.xml";
-            this.saveFileDialog.Title = "Save TileSet";
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.FileName = "openFileDialog1";
-            // 
             // contextMenuStripTileSet
             // 
             this.contextMenuStripTileSet.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemRemove,
-            this.openInBeastiaryToolStripMenuItem});
+            this.createActorToolStripMenuItem,
+            this.createItemToolStripMenuItem});
             this.contextMenuStripTileSet.Name = "contextMenuStripAddRemove";
-            this.contextMenuStripTileSet.Size = new System.Drawing.Size(167, 48);
+            this.contextMenuStripTileSet.Size = new System.Drawing.Size(153, 92);
             // 
             // toolStripMenuItemRemove
             // 
             this.toolStripMenuItemRemove.Name = "toolStripMenuItemRemove";
-            this.toolStripMenuItemRemove.Size = new System.Drawing.Size(117, 22);
+            this.toolStripMenuItemRemove.Size = new System.Drawing.Size(140, 22);
             this.toolStripMenuItemRemove.Text = "Remove";
             this.toolStripMenuItemRemove.Click += new System.EventHandler(this.toolStripMenuItemRemove_Click);
+            // 
+            // createActorToolStripMenuItem
+            // 
+            this.createActorToolStripMenuItem.Name = "createActorToolStripMenuItem";
+            this.createActorToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.createActorToolStripMenuItem.Text = "Create Actor";
+            this.createActorToolStripMenuItem.Click += new System.EventHandler(this.createActorToolStripMenuItem_Click);
+            // 
+            // createItemToolStripMenuItem
+            // 
+            this.createItemToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.weaponToolStripMenuItem,
+            this.containerToolStripMenuItem,
+            this.consumableToolStripMenuItem,
+            this.armorToolStripMenuItem});
+            this.createItemToolStripMenuItem.Name = "createItemToolStripMenuItem";
+            this.createItemToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.createItemToolStripMenuItem.Text = "Create Item";
+            // 
+            // weaponToolStripMenuItem
+            // 
+            this.weaponToolStripMenuItem.Name = "weaponToolStripMenuItem";
+            this.weaponToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.weaponToolStripMenuItem.Text = "Weapon";
+            this.weaponToolStripMenuItem.Click += new System.EventHandler(this.weaponToolStripMenuItem_Click);
+            // 
+            // containerToolStripMenuItem
+            // 
+            this.containerToolStripMenuItem.Name = "containerToolStripMenuItem";
+            this.containerToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.containerToolStripMenuItem.Text = "Container";
+            // 
+            // consumableToolStripMenuItem
+            // 
+            this.consumableToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.potionToolStripMenuItem,
+            this.foodToolStripMenuItem,
+            this.scrollToolStripMenuItem});
+            this.consumableToolStripMenuItem.Name = "consumableToolStripMenuItem";
+            this.consumableToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.consumableToolStripMenuItem.Text = "Consumable";
+            // 
+            // potionToolStripMenuItem
+            // 
+            this.potionToolStripMenuItem.Name = "potionToolStripMenuItem";
+            this.potionToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.potionToolStripMenuItem.Text = "Potion";
+            // 
+            // foodToolStripMenuItem
+            // 
+            this.foodToolStripMenuItem.Name = "foodToolStripMenuItem";
+            this.foodToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.foodToolStripMenuItem.Text = "Food";
+            // 
+            // scrollToolStripMenuItem
+            // 
+            this.scrollToolStripMenuItem.Name = "scrollToolStripMenuItem";
+            this.scrollToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.scrollToolStripMenuItem.Text = "Scroll";
+            // 
+            // armorToolStripMenuItem
+            // 
+            this.armorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.armorToolStripMenuItem1,
+            this.ringToolStripMenuItem});
+            this.armorToolStripMenuItem.Name = "armorToolStripMenuItem";
+            this.armorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.armorToolStripMenuItem.Text = "Equipment";
+            // 
+            // armorToolStripMenuItem1
+            // 
+            this.armorToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helmToolStripMenuItem,
+            this.chestpieceToolStripMenuItem,
+            this.legsToolStripMenuItem,
+            this.shouldersToolStripMenuItem,
+            this.backToolStripMenuItem,
+            this.handsToolStripMenuItem,
+            this.wristsToolStripMenuItem});
+            this.armorToolStripMenuItem1.Name = "armorToolStripMenuItem1";
+            this.armorToolStripMenuItem1.Size = new System.Drawing.Size(108, 22);
+            this.armorToolStripMenuItem1.Text = "Armor";
+            // 
+            // helmToolStripMenuItem
+            // 
+            this.helmToolStripMenuItem.Name = "helmToolStripMenuItem";
+            this.helmToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.helmToolStripMenuItem.Text = "Head";
+            // 
+            // chestpieceToolStripMenuItem
+            // 
+            this.chestpieceToolStripMenuItem.Name = "chestpieceToolStripMenuItem";
+            this.chestpieceToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.chestpieceToolStripMenuItem.Text = "Chest";
+            // 
+            // legsToolStripMenuItem
+            // 
+            this.legsToolStripMenuItem.Name = "legsToolStripMenuItem";
+            this.legsToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.legsToolStripMenuItem.Text = "Legs";
+            // 
+            // shouldersToolStripMenuItem
+            // 
+            this.shouldersToolStripMenuItem.Name = "shouldersToolStripMenuItem";
+            this.shouldersToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.shouldersToolStripMenuItem.Text = "Shoulders";
+            // 
+            // backToolStripMenuItem
+            // 
+            this.backToolStripMenuItem.Name = "backToolStripMenuItem";
+            this.backToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.backToolStripMenuItem.Text = "Back";
+            // 
+            // handsToolStripMenuItem
+            // 
+            this.handsToolStripMenuItem.Name = "handsToolStripMenuItem";
+            this.handsToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.handsToolStripMenuItem.Text = "Hands";
+            // 
+            // wristsToolStripMenuItem
+            // 
+            this.wristsToolStripMenuItem.Name = "wristsToolStripMenuItem";
+            this.wristsToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.wristsToolStripMenuItem.Text = "Wrists";
+            // 
+            // ringToolStripMenuItem
+            // 
+            this.ringToolStripMenuItem.Name = "ringToolStripMenuItem";
+            this.ringToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.ringToolStripMenuItem.Text = "Ring";
             // 
             // openFileDialogTileSetImage
             // 
             this.openFileDialogTileSetImage.Filter = "JPEG Images|*.jpg|GIF Images|*.gif|BMP Images|*.bmp";
             this.openFileDialogTileSetImage.Title = "Select Tileset Image Source";
-            // 
-            // openInBeastiaryToolStripMenuItem
-            // 
-            this.openInBeastiaryToolStripMenuItem.Name = "openInBeastiaryToolStripMenuItem";
-            this.openInBeastiaryToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
-            this.openInBeastiaryToolStripMenuItem.Text = "Open in Beastiary";
-            this.openInBeastiaryToolStripMenuItem.Click += new System.EventHandler(this.openInBeastiaryToolStripMenuItem_Click);
             // 
             // TileSetEditor
             // 
@@ -367,7 +463,6 @@
             this.ShowInTaskbar = false;
             this.Text = "TileEditor";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TileEditor_FormClosing);
             this.Load += new System.EventHandler(this.TileEditor_Load);
             this.statusStripTileEditMain.ResumeLayout(false);
             this.statusStripTileEditMain.PerformLayout();
@@ -402,9 +497,6 @@
         private System.Windows.Forms.StatusStrip statusStripTileEditMain;
         private System.Windows.Forms.MenuStrip menuStripMain;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel panel1;
@@ -413,20 +505,34 @@
         private System.Windows.Forms.PictureBox pictureBoxMain;
         private System.Windows.Forms.PictureBox pictureBoxSecondary;
         private System.Windows.Forms.ListBox listBoxMapping;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.PropertyGrid propertyGridMain;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button buttonAddMapping;
         private System.Windows.Forms.Button buttonRemoveMapping;
-        private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTileSet;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRemove;
         private System.Windows.Forms.TextBox textBoxTileSetPath;
         private System.Windows.Forms.OpenFileDialog openFileDialogTileSetImage;
-        private System.Windows.Forms.ToolStripMenuItem recentToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openInBeastiaryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createActorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createItemToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem weaponToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem containerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem consumableToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem potionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem foodToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem scrollToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem armorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem armorToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ringToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helmToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem chestpieceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem legsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem shouldersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem handsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wristsToolStripMenuItem;
 
     }
 }

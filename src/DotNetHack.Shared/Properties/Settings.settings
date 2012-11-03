@@ -14,5 +14,8 @@
     <Setting Name="ScriptPath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">scripts</Value>
     </Setting>
+    <Setting Name="DataFullPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -64,5 +64,17 @@ namespace DotNetHack.Shared.Properties {
                 return ((string)(this["ScriptPath"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DataFullPath {
+            get {
+                return ((string)(this["DataFullPath"]));
+            }
+            set {
+                this["DataFullPath"] = value;
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DotNetHack.Shared.Objects;
+﻿using DotNetHack.Serialization;
+using DotNetHack.Shared.Objects;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -58,6 +59,7 @@ namespace DotNetHack.Shared
         /// </summary>
         static R()
         {
+            ImageCache = new Dictionary<Point, Image>();
             if (!Directory.Exists(ScriptFullPath))
                 Directory.CreateDirectory(ScriptFullPath);
         }
@@ -147,10 +149,90 @@ namespace DotNetHack.Shared
         }
 
         /// <summary>
+        /// Load the package file at the specified location.
+        /// </summary>
+        /// <returns></returns>
+        public static Package LoadPak(string fullPath)
+        {
+            return Persisted.Read<Package>(fullPath);
+        }
+
+        /// <summary>
+        /// SavePak
+        /// </summary>
+        /// <param name="pak">the package to save</param>
+        /// <param name="fullPath">the fullpath filename to save the package to</param>
+        /// <returns>true on success.</returns>
+        public static bool SavePak(string fullPath, Package pak)
+        {
+            return pak.Write<Package>(fullPath);
+        }
+
+        /// <summary>
         /// ScriptFullPath
         /// </summary>
         public static readonly string ScriptFullPath
             = Path.Combine(Properties.Settings.Default.MetaEntitiesPath,
                     Properties.Settings.Default.ScriptPath);
+
+        /// <summary>
+        /// LoadTileSetImage
+        /// </summary>
+        public static Image LoadTileSetImage(Package pkg)
+        {
+            return Image.FromFile(pkg.TileMapping.TileSetPath);
+        }
+
+        /// <summary>
+        /// ImageCache
+        /// </summary>
+        public static Dictionary<Point, Image> ImageCache { get; set; }
+
+        /// <summary>
+        /// GetTileImage
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <returns></returns>
+        public static Image GetTileImageFromMapping(TileMapping mapping, TileMapping.MappedTile tile)
+        {
+            if (TileSetImage == null || string.IsNullOrEmpty(LastTileSetImagePath) ||
+                mapping.TileSetPath != LastTileSetImagePath)
+            {
+                LastTileSetImagePath = mapping.TileSetPath;
+                TileSetImage = Image.FromFile(mapping.TileSetPath);
+            }
+
+            Point tmpPoint = new Point(tile.XMapping, tile.YMapping);
+            if (!ImageCache.ContainsKey(tmpPoint))
+                ImageCache.Add(tmpPoint, Shared.R.GetTile(TileSetImage, tmpPoint.X, tmpPoint.Y));
+            return ImageCache[tmpPoint];
+        }
+
+        /// <summary>
+        /// The current tileset image.
+        /// </summary>
+        static Image TileSetImage;
+
+        /// <summary>
+        /// The last tileset path loaded
+        /// </summary>
+        static string LastTileSetImagePath;
+
+        /// <summary>
+        /// The path to the data directory.
+        /// </summary>
+        public static string DataFullPath
+        {
+            get
+            {
+                return Properties.Settings.Default.DataFullPath;
+            }
+
+            set
+            {
+                Properties.Settings.Default.DataFullPath = value;
+                Properties.Settings.Default.Save();
+            }
+        }
     }
 }

@@ -61,9 +61,11 @@
     <Compile Include="Forms\About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="Objects\MappedObject.cs" />
     <Compile Include="Objects\MetaEntity.cs" />
     <Compile Include="Objects\MetaEntityType.cs" />
     <Compile Include="Objects\MappedTile.cs" />
+    <Compile Include="Objects\Package.cs" />
     <Compile Include="Objects\TileMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

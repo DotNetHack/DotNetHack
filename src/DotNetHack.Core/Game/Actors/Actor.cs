@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DotNetHack.Core.Game.Actors
 {
@@ -13,7 +14,7 @@ namespace DotNetHack.Core.Game.Actors
     /// </remarks>
     /// </summary>
     [Serializable]
-    public abstract class Actor : IScriptedObject<Actor>
+    public class Actor : IScriptedObject<Actor>
     {
         /// <summary>
         /// Default .ctor supports serialization.
@@ -31,6 +32,7 @@ namespace DotNetHack.Core.Game.Actors
         /// <summary>
         /// ScriptedCallback
         /// </summary>
+        [XmlIgnore]
         public ScriptedCallback<Actor> ScriptedCallback { get; set; }
     }
 }

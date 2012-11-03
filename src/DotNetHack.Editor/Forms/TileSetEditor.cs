@@ -25,21 +25,12 @@ namespace DotNetHack.Editor.Forms
         public TileSetEditor()
         {
             InitializeComponent();
-            TileMapping = new TileMapping();
-            ImageCache = new Dictionary<Point, Image>();
+
+            if (Editor.CurrentPackage.TileMapping == null)
+                Editor.CurrentPackage.TileMapping = new Shared.Objects.TileMapping();
+
             OriginalFormTitle = Text;
             TopLevel = false;
-        }
-
-        /// <summary>
-        /// TileSetEditor
-        /// </summary>
-        /// <param name="fullPath"></param>
-        public TileSetEditor(MetaEntity entity)
-            : this()
-        {
-            TileSetMetaEntity = entity;
-            LoadTileSet(entity.FileName);
         }
 
         /// <summary>
@@ -56,22 +47,12 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// TileMapping
         /// </summary>
-        TileMapping TileMapping;
+        TileMapping TileMapping = Editor.CurrentPackage.TileMapping;
 
         /// <summary>
         /// OriginalFormTitle
         /// </summary>
         readonly string OriginalFormTitle;
-
-        /// <summary>
-        /// TileSetEditorEntity
-        /// </summary>
-        MetaEntity TileSetMetaEntity;
-
-        /// <summary>
-        /// ImageCache
-        /// </summary>
-        Dictionary<Point, Image> ImageCache;
 
         /// <summary>
         /// UpdateTileProperties();
@@ -88,46 +69,11 @@ namespace DotNetHack.Editor.Forms
         /// UpdateImage
         /// </summary>
         /// <param name="tile">tile</param>
-        private void UpdateImage(TileMapping.MappedTile tile)
+        private void UpdateImage(TileMapping.MappedTile mappedTile)
         {
-            Point tmpPoint = new Point(tile.XMapping, tile.YMapping);
-            if (!ImageCache.ContainsKey(tmpPoint))
-                ImageCache.Add(tmpPoint, Shared.R.GetTile(pictureBoxMain.Image, tmpPoint.X, tmpPoint.Y));
-            pictureBoxSecondary.Image = ImageCache[tmpPoint];
-        }
-
-        /// <summary>
-        /// SaveTileSet
-        /// </summary>
-        /// <param name="fullPath"></param>
-        private void SaveTileSet(string fullPath)
-        {
-            TileMapping.Save(TileMapping, fullPath);
-            UpdateStatus("Saved: {0}", fullPath);
-
-            TileSetMetaEntity.Saved = true;
-            TileSetMetaEntity.FileName = fullPath;
-            TileSetMetaEntity.LastUpdated = DateTime.Now;
-
-            if (!Properties.Settings.Default.RecentTileSets.Contains(fullPath))
-                Properties.Settings.Default.RecentTileSets.Add(fullPath);
-            Properties.Settings.Default.Save();
-
-            UpdateListBox();
-        }
-
-        /// <summary>
-        /// LoadTileSet
-        /// </summary>
-        /// <param name="fullPath"></param>
-        private void LoadTileSet(string fullPath)
-        {
-            TileMapping.Load(fullPath, out TileMapping);
-
-            TileSetMetaEntity.FileName = fullPath;
-
-            UpdateStatus("Loaded: {0}", fullPath);
-            UpdateListBox();
+            pictureBoxSecondary.Image = Shared.R.GetTileImageFromMapping(
+                Editor.CurrentPackage.TileMapping,
+                mappedTile);
         }
 
         /// <summary>
@@ -154,7 +100,9 @@ namespace DotNetHack.Editor.Forms
             if (!File.Exists(Shared.Properties.Settings.Default.TileSetImagePath) &&
                 string.IsNullOrEmpty(Shared.Properties.Settings.Default.TileSetImagePath))
                 SaveUpdateTileSetPath();
+
             UpdateTileSetTextBoxAndImage();
+            UpdateListBox();
         }
 
         /// <summary>
@@ -193,71 +141,6 @@ namespace DotNetHack.Editor.Forms
         }
 
         /// <summary>
-        /// saveToolStripMenuItem_Click
-        /// </summary>
-        /// <param name="sender">event sender</param>
-        /// <param name="e">event args</param>
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (TileMapping.Mapping.Count <= 0)
-            {
-                var tmpResult = MessageBox.Show(this,
-                    "Nothing to save! Would you rather load an existing tile set?",
-                    "Information",
-                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
-                switch (tmpResult)
-                {
-                    // WARNING: Returns occuring mid-method below.
-                    case System.Windows.Forms.DialogResult.Yes:
-                        loadToolStripMenuItem_Click(sender, e);
-                        return;
-                    case System.Windows.Forms.DialogResult.Cancel:
-                        return;
-                    case System.Windows.Forms.DialogResult.No:
-                        break;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(TileSetMetaEntity.FileName))
-            {
-                try { SaveTileSet(TileSetMetaEntity.FileName); }
-                catch (Exception ex) { UpdateStatus(ex.Message); }
-            }
-            else
-            {
-                switch (saveFileDialog.ShowDialog(this))
-                {
-                    case System.Windows.Forms.DialogResult.OK:
-                        {
-                            TileSetMetaEntity.FileName = saveFileDialog.FileName;
-
-                            try { SaveTileSet(TileSetMetaEntity.FileName); }
-                            catch (Exception ex) { UpdateStatus(ex.Message); }
-
-                            break;
-                        }
-                }
-            }
-        }
-
-        /// <summary>
-        /// loadToolStripMenuItem_Click
-        /// </summary>
-        /// <param name="sender">event sender</param>
-        /// <param name="e">event args</param>
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            switch (openFileDialog.ShowDialog())
-            {
-                case System.Windows.Forms.DialogResult.OK:
-                    {
-                        LoadTileSet(openFileDialog.FileName);
-                        break;
-                    }
-            }
-        }
-
-        /// <summary>
         /// buttonAddMapping_Click
         /// </summary>
         /// <param name="sender">event sender</param>
@@ -285,17 +168,27 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void buttonRemoveMapping_Click(object sender, EventArgs e)
         {
+            RemoveSelectedMapping();
             UpdateListBox();
         }
 
         /// <summary>
-        /// TileEditor_FormClosing
+        /// RemoveSelectedMapping
         /// </summary>
-        /// <param name="sender">event sender</param>
-        /// <param name="e">event args</param>
-        private void TileEditor_FormClosing(object sender, FormClosingEventArgs e)
+        private void RemoveSelectedMapping()
         {
-            TileSetMetaEntity.CloseForm(sender, e);
+            TileMapping.Mapping.Remove(SelectedMapping);
+        }
+
+        /// <summary>
+        /// The currently selected mapping.
+        /// </summary>
+        TileMapping.MappedTile SelectedMapping
+        {
+            get 
+            {
+                return (TileMapping.MappedTile)listBoxMapping.SelectedItem;
+            }
         }
 
         /// <summary>
@@ -334,8 +227,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void toolStripMenuItemRemove_Click(object sender, EventArgs e)
         {
-            if (listBoxMapping.SelectedItem != null)
-                listBoxMapping.Items.Remove(listBoxMapping.SelectedItem);
+            RemoveSelectedMapping();
         }
 
         /// <summary>
@@ -386,7 +278,7 @@ namespace DotNetHack.Editor.Forms
         /// </summary>
         /// <param name="sender">event sender</param>
         /// <param name="e">event args</param>
-        private void openInBeastiaryToolStripMenuItem_Click(object sender, EventArgs e)
+        private void createActorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var tmpMappedTile = (TileMapping.MappedTile)listBoxMapping.SelectedItem;
             new ActorEditor();
@@ -412,6 +304,16 @@ namespace DotNetHack.Editor.Forms
 
             UpdateImage(CurrentTile);
             UpdateTileProperties(CurrentTile);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void weaponToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ItemEditor(CurrentTile).Show();
         }
     }
 }

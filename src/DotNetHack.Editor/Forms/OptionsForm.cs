@@ -34,7 +34,7 @@ namespace DotNetHack.Editor.Forms
             var tmpReturn = folderBrowserDialogEntities.ShowDialog();
             if (tmpReturn == System.Windows.Forms.DialogResult.OK)
             {
-                textBoxEntities.Text = folderBrowserDialogEntities.SelectedPath;
+                textBoxDatPath.Text = folderBrowserDialogEntities.SelectedPath;
             }
         }
 
@@ -45,7 +45,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void OptionsForm_Load(object sender, EventArgs e)
         {
-            textBoxEntities.Text = MetaEntity.MetaEntitiesPath;
+            textBoxDatPath.Text = Shared.R.DataFullPath;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void OptionsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MetaEntity.MetaEntitiesPath = textBoxEntities.Text;
+            Shared.R.DataFullPath = textBoxDatPath.Text;
         }
 
         /// <summary>

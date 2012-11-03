@@ -42,8 +42,17 @@ namespace DotNetHack.Editor.Forms
             TileSetsRootNode = treeViewMain.Nodes[KeyTileSets];
             ScriptsRootNode = treeViewMain.Nodes[KeyScripts];
 
-            MetaEntity.MetaEntities.ForEach(AddEntityToToolStrip);
-            MetaEntity.MetaEntities.ForEach(AddEntityToTree);
+            openFileDialogPak.InitialDirectory = Shared.R.DataFullPath;
+            saveFileDialogPak.InitialDirectory = Shared.R.DataFullPath;
+
+            if (!Editor.TryLoadLastPackage())
+                Editor.CurrentPackage = new Package();
+
+            //MetaEntity.MetaEntities.ForEach(AddEntityToToolStrip);
+            //MetaEntity.MetaEntities.ForEach(AddEntityToTree);
+
+            // add reference to the main form.
+            Editor.MainForm = this;
         }
 
         /// <summary>
@@ -113,7 +122,7 @@ namespace DotNetHack.Editor.Forms
             switch (entity.MetaEntityType)
             {
                 case MetaEntityType.TileSet:
-                    tmpForm = new TileSetEditor(entity);
+                    // tmpForm = new TileSetEditor(entity);
                     break;
             }
 
@@ -121,14 +130,26 @@ namespace DotNetHack.Editor.Forms
         }
 
         /// <summary>
-        /// 
+        /// OpenForm
         /// </summary>
         /// <param name="tmpForm"></param>
-        private void OpenForm(Form tmpForm)
+        public void OpenForm(Form tmpForm)
         {
             tmpForm.TopLevel = false;
             flowLayoutPanelEditorMain.Controls.Add(tmpForm);
+            tmpForm.FormClosing += tmpForm_FormClosing;
             tmpForm.Show();
+        }
+
+        /// <summary>
+        /// tmpForm_FormClosing
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void tmpForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Editor.SaveLastSavedPackage();
+            toolStripStatusLabelMain.Text = "Pak Updated " + DateTime.Now.ToShortTimeString();
         }
 
         #region Various References to TreeNodes
@@ -166,7 +187,8 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MetaEntity.Save();
+            Editor.SaveLastSavedPackage();
+            //MetaEntity.Save();
         }
 
         /// <summary>
@@ -216,16 +238,6 @@ namespace DotNetHack.Editor.Forms
         }
 
         /// <summary>
-        /// newToolStripMenuItemNewTileSet_Click
-        /// </summary>
-        /// <param name="sender">event sender</param>
-        /// <param name="e">event args</param>
-        private void newToolStripMenuItemNewTileSet_Click(object sender, EventArgs e)
-        {
-            OpenForm(new TileSetEditor());
-        }
-
-        /// <summary>
         /// newToolStripMenuItemNewScript_Click
         /// </summary>
         /// <param name="sender">event sender</param>
@@ -255,6 +267,40 @@ namespace DotNetHack.Editor.Forms
             OpenForm(new MapEditor());
         }
 
+        /// <summary>
+        /// openToolStripMenuItem_Click
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogPak.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            {
+                Editor.LoadPackage(openFileDialogPak.FileName);
+            }
+        }
 
+        /// <summary>
+        /// saveToolStripMenuItem_Click
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialogPak.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+            {
+                Editor.SavePackage(saveFileDialogPak.FileName);
+            }
+        }
+
+        /// <summary>
+        /// toolStripDropDownButtonTileSets_Click
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void toolStripDropDownButtonTileSets_Click(object sender, EventArgs e)
+        {
+            OpenForm(new TileSetEditor());
+        }
     }
 }

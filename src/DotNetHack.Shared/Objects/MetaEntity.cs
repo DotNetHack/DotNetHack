@@ -79,6 +79,11 @@ namespace DotNetHack.Shared.Objects
         /// <returns></returns>
         public bool Equals(MetaEntity other)
         {
+            if (string.IsNullOrEmpty(this.FileName) ||
+                string.IsNullOrEmpty(other.FileName))
+                // TODO: Log for debugging purposes.
+                return false;
+
             return this.FileName.Equals(other.FileName) &&
                 this.MetaEntityType.Equals(other.MetaEntityType);
         }

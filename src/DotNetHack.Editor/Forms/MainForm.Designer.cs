@@ -30,24 +30,24 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Quests", 19, 19);
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Maps", 21, 21);
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Gems", 7, 7);
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Weapons", 9, 9);
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Armor", 17, 17);
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Containers", 20, 20);
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Keys", 23, 23);
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Items", 2, 2, new System.Windows.Forms.TreeNode[] {
-            treeNode16,
-            treeNode17,
-            treeNode18,
-            treeNode19,
-            treeNode20});
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Actors");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Spells", 5, 5);
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Global", 29, 29);
-            System.Windows.Forms.TreeNode treeNode25 = new System.Windows.Forms.TreeNode("Scripts", 4, 4);
-            System.Windows.Forms.TreeNode treeNode26 = new System.Windows.Forms.TreeNode("Tile Sets", 24, 24);
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Quests", 19, 19);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Maps", 21, 21);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Gems", 7, 7);
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Weapons", 9, 9);
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Armor", 17, 17);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Containers", 20, 20);
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Keys", 23, 23);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Items", 2, 2, new System.Windows.Forms.TreeNode[] {
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode7});
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Actors");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Spells", 5, 5);
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Global", 29, 29);
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Scripts", 4, 4);
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Tile Sets", 24, 24);
             this.menuStripEditorMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,8 +80,14 @@
             this.flowLayoutPanelEditorMain = new System.Windows.Forms.FlowLayoutPanel();
             this.toolStripMain = new System.Windows.Forms.ToolStrip();
             this.toolStripDropDownButtonTileSets = new System.Windows.Forms.ToolStripDropDownButton();
+            this.newToolStripMenuItemNewTileSet = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripDropDownButtonScripts = new System.Windows.Forms.ToolStripDropDownButton();
+            this.newToolStripMenuItemNewScript = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripDropDownButtonMaps = new System.Windows.Forms.ToolStripDropDownButton();
+            this.newMapToolStripMenuItemNewMap = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStripEditorMain.SuspendLayout();
             this.toolStripContainerMain.ContentPanel.SuspendLayout();
             this.toolStripContainerMain.TopToolStripPanel.SuspendLayout();
@@ -138,7 +144,6 @@
             this.tileSetToolStripMenuItem.Name = "tileSetToolStripMenuItem";
             this.tileSetToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.tileSetToolStripMenuItem.Text = "Tile Set";
-            this.tileSetToolStripMenuItem.Click += new System.EventHandler(this.tileSetToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
@@ -364,7 +369,6 @@
             // splitContainerEditorMain.Panel2
             // 
             this.splitContainerEditorMain.Panel2.Controls.Add(this.flowLayoutPanelEditorMain);
-            this.splitContainerEditorMain.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainerEditorMain_Panel2_Paint);
             this.splitContainerEditorMain.Size = new System.Drawing.Size(692, 488);
             this.splitContainerEditorMain.SplitterDistance = 111;
             this.splitContainerEditorMain.TabIndex = 3;
@@ -376,72 +380,72 @@
             this.treeViewMain.ImageList = this.imageListMain;
             this.treeViewMain.Location = new System.Drawing.Point(0, 0);
             this.treeViewMain.Name = "treeViewMain";
-            treeNode14.ImageIndex = 19;
-            treeNode14.Name = "NodeQuests";
-            treeNode14.SelectedImageIndex = 19;
-            treeNode14.Text = "Quests";
-            treeNode14.ToolTipText = "All quests.";
-            treeNode15.ImageIndex = 21;
-            treeNode15.Name = "NodeActors";
-            treeNode15.SelectedImageIndex = 21;
-            treeNode15.Text = "Maps";
-            treeNode15.ToolTipText = "All maps";
-            treeNode16.ImageIndex = 7;
-            treeNode16.Name = "NodeGems";
-            treeNode16.SelectedImageIndex = 7;
-            treeNode16.Text = "Gems";
-            treeNode17.ImageIndex = 9;
-            treeNode17.Name = "NodeWeapon";
-            treeNode17.SelectedImageIndex = 9;
-            treeNode17.Text = "Weapons";
-            treeNode18.ImageIndex = 17;
-            treeNode18.Name = "NodeArmor";
-            treeNode18.SelectedImageIndex = 17;
-            treeNode18.Text = "Armor";
-            treeNode19.ImageIndex = 20;
-            treeNode19.Name = "NodeContainers";
-            treeNode19.SelectedImageIndex = 20;
-            treeNode19.Text = "Containers";
-            treeNode20.ImageIndex = 23;
-            treeNode20.Name = "NodeKeys";
-            treeNode20.SelectedImageIndex = 23;
-            treeNode20.Text = "Keys";
-            treeNode21.ImageIndex = 2;
-            treeNode21.Name = "NodeItems";
-            treeNode21.SelectedImageIndex = 2;
-            treeNode21.Text = "Items";
-            treeNode21.ToolTipText = "All items";
-            treeNode22.ImageIndex = 3;
-            treeNode22.Name = "NodeActors";
-            treeNode22.Text = "Actors";
-            treeNode22.ToolTipText = "All non-player controlled actors";
-            treeNode23.ImageIndex = 5;
-            treeNode23.Name = "NodeSpells";
-            treeNode23.SelectedImageIndex = 5;
-            treeNode23.Text = "Spells";
-            treeNode23.ToolTipText = "Create and Edit Spells";
-            treeNode24.ImageIndex = 29;
-            treeNode24.Name = "NodeGlobal";
-            treeNode24.SelectedImageIndex = 29;
-            treeNode24.Text = "Global";
-            treeNode25.ImageIndex = 4;
-            treeNode25.Name = "NodeScripts";
-            treeNode25.SelectedImageIndex = 4;
-            treeNode25.Text = "Scripts";
-            treeNode25.ToolTipText = "Scripts from the global namespace.";
-            treeNode26.ImageIndex = 24;
-            treeNode26.Name = "NodeTileSets";
-            treeNode26.SelectedImageIndex = 24;
-            treeNode26.Text = "Tile Sets";
+            treeNode1.ImageIndex = 19;
+            treeNode1.Name = "NodeQuests";
+            treeNode1.SelectedImageIndex = 19;
+            treeNode1.Text = "Quests";
+            treeNode1.ToolTipText = "All quests.";
+            treeNode2.ImageIndex = 21;
+            treeNode2.Name = "NodeActors";
+            treeNode2.SelectedImageIndex = 21;
+            treeNode2.Text = "Maps";
+            treeNode2.ToolTipText = "All maps";
+            treeNode3.ImageIndex = 7;
+            treeNode3.Name = "NodeGems";
+            treeNode3.SelectedImageIndex = 7;
+            treeNode3.Text = "Gems";
+            treeNode4.ImageIndex = 9;
+            treeNode4.Name = "NodeWeapon";
+            treeNode4.SelectedImageIndex = 9;
+            treeNode4.Text = "Weapons";
+            treeNode5.ImageIndex = 17;
+            treeNode5.Name = "NodeArmor";
+            treeNode5.SelectedImageIndex = 17;
+            treeNode5.Text = "Armor";
+            treeNode6.ImageIndex = 20;
+            treeNode6.Name = "NodeContainers";
+            treeNode6.SelectedImageIndex = 20;
+            treeNode6.Text = "Containers";
+            treeNode7.ImageIndex = 23;
+            treeNode7.Name = "NodeKeys";
+            treeNode7.SelectedImageIndex = 23;
+            treeNode7.Text = "Keys";
+            treeNode8.ImageIndex = 2;
+            treeNode8.Name = "NodeItems";
+            treeNode8.SelectedImageIndex = 2;
+            treeNode8.Text = "Items";
+            treeNode8.ToolTipText = "All items";
+            treeNode9.ImageIndex = 3;
+            treeNode9.Name = "NodeActors";
+            treeNode9.Text = "Actors";
+            treeNode9.ToolTipText = "All non-player controlled actors";
+            treeNode10.ImageIndex = 5;
+            treeNode10.Name = "NodeSpells";
+            treeNode10.SelectedImageIndex = 5;
+            treeNode10.Text = "Spells";
+            treeNode10.ToolTipText = "Create and Edit Spells";
+            treeNode11.ImageIndex = 29;
+            treeNode11.Name = "NodeGlobal";
+            treeNode11.SelectedImageIndex = 29;
+            treeNode11.Text = "Global";
+            treeNode12.ImageIndex = 4;
+            treeNode12.Name = "NodeScripts";
+            treeNode12.SelectedImageIndex = 4;
+            treeNode12.Text = "Scripts";
+            treeNode12.ToolTipText = "Scripts from the global namespace.";
+            treeNode13.ImageIndex = 24;
+            treeNode13.Name = "NodeTileSets";
+            treeNode13.SelectedImageIndex = 24;
+            treeNode13.Text = "Tile Sets";
             this.treeViewMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode14,
-            treeNode15,
-            treeNode21,
-            treeNode22,
-            treeNode23,
-            treeNode24,
-            treeNode25,
-            treeNode26});
+            treeNode1,
+            treeNode2,
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11,
+            treeNode12,
+            treeNode13});
             this.treeViewMain.SelectedImageIndex = 0;
             this.treeViewMain.Size = new System.Drawing.Size(111, 488);
             this.treeViewMain.TabIndex = 0;
@@ -463,34 +467,79 @@
             this.toolStripDropDownButtonMaps});
             this.toolStripMain.Location = new System.Drawing.Point(3, 0);
             this.toolStripMain.Name = "toolStripMain";
-            this.toolStripMain.Size = new System.Drawing.Size(256, 25);
+            this.toolStripMain.Size = new System.Drawing.Size(287, 25);
             this.toolStripMain.TabIndex = 0;
             // 
             // toolStripDropDownButtonTileSets
             // 
+            this.toolStripDropDownButtonTileSets.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItemNewTileSet,
+            this.toolStripSeparator5});
             this.toolStripDropDownButtonTileSets.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonTileSets.Image")));
             this.toolStripDropDownButtonTileSets.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonTileSets.Name = "toolStripDropDownButtonTileSets";
             this.toolStripDropDownButtonTileSets.Size = new System.Drawing.Size(79, 22);
             this.toolStripDropDownButtonTileSets.Text = "Tile Sets";
-            this.toolStripDropDownButtonTileSets.Click += new System.EventHandler(this.toolStripDropDownButtonTileSets_Click);
+            this.toolStripDropDownButtonTileSets.DoubleClick += new System.EventHandler(this.toolStripDropDownButtonTileSets_DoubleClick);
+            // 
+            // newToolStripMenuItemNewTileSet
+            // 
+            this.newToolStripMenuItemNewTileSet.Name = "newToolStripMenuItemNewTileSet";
+            this.newToolStripMenuItemNewTileSet.Size = new System.Drawing.Size(139, 22);
+            this.newToolStripMenuItemNewTileSet.Text = "New Tile Set";
+            this.newToolStripMenuItemNewTileSet.Click += new System.EventHandler(this.newToolStripMenuItemNewTileSet_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(136, 6);
             // 
             // toolStripDropDownButtonScripts
             // 
+            this.toolStripDropDownButtonScripts.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItemNewScript,
+            this.toolStripSeparator6});
             this.toolStripDropDownButtonScripts.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonScripts.Image")));
             this.toolStripDropDownButtonScripts.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonScripts.Name = "toolStripDropDownButtonScripts";
             this.toolStripDropDownButtonScripts.Size = new System.Drawing.Size(71, 22);
             this.toolStripDropDownButtonScripts.Text = "Scripts";
-            this.toolStripDropDownButtonScripts.Click += new System.EventHandler(this.toolStripDropDownButtonScripts_Click);
+            this.toolStripDropDownButtonScripts.DoubleClick += new System.EventHandler(this.toolStripDropDownButtonScripts_DoubleClick);
+            // 
+            // newToolStripMenuItemNewScript
+            // 
+            this.newToolStripMenuItemNewScript.Name = "newToolStripMenuItemNewScript";
+            this.newToolStripMenuItemNewScript.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItemNewScript.Text = "New Script";
+            this.newToolStripMenuItemNewScript.Click += new System.EventHandler(this.newToolStripMenuItemNewScript_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(149, 6);
             // 
             // toolStripDropDownButtonMaps
             // 
+            this.toolStripDropDownButtonMaps.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newMapToolStripMenuItemNewMap,
+            this.toolStripSeparator7});
             this.toolStripDropDownButtonMaps.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButtonMaps.Image")));
             this.toolStripDropDownButtonMaps.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButtonMaps.Name = "toolStripDropDownButtonMaps";
             this.toolStripDropDownButtonMaps.Size = new System.Drawing.Size(94, 22);
             this.toolStripDropDownButtonMaps.Text = "Map Editor";
+            // 
+            // newMapToolStripMenuItemNewMap
+            // 
+            this.newMapToolStripMenuItemNewMap.Name = "newMapToolStripMenuItemNewMap";
+            this.newMapToolStripMenuItemNewMap.Size = new System.Drawing.Size(125, 22);
+            this.newMapToolStripMenuItemNewMap.Text = "New Map";
+            this.newMapToolStripMenuItemNewMap.Click += new System.EventHandler(this.newMapToolStripMenuItemNewMap_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(122, 6);
             // 
             // MainForm
             // 
@@ -560,5 +609,11 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonTileSets;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonScripts;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButtonMaps;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItemNewTileSet;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItemNewScript;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripMenuItem newMapToolStripMenuItemNewMap;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
     }
 }

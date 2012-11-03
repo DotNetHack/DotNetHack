@@ -56,6 +56,7 @@
             this.contextMenuStripTileSet = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogTileSetImage = new System.Windows.Forms.OpenFileDialog();
+            this.openInBeastiaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStripTileEditMain.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -327,9 +328,10 @@
             // contextMenuStripTileSet
             // 
             this.contextMenuStripTileSet.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemRemove});
+            this.toolStripMenuItemRemove,
+            this.openInBeastiaryToolStripMenuItem});
             this.contextMenuStripTileSet.Name = "contextMenuStripAddRemove";
-            this.contextMenuStripTileSet.Size = new System.Drawing.Size(118, 26);
+            this.contextMenuStripTileSet.Size = new System.Drawing.Size(167, 48);
             // 
             // toolStripMenuItemRemove
             // 
@@ -342,6 +344,13 @@
             // 
             this.openFileDialogTileSetImage.Filter = "JPEG Images|*.jpg|GIF Images|*.gif|BMP Images|*.bmp";
             this.openFileDialogTileSetImage.Title = "Select Tileset Image Source";
+            // 
+            // openInBeastiaryToolStripMenuItem
+            // 
+            this.openInBeastiaryToolStripMenuItem.Name = "openInBeastiaryToolStripMenuItem";
+            this.openInBeastiaryToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.openInBeastiaryToolStripMenuItem.Text = "Open in Beastiary";
+            this.openInBeastiaryToolStripMenuItem.Click += new System.EventHandler(this.openInBeastiaryToolStripMenuItem_Click);
             // 
             // TileSetEditor
             // 
@@ -417,6 +426,7 @@
         private System.Windows.Forms.TextBox textBoxTileSetPath;
         private System.Windows.Forms.OpenFileDialog openFileDialogTileSetImage;
         private System.Windows.Forms.ToolStripMenuItem recentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openInBeastiaryToolStripMenuItem;
 
     }
 }

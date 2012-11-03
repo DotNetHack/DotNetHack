@@ -192,26 +192,6 @@ namespace DotNetHack.Editor.Forms
         }
 
         /// <summary>
-        /// tileSetToolStripMenuItem_Click
-        /// </summary>
-        /// <param name="sender">event sender</param>
-        /// <param name="e">event args</param>
-        private void tileSetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        /// <summary>
-        /// treeViewMain_MouseClick
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void treeViewMain_MouseClick(object sender, MouseEventArgs e)
-        {
-
-        }
-
-        /// <summary>
         /// treeViewMain_MouseDoubleClick
         /// </summary>
         /// <param name="sender">event sender</param>
@@ -224,29 +204,57 @@ namespace DotNetHack.Editor.Forms
             }
         }
 
-        private void splitContainerEditorMain_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// toolStripDropDownButtonScripts_Click
-        /// </summary>
-        /// <param name="sender">event sender</param>
-        /// <param name="e">event args</param>
-        private void toolStripDropDownButtonScripts_Click(object sender, EventArgs e)
-        {
-            OpenForm(new ScriptEditor());
-        }
 
         /// <summary>
         /// toolStripDropDownButtonTileSets_Click
         /// </summary>
         /// <param name="sender">event sender</param>
         /// <param name="e">event args</param>
-        private void toolStripDropDownButtonTileSets_Click(object sender, EventArgs e)
+        private void toolStripDropDownButtonTileSets_DoubleClick(object sender, EventArgs e)
         {
             OpenForm(new TileSetEditor());
         }
+
+        /// <summary>
+        /// newToolStripMenuItemNewTileSet_Click
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void newToolStripMenuItemNewTileSet_Click(object sender, EventArgs e)
+        {
+            OpenForm(new TileSetEditor());
+        }
+
+        /// <summary>
+        /// newToolStripMenuItemNewScript_Click
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void newToolStripMenuItemNewScript_Click(object sender, EventArgs e)
+        {
+            OpenForm(new ScriptEditor());
+        }
+
+        /// <summary>
+        /// toolStripDropDownButtonScripts_DoubleClick
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void toolStripDropDownButtonScripts_DoubleClick(object sender, EventArgs e)
+        {
+            OpenForm(new ScriptEditor());
+        }
+
+        /// <summary>
+        /// newMapToolStripMenuItemNewMap_Click
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void newMapToolStripMenuItemNewMap_Click(object sender, EventArgs e)
+        {
+            OpenForm(new MapEditor());
+        }
+
+
     }
 }

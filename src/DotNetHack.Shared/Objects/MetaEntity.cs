@@ -27,6 +27,8 @@ namespace DotNetHack.Shared.Objects
             if (File.Exists(MetaEntitiesFullPath))
                 MetaEntities = Persisted.Read<List<MetaEntity>>(MetaEntitiesFullPath);
             else MetaEntities = new List<MetaEntity>();
+
+            CullEmpty();
         }
 
         /// <summary>
@@ -37,6 +39,20 @@ namespace DotNetHack.Shared.Objects
         public static void Save()
         {
             MetaEntities.Write(MetaEntitiesFullPath);
+        }
+
+        /// <summary>
+        /// CullEmpty
+        /// <remarks>
+        /// Really empty entities shouldn't even exist; really the worry is
+        /// about entities who's file has been deleted.
+        /// </remarks>
+        /// </summary>
+        static void CullEmpty()
+        {
+            MetaEntities.RemoveAll(e => 
+                string.IsNullOrEmpty(e.FileName)||
+                !File.Exists(e.FileName));
         }
 
         /// <summary>

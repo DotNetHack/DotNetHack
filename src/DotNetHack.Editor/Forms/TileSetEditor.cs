@@ -43,26 +43,35 @@ namespace DotNetHack.Editor.Forms
         }
 
         /// <summary>
-        /// pictureBoxMain_Click
+        /// CurrentOffset
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void pictureBoxMain_Click(object sender, EventArgs e)
-        {
-            int tileSize = Shared.Properties.Settings.Default.TileSize;
-            Point tmpOffset = pictureBoxMain.PointToScreen(pictureBoxMain.Location);
+        Point CurrentOffset = new Point();
 
-            tmpOffset.X += Math.Abs(CurrentOffset.X);
-            tmpOffset.Y += Math.Abs(CurrentOffset.Y);
+        /// <summary>
+        /// CurrentTile
+        /// <remarks>This tile may or may not be mapped & saved.</remarks>
+        /// </summary>
+        TileMapping.MappedTile CurrentTile { get; set; }
 
-            int xTile = Math.Abs((tmpOffset.X - MousePosition.X) / tileSize);
-            int yTile = Math.Abs((tmpOffset.Y - MousePosition.Y) / tileSize);
+        /// <summary>
+        /// TileMapping
+        /// </summary>
+        TileMapping TileMapping;
 
-            CurrentTile = new TileMapping.MappedTile(xTile, yTile, Tile.TileType.None);
+        /// <summary>
+        /// OriginalFormTitle
+        /// </summary>
+        readonly string OriginalFormTitle;
 
-            UpdateImage(CurrentTile);
-            UpdateTileProperties(CurrentTile);
-        }
+        /// <summary>
+        /// TileSetEditorEntity
+        /// </summary>
+        MetaEntity TileSetMetaEntity;
+
+        /// <summary>
+        /// ImageCache
+        /// </summary>
+        Dictionary<Point, Image> ImageCache;
 
         /// <summary>
         /// UpdateTileProperties();
@@ -126,9 +135,6 @@ namespace DotNetHack.Editor.Forms
         /// </summary>
         private void AddUpdateMapping(TileMapping.MappedTile tmpMappedTile)
         {
-
-            TileSetMetaEntity.Saved = false;
-
             if (TileMapping.Mapping.Contains(tmpMappedTile))
             {
                 TileMapping.MappedTile tmpLookupTile =
@@ -294,6 +300,7 @@ namespace DotNetHack.Editor.Forms
 
         /// <summary>
         /// listBoxMapping_SelectedIndexChanged
+        /// <remarks>Shows the newly selected tile.</remarks>
         /// </summary>
         /// <param name="sender">event sender</param>
         /// <param name="e">event args</param>
@@ -341,7 +348,7 @@ namespace DotNetHack.Editor.Forms
             switch (e.Button)
             {
                 case System.Windows.Forms.MouseButtons.Left:
-                    contextMenuStripTileSet.Show(PointToScreen(e.Location));
+                    contextMenuStripTileSet.Show(listBoxMapping, e.Location);
                     break;
             }
         }
@@ -375,34 +382,36 @@ namespace DotNetHack.Editor.Forms
         private void pictureBoxMain_Paint(object sender, PaintEventArgs e) { }
 
         /// <summary>
-        /// CurrentOffset
+        /// openInBeastiaryToolStripMenuItem_Click
         /// </summary>
-        Point CurrentOffset = new Point();
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void openInBeastiaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var tmpMappedTile = (TileMapping.MappedTile)listBoxMapping.SelectedItem;
+            new BeastiaryForm();
+        }
 
         /// <summary>
-        /// CurrentTile
-        /// <remarks>This tile may or may not be mapped & saved.</remarks>
+        /// pictureBoxMain_Click
         /// </summary>
-        TileMapping.MappedTile CurrentTile { get; set; }
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void pictureBoxMain_Click(object sender, EventArgs e)
+        {
+            int tileSize = Shared.Properties.Settings.Default.TileSize;
+            Point tmpOffset = pictureBoxMain.PointToScreen(pictureBoxMain.Location);
 
-        /// <summary>
-        /// TileMapping
-        /// </summary>
-        TileMapping TileMapping;
+            tmpOffset.X += Math.Abs(CurrentOffset.X);
+            tmpOffset.Y += Math.Abs(CurrentOffset.Y);
 
-        /// <summary>
-        /// OriginalFormTitle
-        /// </summary>
-        readonly string OriginalFormTitle;
+            int xTile = Math.Abs((tmpOffset.X - MousePosition.X) / tileSize);
+            int yTile = Math.Abs((tmpOffset.Y - MousePosition.Y) / tileSize);
 
-        /// <summary>
-        /// TileSetEditorEntity
-        /// </summary>
-        MetaEntity TileSetMetaEntity;
+            CurrentTile = new TileMapping.MappedTile(xTile, yTile, Tile.TileType.None);
 
-        /// <summary>
-        /// ImageCache
-        /// </summary>
-        Dictionary<Point, Image> ImageCache;
+            UpdateImage(CurrentTile);
+            UpdateTileProperties(CurrentTile);
+        }
     }
 }

@@ -126,6 +126,7 @@ namespace DotNetHack.Editor.Forms
         /// </summary>
         private void AddUpdateMapping(TileMapping.MappedTile tmpMappedTile)
         {
+
             TileSetMetaEntity.Saved = false;
 
             if (TileMapping.Mapping.Contains(tmpMappedTile))
@@ -188,10 +189,29 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// saveToolStripMenuItem_Click
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (TileMapping.Mapping.Count <= 0)
+            {
+                var tmpResult = MessageBox.Show(this,
+                    "Nothing to save! Would you rather load an existing tile set?",
+                    "Information",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+                switch (tmpResult)
+                {
+                    // WARNING: Returns occuring mid-method below.
+                    case System.Windows.Forms.DialogResult.Yes:
+                        loadToolStripMenuItem_Click(sender, e);
+                        return;
+                    case System.Windows.Forms.DialogResult.Cancel:
+                        return;
+                    case System.Windows.Forms.DialogResult.No:
+                        break;
+                }
+            }
+
             if (!string.IsNullOrEmpty(TileSetMetaEntity.FileName))
             {
                 try { SaveTileSet(TileSetMetaEntity.FileName); }
@@ -203,6 +223,8 @@ namespace DotNetHack.Editor.Forms
                 {
                     case System.Windows.Forms.DialogResult.OK:
                         {
+                            TileSetMetaEntity.FileName = saveFileDialog.FileName;
+
                             try { SaveTileSet(TileSetMetaEntity.FileName); }
                             catch (Exception ex) { UpdateStatus(ex.Message); }
 
@@ -237,6 +259,7 @@ namespace DotNetHack.Editor.Forms
         private void buttonAddMapping_Click(object sender, EventArgs e)
         {
             AddUpdateMapping(CurrentTile);
+            UpdateTileProperties(CurrentTile);
             UpdateListBox();
         }
 

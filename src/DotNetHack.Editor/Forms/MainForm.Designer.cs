@@ -463,7 +463,7 @@
             this.toolStripDropDownButtonMaps});
             this.toolStripMain.Location = new System.Drawing.Point(3, 0);
             this.toolStripMain.Name = "toolStripMain";
-            this.toolStripMain.Size = new System.Drawing.Size(287, 25);
+            this.toolStripMain.Size = new System.Drawing.Size(256, 25);
             this.toolStripMain.TabIndex = 0;
             // 
             // toolStripDropDownButtonTileSets
@@ -473,6 +473,7 @@
             this.toolStripDropDownButtonTileSets.Name = "toolStripDropDownButtonTileSets";
             this.toolStripDropDownButtonTileSets.Size = new System.Drawing.Size(79, 22);
             this.toolStripDropDownButtonTileSets.Text = "Tile Sets";
+            this.toolStripDropDownButtonTileSets.Click += new System.EventHandler(this.toolStripDropDownButtonTileSets_Click);
             // 
             // toolStripDropDownButtonScripts
             // 

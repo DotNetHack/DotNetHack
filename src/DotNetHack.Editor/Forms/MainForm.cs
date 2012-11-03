@@ -232,11 +232,21 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// toolStripDropDownButtonScripts_Click
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
         private void toolStripDropDownButtonScripts_Click(object sender, EventArgs e)
         {
             OpenForm(new ScriptEditor());
+        }
+
+        /// <summary>
+        /// toolStripDropDownButtonTileSets_Click
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void toolStripDropDownButtonTileSets_Click(object sender, EventArgs e)
+        {
+            OpenForm(new TileSetEditor());
         }
     }
 }

@@ -37,10 +37,13 @@ namespace DotNetHack.Editor
 
         /// <summary>
         /// LoadEntity
+        /// <remarks>A bit of a case of feature-itis; 
+        ///    TODO: think about this in more detail.
+        /// </remarks>
         /// </summary>
         /// <param name="dialogue"></param>
         /// <param name="entity"></param>
-        internal static void LoadEntity(this OpenFileDialog dialogue, ref MetaEntity entity)
+        internal static bool LoadEntity(this OpenFileDialog dialogue, ref MetaEntity entity)
         {
             dialogue.FileName = entity.FileName;
             var tmpReturn = dialogue.ShowDialog();
@@ -48,8 +51,14 @@ namespace DotNetHack.Editor
             {
                 entity.FileName = dialogue.FileName;
                 entity.Saved = true;
+                entity.LastUpdated = DateTime.Now;
+
+                return true;
             }
-            entity.LastUpdated = DateTime.Now;
+            else 
+            {
+                return false; 
+            }
         }
 
         /// <summary>

@@ -131,10 +131,12 @@ namespace DotNetHack.Editor.Forms
         /// <param name="e">event args</param>
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFileDialogScriptEditor.LoadEntity(ref CurrentScriptEntity);
-            using (StreamReader tmpStream = File.OpenText(CurrentScriptEntity.FileName))
+            if (openFileDialogScriptEditor.LoadEntity(ref CurrentScriptEntity))
             {
-                richTextBoxScriptEditorMain.Text = tmpStream.ReadToEnd();
+                using (StreamReader tmpStream = File.OpenText(CurrentScriptEntity.FileName))
+                {
+                    richTextBoxScriptEditorMain.Text = tmpStream.ReadToEnd();
+                }
             }
         }
     }

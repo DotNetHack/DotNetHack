@@ -81,7 +81,7 @@ namespace DotNetHack.Shared.Objects
         {
             if (string.IsNullOrEmpty(this.FileName) ||
                 string.IsNullOrEmpty(other.FileName))
-                // TODO: Log for debugging purposes.
+                // TODO: Log for debugging purposes; bandaid.
                 return false;
 
             return this.FileName.Equals(other.FileName) &&

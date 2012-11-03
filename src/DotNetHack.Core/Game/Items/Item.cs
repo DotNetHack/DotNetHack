@@ -12,5 +12,9 @@ namespace DotNetHack.Core.Game.Items
     [Serializable]
     public abstract class Item
     {
+        /// <summary>
+        /// Name
+        /// </summary>
+        public string Name { get; set; }
     }
 }

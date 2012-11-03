@@ -24,6 +24,11 @@ namespace DotNetHack.Core.Game.Actors
         }
 
         /// <summary>
+        /// The name of this actor
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// ScriptedCallback
         /// </summary>
         public ScriptedCallback<Actor> ScriptedCallback { get; set; }

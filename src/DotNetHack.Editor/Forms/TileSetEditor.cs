@@ -389,7 +389,7 @@ namespace DotNetHack.Editor.Forms
         private void openInBeastiaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var tmpMappedTile = (TileMapping.MappedTile)listBoxMapping.SelectedItem;
-            new BeastiaryForm();
+            new ActorEditor();
         }
 
         /// <summary>

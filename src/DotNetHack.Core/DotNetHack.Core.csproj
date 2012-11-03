@@ -48,6 +48,7 @@
     <Compile Include="Game\Tiles\ActorTile.cs" />
     <Compile Include="Game\Tiles\ItemTile.cs" />
     <Compile Include="Game\Skills\Skill.cs" />
+    <Compile Include="Game\World\Location.cs" />
     <Compile Include="Interfaces\ITile.cs" />
     <Compile Include="Game\Tiles\MapTile.cs" />
     <Compile Include="Game\Tiles\Tile.cs" />

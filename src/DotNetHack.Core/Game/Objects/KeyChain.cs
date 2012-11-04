@@ -1,4 +1,5 @@
 ﻿using DotNetHack.Core.Game.Interfaces;
+using DotNetHack.Core.Game.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;

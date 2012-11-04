@@ -20,6 +20,13 @@ namespace DotNetHack.Core.Game.Items
         public Item() { }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        public Item(ItemType type)
+        { }
+
+        /// <summary>
         /// Name
         /// </summary>
         [CategoryAttribute("Standard Properties")]

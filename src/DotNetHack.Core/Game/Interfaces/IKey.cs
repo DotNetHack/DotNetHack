@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetHack.Core.Game.Items
+namespace DotNetHack.Core.Game.Interfaces
 {
     /// <summary>
-    /// 
+    /// IKey
     /// </summary>
-    [Flags]
-    public enum ItemType
+    public interface IKey
     {
-        Key, Consumable
+        Guid KeyGuid { get; set; }
     }
 }

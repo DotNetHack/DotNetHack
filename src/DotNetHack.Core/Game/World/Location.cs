@@ -9,7 +9,7 @@ namespace DotNetHack.Core.Game.World
     /// <summary>
     /// Location
     /// </summary>
-    public struct Location
+    public struct Location : IEquatable<Location>
     {
         /// <summary>
         /// Location
@@ -23,18 +23,39 @@ namespace DotNetHack.Core.Game.World
         }
 
         /// <summary>
-        /// X
+        /// X Coordinate
         /// </summary>
         public int X { get; set; }
 
         /// <summary>
-        /// Y
+        /// Y Coordinate
         /// </summary>
         public int Y { get; set; }
 
         /// <summary>
-        /// Z
+        /// Z Coordinate
         /// </summary>
         public int Z { get; set; }
+
+        /// <summary>
+        /// Distance between two locations.
+        /// </summary>
+        /// <returns></returns>
+        public static double Distance(Location a, Location b)
+        {
+            return Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2) + Math.Pow(a.Z - b.Z, 2));
+        }
+
+        /// <summary>
+        /// Determine if one location equals another.
+        /// </summary>
+        /// <param name="other">compared to,</param>
+        /// <returns>true if the two locations are the same.</returns>
+        public bool Equals(Location other)
+        {
+            return this.X == other.X &&
+                this.Y == other.Y &&
+                this.Z == other.Z;
+        }
     }
 }

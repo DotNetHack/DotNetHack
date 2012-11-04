@@ -20,11 +20,15 @@ namespace DotNetHack.Core.Game.Items
         public Item() { }
 
         /// <summary>
-        /// 
+        /// Item
         /// </summary>
         /// <param name="type"></param>
-        public Item(ItemType type)
-        { }
+        public Item(ItemType itemType, string name, double weight)
+        {
+            ItemType = itemType;
+            Weight = weight;
+            Name = name;
+        }
 
         /// <summary>
         /// Name
@@ -39,5 +43,12 @@ namespace DotNetHack.Core.Game.Items
         [CategoryAttribute("Standard Properties")]
         [DescriptionAttribute("The weight of this item.")]
         public double Weight { get; set; }
+
+        /// <summary>
+        /// ItemType
+        /// </summary>
+        [CategoryAttribute("Standard Properties")]
+        [DescriptionAttribute("The type item this is.")]
+        ItemType ItemType { get; set; }
     }
 }

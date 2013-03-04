@@ -47,7 +47,10 @@ namespace DotNetHack.Editor.Forms
         /// <summary>
         /// TileMapping
         /// </summary>
-        TileMapping TileMapping = Editor.CurrentPackage.TileMapping;
+        TileMapping TileMapping
+        {
+            get { return Editor.CurrentPackage.TileMapping; }
+        }
 
         /// <summary>
         /// OriginalFormTitle
@@ -120,6 +123,7 @@ namespace DotNetHack.Editor.Forms
         {
             textBoxTileSetPath.Text = Shared.Properties.Settings.Default.TileSetImagePath;
             TileMapping.TileSetPath = Shared.Properties.Settings.Default.TileSetImagePath;
+     
             pictureBoxMain.Image = Image.FromFile(Shared.Properties.Settings.Default.TileSetImagePath);
 
             pictureBoxMain.Width = pictureBoxMain.Image.Width * 2;

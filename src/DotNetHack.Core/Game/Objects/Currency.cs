@@ -14,9 +14,9 @@ namespace DotNetHack.Core.Game.Objects
     [DebuggerDisplay("{Gold}g {Silver}s {Copper}c")]
     public struct Currency : IEquatable<Currency>
     {
-        public const int MODIFIER_GOLD = 10000;
-        public const int MODIFIER_SILVER = 100;
-        public const int MODIFIER_COPPER = 1;
+        const int MODIFIER_GOLD = 10000;
+        const int MODIFIER_SILVER = 100;
+        const int MODIFIER_COPPER = 1;
 
         /// <summary>
         /// Currency

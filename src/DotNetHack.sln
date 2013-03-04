@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Editor", "DotNet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Shared", "DotNetHack.Shared\DotNetHack.Shared.csproj", "{BD92DF2D-27CC-419D-B7EE-35A511841BDF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E9AF7069-B05C-412C-9B8F-3D5EE2B60C67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Core.Tests", "DotNetHack.Core.Tests\DotNetHack.Core.Tests.csproj", "{D5A75221-5151-4C3E-A533-9D8842646A89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Tests.Shared", "DotNetHack.TestLib\DotNetHack.Tests.Shared.csproj", "{9D6F079A-7940-4A27-834C-F3CD2A6A0DC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,8 +49,20 @@ Global
 		{BD92DF2D-27CC-419D-B7EE-35A511841BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD92DF2D-27CC-419D-B7EE-35A511841BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD92DF2D-27CC-419D-B7EE-35A511841BDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5A75221-5151-4C3E-A533-9D8842646A89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5A75221-5151-4C3E-A533-9D8842646A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5A75221-5151-4C3E-A533-9D8842646A89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5A75221-5151-4C3E-A533-9D8842646A89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D6F079A-7940-4A27-834C-F3CD2A6A0DC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D6F079A-7940-4A27-834C-F3CD2A6A0DC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D6F079A-7940-4A27-834C-F3CD2A6A0DC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D6F079A-7940-4A27-834C-F3CD2A6A0DC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D5A75221-5151-4C3E-A533-9D8842646A89} = {E9AF7069-B05C-412C-9B8F-3D5EE2B60C67}
+		{9D6F079A-7940-4A27-834C-F3CD2A6A0DC6} = {E9AF7069-B05C-412C-9B8F-3D5EE2B60C67}
 	EndGlobalSection
 EndGlobal

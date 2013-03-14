@@ -3,7 +3,7 @@
   <Class Name="DotNetHack.GUI.DisplayBuffer">
     <Position X="1.5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAACAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAABQAAgAAACAAAAEAAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>DisplayBuffer.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -11,7 +11,7 @@
   <Class Name="DotNetHack.GUI.Widget">
     <Position X="5.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAMAAAAABCAAIAAAAAIAAEAAAAAAAAAAAACACAAAQAA=</HashCode>
+      <HashCode>AAOAAAAABCAAoAAAAAIAAEAAAAAEAAAAAACACAAAQAA=</HashCode>
       <FileName>Widget.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

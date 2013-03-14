@@ -18,7 +18,7 @@ namespace DotNetHack
         static void Main(string[] args)
         {
             UI.Instance.Initialize(delegate(ConsoleKey k) { });
-            UI.Instance.Run(new Window("A"));
+            UI.Instance.Run(new MainWidget());
         }
     }
 }

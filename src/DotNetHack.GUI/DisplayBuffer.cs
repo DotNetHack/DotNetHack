@@ -20,17 +20,18 @@ namespace DotNetHack.GUI
         public DisplayBuffer(int width, int height)
             : this(new Size(width, height))
         {
-
+            Cursor = new DisplayBufferCursor(this);
         }
 
         /// <summary>
-        /// 
+        /// Creates a new <see cref="DisplayBuffer"/>
         /// </summary>
-        /// <param name="dimension"></param>
+        /// <param name="dimension">The dimension of this display buffer</param>
         public DisplayBuffer(Size dimension)
         {
             Size = dimension;
-            buffer = new Glyph[dimension.Width, dimension.Height];
+            buffer = new Glyph[dimension.Width-1, dimension.Height];
+            Cursor = new DisplayBufferCursor(this);
         }
 
         /// <summary>
@@ -38,12 +39,32 @@ namespace DotNetHack.GUI
         /// </summary>
         /// <param name="x">1st dimension</param>
         /// <param name="y">2nd dimension</param>
-        /// <returns></returns>
+        /// <returns>A glyph</returns>
         public Glyph this[int x, int y]
         {
             get { return buffer[x, y]; }
             set { buffer[x, y] = value; }
         }
+
+        /// <summary>
+        /// Indexer
+        /// </summary>
+        /// <param name="p">1st and second dimension</param>
+        /// <returns>A glyph</returns>
+        public Glyph this[IPoint p]
+        {
+            get { return buffer[p.X, p.Y]; }
+            set { buffer[p.X, p.Y] = value; }
+        }
+
+        #region Buffer Cursor
+
+        /// <summary>
+        /// DisplayBufferCursor
+        /// </summary>
+        public DisplayBufferCursor Cursor { get; set; }
+
+        #endregion
 
         /// <summary>
         /// buffer
@@ -63,6 +84,6 @@ namespace DotNetHack.GUI
         /// <summary>
         /// Height
         /// </summary>
-        public int Height { get { return Size.Height ; } }
+        public int Height { get { return Size.Height; } }
     }
 }

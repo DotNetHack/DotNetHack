@@ -19,5 +19,13 @@ namespace DotNetHack.GUI.Widgets
             : base(text, 1, 1, 10, 10)
         {
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override void InitializeWidget()
+        {
+            base.InitializeWidget();
+        }
     }
 }

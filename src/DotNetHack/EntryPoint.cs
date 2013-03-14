@@ -1,10 +1,12 @@
-﻿using System;
+﻿using DotNetHack.GUI;
+using DotNetHack.GUI.Widgets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using DotNetHack.Forms;
-using DotNetHack.Core;
+using UI = DotNetHack.GUI.GUI;
+
 namespace DotNetHack
 {
     /// <summary>
@@ -12,15 +14,11 @@ namespace DotNetHack
     /// </summary>
     static class EntryPoint
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+            UI.Instance.Initialize(delegate(ConsoleKey k) { });
+            UI.Instance.Run(new Window("A"));
         }
     }
 }

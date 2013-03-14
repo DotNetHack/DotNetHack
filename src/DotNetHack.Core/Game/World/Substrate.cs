@@ -7,14 +7,6 @@ using System.Threading.Tasks;
 
 namespace DotNetHack.Core.Game.World
 {
-    public class CC1
-    {
-        public CC1()
-        {
-
-            Substrate s1 = new Substrate(10,10,10);
-        }
-    }
     /// <summary>
     /// Substrate
     /// </summary>

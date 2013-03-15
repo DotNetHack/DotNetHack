@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace DotNetHack.GUI
     /// <summary>
     /// Glyph
     /// </summary>
+    [DebuggerDisplay("{G} {FG} {BG}")]
     public struct Glyph
     {
         /// <summary>

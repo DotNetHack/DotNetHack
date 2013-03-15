@@ -29,7 +29,7 @@ namespace DotNetHack
         {
             base.InitializeWidget();
 
-            var progressBar1 = new ProgressBar("Testing");
+            var progressBar1 = new ProgressBar("Testing", 5, 5);
             progressBar1.Visible = true;
 
             this.Add(progressBar1);

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="DotNetHack.GUI.DisplayBuffer">
-    <Position X="1.5" Y="1" Width="1.5" />
+    <Position X="0.5" Y="1" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABQAAgAAACAAAAEAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAACBAAggAIACAAAAEAACAAAAAAAIABAAAEAAAA=</HashCode>
       <FileName>DisplayBuffer.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -11,13 +11,72 @@
   <Class Name="DotNetHack.GUI.Widget">
     <Position X="5.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAOAAAAABCAAoAAAAAIAAEAAAAAEAAAAAACACAAAQAA=</HashCode>
+      <HashCode>AAOAAAAABCAAoAAAEAIAAEAAAAAEAAAIAACACAAAAAA=</HashCode>
       <FileName>Widget.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Size" />
+      <Property Name="Location" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DotNetHack.GUI.GUI">
+    <Position X="5.75" Y="7.5" Width="2" />
+    <AssociationLine Name="instance" Type="DotNetHack.GUI.GUI" ManuallyRouted="true">
+      <Path>
+        <Point X="6.459" Y="11.882" />
+        <Point X="6.459" Y="12.132" />
+        <Point X="7.055" Y="12.132" />
+        <Point X="7.055" Y="11.882" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAQIAAIQBQBAgAAQAAAABAAAAAQACAAAAAAAI=</HashCode>
+      <FileName>GUI.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="instance" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DotNetHack.GUI.Point">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Point.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="DotNetHack.GUI.Size">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Size.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DotNetHack.GUI.Widgets.Button">
+    <Position X="9" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Widgets\Button.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.GUI.Widgets.ProgressBar">
+    <Position X="11" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAEAQAAIAAAAAAAAAAAAEAAAACAIgAAAAAAA=</HashCode>
+      <FileName>Widgets\ProgressBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.GUI.Widgets.Window">
+    <Position X="9" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Widgets\Window.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="DotNetHack.GUI.Glyph">
-    <Position X="1.5" Y="3.25" Width="1.5" />
+    <Position X="3.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACACAAAAAAAAIAIAAAAAAAAAAAAAAAAIAAAACAAAAAA=</HashCode>
       <FileName>Glyph.cs</FileName>
@@ -28,6 +87,41 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IScreenRegion.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DotNetHack.GUI.Interfaces.IDimensional">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IDimensional.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DotNetHack.GUI.Interfaces.IPoint">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Interfaces\IPoint.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DotNetHack.GUI.Interfaces.IColorScheme">
+    <Position X="15" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IColorScheme.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DotNetHack.GUI.Interfaces.IHasLocation">
+    <Position X="3.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IHasLocation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DotNetHack.GUI.Interfaces.IRectangle">
+    <Position X="11" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IRectangle.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DotNetHack.GUI.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,35 +29,21 @@ namespace DotNetHack.GUI
         /// <summary>
         /// Run
         /// </summary>
-        public void Run(Widget parent)
+        public void Run(Widget root)
         {
-            Console.Title = parent.Text;
+            Console.Title = root.Text;
 
-            parent.InitializeWidget();
-            parent.Show();
+            root.InitializeWidget();
+            root.Show();
 
             while (!done)
             {
-
                 // critical section
                 lock (syncRoot)
                 {
-                    foreach (var w in parent.Widgets)
-                    {
-                        w.Show();
-
-                        for (int x = w.Location.X; x <= w.Width; ++x)
-                        {
-                            for (int y = w.Location.Y; y <= w.Height; ++y)
-                            {
-                                Console.SetCursorPosition(x, y);
-                                Console.ForegroundColor = w.Buffer[x, y].FG;
-                                Console.ForegroundColor = w.Buffer[x, y].BG;
-                                Console.Write(w.Buffer[x, y].G);
-                            }
-                        }
-                    }
-
+                    foreach (var w in root.Widgets.Where(v => v.Visible))
+                        DrawWidget(w);
+                   
                     Thread.Sleep(100);
                 }
             }
@@ -66,13 +53,27 @@ namespace DotNetHack.GUI
         /// Draw
         /// </summary>
         /// <param name="w"></param>
-        public void DrawWidget(Widget w)
+        public static void DrawWidget(Widget w)
         {
-            PushCursorState();
+            IPoint screenLocation = w.Location;
 
             w.Show();
 
-            PopAndSetCursorState();
+            for (int y = 0; y < w.Console.Height; ++y)
+            {
+                for (int x = 0; x < w.Console.Width; ++x)
+                {
+                    Glyph g = w.Console[x, y];
+                    Console.SetCursorPosition(screenLocation.X + x, screenLocation.Y + y);
+                    Console.ForegroundColor = g.FG;
+                    Console.BackgroundColor = g.BG;
+                    Console.Write(g.G);
+                }
+            }
+            
+            //PushCursorState();
+            //w.Show();
+            //PopAndSetCursorState();
         }
 
         /// <summary>

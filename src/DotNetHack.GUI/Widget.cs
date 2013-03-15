@@ -25,8 +25,7 @@ namespace DotNetHack.GUI
             Location.Y = y;
             Text = text;
             Widgets = new Stack<Widget>();
-            //Widgets.Push(this);
-            Buffer = new DisplayBuffer(width, height);
+            Console = new DisplayBuffer(width, height);
         }
 
         /// <summary>
@@ -51,22 +50,16 @@ namespace DotNetHack.GUI
         }
 
         /// <summary>
-        /// Buffer
+        /// Console
         /// </summary>
-        public DisplayBuffer Buffer { get; private set; }
-
-        /// <summary>
-        /// The "faux" console buffer cursor
-        /// </summary>
-        public DisplayBufferCursor Console { get { return Buffer.Cursor; } }
+        public DisplayBuffer Console { get; private set; }
 
         /// <summary>
         /// InitializeWidget
         /// </summary>
         public virtual void InitializeWidget()
         {
-            foreach (var w in Widgets)
-                w.InitializeWidget();
+
         }
 
         /// <summary>
@@ -75,8 +68,6 @@ namespace DotNetHack.GUI
         public virtual void Show()
         {
             Visible = true;
-            foreach (var w in Widgets.Where(w => !Visible))
-                w.Show();
         }
 
         /// <summary>
@@ -85,8 +76,6 @@ namespace DotNetHack.GUI
         public virtual void Hide()
         {
             Visible = false;
-            foreach (var w in Widgets.Where(w => Visible))
-                w.Hide();
         }
 
         /// <summary>

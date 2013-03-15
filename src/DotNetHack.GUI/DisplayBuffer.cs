@@ -20,18 +20,17 @@ namespace DotNetHack.GUI
         public DisplayBuffer(int width, int height)
             : this(new Size(width, height))
         {
-            Cursor = new DisplayBufferCursor(this);
         }
 
         /// <summary>
         /// Creates a new <see cref="DisplayBuffer"/>
         /// </summary>
-        /// <param name="dimension">The dimension of this display buffer</param>
+        /// <param name="dimension">The dimension of this display Buffer</param>
         public DisplayBuffer(Size dimension)
         {
             Size = dimension;
-            buffer = new Glyph[dimension.Width-1, dimension.Height];
-            Cursor = new DisplayBufferCursor(this);
+            Buffer = new Glyph[dimension.Width + 1, dimension.Height + 1];
+            CursorLocation = new Point(0, 0);
         }
 
         /// <summary>
@@ -42,8 +41,8 @@ namespace DotNetHack.GUI
         /// <returns>A glyph</returns>
         public Glyph this[int x, int y]
         {
-            get { return buffer[x, y]; }
-            set { buffer[x, y] = value; }
+            get { return Buffer[x, y]; }
+            set { Buffer[x, y] = value; }
         }
 
         /// <summary>
@@ -53,23 +52,59 @@ namespace DotNetHack.GUI
         /// <returns>A glyph</returns>
         public Glyph this[IPoint p]
         {
-            get { return buffer[p.X, p.Y]; }
-            set { buffer[p.X, p.Y] = value; }
+            get { return Buffer[p.X, p.Y]; }
+            set { Buffer[p.X, p.Y] = value; }
         }
 
-        #region Buffer Cursor
+        #region Console Cursor
 
         /// <summary>
-        /// DisplayBufferCursor
+        /// currentPoint
         /// </summary>
-        public DisplayBufferCursor Cursor { get; set; }
+        public IPoint CursorLocation { get; set; }
+
+        /// <summary>
+        /// The foreground color
+        /// </summary>
+        public ConsoleColor ForegroundColor { get; set; }
+
+        /// <summary>
+        /// The background color
+        /// </summary>
+        public ConsoleColor BackgroundColor { get; set; }
+
+        /// <summary>
+        /// Write
+        /// </summary>
+        /// <param name="c">the character to write</param>
+        public void Write(char c)
+        {
+            this[CursorLocation.X, CursorLocation.Y] = new Glyph(c, ForegroundColor, BackgroundColor);
+        }
+
+        /// <summary>
+        /// Sets the cursor location
+        /// </summary>
+        public void SetCursorPosition(int x, int y)
+        {
+            CursorLocation.X = x;
+            CursorLocation.Y = y;
+        }
+
+        /// <summary>
+        /// Gets the cursor location
+        /// </summary>
+        public IPoint GetCursorPosition()
+        {
+            return CursorLocation;
+        }
 
         #endregion
 
         /// <summary>
-        /// buffer
+        /// Buffer
         /// </summary>
-        Glyph[,] buffer;
+        Glyph[,] Buffer;
 
         /// <summary>
         /// Size

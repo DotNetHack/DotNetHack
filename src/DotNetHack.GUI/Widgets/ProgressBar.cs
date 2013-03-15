@@ -67,10 +67,12 @@ namespace DotNetHack.GUI.Widgets
                     }
                 }
 
+                Console.SetCursorPosition(index, 0);
+
                 // write a specific charcter  to the screen
                 //  '    running     '
                 Console.Write(DisplayGlyph);
-                Console.SetCursorPosition(Location.X + index, Location.Y);
+
             }
         }
 

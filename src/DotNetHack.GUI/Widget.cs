@@ -10,7 +10,7 @@ namespace DotNetHack.GUI
     /// <summary>
     /// Widget
     /// </summary>
-    public abstract class Widget : IDisposable
+    public abstract class Widget : IDisposable, IColorScheme
     {
         /// <summary>
         /// Create a new widget
@@ -55,11 +55,21 @@ namespace DotNetHack.GUI
         public DisplayBuffer Console { get; private set; }
 
         /// <summary>
+        /// BG
+        /// </summary>
+        public ConsoleColor BackgroundColor { get; set; }
+
+        /// <summary>
+        /// FG
+        /// </summary>
+        public ConsoleColor ForegroundColor { get; set; }
+
+        /// <summary>
         /// InitializeWidget
         /// </summary>
         public virtual void InitializeWidget()
         {
-
+            Console.Clear(this);
         }
 
         /// <summary>
@@ -138,6 +148,59 @@ namespace DotNetHack.GUI
         /// </summary>
         public void Dispose()
         {
+            
+        }
+
+        /// <summary>
+        /// Box
+        /// </summary>
+        /// <param name="x">The X-Coordinate</param>
+        /// <param name="y">The Y-Coordinate</param>
+        /// <param name="w">The Width.</param>
+        /// <param name="h">The Height.</param>
+        public void Box(int x, int y, int w, int h)
+        {
+            if (w <= 2)
+                throw new ArgumentException(
+                    string.Format("Display box width must be greater than 2. Was {0}.", w));
+
+            for (int c = 0; c < w; ++c)
+            {
+                Console.SetCursorPosition(x + c, y);
+                if (c == 0)
+                    Console.Write('╔');
+                else if (c == w - 1)
+                    Console.Write('╗');
+                else
+                    Console.Write('═');
+            }
+            for (int c = 1; c < h; ++c)
+            {
+                Console.SetCursorPosition(x, y + c);
+                Console.Write('║');
+                Console.SetCursorPosition(x + w - 1, y + c);
+                Console.Write('║');
+            }
+            for (int c = 0; c < w; ++c)
+            {
+                Console.SetCursorPosition(x + c, y + h);
+                if (c == 0)
+                    Console.Write('╚');
+                else if (c == w - 1)
+                    Console.Write('╝');
+                else
+                    Console.Write('═');
+            }
+
+            string spacer = string.Empty;
+            for (int c = 0; c < w - 2; ++c)
+                spacer += " ";
+
+            for (int c = 1; c < h; ++c)
+            {
+                Console.SetCursorPosition(x + 1, y + 1);
+                Console.Write(spacer);
+            }
         }
     }
 }

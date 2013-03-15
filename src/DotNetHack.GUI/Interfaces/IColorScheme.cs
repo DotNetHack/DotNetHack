@@ -14,11 +14,11 @@ namespace DotNetHack.GUI.Interfaces
         /// <summary>
         /// the background colour
         /// </summary>
-        ConsoleColor BG { get; set; }
+        ConsoleColor BackgroundColor { get; set; }
 
         /// <summary>
         /// The foreground colour
         /// </summary>
-        ConsoleColor FG { get; set; }
+        ConsoleColor ForegroundColor { get; set; }
     }
 }

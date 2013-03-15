@@ -10,7 +10,7 @@ namespace DotNetHack.GUI
     /// <summary>
     /// DisplayBuffer
     /// </summary>
-    public class DisplayBuffer : IDimensional
+    public class DisplayBuffer : IDimensional, IColorScheme
     {
         /// <summary>
         /// DisplayBuffer
@@ -31,6 +31,7 @@ namespace DotNetHack.GUI
             Size = dimension;
             Buffer = new Glyph[dimension.Width + 1, dimension.Height + 1];
             CursorLocation = new Point(0, 0);
+            ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>
@@ -62,16 +63,16 @@ namespace DotNetHack.GUI
         /// currentPoint
         /// </summary>
         public IPoint CursorLocation { get; set; }
+   
+        /// <summary>
+        /// The background color
+        /// </summary>
+        public ConsoleColor BackgroundColor { get; set; }
 
         /// <summary>
         /// The foreground color
         /// </summary>
         public ConsoleColor ForegroundColor { get; set; }
-
-        /// <summary>
-        /// The background color
-        /// </summary>
-        public ConsoleColor BackgroundColor { get; set; }
 
         /// <summary>
         /// Write
@@ -80,6 +81,18 @@ namespace DotNetHack.GUI
         public void Write(char c)
         {
             this[CursorLocation.X, CursorLocation.Y] = new Glyph(c, ForegroundColor, BackgroundColor);
+        }
+
+        /// <summary>
+        /// Write
+        /// </summary>
+        /// <param name="s"></param>
+        public void Write(string s)
+        {
+            s.ToList().ForEach(ch => {
+                Write(ch);
+                CursorLocation.X++;
+            });
         }
 
         /// <summary>
@@ -98,6 +111,26 @@ namespace DotNetHack.GUI
         {
             return CursorLocation;
         }
+
+        /// <summary>
+        /// Clear
+        /// </summary>
+        /// <param name="dr"></param>
+        public void Clear(IColorScheme clearColor)
+        {
+            Console.ForegroundColor = clearColor.ForegroundColor;
+            Console.BackgroundColor = clearColor.BackgroundColor;
+
+            for (int y = 0; y < Height; ++y)
+            {
+                for (int x = 0; x < Width; ++x)
+                {
+                    Console.SetCursorPosition(x, y);
+                    Console.Write(' ');
+                }
+            }
+        }
+
 
         #endregion
 

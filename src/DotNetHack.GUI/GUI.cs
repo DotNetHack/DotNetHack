@@ -36,6 +36,8 @@ namespace DotNetHack.GUI
             root.InitializeWidget();
             root.Show();
 
+            DrawWidget(root);
+
             while (!done)
             {
                 // critical section
@@ -59,9 +61,9 @@ namespace DotNetHack.GUI
 
             w.Show();
 
-            for (int y = 0; y < w.Console.Height; ++y)
+            for (int y = 0; y <= w.Console.Height; ++y)
             {
-                for (int x = 0; x < w.Console.Width; ++x)
+                for (int x = 0; x <= w.Console.Width; ++x)
                 {
                     Glyph g = w.Console[x, y];
                     Console.SetCursorPosition(screenLocation.X + x, screenLocation.Y + y);

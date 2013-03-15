@@ -19,7 +19,7 @@ namespace DotNetHack.GUI
         /// <param name="g">the character or symbol</param>
         /// <param name="fg">the foreground color</param>
         /// <param name="bg">the background color</param>
-        public Glyph(char g, ConsoleColor fg, ConsoleColor bg)
+        public Glyph(char g, ConsoleColor fg = ConsoleColor.White, ConsoleColor bg = ConsoleColor.Black)
         {
             this.fg = fg;
             this.bg = bg;

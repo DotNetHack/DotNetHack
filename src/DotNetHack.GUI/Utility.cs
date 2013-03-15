@@ -18,8 +18,8 @@ namespace DotNetHack.GUI
         /// <param name="c"></param>
         public static void Set(this IColorScheme g)
         {
-            Console.ForegroundColor = g.FG;
-            Console.BackgroundColor = g.BG;
+            Console.ForegroundColor = g.ForegroundColor;
+            Console.BackgroundColor = g.BackgroundColor;
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace DotNetHack.GUI
             /// <param name="bg">background colour</param>
             public CursorState(int x, int y, ConsoleColor fg, ConsoleColor bg)
             {
-                X = x; Y = y; FG = fg; BG = bg;
+                X = x; Y = y; ForegroundColor = fg; BackgroundColor = bg;
             }
 
             /// <summary>
@@ -58,12 +58,12 @@ namespace DotNetHack.GUI
             /// <summary>
             /// the background colour
             /// </summary>
-            public ConsoleColor BG { get; set; }
+            public ConsoleColor BackgroundColor { get; set; }
 
             /// <summary>
             /// The foreground colour
             /// </summary>
-            public ConsoleColor FG { get; set; }
+            public ConsoleColor ForegroundColor { get; set; }
         }
     }
 }

@@ -11,21 +11,25 @@ namespace DotNetHack
     /// <summary>
     /// MainWidget
     /// </summary>
-    public class MainWidget : Window
+    public class MainWindow : Window
     {
         /// <summary>
-        /// 
+        /// progressBar
         /// </summary>
         private ProgressBar progressBar = null;
 
         /// <summary>
+        /// buttonOkay
+        /// </summary>
+        private Button buttonOkay = null;
+
+        /// <summary>
         /// MainWidget
         /// </summary>
-        public MainWidget()
+        public MainWindow()
             : base("DotNetHack")
         {
             KeyboardEvent += MainWidget_KeyboardEvent;
-            progressBar = new ProgressBar("Testing");
         }
 
         /// <summary>
@@ -46,10 +50,16 @@ namespace DotNetHack
         {
             base.InitializeWidget();
 
+            // create new progress bar
             progressBar = new ProgressBar("Testing", 5, 5);
             progressBar.Visible = true;
-
             this.Add(progressBar);
+
+            // Add an okay button to this window
+            buttonOkay = new Button("Okay", 5, 7);
+            buttonOkay.Visible = true;
+            buttonOkay.OkayCallback = () => { };
+            this.Add(buttonOkay);
         }
 
         /// <summary>

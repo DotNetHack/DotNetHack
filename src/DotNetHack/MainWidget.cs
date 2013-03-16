@@ -14,12 +14,29 @@ namespace DotNetHack
     public class MainWidget : Window
     {
         /// <summary>
+        /// 
+        /// </summary>
+        private ProgressBar progressBar = null;
+
+        /// <summary>
         /// MainWidget
         /// </summary>
         public MainWidget()
             : base("DotNetHack")
         {
+            KeyboardEvent += MainWidget_KeyboardEvent;
+            progressBar = new ProgressBar("Testing");
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void MainWidget_KeyboardEvent(object sender, GUI.Events.GUIKeyboardEventArgs e)
+        {
+            if (progressBar.Value < 100)
+                progressBar.Value++;
         }
 
         /// <summary>
@@ -29,14 +46,14 @@ namespace DotNetHack
         {
             base.InitializeWidget();
 
-            var progressBar1 = new ProgressBar("Testing", 5, 5);
-            progressBar1.Visible = true;
+            progressBar = new ProgressBar("Testing", 5, 5);
+            progressBar.Visible = true;
 
-            this.Add(progressBar1);  
+            this.Add(progressBar);
         }
 
         /// <summary>
-        /// 
+        /// Show
         /// </summary>
         public override void Show()
         {

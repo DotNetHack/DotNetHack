@@ -33,16 +33,7 @@ namespace DotNetHack.GUI
         {
             Console.Title = root.Text;
 
-            ThreadPool.QueueUserWorkItem((object state) => 
-            {
-                while (!done)
-                {
-                    if (Console.KeyAvailable)               
-                        KeyboardCallback(Console.ReadKey());
-
-                    Thread.Sleep(10);
-                }
-            });
+            StartKeyboardInputThread();
 
             root.InitializeWidget();
             root.Show();
@@ -51,10 +42,12 @@ namespace DotNetHack.GUI
 
             while (!done)
             {
+
                 // critical section
                 lock (syncRoot)
                 {
-                    foreach (var w in root.Widgets.Where(v => v.Visible))
+
+                    foreach (var w in root.Widgets.Where(v => v.Visible && v.Console.Invalidated))
                         DrawWidget(w);
                    
                     Thread.Sleep(100);
@@ -63,9 +56,26 @@ namespace DotNetHack.GUI
         }
 
         /// <summary>
-        /// Draw
+        /// StartKeyboardInputThread
         /// </summary>
-        /// <param name="w"></param>
+        private void StartKeyboardInputThread()
+        {
+            ThreadPool.QueueUserWorkItem((object state) =>
+            {
+                while (!done)
+                {
+                    if (Console.KeyAvailable)
+                        KeyboardCallback(Console.ReadKey(true));
+
+                    Thread.Sleep(10);
+                }
+            });
+        }
+
+        /// <summary>
+        /// DrawWidget
+        /// </summary>
+        /// <param name="w">the widget to draw</param>
         public static void DrawWidget(Widget w)
         {
             IPoint screenLocation = w.Location;
@@ -83,6 +93,8 @@ namespace DotNetHack.GUI
                     Console.Write(g.G);
                 }
             }
+
+            w.Console.Validate();
             
             //PushCursorState();
             //w.Show();

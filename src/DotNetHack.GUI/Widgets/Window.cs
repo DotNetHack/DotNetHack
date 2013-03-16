@@ -26,6 +26,24 @@ namespace DotNetHack.GUI.Widgets
         public override void InitializeWidget()
         {
             base.InitializeWidget();
+
+            KeyboardEvent += Window_KeyboardEvent;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Window_KeyboardEvent(object sender, Events.GUIKeyboardEventArgs e)
+        {
+            switch (e.ConsoleKeyInfo.Key)
+            {
+                case ConsoleKey.Escape:
+                    Dispose();
+                   
+                    break;
+            }
         }
 
         /// <summary>

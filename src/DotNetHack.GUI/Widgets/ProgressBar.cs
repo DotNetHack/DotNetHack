@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DotNetHack.GUI.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -72,7 +73,6 @@ namespace DotNetHack.GUI.Widgets
                 // write a specific charcter  to the screen
                 //  '    running     '
                 Console.Write(DisplayGlyph);
-
             }
         }
 
@@ -82,9 +82,38 @@ namespace DotNetHack.GUI.Widgets
         int TextOffset { get { return ((Width / 2)) - (Text.Length / 2); } }
 
         /// <summary>
-        /// the current percentage as represented by this progress bar.
+        /// The current percentage as represented by this progress bar.
         /// </summary>
-        public double Value { get; set; }
+        public double Value
+        {
+            get { return percentValue; }
+            set 
+            {
+                previousPercentValue = percentValue;
+                percentValue = value;
+
+                Console.Invalidate();
+
+                if (value != previousPercentValue)
+                {
+                    if (ProgressChanged == null)
+                        return;
+
+                    ProgressChanged(this, 
+                        new GUIProgressBarEventArgs(value, previousPercentValue));
+                }
+            }
+        }
+
+        /// <summary>
+        /// The backing store for the value
+        /// </summary>
+        private double percentValue = 0;
+
+        /// <summary>
+        /// previousPercentValue
+        /// </summary>
+        private double previousPercentValue = 0;
 
         /// <summary>
         /// Padding on both the left and right side of progress bar.
@@ -115,5 +144,10 @@ namespace DotNetHack.GUI.Widgets
         /// a third colour, for % that has been completed
         /// </summary>
         readonly ConsoleColor TC;
+
+        /// <summary>
+        /// ProgressChanged
+        /// </summary>
+        public event EventHandler<GUIProgressBarEventArgs> ProgressChanged;
     }
 }

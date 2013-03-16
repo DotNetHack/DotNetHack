@@ -42,7 +42,7 @@ namespace DotNetHack.GUI
         /// <returns>A glyph</returns>
         public Glyph this[int x, int y]
         {
-            get { return Buffer[x, y]; }
+            get { Invalidated = true;  return Buffer[x, y]; }
             set { Buffer[x, y] = value; }
         }
 
@@ -53,7 +53,7 @@ namespace DotNetHack.GUI
         /// <returns>A glyph</returns>
         public Glyph this[IPoint p]
         {
-            get { return Buffer[p.X, p.Y]; }
+            get { Invalidated = true; return Buffer[p.X, p.Y]; }
             set { Buffer[p.X, p.Y] = value; }
         }
 
@@ -153,5 +153,27 @@ namespace DotNetHack.GUI
         /// Height
         /// </summary>
         public int Height { get { return Size.Height; } }
+
+        /// <summary>
+        /// A display buffer may be "invalidated" when something in it's backing store changes. 
+        /// This property could also be called "Dirty"
+        /// </summary>
+        public bool Invalidated { get; private set; }
+
+        /// <summary>
+        /// Invalidation of a display buffer may be 'forced' using this method.
+        /// </summary>
+        public void Invalidate()
+        {
+            Invalidated = true;
+        }
+
+        /// <summary>
+        /// Validates this display buffer
+        /// </summary>
+        public void Validate()
+        {
+            Invalidated = false;
+        }
     }
 }

@@ -44,10 +44,10 @@ namespace DotNetHack.GUI
         internal void Instance_KeyboardCallback(ConsoleKeyInfo obj)
         {
             // TODO: Determine if the visibility constraint should be here.
-            if (keyboardEvent == null || !Visible)
+            if (KeyboardEvent == null || !Visible)
                 return;
 
-            keyboardEvent(this, new GUIKeyboardEventArgs(obj));
+            KeyboardEvent(this, new GUIKeyboardEventArgs(obj));
         }
 
         /// <summary>
@@ -173,9 +173,9 @@ namespace DotNetHack.GUI
         #region Events 
 
         /// <summary>
-        /// keyboardEvent
+        /// KeyboardEvent
         /// </summary>
-        public event EventHandler<GUIKeyboardEventArgs> keyboardEvent;
+        public event EventHandler<GUIKeyboardEventArgs> KeyboardEvent;
 
         #endregion
 
@@ -184,7 +184,9 @@ namespace DotNetHack.GUI
         /// </summary>
         public void Dispose()
         {
+            KeyboardEvent = null;
 
+            Hide();
         }
 
         /// <summary>

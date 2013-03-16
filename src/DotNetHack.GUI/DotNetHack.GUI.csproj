@@ -43,6 +43,7 @@
     <Compile Include="DisplayBuffer.cs" />
     <Compile Include="Events\GUIEventArgs.cs" />
     <Compile Include="Events\GUIKeyboardEventArgs.cs" />
+    <Compile Include="Events\GUIProgressBarEventArgs.cs" />
     <Compile Include="Glyph.cs" />
     <Compile Include="GUI.cs" />
     <Compile Include="Interfaces\IColorScheme.cs" />

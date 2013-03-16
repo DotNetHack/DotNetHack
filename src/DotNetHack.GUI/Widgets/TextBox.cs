@@ -52,6 +52,7 @@ namespace DotNetHack.GUI.Widgets
                         return;
 
                     AddNewChar(tmpChar);
+                    
                     break;
 
                 case ConsoleKey.Backspace:
@@ -73,6 +74,7 @@ namespace DotNetHack.GUI.Widgets
                 return;
 
             Text = Text.Substring(0, Text.Length - 1);
+            Console.Invalidate();
         }
 
         /// <summary>

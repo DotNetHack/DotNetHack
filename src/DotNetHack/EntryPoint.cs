@@ -17,7 +17,7 @@ namespace DotNetHack
         [STAThread]
         static void Main(string[] args)
         {
-            UI.Instance.Run(new MainWidget());
+            UI.Instance.Run(new MainWindow());
         }
     }
 }

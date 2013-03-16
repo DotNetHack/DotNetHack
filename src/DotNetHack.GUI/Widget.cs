@@ -35,6 +35,9 @@ namespace DotNetHack.GUI
             Widgets = new Stack<Widget>();
             Console = new DisplayBuffer(width, height);
 
+            // Most widgets are not selectable by default
+            Selectable = false;
+      
             GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
         }
 
@@ -182,6 +185,27 @@ namespace DotNetHack.GUI
         /// WidgetID
         /// </summary>
         public int WidgetID { get; private set; }
+
+        /// <summary>
+        /// Selectable
+        /// </summary>
+        public bool Selectable { get; private set; }
+
+        /// <summary>
+        /// EnableSelection
+        /// </summary>
+        public void EnableSelection()
+        {
+            Selectable = true;
+        }
+
+        /// <summary>
+        /// EnableSelection
+        /// </summary>
+        public void DisableSelection()
+        {
+            Selectable = false;
+        }
 
         #region Events
 

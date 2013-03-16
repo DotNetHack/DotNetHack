@@ -10,13 +10,12 @@ namespace DotNetHack.GUI.Widgets
     /// <summary>
     /// Button
     /// </summary>
-    [DebuggerDisplay("{leftDecoration}{}rightDecoration{}")]
+    [DebuggerDisplay("{leftDecoration}{Text}{rightDecoration}")]
     public class Button : Widget
     {
         readonly ButtonDecoration decoration;
         readonly char leftDecoration;
         readonly char rightDecoration;
-        readonly string text;
 
         /// <summary>
         /// Create a new button
@@ -42,8 +41,9 @@ namespace DotNetHack.GUI.Widgets
                     break;
             }
 
-            this.text = text;
-            this.text = string.Format("{0}{1}{2}", leftDecoration, text, rightDecoration);
+            Text = string.Format("{0}{1}{2}", leftDecoration, text, rightDecoration);
+
+            EnableSelection();
         }
 
         /// <summary>
@@ -52,7 +52,27 @@ namespace DotNetHack.GUI.Widgets
         public override void InitializeWidget()
         {
             base.InitializeWidget();
+
+            KeyboardEvent += Button_KeyboardEvent;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void Button_KeyboardEvent(object sender, Events.GUIKeyboardEventArgs e)
+        {
+            if (OkayCallback != null && ActiveWidget == this)
+            {
+                OkayCallback();
+            }
+        }
+
+        /// <summary>
+        /// Okay
+        /// </summary>
+        public Action OkayCallback { get; set; }
 
         /// <summary>
         /// Show
@@ -61,11 +81,20 @@ namespace DotNetHack.GUI.Widgets
         {
             base.Show();
 
-            Console.SetCursorPosition(this);
-
-            foreach (var s in text)
+            for (int index = 0; index < Text.Length; ++index)
             {
-                Console.Write(s);
+                // normal text style
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = ConsoleColor.White;
+
+                // decoration text style
+                if (index == 0 || index == Text.Length - 1)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.BackgroundColor = ConsoleColor.White;
+                }
+
+                Console.Write(Text[index]);
             }
         }
 

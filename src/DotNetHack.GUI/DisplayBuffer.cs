@@ -32,6 +32,7 @@ namespace DotNetHack.GUI
             Buffer = new Glyph[dimension.Width + 1, dimension.Height + 1];
             CursorLocation = new Point(0, 0);
             ForegroundColor = ConsoleColor.White;
+            Invalidate();
         }
 
         /// <summary>

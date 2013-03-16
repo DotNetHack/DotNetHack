@@ -19,14 +19,6 @@ namespace DotNetHack.GUI
         volatile bool done = false;
 
         /// <summary>
-        /// Initialize
-        /// </summary>
-        public void Initialize(Widget w)
-        {
-
-        }
-
-        /// <summary>
         /// Run
         /// </summary>
         public void Run(Widget root)

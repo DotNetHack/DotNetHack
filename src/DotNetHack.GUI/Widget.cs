@@ -11,7 +11,7 @@ namespace DotNetHack.GUI
     /// <summary>
     /// Widget
     /// </summary>
-    public abstract class Widget : IDisposable, IColorScheme
+    public abstract class Widget : IDisposable, IColorScheme, IHasLocation
     {
         /// <summary>
         /// Retains the creation order of all widgets. If this gets cumbersome there should be a factory.
@@ -34,6 +34,7 @@ namespace DotNetHack.GUI
             Text = text;
             Widgets = new Stack<Widget>();
             Console = new DisplayBuffer(width, height);
+
             GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
         }
 
@@ -47,7 +48,19 @@ namespace DotNetHack.GUI
             if (KeyboardEvent == null || !Visible)
                 return;
 
-            KeyboardEvent(this, new GUIKeyboardEventArgs(obj));
+            // Intercept all keyboard events to define top level behavior
+            switch (obj.Key)
+            {
+                case ConsoleKey.Tab:
+                    foreach (var w in Widgets.OrderBy((Widget w) => { return w.WidgetID; }))
+                    {
+                        
+                    }
+                    break;
+                default:
+                    KeyboardEvent(this, new GUIKeyboardEventArgs(obj));
+                    break;
+            }
         }
 
         /// <summary>
@@ -170,7 +183,7 @@ namespace DotNetHack.GUI
         /// </summary>
         public int WidgetID { get; private set; }
 
-        #region Events 
+        #region Events
 
         /// <summary>
         /// KeyboardEvent

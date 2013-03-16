@@ -80,7 +80,7 @@ namespace DotNetHack.GUI
         /// <param name="c">the character to write</param>
         public void Write(char c)
         {
-            this[CursorLocation.X, CursorLocation.Y] = new Glyph(c, ForegroundColor, BackgroundColor);
+            this[CursorLocation.X++, CursorLocation.Y] = new Glyph(c, ForegroundColor, BackgroundColor);
         }
 
         /// <summary>
@@ -91,7 +91,6 @@ namespace DotNetHack.GUI
         {
             s.ToList().ForEach(ch => {
                 Write(ch);
-                CursorLocation.X++;
             });
         }
 
@@ -102,6 +101,26 @@ namespace DotNetHack.GUI
         {
             CursorLocation.X = x;
             CursorLocation.Y = y;
+        }
+
+        /// <summary>
+        /// SetCursorLocation
+        /// </summary>
+        /// <param name="l">Cursor location</param>
+        public void SetCursorPosition(IHasLocation l)
+        {
+            CursorLocation.Y = l.Location.Y;
+            CursorLocation.X = l.Location.X;
+        }
+
+        /// <summary>
+        /// SetCursorPosition
+        /// </summary>
+        /// <param name="p"></param>
+        public void SetCursorPosition(IPoint p)
+        {
+            CursorLocation.Y = p.Y;
+            CursorLocation.X = p.X;
         }
 
         /// <summary>

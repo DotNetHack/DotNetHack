@@ -80,6 +80,28 @@ namespace DotNetHack.GUI.Widgets
         }
 
         /// <summary>
+        /// Show
+        /// </summary>
+        public override void Show()
+        {
+            const char DEFAULT_CHAR = ' ';
+
+            base.Show();
+
+            for (int index = 0; index < MaxLength; ++index)
+            {
+                if (index < Text.Length)
+                {
+                    Console.Write(Text[index]);
+                }
+                else
+                {
+                    Console.Write(DEFAULT_CHAR);
+                }
+            }
+        }
+
+        /// <summary>
         /// OnEnter
         /// </summary>
         public Action<string> OnEntered { get; protected set; }

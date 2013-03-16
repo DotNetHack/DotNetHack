@@ -20,7 +20,17 @@ namespace DotNetHack.GUI.Widgets
         public TextBox(int x, int y, int inputMaxLength) 
             : base("", x, y, inputMaxLength, 1)
         {
+            MaxLength = inputMaxLength;
+            EnableSelection();
             KeyboardEvent += TextBox_KeyboardEvent;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override void InitializeWidget()
+        {
+            base.InitializeWidget();
         }
 
         /// <summary>
@@ -88,6 +98,13 @@ namespace DotNetHack.GUI.Widgets
 
             base.Show();
 
+            Console.SetCursorPosition(0, 0);
+
+            if (Selected)
+            {
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+            }
+
             for (int index = 0; index < MaxLength; ++index)
             {
                 if (index < Text.Length)
@@ -102,9 +119,9 @@ namespace DotNetHack.GUI.Widgets
         }
 
         /// <summary>
-        /// OnEnter
+        /// OnEntered some Text
         /// </summary>
-        public Action<string> OnEntered { get; protected set; }
+        public Action<string> OnEntered { get; set; }
 
         /// <summary>
         /// MaxLength

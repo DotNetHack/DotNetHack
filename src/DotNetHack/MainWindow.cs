@@ -24,6 +24,11 @@ namespace DotNetHack
         private Button buttonOkay = null;
 
         /// <summary>
+        /// TextBox
+        /// </summary>
+        private TextBox txtBox = null;
+
+        /// <summary>
         /// MainWidget
         /// </summary>
         public MainWindow()
@@ -60,6 +65,12 @@ namespace DotNetHack
             buttonOkay.Visible = true;
             buttonOkay.OkayCallback = () => { };
             this.Add(buttonOkay);
+
+            // add a text box to this window
+            txtBox = new TextBox(5, 9, 15);
+            txtBox.Visible = true;
+            txtBox.OnEntered = (string s) => { };
+            this.Add(txtBox);
         }
 
         /// <summary>

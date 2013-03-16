@@ -44,6 +44,7 @@ namespace DotNetHack.GUI.Widgets
             Text = string.Format("{0}{1}{2}", leftDecoration, text, rightDecoration);
 
             EnableSelection();
+            KeyboardEvent += Button_KeyboardEvent;
         }
 
         /// <summary>
@@ -52,8 +53,6 @@ namespace DotNetHack.GUI.Widgets
         public override void InitializeWidget()
         {
             base.InitializeWidget();
-
-            KeyboardEvent += Button_KeyboardEvent;
         }
 
         /// <summary>
@@ -63,7 +62,7 @@ namespace DotNetHack.GUI.Widgets
         /// <param name="e"></param>
         void Button_KeyboardEvent(object sender, Events.GUIKeyboardEventArgs e)
         {
-            if (OkayCallback != null && ActiveWidget == this)
+            if (OkayCallback != null)
             {
                 OkayCallback();
             }

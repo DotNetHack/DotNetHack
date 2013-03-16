@@ -32,14 +32,12 @@ namespace DotNetHack.GUI
             Location.X = x;
             Location.Y = y;
             Text = text;
-            Widgets = new Stack<Widget>();
+            Widgets = new List<Widget>();
             Console = new DisplayBuffer(width, height);
 
             // Most widgets are not selectable by default
-            Selectable = false;
-      
-            GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
-        }
+            Selectable = false;      
+        } 
 
         /// <summary>
         /// Instance_KeyboardCallback
@@ -48,23 +46,38 @@ namespace DotNetHack.GUI
         internal void Instance_KeyboardCallback(ConsoleKeyInfo obj)
         {
             // TODO: Determine if the visibility constraint should be here.
+            // TODO: If removing the delegate on Hide !Visible is redundant.
             if (KeyboardEvent == null || !Visible)
                 return;
 
+            if (Widgets.Count <= 0)
+            {
+                KeyboardEvent(this, new GUIKeyboardEventArgs(obj));
+
+                return;
+            }
+                
             // Intercept all keyboard events to define top level behavior
             switch (obj.Key)
             {
                 case ConsoleKey.Tab:
-                    foreach (var w in Widgets.OrderBy((Widget w) => { return w.WidgetID; }))
-                    {
-                        
-                    }
+
+                    foreach (var w in Widgets.Where(w => w.Selectable))
+                        w.Selected = false;
+                    Widgets[selector % Widgets.Count].Selected = true;
+                    Widgets[selector % Widgets.Count].Console.Invalidate();
+                    selector++;
                     break;
                 default:
-                    KeyboardEvent(this, new GUIKeyboardEventArgs(obj));
+                    KeyboardEvent(Widgets[selector % Widgets.Count], new GUIKeyboardEventArgs(obj));
                     break;
             }
         }
+
+        /// <summary>
+        /// selector
+        /// </summary>
+        int selector = 1;
 
         /// <summary>
         /// Create a new Widget
@@ -116,6 +129,19 @@ namespace DotNetHack.GUI
         public virtual void Show()
         {
             Visible = true;
+            if (Selected)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write('!');
+                Console.ResetCursorPosition();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write('@');
+                Console.ResetCursorPosition();
+            }
+            GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
         }
 
         /// <summary>
@@ -124,6 +150,7 @@ namespace DotNetHack.GUI
         public virtual void Hide()
         {
             Visible = false;
+            GUI.Instance.KeyboardCallback -= Instance_KeyboardCallback;
         }
 
         /// <summary>
@@ -132,7 +159,7 @@ namespace DotNetHack.GUI
         /// <param name="widget">Add a widget</param>
         public void Add(Widget widget)
         {
-            Widgets.Push(widget);
+            Widgets.Add(widget);
         }
 
         /// <summary>
@@ -169,12 +196,12 @@ namespace DotNetHack.GUI
         /// <summary>
         /// ActiveWidget
         /// </summary>
-        public Widget ActiveWidget { get { return Widgets.Peek(); } }
+        // public Widget ActiveWidget { get { return Widgets.Peek(); } }
 
         /// <summary>
         /// Widgets
         /// </summary>
-        public Stack<Widget> Widgets { get; set; }
+        public List<Widget> Widgets { get; set; }
 
         /// <summary>
         /// Visible
@@ -189,7 +216,13 @@ namespace DotNetHack.GUI
         /// <summary>
         /// Selectable
         /// </summary>
-        public bool Selectable { get; private set; }
+        public bool Selectable { get; 
+            private set; }
+
+        /// <summary>
+        /// Selected
+        /// </summary>
+        public bool Selected { get; set; }
 
         /// <summary>
         /// EnableSelection
@@ -221,8 +254,6 @@ namespace DotNetHack.GUI
         /// </summary>
         public void Dispose()
         {
-            KeyboardEvent = null;
-
             Hide();
         }
 

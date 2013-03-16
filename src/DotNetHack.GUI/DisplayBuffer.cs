@@ -81,6 +81,9 @@ namespace DotNetHack.GUI
         /// <param name="c">the character to write</param>
         public void Write(char c)
         {
+            if (CursorLocation.X + 1 > Width)
+                return;
+
             this[CursorLocation.X++, CursorLocation.Y] = new Glyph(c, ForegroundColor, BackgroundColor);
         }
 
@@ -93,6 +96,15 @@ namespace DotNetHack.GUI
             s.ToList().ForEach(ch => {
                 Write(ch);
             });
+        }
+
+        /// <summary>
+        /// ResetCursorPosition
+        /// </summary>
+        public void ResetCursorPosition()
+        {
+            CursorLocation.X = 0;
+            CursorLocation.Y = 0;
         }
 
         /// <summary>

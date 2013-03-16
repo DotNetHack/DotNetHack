@@ -34,16 +34,18 @@ namespace DotNetHack.GUI
 
             while (!done)
             {
+                PushCursorState();
 
                 // critical section
                 lock (syncRoot)
                 {
-
                     foreach (var w in root.Widgets.Where(v => v.Visible && v.Console.Invalidated))
                         DrawWidget(w);
-                   
-                    Thread.Sleep(100);
                 }
+
+                PopAndSetCursorState();
+
+                Thread.Sleep(100);
             }
         }
 
@@ -57,7 +59,9 @@ namespace DotNetHack.GUI
                 while (!done)
                 {
                     if (Console.KeyAvailable)
+                    {
                         KeyboardCallback(Console.ReadKey(true));
+                    }
 
                     Thread.Sleep(10);
                 }
@@ -87,10 +91,6 @@ namespace DotNetHack.GUI
             }
 
             w.Console.Validate();
-            
-            //PushCursorState();
-            //w.Show();
-            //PopAndSetCursorState();
         }
 
         /// <summary>
@@ -133,6 +133,7 @@ namespace DotNetHack.GUI
         {
             if (CursorStateStack.Count <= 0)
                 return;
+
             CursorStateStack.Pop().Set();
         }
 
@@ -170,7 +171,7 @@ namespace DotNetHack.GUI
         /// <summary>
         /// GUI Constructor
         /// </summary>
-        private GUI() { }
+        private GUI() { CursorStateStack = new Stack<Utility.CursorState>(); }
 
         /// <summary>
         /// Instance

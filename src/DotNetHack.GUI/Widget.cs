@@ -1,4 +1,5 @@
-﻿using DotNetHack.GUI.Interfaces;
+﻿using DotNetHack.GUI.Events;
+using DotNetHack.GUI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,19 @@ namespace DotNetHack.GUI
     public abstract class Widget : IDisposable, IColorScheme
     {
         /// <summary>
+        /// Retains the creation order of all widgets. If this gets cumbersome there should be a factory.
+        /// </summary>
+        internal static int creationOrder = 0;
+
+        /// <summary>
         /// Create a new widget
         /// </summary>
         /// <param name="width"></param>
         /// <param name="height"></param>
         public Widget(string text, int x, int y, int width, int height)
         {
+            WidgetID = creationOrder++;
+
             Size = new Size(width, height);
             Location = new Point(x, y);
             Location.X = x;
@@ -26,6 +34,20 @@ namespace DotNetHack.GUI
             Text = text;
             Widgets = new Stack<Widget>();
             Console = new DisplayBuffer(width, height);
+            GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
+        }
+
+        /// <summary>
+        /// Instance_KeyboardCallback
+        /// </summary>
+        /// <param name="obj"></param>
+        internal void Instance_KeyboardCallback(ConsoleKeyInfo obj)
+        {
+            // TODO: Determine if the visibility constraint should be here.
+            if (keyboardEvent == null || !Visible)
+                return;
+
+            keyboardEvent(this, new GUIKeyboardEventArgs(obj));
         }
 
         /// <summary>
@@ -144,11 +166,25 @@ namespace DotNetHack.GUI
         public bool Visible { get; set; }
 
         /// <summary>
+        /// WidgetID
+        /// </summary>
+        public int WidgetID { get; private set; }
+
+        #region Events 
+
+        /// <summary>
+        /// keyboardEvent
+        /// </summary>
+        public event EventHandler<GUIKeyboardEventArgs> keyboardEvent;
+
+        #endregion
+
+        /// <summary>
         /// Dispose
         /// </summary>
         public void Dispose()
         {
-            
+
         }
 
         /// <summary>

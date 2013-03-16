@@ -21,9 +21,9 @@ namespace DotNetHack.GUI
         /// <summary>
         /// Initialize
         /// </summary>
-        public void Initialize(Action<ConsoleKey> keyboardCallback)
+        public void Initialize(Widget w)
         {
-            KeyboardCallback = keyboardCallback;
+
         }
 
         /// <summary>
@@ -32,6 +32,17 @@ namespace DotNetHack.GUI
         public void Run(Widget root)
         {
             Console.Title = root.Text;
+
+            ThreadPool.QueueUserWorkItem((object state) => 
+            {
+                while (!done)
+                {
+                    if (Console.KeyAvailable)               
+                        KeyboardCallback(Console.ReadKey());
+
+                    Thread.Sleep(10);
+                }
+            });
 
             root.InitializeWidget();
             root.Show();
@@ -81,7 +92,7 @@ namespace DotNetHack.GUI
         /// <summary>
         /// KeyboardCallback
         /// </summary>
-        public event Action<ConsoleKey> KeyboardCallback;
+        public event Action<ConsoleKeyInfo> KeyboardCallback;
 
         /// <summary>
         /// Screen

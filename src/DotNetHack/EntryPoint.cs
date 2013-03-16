@@ -17,8 +17,9 @@ namespace DotNetHack
         [STAThread]
         static void Main(string[] args)
         {
-            UI.Instance.Initialize(delegate(ConsoleKey k) { });
-            UI.Instance.Run(new MainWidget());
+            var main = new MainWidget();
+            UI.Instance.Initialize(main);
+            UI.Instance.Run(main);
         }
     }
 }

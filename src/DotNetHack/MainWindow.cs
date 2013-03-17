@@ -32,7 +32,7 @@ namespace DotNetHack
         /// MainWidget
         /// </summary>
         public MainWindow()
-            : base("DotNetHack", new Size(GUI.GUI.MaxSize().Width - 5, GUI.GUI.MaxSize().Height - 5))
+            : base("DotNetHack", new Size(GUI.GUI.ScreenSize.Width - 1, GUI.GUI.ScreenSize.Height - 2))
         {
             KeyboardEvent += MainWidget_KeyboardEvent;
         }
@@ -82,14 +82,6 @@ namespace DotNetHack
         void buttonOkay_KeyboardEvent(object sender, GUI.Events.GUIKeyboardEventArgs e)
         {
 
-        }
-
-        /// <summary>
-        /// Show
-        /// </summary>
-        public override void Show()
-        {
-            base.Show();
         }
     }
 }

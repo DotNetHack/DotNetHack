@@ -41,7 +41,7 @@ namespace DotNetHack.GUI
             Console = new DisplayBuffer(width, height);
 
             // Most widgets are not selectable by default
-            Selectable = false;
+            IsSelectable = false;
 
             if (WidgetID <= 1)
                 GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
@@ -96,7 +96,11 @@ namespace DotNetHack.GUI
                     if (Widgets.Count > 0)
                     {
                         Focus = Widgets[selector % Widgets.Count];
-                        Focus.Console.ForegroundColor = ConsoleColor.Magenta;                       
+
+                        if (IsSelectable && WidgetSelectedEvent != null)
+                        {
+                            WidgetSelectedEvent(this, new EventArgs());
+                        }              
                     }
                     selector++;
                     break;
@@ -224,9 +228,9 @@ namespace DotNetHack.GUI
         public int WidgetID { get; private set; }
 
         /// <summary>
-        /// Selectable
+        /// IsSelectable
         /// </summary>
-        public bool Selectable { get; private set; }
+        public bool IsSelectable { get; private set; }
 
         /// <summary>
         /// Selected
@@ -234,11 +238,16 @@ namespace DotNetHack.GUI
         public bool Selected { get; set; }
 
         /// <summary>
+        /// WidgetSelectedEvent
+        /// </summary>
+        public EventHandler WidgetSelectedEvent;
+
+        /// <summary>
         /// EnableSelection
         /// </summary>
         public void EnableSelection()
         {
-            Selectable = true;
+            IsSelectable = true;
         }
 
         /// <summary>
@@ -246,7 +255,7 @@ namespace DotNetHack.GUI
         /// </summary>
         public void DisableSelection()
         {
-            Selectable = false;
+            IsSelectable = false;
         }
 
         #region Events

@@ -47,13 +47,9 @@ namespace DotNetHack.GUI
         }
 
         /// <summary>
-        /// MaxSize
+        /// consoleSize
         /// </summary>
-        /// <returns>the maxiumim size for the physical console</returns>
-        public static Size MaxSize()
-        {
-            return new Size(Console.WindowWidth - 1, Console.WindowHeight);
-        }
+        readonly static Size consoleSize = new Size(Console.WindowWidth, Console.WindowHeight);
 
         /// <summary>
         /// StartKeyboardInputThread
@@ -111,7 +107,7 @@ namespace DotNetHack.GUI
         static GUI()
         {
             CursorStateStack = new Stack<Utility.CursorState>();
-            Buffer = new DisplayBuffer(MaxSize());
+            Buffer = new DisplayBuffer(consoleSize);
         }
 
         /// <summary>
@@ -150,7 +146,7 @@ namespace DotNetHack.GUI
         /// <summary>
         /// ScreenSize
         /// </summary>
-        public static Size ScreenSize { get { return new Size(ScreenWidth, ScreenHeight); } }
+        public static Size ScreenSize { get { return consoleSize; } }
 
         #region Cursor State Stack
 

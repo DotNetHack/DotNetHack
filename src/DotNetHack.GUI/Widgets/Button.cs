@@ -10,7 +10,7 @@ namespace DotNetHack.GUI.Widgets
     /// <summary>
     /// Button
     /// </summary>
-    [DebuggerDisplay("{leftDecoration}{Text}{rightDecoration}")]
+    [DebuggerDisplay("{Text}")]
     public class Button : Widget
     {
         readonly ButtonDecoration decoration;
@@ -44,6 +44,7 @@ namespace DotNetHack.GUI.Widgets
             Text = string.Format("{0}{1}{2}", leftDecoration, text, rightDecoration);
 
             EnableSelection();
+
             KeyboardEvent += Button_KeyboardEvent;
         }
 
@@ -89,8 +90,14 @@ namespace DotNetHack.GUI.Widgets
                 // decoration text style
                 if (index == 0 || index == Text.Length - 1)
                 {
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.BackgroundColor = ConsoleColor.White;
+
+                    if (Selected)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.BackgroundColor = ConsoleColor.Cyan;                       
+                    }
                 }
 
                 Console.Write(Text[index]);

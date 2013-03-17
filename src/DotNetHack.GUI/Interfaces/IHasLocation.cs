@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace DotNetHack.GUI.Interfaces
 {
+    /// <summary>
+    /// IHasLocation
+    /// </summary>
     public interface IHasLocation
     {
-        IPoint Location { get; set; }
+        Point Location { get; set; }
     }
 }

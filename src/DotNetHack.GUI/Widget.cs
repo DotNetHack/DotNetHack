@@ -19,6 +19,11 @@ namespace DotNetHack.GUI
         internal static int creationOrder = 0;
 
         /// <summary>
+        /// Focused
+        /// </summary>
+        static Widget Focus;
+
+        /// <summary>
         /// Create a new widget
         /// </summary>
         /// <param name="width"></param>
@@ -36,8 +41,36 @@ namespace DotNetHack.GUI
             Console = new DisplayBuffer(width, height);
 
             // Most widgets are not selectable by default
-            Selectable = false;      
-        } 
+            Selectable = false;
+
+            if (WidgetID <= 1)
+                GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
+        }
+
+        /// <summary>
+        /// Traverse
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="root"></param>
+        /// <param name="predicate"></param>
+        internal static void Traverse(Action<Widget> action, Widget root, Predicate<Widget> predicate = null)
+        {
+            if (root.Widgets.Count <= 0)
+                return;
+
+            foreach (var w in root.Widgets)
+            {
+                if (predicate == null || (predicate != null && predicate(w)))
+                {
+                    action(w);
+                }
+
+                if (w.Widgets.Count > 0)
+                {
+                    Traverse(action, w);
+                }
+            }
+        }
 
         /// <summary>
         /// Instance_KeyboardCallback
@@ -50,26 +83,22 @@ namespace DotNetHack.GUI
             if (KeyboardEvent == null || !Visible)
                 return;
 
-            if (Widgets.Count <= 0)
-            {
-                KeyboardEvent(this, new GUIKeyboardEventArgs(obj));
-
-                return;
-            }
-                
             // Intercept all keyboard events to define top level behavior
             switch (obj.Key)
             {
-                case ConsoleKey.Tab:
-
-                    foreach (var w in Widgets.Where(w => w.Selectable))
-                        w.Selected = false;
-                    Widgets[selector % Widgets.Count].Selected = true;
-                    Widgets[selector % Widgets.Count].Console.Invalidate();
-                    selector++;
-                    break;
                 default:
-                    KeyboardEvent(Widgets[selector % Widgets.Count], new GUIKeyboardEventArgs(obj));
+                    if (Focus != null && Focus.KeyboardEvent != null)
+                    {
+                        Focus.KeyboardEvent(this, new GUIKeyboardEventArgs(obj));
+                    }
+                    break;
+                case ConsoleKey.Tab:
+                    if (Widgets.Count > 0)
+                    {
+                        Focus = Widgets[selector % Widgets.Count];
+                        Focus.Console.ForegroundColor = ConsoleColor.Magenta;                       
+                    }
+                    selector++;
                     break;
             }
         }
@@ -129,19 +158,6 @@ namespace DotNetHack.GUI
         public virtual void Show()
         {
             Visible = true;
-            if (Selected)
-            {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write('!');
-                Console.ResetCursorPosition();
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write('@');
-                Console.ResetCursorPosition();
-            }
-            GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
         }
 
         /// <summary>
@@ -150,7 +166,6 @@ namespace DotNetHack.GUI
         public virtual void Hide()
         {
             Visible = false;
-            GUI.Instance.KeyboardCallback -= Instance_KeyboardCallback;
         }
 
         /// <summary>
@@ -181,7 +196,7 @@ namespace DotNetHack.GUI
         /// <summary>
         /// Location
         /// </summary>
-        public IPoint Location { get; set; }
+        public Point Location { get; set; }
 
         /// <summary>
         /// Size
@@ -192,11 +207,6 @@ namespace DotNetHack.GUI
         /// Text
         /// </summary>
         public string Text { get; set; }
-
-        /// <summary>
-        /// ActiveWidget
-        /// </summary>
-        // public Widget ActiveWidget { get { return Widgets.Peek(); } }
 
         /// <summary>
         /// Widgets
@@ -216,8 +226,7 @@ namespace DotNetHack.GUI
         /// <summary>
         /// Selectable
         /// </summary>
-        public bool Selectable { get; 
-            private set; }
+        public bool Selectable { get; private set; }
 
         /// <summary>
         /// Selected
@@ -307,6 +316,42 @@ namespace DotNetHack.GUI
                 Console.SetCursorPosition(x + 1, y + 1);
                 Console.Write(spacer);
             }
+        }
+
+        /// <summary>
+        /// Box
+        /// </summary>
+        /// <param name="aTitle">The Title</param>
+        /// <param name="x">The X-Coordinate</param>
+        /// <param name="y">The Y-Coordinate</param>
+        /// <param name="w">The Width.</param>
+        /// <param name="h">The Height.</param>
+        public void Box(string aTitle, int x, int y, int w, int h)
+        {
+            int l = aTitle.Length;
+            if (l < w)
+            {
+                Box(x, y, w, h);
+                Console.SetCursorPosition(x + ((w / 2) - (l / 2)), y);
+                Console.Write(aTitle);
+            }
+            else Box(aTitle, x, y, l + 2, h);
+        }
+
+        /// <summary>
+        /// Box
+        /// </summary>
+        /// <param name="aTile">The Title</param>
+        /// <param name="x">The X-Coordinate</param>
+        /// <param name="y">The Y-Coordinate</param>
+        /// <param name="w">The Width.</param>
+        /// <param name="h">The Height.</param>
+        /// <param name="ralign">Right Align?</param>
+        public void Box(string aTile, int x, int y, int w, int h, bool ralign)
+        {
+            if (!ralign)
+                Box(aTile, x, y, w, h);
+            else Box(aTile, Console.Width - (((aTile.Length > w ? aTile.Length + 2 : w)) + x), y, w, h);
         }
     }
 }

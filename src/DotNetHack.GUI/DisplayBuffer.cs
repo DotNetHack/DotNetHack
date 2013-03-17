@@ -1,6 +1,7 @@
 ﻿using DotNetHack.GUI.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace DotNetHack.GUI
     /// <summary>
     /// DisplayBuffer
     /// </summary>
+    [DebuggerDisplay("({Width}, {Height})")]
     public class DisplayBuffer : IDimensional, IColorScheme
     {
         /// <summary>
@@ -43,7 +45,7 @@ namespace DotNetHack.GUI
         /// <returns>A glyph</returns>
         public Glyph this[int x, int y]
         {
-            get { Invalidated = true;  return Buffer[x, y]; }
+            get { Invalidate();  return Buffer[x, y]; }
             set { Buffer[x, y] = value; }
         }
 
@@ -54,7 +56,7 @@ namespace DotNetHack.GUI
         /// <returns>A glyph</returns>
         public Glyph this[IPoint p]
         {
-            get { Invalidated = true; return Buffer[p.X, p.Y]; }
+            get { Invalidate(); return Buffer[p.X, p.Y]; }
             set { Buffer[p.X, p.Y] = value; }
         }
 

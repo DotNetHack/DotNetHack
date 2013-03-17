@@ -58,7 +58,11 @@
     <Compile Include="Widget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Widgets\Button.cs" />
+    <Compile Include="Widgets\Label.cs" />
+    <Compile Include="Widgets\Menu.cs" />
+    <Compile Include="Widgets\MessageBox.cs" />
     <Compile Include="Widgets\ProgressBar.cs" />
+    <Compile Include="Widgets\StatusBar.cs" />
     <Compile Include="Widgets\TextBox.cs" />
     <Compile Include="Widgets\Window.cs" />
   </ItemGroup>

@@ -32,7 +32,7 @@ namespace DotNetHack
         /// MainWidget
         /// </summary>
         public MainWindow()
-            : base("DotNetHack")
+            : base("DotNetHack", new Size(GUI.GUI.MaxSize().Width - 5, GUI.GUI.MaxSize().Height - 5))
         {
             KeyboardEvent += MainWidget_KeyboardEvent;
         }
@@ -64,6 +64,7 @@ namespace DotNetHack
             buttonOkay = new Button("Okay", 5, 7);
             buttonOkay.Visible = true;
             buttonOkay.OkayCallback = () => { };
+            buttonOkay.KeyboardEvent += buttonOkay_KeyboardEvent;
             this.Add(buttonOkay);
 
             // add a text box to this window
@@ -71,6 +72,16 @@ namespace DotNetHack
             txtBox.Visible = true;
             txtBox.OnEntered = (string s) => { };
             this.Add(txtBox);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void buttonOkay_KeyboardEvent(object sender, GUI.Events.GUIKeyboardEventArgs e)
+        {
+
         }
 
         /// <summary>

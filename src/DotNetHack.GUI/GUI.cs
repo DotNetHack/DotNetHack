@@ -39,14 +39,20 @@ namespace DotNetHack.GUI
                 // critical section
                 lock (syncRoot)
                 {
-                    foreach (var w in root.Widgets.Where(v => v.Visible && v.Console.Invalidated))
-                        DrawWidget(w);
+                    Widget.Traverse(DrawWidget, root, w => w.Console.Invalidated && w.Visible);
                 }
 
                 PopAndSetCursorState();
-
-                Thread.Sleep(100);
             }
+        }
+
+        /// <summary>
+        /// MaxSize
+        /// </summary>
+        /// <returns>the maxiumim size for the physical console</returns>
+        public static Size MaxSize()
+        {
+            return new Size(Console.WindowWidth - 1, Console.WindowHeight);
         }
 
         /// <summary>
@@ -59,7 +65,7 @@ namespace DotNetHack.GUI
                 while (!done)
                 {
                     if (Console.KeyAvailable)
-                    {
+                    {                      
                         KeyboardCallback(Console.ReadKey(true));
                     }
 
@@ -83,10 +89,16 @@ namespace DotNetHack.GUI
                 for (int x = 0; x <= w.Console.Width; ++x)
                 {
                     Glyph g = w.Console[x, y];
-                    Console.SetCursorPosition(screenLocation.X + x, screenLocation.Y + y);
-                    Console.ForegroundColor = g.FG;
-                    Console.BackgroundColor = g.BG;
-                    Console.Write(g.G);
+
+                    if (Buffer[screenLocation.X + x, screenLocation.Y + y] != g)
+                    {
+                        Console.SetCursorPosition(screenLocation.X + x, screenLocation.Y + y);
+                        Console.ForegroundColor = g.FG;
+                        Console.BackgroundColor = g.BG;
+                        Console.Write(g.G);
+
+                        Buffer[x, y] = g;
+                    }
                 }
             }
 
@@ -94,14 +106,23 @@ namespace DotNetHack.GUI
         }
 
         /// <summary>
+        /// DisplayBuffer
+        /// </summary>
+        static GUI()
+        {
+            CursorStateStack = new Stack<Utility.CursorState>();
+            Buffer = new DisplayBuffer(MaxSize());
+        }
+
+        /// <summary>
+        /// Buffer
+        /// </summary>
+        internal static DisplayBuffer Buffer { get; set; }
+
+        /// <summary>
         /// KeyboardCallback
         /// </summary>
         public event Action<ConsoleKeyInfo> KeyboardCallback;
-
-        /// <summary>
-        /// Screen
-        /// </summary>
-        public DisplayBuffer Screen { get; private set; }
 
         /// <summary>
         /// ScreenCenter
@@ -115,6 +136,21 @@ namespace DotNetHack.GUI
                     Console.WindowHeight / 2);
             }
         }
+
+        /// <summary>
+        /// ScreenWidth
+        /// </summary>
+        public static int ScreenWidth { get { return Console.WindowWidth; } }
+
+        /// <summary>
+        /// ScreenHeight
+        /// </summary>
+        public static int ScreenHeight { get { return Console.WindowHeight; } }
+
+        /// <summary>
+        /// ScreenSize
+        /// </summary>
+        public static Size ScreenSize { get { return new Size(ScreenWidth, ScreenHeight); } }
 
         #region Cursor State Stack
 
@@ -171,7 +207,7 @@ namespace DotNetHack.GUI
         /// <summary>
         /// GUI Constructor
         /// </summary>
-        private GUI() { CursorStateStack = new Stack<Utility.CursorState>(); }
+        private GUI() { }
 
         /// <summary>
         /// Instance

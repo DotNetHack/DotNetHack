@@ -1,6 +1,7 @@
 ﻿using DotNetHack.GUI.Events;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace DotNetHack.GUI.Widgets
     /// <summary>
     /// ProgressBar
     /// </summary>
+   [DebuggerDisplay("{Value}")]
     public class ProgressBar : Widget
     {
         /// <summary>

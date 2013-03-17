@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,15 +10,17 @@ namespace DotNetHack.GUI.Widgets
     /// <summary>
     /// Window
     /// </summary>
+    [DebuggerDisplay("{Title}")]
     public class Window : Widget
     {
         /// <summary>
         /// Window
         /// </summary>
         /// <param name="text"></param>
-        public Window(string text)
-            : base(text, 1, 1, 30 , 10)
+        public Window(string text, Size size)
+            : base(text, 1, 1, size.Width, size.Height)
         {
+            KeyboardEvent += Window_KeyboardEvent;
         }
 
         /// <summary>
@@ -26,8 +29,6 @@ namespace DotNetHack.GUI.Widgets
         public override void InitializeWidget()
         {
             base.InitializeWidget();
-
-            KeyboardEvent += Window_KeyboardEvent;
         }
 
         /// <summary>
@@ -40,8 +41,7 @@ namespace DotNetHack.GUI.Widgets
             switch (e.ConsoleKeyInfo.Key)
             {
                 case ConsoleKey.Escape:
-                    Dispose();
-                   
+                    Dispose();            
                     break;
             }
         }
@@ -55,5 +55,10 @@ namespace DotNetHack.GUI.Widgets
 
             Box(0, 0, Width, Height);
         }
+
+        /// <summary>
+        /// Title
+        /// </summary>
+        public string Title { get { return Text; } set { Text = value; } }
     }
 }

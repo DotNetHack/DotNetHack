@@ -3,7 +3,7 @@
   <Class Name="DotNetHack.GUI.DisplayBuffer">
     <Position X="0.5" Y="1" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACBAAggAIACAAAAEAACAAAAAAAIAAAAAFAQAA=</HashCode>
+      <HashCode>AAAAAAAGBACggAIACAAAAEgACAAAAAAAIAQAAAFAQAA=</HashCode>
       <FileName>DisplayBuffer.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -11,27 +11,18 @@
   <Class Name="DotNetHack.GUI.Widget">
     <Position X="5.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAOAAAgABCAgoAAAEAIAAEAICAIEAAAIAACACAAAAEA=</HashCode>
+      <HashCode>ACOAAIiABDAgoQAgEAIAAEAICAIEAAAIAAAASAAAAAI=</HashCode>
       <FileName>Widget.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Location" />
       <Property Name="Size" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DotNetHack.GUI.GUI">
-    <Position X="5.75" Y="7.5" Width="2" />
-    <AssociationLine Name="instance" Type="DotNetHack.GUI.GUI" ManuallyRouted="true">
-      <Path>
-        <Point X="6.459" Y="11.882" />
-        <Point X="6.459" Y="12.132" />
-        <Point X="7.055" Y="12.132" />
-        <Point X="7.055" Y="11.882" />
-      </Path>
-    </AssociationLine>
+    <Position X="5.5" Y="9" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAQIAAIQBQBAgAAQAAAABAAAAAQACAAAAAAAI=</HashCode>
+      <HashCode>AAAQAAAAQMAAIABQAAoAAQAACABAAAAAQgCAAAAAQAI=</HashCode>
       <FileName>GUI.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -55,32 +46,68 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="DotNetHack.GUI.Widgets.Button">
-    <Position X="9" Y="2" Width="1.5" />
+    <Position X="16.75" Y="2.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="DotNetHack.GUI.Widgets.Button.ButtonDecoration" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Widgets\Button.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEAAAIAgAAACAAACAAAAIAAAAAEAAAIIABAAAABAAA=</HashCode>
       <FileName>Widgets\Button.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DotNetHack.GUI.Widgets.ProgressBar">
-    <Position X="11" Y="3" Width="1.5" />
+    <Position X="18.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACACAAAAAEAQAAIAAAAAAAAAAAAEAAAACAIgAAAAAAA=</HashCode>
+      <HashCode>ACACQAAAAEEQAAIAAAAAAAAAAAAEAAAACAIgAAAQAAA=</HashCode>
       <FileName>Widgets\ProgressBar.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DotNetHack.GUI.Widgets.Window">
-    <Position X="9" Y="4" Width="1.5" />
+    <Position X="9.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEAAAAAAAAAAEAAAAAAAAAAAAAEAAAAEAAAAAAAAAA=</HashCode>
       <FileName>Widgets\Window.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.GUI.Widgets.Label">
+    <Position X="8.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Widgets\Label.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.GUI.Widgets.StatusBar">
+    <Position X="12.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Widgets\StatusBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.GUI.Widgets.TextBox">
+    <Position X="10.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEAAAAAAAEAAAEAAAAAAAAAAAAEAAAAAACQAAAAAAA=</HashCode>
+      <FileName>Widgets\TextBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotNetHack.GUI.Widgets.Menu" Collapsed="true">
+    <Position X="14.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Widgets\Menu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="DotNetHack.GUI.Glyph">
     <Position X="3.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACACAAAAAAAAIAIAAAAAAAAAAAAAAAAIAAAACAAAAAA=</HashCode>
+      <HashCode>ACACAAAAAAAAIAIEgAAAAAAAAAAAAIAIAAAACAAAAiA=</HashCode>
       <FileName>Glyph.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Struct>
   <Interface Name="DotNetHack.GUI.Interfaces.IScreenRegion">
     <Position X="3.25" Y="4.25" Width="1.5" />
@@ -118,7 +145,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="DotNetHack.GUI.Interfaces.IRectangle">
-    <Position X="11" Y="6.75" Width="1.5" />
+    <Position X="8" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IRectangle.cs</FileName>

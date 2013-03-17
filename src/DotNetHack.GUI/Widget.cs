@@ -153,7 +153,7 @@ namespace DotNetHack.GUI
         /// </summary>
         public virtual void InitializeWidget()
         {
-            Console.Clear(this);
+
         }
 
         /// <summary>

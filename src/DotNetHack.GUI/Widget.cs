@@ -93,15 +93,28 @@ namespace DotNetHack.GUI
                     }
                     break;
                 case ConsoleKey.Tab:
-                    if (Widgets.Count > 0)
-                    {
-                        Focus = Widgets[selector % Widgets.Count];
 
-                        if (IsSelectable && WidgetSelectedEvent != null)
+                    lock (Widgets)
+                    {
+                        if (Widgets.Count > 0)
                         {
-                            WidgetSelectedEvent(this, new EventArgs());
-                        }              
+                            Focus = Widgets[selector % Widgets.Count];
+
+                            // deselect everything
+                            foreach (var w in Widgets.Where(w => w.WidgetSelectedEvent != null))
+                            {
+                                w.WidgetSelectedEvent(w, new GUISelectionEventArgs(GUISelectionEventArgs.SelectionEventType.Deselected));
+                            }
+
+                            // fire selction event
+                            if (Focus.WidgetSelectedEvent != null && Focus != null)
+                            {
+                                Focus.WidgetSelectedEvent(Focus,
+                                    new GUISelectionEventArgs(GUISelectionEventArgs.SelectionEventType.Selected));
+                            }
+                        }
                     }
+
                     selector++;
                     break;
             }
@@ -240,7 +253,7 @@ namespace DotNetHack.GUI
         /// <summary>
         /// WidgetSelectedEvent
         /// </summary>
-        public EventHandler WidgetSelectedEvent;
+        public event EventHandler<GUISelectionEventArgs> WidgetSelectedEvent;
 
         /// <summary>
         /// EnableSelection

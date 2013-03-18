@@ -106,7 +106,7 @@ namespace DotNetHack.GUI
 
                 if (w.Widgets != null && w.Widgets.Count > 0)
                 {
-                    Traverse(action, w);
+                    Traverse(action, w, predicate);
                 }
             }
         }

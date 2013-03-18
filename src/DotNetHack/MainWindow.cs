@@ -29,11 +29,6 @@ namespace DotNetHack
         private TextBox txtBox = null;
 
         /// <summary>
-        /// MenuBar
-        /// </summary>
-        MenuBar menuBar = null;
-
-        /// <summary>
         /// MainWidget
         /// </summary>
         public MainWindow()
@@ -78,9 +73,13 @@ namespace DotNetHack
             txtBox.OnEntered = (string s) => { };
             this.Add(txtBox);
 
-            menuBar = new MenuBar(this, new Menu.MenuItem() { Name = "File" }) { Visible = true};
-            menuBar.Location = new Point(5, 5);
-            this.Add(menuBar);
+            // Add the main menu bar
+            this.Add(new MenuBar(this, 
+                new Menu.MenuItem() { Name = "File" }, 
+                new Menu.MenuItem() { Name = "Edit" }) 
+                {
+                    Visible = true                
+                });
         }
 
 

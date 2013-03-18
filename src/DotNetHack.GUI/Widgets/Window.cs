@@ -18,7 +18,7 @@ namespace DotNetHack.GUI.Widgets
         /// </summary>
         /// <param name="text"></param>
         public Window(string text, Size size)
-            : base(text, 1, 1, size.Width, size.Height)
+            : base(text, 0, 0, size.Width, size.Height)
         {
             KeyboardEvent += Window_KeyboardEvent;
         }

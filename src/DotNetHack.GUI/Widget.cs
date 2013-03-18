@@ -104,7 +104,7 @@ namespace DotNetHack.GUI
                     action(w);
                 }
 
-                if (w.Widgets.Count > 0)
+                if (w.Widgets != null && w.Widgets.Count > 0)
                 {
                     Traverse(action, w);
                 }
@@ -154,6 +154,7 @@ namespace DotNetHack.GUI
                     }
 
                     selector++;
+
                     break;
             }
         }
@@ -190,9 +191,6 @@ namespace DotNetHack.GUI
             Visible = true;
 
             Console.ResetCursorPosition();
-
-            if (IsSelectable && !Console.Invalidated)
-                Console.Invalidate();
         }
 
         /// <summary>

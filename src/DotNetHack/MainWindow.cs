@@ -35,7 +35,6 @@ namespace DotNetHack
             : base("DotNetHack", new Size(GUI.GUI.ScreenSize.Width - 1, GUI.GUI.ScreenSize.Height - 2))
         {
             KeyboardEvent += MainWidget_KeyboardEvent;
-            
         }
 
 
@@ -73,7 +72,9 @@ namespace DotNetHack
             txtBox = new TextBox(5, 9, 15);
             txtBox.Visible = true;
             txtBox.OnEntered = (string s) => { };
-            this.Add(txtBox);           
+            this.Add(txtBox);
+
+            this.Add(new MenuBar(this, new Menu.MenuItem() { Name = "File" }) { Visible = true, });
         }
 
 
@@ -84,7 +85,13 @@ namespace DotNetHack
         /// <param name="e"></param>
         void buttonOkay_KeyboardEvent(object sender, GUI.Events.GUIKeyboardEventArgs e)
         {
-
+            switch (e.ConsoleKeyInfo.Key)
+            {
+                case ConsoleKey.Enter:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

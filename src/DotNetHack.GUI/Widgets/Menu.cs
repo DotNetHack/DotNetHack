@@ -22,22 +22,17 @@ namespace DotNetHack.GUI.Widgets
         }
 
         /// <summary>
-        /// Show
+        /// MenuItems
         /// </summary>
-        public override void Show()
-        {
-            base.Show();
-
-            Box(Location.X, Location.Y, Width, Height);
-        }
+        public List<MenuItem> MenuItems { get; set; }
 
         /// <summary>
-        /// MenuAction
+        /// MenuItem
         /// </summary>
-        public struct MenuAction
+        public struct MenuItem
         {
             /// <summary>
-            /// MenuAction Delegate
+            /// MenuItem Delegate
             /// </summary>
             /// <param name="argv"></param>
             public delegate void MActionDelegate(params object[] argv);
@@ -48,14 +43,9 @@ namespace DotNetHack.GUI.Widgets
             public string Name { get; set; }
 
             /// <summary>
-            /// ConsoleKey
-            /// </summary>
-            public string ConsoleKey { get; set; }
-
-            /// <summary>
             /// MAction
             /// </summary>
-            public MActionDelegate MAction { get; set; }
+            public Action MAction { get; set; }
 
             /// <summary>
             /// 
@@ -75,7 +65,7 @@ namespace DotNetHack.GUI.Widgets
         /// </summary>
         /// <param name="aTile"></param>
         /// <param name="aActions"></param>
-        public Menu(string aTile, MenuAction[] aActions)
+        public Menu(string aTile, MenuItem[] aActions)
         {
             // set menu actions, set title.
             MenuActions = aActions; Title = aTile;
@@ -159,7 +149,7 @@ namespace DotNetHack.GUI.Widgets
                 switch (input.Key)
                 {
                     case ConsoleKey.Enter:
-                        // wire into the MenuAction array via selector offset and
+                        // wire into the MenuItem array via selector offset and
                         // execute the associated action.
                         MenuActions[selector].MAction(argv);
                         return;
@@ -207,7 +197,7 @@ namespace DotNetHack.GUI.Widgets
             var input = Console.ReadKey();
             if (input.Key == ConsoleKey.Escape)
                 return;
-            foreach (MenuAction mAction in MenuActions)
+            foreach (MenuItem mAction in MenuActions)
                 if (mAction.MenuActionFilter(input))
                     mAction.MAction(argv);
             return;
@@ -217,7 +207,7 @@ namespace DotNetHack.GUI.Widgets
         /// <summary>
         /// 
         /// </summary>
-        public MenuAction[] MenuActions { get; set; }
+        public MenuItem[] MenuActions { get; set; }
 
         /// <summary>
         /// MActionDelegate
@@ -242,9 +232,9 @@ namespace DotNetHack.GUI.Widgets
         private bool MenuShown = false;
 
         /// <summary>
-        /// MenuAction
+        /// MenuItem
         /// </summary>
-        public struct MenuAction
+        public struct MenuItem
         {
             /// <summary>
             /// Name

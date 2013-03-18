@@ -49,6 +49,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DotNetHack.Core\DotNetHack.Core.csproj">
+      <Project>{cab13655-ae02-43b6-b1ab-64c25560324c}</Project>
+      <Name>DotNetHack.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotNetHack.GameEngine\DotNetHack.Engine.csproj">
+      <Project>{443149d6-6951-4231-9a5a-18e79c5dfd22}</Project>
+      <Name>DotNetHack.Engine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DotNetHack.GUI\DotNetHack.GUI.csproj">
       <Project>{da7d36b9-6b24-480e-bad4-6807954a5eb6}</Project>
       <Name>DotNetHack.GUI</Name>

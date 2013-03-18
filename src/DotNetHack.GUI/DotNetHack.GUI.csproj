@@ -61,6 +61,7 @@
     <Compile Include="Widgets\Label.cs" />
     <Compile Include="Widgets\Menu.cs" />
     <Compile Include="Widgets\MessageBox.cs" />
+    <Compile Include="Widgets\Panel.cs" />
     <Compile Include="Widgets\ProgressBar.cs" />
     <Compile Include="Widgets\StatusBar.cs" />
     <Compile Include="Widgets\TextBox.cs" />

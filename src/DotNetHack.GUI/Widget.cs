@@ -19,15 +19,23 @@ namespace DotNetHack.GUI
         internal static int creationOrder = 0;
 
         /// <summary>
+        /// selector
+        /// </summary>
+        int selector = 1;
+
+        /// <summary>
         /// Focused
         /// </summary>
         static Widget Focus;
 
         /// <summary>
-        /// Create a new widget
+        /// Create a new Widget
         /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
+        /// <param name="text">the text for the widget</param>
+        /// <param name="x">x-coordinate</param>
+        /// <param name="y">y-coordinate</param>
+        /// <param name="width">the widget of the widget</param>
+        /// <param name="height">the height of the widget</param>
         public Widget(string text, int x, int y, int width, int height)
         {
             WidgetID = creationOrder++;
@@ -43,16 +51,47 @@ namespace DotNetHack.GUI
             // Most widgets are not selectable by default
             IsSelectable = false;
 
+            // TODO: Keyboard events only fired from root widget
+            // this needs to be moved.
             if (WidgetID <= 1)
+            {
                 GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
+            }
         }
 
+
         /// <summary>
-        /// Traverse
+        /// Create a new Widget
         /// </summary>
-        /// <param name="action"></param>
-        /// <param name="root"></param>
-        /// <param name="predicate"></param>
+        /// <param name="text">the text to initialize the widget with</param>
+        /// <param name="region">the screen region for the widget</param>
+        public Widget(string text, IScreenRegion region)
+            : this(text, region.Location.X, region.Location.Y, region.Width, region.Height)
+        { }
+
+        /// <summary>
+        /// Create a new Widget
+        /// </summary>
+        /// <param name="text">the text to initialize the widget with</param>
+        public Widget(string text)
+            : this(text, 0, 0, 0, 0) { }
+
+        /// <summary>
+        /// Create a new widget without text
+        /// </summary>
+        /// <param name="x">x-coordinate</param>
+        /// <param name="y">y-coordinate</param>
+        /// <param name="width">the widget of the widget</param>
+        /// <param name="height">the height of the widget</param>
+        public Widget(int x, int y, int width, int height)
+            : this("", x, y, width, height) { }
+
+        /// <summary>
+        /// Traverse widgets given a root widget
+        /// </summary>
+        /// <param name="action">the action to take for each</param>
+        /// <param name="root">the root widget to start at</param>
+        /// <param name="predicate">the predicate, will not take action if false.</param>
         internal static void Traverse(Action<Widget> action, Widget root, Predicate<Widget> predicate = null)
         {
             if (root.Widgets.Count <= 0)
@@ -103,10 +142,11 @@ namespace DotNetHack.GUI
                                 Focus.Selected = false;
                                 Focus.Console.Invalidate();
                             }
-                            
+
                             Focus = Widgets[selector % Widgets.Count];
                             Focus.Selected = true;
                             Focus.Console.Invalidate();
+                            Focus.OnWidgetSelectedEvent();
 
                             if (Widgets.Count(w => w.Selected) > 1)
                                 throw new ApplicationException();
@@ -118,31 +158,6 @@ namespace DotNetHack.GUI
             }
         }
 
-        /// <summary>
-        /// selector
-        /// </summary>
-        int selector = 1;
-
-        /// <summary>
-        /// Create a new Widget
-        /// </summary>
-        /// <param name="text">the text to initialize the widget with</param>
-        /// <param name="region">the screen region for the widget</param>
-        public Widget(string text, IScreenRegion region)
-            : this(text, region.Location.X, region.Location.Y, region.Width, region.Height)
-        {
-
-        }
-
-        /// <summary>
-        /// Create a new Widget
-        /// </summary>
-        /// <param name="text">the text to initialize the widget with</param>
-        public Widget(string text)
-            : this(text, 0, 0, 0, 0)
-        {
-
-        }
 
         /// <summary>
         /// Console
@@ -176,7 +191,7 @@ namespace DotNetHack.GUI
 
             Console.ResetCursorPosition();
 
-            if (IsSelectable)
+            if (IsSelectable && !Console.Invalidated)
                 Console.Invalidate();
         }
 
@@ -243,6 +258,8 @@ namespace DotNetHack.GUI
         /// </summary>
         public int WidgetID { get; private set; }
 
+        #region Widget Selection
+
         /// <summary>
         /// IsSelectable
         /// </summary>
@@ -254,9 +271,15 @@ namespace DotNetHack.GUI
         public bool Selected { get; set; }
 
         /// <summary>
-        /// WidgetSelectedEvent
+        /// OnWidgetSelectedEvent
         /// </summary>
-        public event EventHandler WidgetSelectedEvent;
+        protected void OnWidgetSelectedEvent()
+        {
+            if (WidgetSelectedEvent != null)
+            {
+                WidgetSelectedEvent(this, new EventArgs());
+            }
+        }
 
         /// <summary>
         /// EnableSelection
@@ -274,12 +297,19 @@ namespace DotNetHack.GUI
             IsSelectable = false;
         }
 
+        #endregion
+
         #region Events
 
         /// <summary>
         /// KeyboardEvent
         /// </summary>
         public event EventHandler<GUIKeyboardEventArgs> KeyboardEvent;
+
+        /// <summary>
+        /// WidgetSelectedEvent
+        /// </summary>
+        public event EventHandler WidgetSelectedEvent;
 
         #endregion
 

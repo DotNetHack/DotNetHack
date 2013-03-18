@@ -11,7 +11,7 @@
   <Class Name="DotNetHack.GUI.Widget">
     <Position X="5.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ACOAAIiABDAgoQAgEAIAAEAICAIEAAAIAAAASAAAAAI=</HashCode>
+      <HashCode>ACOAAIiABCAgoQAgEAJAAEAIDAIEAAAIAAAASAAAAAI=</HashCode>
       <FileName>Widget.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -22,7 +22,7 @@
   <Class Name="DotNetHack.GUI.GUI">
     <Position X="5.5" Y="9" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAQAAAAQMAAIABQAAoAAQAACABAAAAAQgCAAAAAQAI=</HashCode>
+      <HashCode>AAAQAAAAQMAAIABQAAoAAQAACABAAAAAQACAAAACQAI=</HashCode>
       <FileName>GUI.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

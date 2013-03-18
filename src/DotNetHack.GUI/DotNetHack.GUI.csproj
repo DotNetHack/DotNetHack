@@ -42,7 +42,6 @@
     <Compile Include="Attributes\GUIProperty.cs" />
     <Compile Include="DisplayBuffer.cs" />
     <Compile Include="Events\GUIEventArgs.cs" />
-    <Compile Include="Events\GUISelectionEventArgs.cs" />
     <Compile Include="Events\GUIKeyboardEventArgs.cs" />
     <Compile Include="Events\GUIProgressBarEventArgs.cs" />
     <Compile Include="Glyph.cs" />

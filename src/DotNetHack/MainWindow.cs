@@ -73,34 +73,9 @@ namespace DotNetHack
             txtBox = new TextBox(5, 9, 15);
             txtBox.Visible = true;
             txtBox.OnEntered = (string s) => { };
-            txtBox.WidgetSelectedEvent += txtBox_WidgetSelectedEvent;
-            this.Add(txtBox);
-
-            
+            this.Add(txtBox);           
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void txtBox_WidgetSelectedEvent(object sender, GUI.Events.GUISelectionEventArgs e)
-        {
-            var w = ((Widget)sender);
-            switch (e.Type)
-            {
-                case GUI.Events.GUISelectionEventArgs.SelectionEventType.Deselected:
-                                w.Console.ForegroundColor = ConsoleColor.Magenta;
-                                w.Console.Write("!");
-                            w.Console.Invalidate();
-                            break;
-                case GUI.Events.GUISelectionEventArgs.SelectionEventType.Selected:
-                                                    w.Console.ForegroundColor = ConsoleColor.Yellow;
-                                w.Console.Write("@");
-                            w.Console.Invalidate();
-                            break;
-            }
-        }
 
         /// <summary>
         /// 

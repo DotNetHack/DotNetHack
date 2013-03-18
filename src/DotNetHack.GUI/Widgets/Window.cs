@@ -53,7 +53,7 @@ namespace DotNetHack.GUI.Widgets
         {
             base.Show();
 
-            Box(0, 0, Width, Height);
+            Box(Title, 0, 0, Width, Height);
         }
 
         /// <summary>

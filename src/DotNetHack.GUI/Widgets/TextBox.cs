@@ -102,11 +102,13 @@ namespace DotNetHack.GUI.Widgets
 
             base.Show();
 
-            Console.SetCursorPosition(0, 0);
-
             if (Selected)
             {
                 Console.BackgroundColor = ConsoleColor.DarkGray;
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.Black;
             }
 
             for (int index = 0; index < MaxLength; ++index)

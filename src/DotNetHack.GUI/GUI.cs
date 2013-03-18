@@ -86,14 +86,14 @@ namespace DotNetHack.GUI
                 {
                     Glyph g = w.Console[x, y];
 
-                    if (Buffer[screenLocation.X + x, screenLocation.Y + y] != g)
+                    //if (Buffer[screenLocation.X + x, screenLocation.Y + y] != g)
                     {
-                        Console.SetCursorPosition(screenLocation.X + x, screenLocation.Y + y);
+                        Console.SetCursorPosition(screenLocation.X + x - 1, screenLocation.Y + y);
                         Console.ForegroundColor = g.FG;
                         Console.BackgroundColor = g.BG;
                         Console.Write(g.G);
 
-                        Buffer[x, y] = g;
+                        //Buffer[x, y] = g;
                     }
                 }
             }

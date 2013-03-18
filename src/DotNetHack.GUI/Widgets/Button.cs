@@ -24,6 +24,7 @@ namespace DotNetHack.GUI.Widgets
             : base(text, x, y, text.Length + 2, 1)
         {
             this.decoration = decor;
+
             switch (decor)
             {
                 case ButtonDecoration.AngleBracket:
@@ -83,25 +84,29 @@ namespace DotNetHack.GUI.Widgets
 
             for (int index = 0; index < Text.Length; ++index)
             {
-                // normal text style
-                Console.BackgroundColor = ConsoleColor.Blue;
-                Console.ForegroundColor = ConsoleColor.White;
-
                 // decoration text style
                 if (index == 0 || index == Text.Length - 1)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.BackgroundColor = ConsoleColor.White;
-
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                }
+                else 
+                {
+                    // normal text style
                     if (Selected)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.BackgroundColor = ConsoleColor.Cyan;                       
+                        Console.BackgroundColor = ConsoleColor.Cyan;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
                 }
 
                 Console.Write(Text[index]);
-            }
+            } 
         }
 
         /// <summary>

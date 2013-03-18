@@ -98,20 +98,18 @@ namespace DotNetHack.GUI
                     {
                         if (Widgets.Count > 0)
                         {
+                            if (Focus != null)
+                            {
+                                Focus.Selected = false;
+                                Focus.Console.Invalidate();
+                            }
+                            
                             Focus = Widgets[selector % Widgets.Count];
+                            Focus.Selected = true;
+                            Focus.Console.Invalidate();
 
-                            // deselect everything
-                            foreach (var w in Widgets.Where(w => w.WidgetSelectedEvent != null))
-                            {
-                                w.WidgetSelectedEvent(w, new GUISelectionEventArgs(GUISelectionEventArgs.SelectionEventType.Deselected));
-                            }
-
-                            // fire selction event
-                            if (Focus.WidgetSelectedEvent != null && Focus != null)
-                            {
-                                Focus.WidgetSelectedEvent(Focus,
-                                    new GUISelectionEventArgs(GUISelectionEventArgs.SelectionEventType.Selected));
-                            }
+                            if (Widgets.Count(w => w.Selected) > 1)
+                                throw new ApplicationException();
                         }
                     }
 
@@ -166,7 +164,7 @@ namespace DotNetHack.GUI
         /// </summary>
         public virtual void InitializeWidget()
         {
-
+            Console.ResetCursorPosition();
         }
 
         /// <summary>
@@ -175,6 +173,11 @@ namespace DotNetHack.GUI
         public virtual void Show()
         {
             Visible = true;
+
+            Console.ResetCursorPosition();
+
+            if (IsSelectable)
+                Console.Invalidate();
         }
 
         /// <summary>
@@ -253,7 +256,7 @@ namespace DotNetHack.GUI
         /// <summary>
         /// WidgetSelectedEvent
         /// </summary>
-        public event EventHandler<GUISelectionEventArgs> WidgetSelectedEvent;
+        public event EventHandler WidgetSelectedEvent;
 
         /// <summary>
         /// EnableSelection

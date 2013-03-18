@@ -29,14 +29,18 @@ namespace DotNetHack
         private TextBox txtBox = null;
 
         /// <summary>
+        /// MenuBar
+        /// </summary>
+        MenuBar menuBar = null;
+
+        /// <summary>
         /// MainWidget
         /// </summary>
         public MainWindow()
-            : base("DotNetHack", new Size(GUI.GUI.ScreenSize.Width - 1, GUI.GUI.ScreenSize.Height - 2))
+            : base("DotNetHack", new Size(GUI.GUI.ScreenSize.Width - 1, GUI.GUI.ScreenSize.Height - 1))
         {
             KeyboardEvent += MainWidget_KeyboardEvent;
         }
-
 
         /// <summary>
         /// 
@@ -74,7 +78,9 @@ namespace DotNetHack
             txtBox.OnEntered = (string s) => { };
             this.Add(txtBox);
 
-            this.Add(new MenuBar(this, new Menu.MenuItem() { Name = "File" }) { Visible = true, });
+            menuBar = new MenuBar(this, new Menu.MenuItem() { Name = "File" }) { Visible = true};
+            menuBar.Location = new Point(5, 5);
+            this.Add(menuBar);
         }
 
 

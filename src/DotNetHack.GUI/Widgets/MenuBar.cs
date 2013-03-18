@@ -16,29 +16,12 @@ namespace DotNetHack.GUI
         /// MenuBar
         /// </summary>
         public MenuBar(Window parent, params Menu.MenuItem[] items)
-            : base("", parent.Location.X + 1, parent.Location.Y + 1, parent.Width - 2, 1)
+            : base("", 0, 0, 0, 0)
         {
             Parent = parent;
 
-            int x = 1;
-
-            foreach (var s in items)
-            {
-                Widgets.Add(new Button(s.Name, x, 0) 
-                {
-                    // wire up okay callback to menu action
-                    OkayCallback = s.MAction
-                });
-
-                // offset placement of future buttons if any
-                x += s.Name.Length + 3;
-            }
+            MenuItems = items;
         }
-
-        /// <summary>
-        /// Parent
-        /// </summary>
-        Window Parent { get; set; }
 
         /// <summary>
         /// Show
@@ -46,6 +29,21 @@ namespace DotNetHack.GUI
         public override void Show()
         {
             base.Show();
+
+            foreach (var s in MenuItems)
+            {
+                Console.ResetCursorPosition();
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write(s.Name);
+            }
         }
+
+
+        readonly Menu.MenuItem[] MenuItems;
+
+        /// <summary>
+        /// Parent
+        /// </summary>
+        Window Parent { get; set; }
     }
 }

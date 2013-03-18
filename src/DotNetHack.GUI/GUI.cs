@@ -19,6 +19,11 @@ namespace DotNetHack.GUI
         volatile bool done = false;
 
         /// <summary>
+        /// inputInteruppted
+        /// </summary>
+        volatile bool inputInteruppted = false;
+
+        /// <summary>
         /// Run
         /// </summary>
         public void Run(Widget root)
@@ -60,7 +65,7 @@ namespace DotNetHack.GUI
             {
                 while (!done)
                 {
-                    if (Console.KeyAvailable)
+                    if (Console.KeyAvailable && !inputInteruppted)
                     {
                         KeyboardCallback(Console.ReadKey(true));
                     }
@@ -80,20 +85,20 @@ namespace DotNetHack.GUI
 
             w.Show();
 
-            for (int y = 1; y <= w.Console.Height; ++y)
+            for (int y = 0; y <= w.Console.Height; ++y)
             {
-                for (int x = 1; x <= w.Console.Width; ++x)
+                for (int x = 0; x <= w.Console.Width; ++x)
                 {
-                    Glyph g = w.Console[x - 1, y - 1];
+                    Glyph g = w.Console[x, y];
 
-                    if (Buffer[screenLocation.X + x - 1, screenLocation.Y - 1 + y] != g)
+                    if (Buffer[screenLocation.X + x, screenLocation.Y + y] != g)
                     {
-                        Console.SetCursorPosition(screenLocation.X + x - 1, screenLocation.Y - 1 + y);
+                        Console.SetCursorPosition(screenLocation.X + x, screenLocation.Y + y);
                         Console.ForegroundColor = g.FG;
                         Console.BackgroundColor = g.BG;
                         Console.Write(g.G);
 
-                        Buffer[x - 1, y - 1] = g;
+                        Buffer[x, y] = g;
                     }
                 }
             }

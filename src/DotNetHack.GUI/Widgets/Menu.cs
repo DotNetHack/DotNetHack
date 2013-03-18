@@ -15,16 +15,60 @@ namespace DotNetHack.GUI.Widgets
         /// <summary>
         /// Menu
         /// </summary>
-        public Menu()
-            : base("Menu Title", 0, 0, 10, 10)
+        public Menu(Widget parent, params MenuItem[] items)
+            : base("Menu Title", 0, 0, 0, 0)
         {
-            
+            MenuItems = new List<MenuItem>(items.Length);
+            MenuItems.AddRange(items);
+            Size = new Size(MenuItems.Max(f => f.Name.Length) + 2, MenuItems.Count + 3);
         }
+
+        /// <summary>
+        /// The menu's parent
+        /// </summary>
+        public Widget Parent { get; protected set; }
 
         /// <summary>
         /// MenuItems
         /// </summary>
         public List<MenuItem> MenuItems { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="location"></param>
+        public void Show(Point p)
+        {
+            System.Console.SetCursorPosition(1, 1);
+            foreach(var m1 in MenuItems)
+            {
+                System.Console.WriteLine(m1.Name);
+            }
+            
+        }
+
+        /// <summary>
+        /// Show
+        /// </summary>
+        /// <param name="subMenu"></param>
+        public void Show(Menu subMenu)
+        {
+            Clear();
+
+            for (int index = 0; index < MenuItems.Count; ++index)
+            {
+                Console.SetCursorPosition(1, index);
+                Console.Write("> " + MenuItems[index].Name);
+            }
+        }
+
+        /// <summary>
+        /// Show
+        /// </summary>
+        public override void Show()
+        {
+            
+        }
 
         /// <summary>
         /// MenuItem

@@ -35,6 +35,8 @@ namespace DotNetHack.GUI.Widgets
             TC = ConsoleColor.Yellow;
             BG = ConsoleColor.Cyan;
             FG = ConsoleColor.Black;
+
+            DisableSelection();
         }
 
         /// <summary>

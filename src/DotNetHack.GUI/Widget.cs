@@ -320,6 +320,22 @@ namespace DotNetHack.GUI
         }
 
         /// <summary>
+        /// Box the widget
+        /// </summary>
+        public void Box()
+        {
+            Box(Text, 0, 0, Width, Height);
+        }
+
+        /// <summary>
+        /// Clear
+        /// </summary>
+        public void Clear()
+        {
+            Console.Clear(this);
+        }
+
+        /// <summary>
         /// Box
         /// </summary>
         /// <param name="x">The X-Coordinate</param>

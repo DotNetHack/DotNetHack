@@ -60,6 +60,8 @@ namespace DotNetHack.Server
                 connection.Open();
 
             }
+
+            return 0;
         }
 
         /// <summary>

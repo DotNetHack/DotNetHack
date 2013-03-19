@@ -47,6 +47,6 @@ namespace DotNetHack.GUI
         /// <summary>
         /// Parent
         /// </summary>
-        Window Parent { get; private set; }
+        Window Parent { get; set; }
     }
 }

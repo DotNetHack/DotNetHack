@@ -44,14 +44,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DNHPacket.cs" />
-    <Compile Include="DNHService.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetHack.RPC\DotNetHack.RPC.csproj">
+      <Project>{b45fec7a-3c56-440d-ad61-e3bd2a7e0433}</Project>
+      <Name>DotNetHack.RPC</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

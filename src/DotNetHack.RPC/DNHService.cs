@@ -17,6 +17,11 @@ using Thrift.Transport;
 
 public partial class DNHService {
   public interface Iface {
+    int authenticate(string userName, string password);
+    #if SILVERLIGHT
+    IAsyncResult Begin_authenticate(AsyncCallback callback, object state, string userName, string password);
+    int End_authenticate(IAsyncResult asyncResult);
+    #endif
     void sendPacket(DNHPacket packet);
     #if SILVERLIGHT
     IAsyncResult Begin_sendPacket(AsyncCallback callback, object state, DNHPacket packet);
@@ -53,6 +58,69 @@ public partial class DNHService {
       get { return oprot_; }
     }
 
+
+    
+    #if SILVERLIGHT
+    public IAsyncResult Begin_authenticate(AsyncCallback callback, object state, string userName, string password)
+    {
+      return send_authenticate(callback, state, userName, password);
+    }
+
+    public int End_authenticate(IAsyncResult asyncResult)
+    {
+      oprot_.Transport.EndFlush(asyncResult);
+      return recv_authenticate();
+    }
+
+    #endif
+
+    public int authenticate(string userName, string password)
+    {
+      #if !SILVERLIGHT
+      send_authenticate(userName, password);
+      return recv_authenticate();
+
+      #else
+      var asyncResult = Begin_authenticate(null, null, userName, password);
+      return End_authenticate(asyncResult);
+
+      #endif
+    }
+    #if SILVERLIGHT
+    public IAsyncResult send_authenticate(AsyncCallback callback, object state, string userName, string password)
+    #else
+    public void send_authenticate(string userName, string password)
+    #endif
+    {
+      oprot_.WriteMessageBegin(new TMessage("authenticate", TMessageType.Call, seqid_));
+      authenticate_args args = new authenticate_args();
+      args.UserName = userName;
+      args.Password = password;
+      args.Write(oprot_);
+      oprot_.WriteMessageEnd();
+      #if SILVERLIGHT
+      return oprot_.Transport.BeginFlush(callback, state);
+      #else
+      oprot_.Transport.Flush();
+      #endif
+    }
+
+    public int recv_authenticate()
+    {
+      TMessage msg = iprot_.ReadMessageBegin();
+      if (msg.Type == TMessageType.Exception) {
+        TApplicationException x = TApplicationException.Read(iprot_);
+        iprot_.ReadMessageEnd();
+        throw x;
+      }
+      authenticate_result result = new authenticate_result();
+      result.Read(iprot_);
+      iprot_.ReadMessageEnd();
+      if (result.__isset.success) {
+        return result.Success;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "authenticate failed: unknown result");
+    }
 
     
     #if SILVERLIGHT
@@ -180,6 +248,7 @@ public partial class DNHService {
     public Processor(Iface iface)
     {
       iface_ = iface;
+      processMap_["authenticate"] = authenticate_Process;
       processMap_["sendPacket"] = sendPacket_Process;
       processMap_["retrievePacket"] = retrievePacket_Process;
     }
@@ -214,6 +283,19 @@ public partial class DNHService {
       return true;
     }
 
+    public void authenticate_Process(int seqid, TProtocol iprot, TProtocol oprot)
+    {
+      authenticate_args args = new authenticate_args();
+      args.Read(iprot);
+      iprot.ReadMessageEnd();
+      authenticate_result result = new authenticate_result();
+      result.Success = iface_.authenticate(args.UserName, args.Password);
+      oprot.WriteMessageBegin(new TMessage("authenticate", TMessageType.Reply, seqid)); 
+      result.Write(oprot);
+      oprot.WriteMessageEnd();
+      oprot.Transport.Flush();
+    }
+
     public void sendPacket_Process(int seqid, TProtocol iprot, TProtocol oprot)
     {
       sendPacket_args args = new sendPacket_args();
@@ -238,6 +320,213 @@ public partial class DNHService {
       result.Write(oprot);
       oprot.WriteMessageEnd();
       oprot.Transport.Flush();
+    }
+
+  }
+
+
+  #if !SILVERLIGHT
+  [Serializable]
+  #endif
+  public partial class authenticate_args : TBase
+  {
+    private string _userName;
+    private string _password;
+
+    public string UserName
+    {
+      get
+      {
+        return _userName;
+      }
+      set
+      {
+        __isset.userName = true;
+        this._userName = value;
+      }
+    }
+
+    public string Password
+    {
+      get
+      {
+        return _password;
+      }
+      set
+      {
+        __isset.password = true;
+        this._password = value;
+      }
+    }
+
+
+    public Isset __isset;
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public struct Isset {
+      public bool userName;
+      public bool password;
+    }
+
+    public authenticate_args() {
+    }
+
+    public void Read (TProtocol iprot)
+    {
+      TField field;
+      iprot.ReadStructBegin();
+      while (true)
+      {
+        field = iprot.ReadFieldBegin();
+        if (field.Type == TType.Stop) { 
+          break;
+        }
+        switch (field.ID)
+        {
+          case 1:
+            if (field.Type == TType.String) {
+              UserName = iprot.ReadString();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 2:
+            if (field.Type == TType.String) {
+              Password = iprot.ReadString();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          default: 
+            TProtocolUtil.Skip(iprot, field.Type);
+            break;
+        }
+        iprot.ReadFieldEnd();
+      }
+      iprot.ReadStructEnd();
+    }
+
+    public void Write(TProtocol oprot) {
+      TStruct struc = new TStruct("authenticate_args");
+      oprot.WriteStructBegin(struc);
+      TField field = new TField();
+      if (UserName != null && __isset.userName) {
+        field.Name = "userName";
+        field.Type = TType.String;
+        field.ID = 1;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteString(UserName);
+        oprot.WriteFieldEnd();
+      }
+      if (Password != null && __isset.password) {
+        field.Name = "password";
+        field.Type = TType.String;
+        field.ID = 2;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteString(Password);
+        oprot.WriteFieldEnd();
+      }
+      oprot.WriteFieldStop();
+      oprot.WriteStructEnd();
+    }
+
+    public override string ToString() {
+      StringBuilder sb = new StringBuilder("authenticate_args(");
+      sb.Append("UserName: ");
+      sb.Append(UserName);
+      sb.Append(",Password: ");
+      sb.Append(Password);
+      sb.Append(")");
+      return sb.ToString();
+    }
+
+  }
+
+
+  #if !SILVERLIGHT
+  [Serializable]
+  #endif
+  public partial class authenticate_result : TBase
+  {
+    private int _success;
+
+    public int Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+
+    public Isset __isset;
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public struct Isset {
+      public bool success;
+    }
+
+    public authenticate_result() {
+    }
+
+    public void Read (TProtocol iprot)
+    {
+      TField field;
+      iprot.ReadStructBegin();
+      while (true)
+      {
+        field = iprot.ReadFieldBegin();
+        if (field.Type == TType.Stop) { 
+          break;
+        }
+        switch (field.ID)
+        {
+          case 0:
+            if (field.Type == TType.I32) {
+              Success = iprot.ReadI32();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          default: 
+            TProtocolUtil.Skip(iprot, field.Type);
+            break;
+        }
+        iprot.ReadFieldEnd();
+      }
+      iprot.ReadStructEnd();
+    }
+
+    public void Write(TProtocol oprot) {
+      TStruct struc = new TStruct("authenticate_result");
+      oprot.WriteStructBegin(struc);
+      TField field = new TField();
+
+      if (this.__isset.success) {
+        field.Name = "Success";
+        field.Type = TType.I32;
+        field.ID = 0;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteI32(Success);
+        oprot.WriteFieldEnd();
+      }
+      oprot.WriteFieldStop();
+      oprot.WriteStructEnd();
+    }
+
+    public override string ToString() {
+      StringBuilder sb = new StringBuilder("authenticate_result(");
+      sb.Append("Success: ");
+      sb.Append(Success);
+      sb.Append(")");
+      return sb.ToString();
     }
 
   }

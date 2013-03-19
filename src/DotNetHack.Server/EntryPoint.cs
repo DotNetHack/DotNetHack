@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,8 @@ namespace DotNetHack.Server
         /// <param name="packet"></param>
         public void sendPacket(DNHPacket packet)
         {
-            packets.Enqueue(packet);
+            Console.WriteLine(packet);
+            Packets.Enqueue(packet);
         }
 
         /// <summary>
@@ -37,6 +39,7 @@ namespace DotNetHack.Server
         /// <returns></returns>
         public DNHPacket retrievePacket(int uid)
         {
+            Console.WriteLine(uid);
             return new DNHPacket() 
             {
                 Uid = 0,
@@ -45,11 +48,25 @@ namespace DotNetHack.Server
         }
 
         /// <summary>
+        /// authenticate
+        /// </summary>
+        /// <param name="userName">the user name</param>
+        /// <param name="password">the password</param>
+        /// <returns>the identifier</returns>
+        public int authenticate(string userName, string password)
+        {
+            using (var connection = new SqlConnection())
+            {
+                connection.Open();
+
+            }
+        }
+
+        /// <summary>
         /// packets
         /// </summary>
-        Queue<DNHPacket> packets = new Queue<DNHPacket>(1024);
+        Queue<DNHPacket> Packets = new Queue<DNHPacket>(1024);
     }
-
 
     /// <summary>
     /// EntryPoint for DotNetHack Server

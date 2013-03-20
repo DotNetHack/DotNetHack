@@ -19,12 +19,9 @@ namespace DotNetHack.GUI
         volatile bool done = false;
 
         /// <summary>
-        /// Initialize
+        /// inputInteruppted
         /// </summary>
-        public void Initialize(Action<ConsoleKey> keyboardCallback)
-        {
-            KeyboardCallback = keyboardCallback;
-        }
+        volatile bool inputInteruppted = false;
 
         /// <summary>
         /// Run
@@ -33,6 +30,8 @@ namespace DotNetHack.GUI
         {
             Console.Title = root.Text;
 
+            StartKeyboardInputThread();
+
             root.InitializeWidget();
             root.Show();
 
@@ -40,21 +39,46 @@ namespace DotNetHack.GUI
 
             while (!done)
             {
+                PushCursorState();
+
                 // critical section
                 lock (syncRoot)
                 {
-                    foreach (var w in root.Widgets.Where(v => v.Visible))
-                        DrawWidget(w);
-                   
-                    Thread.Sleep(100);
+                    Widget.Traverse(DrawWidget, root, w => w.Console.Invalidated && w.Visible);
                 }
+
+                PopAndSetCursorState();
             }
         }
 
         /// <summary>
-        /// Draw
+        /// consoleSize
         /// </summary>
-        /// <param name="w"></param>
+        readonly static Size consoleSize = new Size(Console.WindowWidth, Console.WindowHeight);
+
+        /// <summary>
+        /// StartKeyboardInputThread
+        /// </summary>
+        private void StartKeyboardInputThread()
+        {
+            ThreadPool.QueueUserWorkItem((object state) =>
+            {
+                while (!done)
+                {
+                    if (Console.KeyAvailable && !inputInteruppted)
+                    {
+                        KeyboardCallback(Console.ReadKey(true));
+                    }
+
+                    Thread.Sleep(10);
+                }
+            });
+        }
+
+        /// <summary>
+        /// DrawWidget
+        /// </summary>
+        /// <param name="w">the widget to draw</param>
         public static void DrawWidget(Widget w)
         {
             IPoint screenLocation = w.Location;
@@ -66,27 +90,40 @@ namespace DotNetHack.GUI
                 for (int x = 0; x <= w.Console.Width; ++x)
                 {
                     Glyph g = w.Console[x, y];
-                    Console.SetCursorPosition(screenLocation.X + x, screenLocation.Y + y);
-                    Console.ForegroundColor = g.FG;
-                    Console.BackgroundColor = g.BG;
-                    Console.Write(g.G);
+
+                    if (Buffer[screenLocation.X + x, screenLocation.Y + y] != g)
+                    {
+                        Console.SetCursorPosition(screenLocation.X + x, screenLocation.Y + y);
+                        Console.ForegroundColor = g.FG;
+                        Console.BackgroundColor = g.BG;
+                        Console.Write(g.G);
+
+                        Buffer[x, y] = g;
+                    }
                 }
             }
-            
-            //PushCursorState();
-            //w.Show();
-            //PopAndSetCursorState();
+
+            w.Console.Validate();
         }
+
+        /// <summary>
+        /// DisplayBuffer
+        /// </summary>
+        static GUI()
+        {
+            CursorStateStack = new Stack<Utility.CursorState>();
+            Buffer = new DisplayBuffer(consoleSize);
+        }
+
+        /// <summary>
+        /// Buffer
+        /// </summary>
+        internal static DisplayBuffer Buffer { get; set; }
 
         /// <summary>
         /// KeyboardCallback
         /// </summary>
-        public event Action<ConsoleKey> KeyboardCallback;
-
-        /// <summary>
-        /// Screen
-        /// </summary>
-        public DisplayBuffer Screen { get; private set; }
+        public event Action<ConsoleKeyInfo> KeyboardCallback;
 
         /// <summary>
         /// ScreenCenter
@@ -100,6 +137,21 @@ namespace DotNetHack.GUI
                     Console.WindowHeight / 2);
             }
         }
+
+        /// <summary>
+        /// ScreenWidth
+        /// </summary>
+        public static int ScreenWidth { get { return Console.WindowWidth; } }
+
+        /// <summary>
+        /// ScreenHeight
+        /// </summary>
+        public static int ScreenHeight { get { return Console.WindowHeight; } }
+
+        /// <summary>
+        /// ScreenSize
+        /// </summary>
+        public static Size ScreenSize { get { return consoleSize; } }
 
         #region Cursor State Stack
 
@@ -118,6 +170,7 @@ namespace DotNetHack.GUI
         {
             if (CursorStateStack.Count <= 0)
                 return;
+
             CursorStateStack.Pop().Set();
         }
 

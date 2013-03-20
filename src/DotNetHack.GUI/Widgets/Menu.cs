@@ -24,11 +24,6 @@ namespace DotNetHack.GUI.Widgets
         }
 
         /// <summary>
-        /// The menu's parent
-        /// </summary>
-        public Widget Parent { get; protected set; }
-
-        /// <summary>
         /// MenuItems
         /// </summary>
         public List<MenuItem> MenuItems { get; set; }

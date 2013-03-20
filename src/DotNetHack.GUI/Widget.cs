@@ -21,7 +21,7 @@ namespace DotNetHack.GUI
         /// <summary>
         /// selector
         /// </summary>
-        int selector = 1;
+        int selector = 0;
 
         /// <summary>
         /// Focused
@@ -167,7 +167,11 @@ namespace DotNetHack.GUI
 
                     lock (Widgets)
                     {
-                        if (Widgets.Count > 0)
+                        var tmpWidgets = Widgets.Where(w => w.Visible && w.IsSelectable)
+                            .OrderByDescending(w => w.Height)
+                            .ToArray<Widget>();
+
+                        if (tmpWidgets.Count() > 0)
                         {
                             if (Focus != null)
                             {
@@ -175,7 +179,7 @@ namespace DotNetHack.GUI
                                 Focus.Console.Invalidate();
                             }
 
-                            Focus = Widgets[selector % Widgets.Count];
+                            Focus = tmpWidgets[Math.Abs(selector) % tmpWidgets.Count()];
                             Focus.Selected = true;
                             Focus.Console.Invalidate();
                             Focus.OnWidgetSelectedEvent();
@@ -183,12 +187,26 @@ namespace DotNetHack.GUI
                             if (Widgets.Count(w => w.Selected) > 1)
                                 throw new ApplicationException();
                         }
-                    }
 
-                    selector++;
+                        // shift selector up/down depending on modifier key
+                        unchecked
+                        {
+                            selector += ((obj.Modifiers & ConsoleModifiers.Shift) == ConsoleModifiers.Shift) ? -1 : 1;
+                        }
+                    }
 
                     break;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="w"></param>
+        /// <returns></returns>
+        public static bool SeletablePredicate(Widget w)
+        {
+            return w.IsSelectable && w.Visible;
         }
 
 
@@ -206,6 +224,14 @@ namespace DotNetHack.GUI
         /// FG
         /// </summary>
         public ConsoleColor ForegroundColor { get; set; }
+
+        /// <summary>
+        /// Refreshes the widget by re-writting the display buffer using the most recent settings.
+        /// </summary>
+        public void Refresh()
+        {
+            Console.BulkColorUpdate(this);
+        }
 
         /// <summary>
         /// InitializeWidget

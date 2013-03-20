@@ -16,7 +16,7 @@ namespace DotNetHack
         /// Creates a new LoginWindow
         /// </summary>
         public LoginWindow()
-            : base("DNH Login", new GUI.Size(20, 20))
+            : base("DNH Login", new GUI.Size(32, 8))
         {
             KeyboardEvent += LoginWindow_KeyboardEvent;
         }
@@ -47,19 +47,36 @@ namespace DotNetHack
         private Button btnOkay;
 
         /// <summary>
+        /// lblPassword
+        /// </summary>
+        private Label lblPassword;
+
+        /// <summary>
+        /// lblUserName
+        /// </summary>
+        private Label lblUserName;
+
+        /// <summary>
         /// InitializeWidget
         /// </summary>
         public override void InitializeWidget()
         {
+            const int LEFT_ALIGN = 5;
             base.InitializeWidget();
 
-            txtBoxUserName = new TextBox(this, 3, 2, 5) { Visible = true };
+            BackgroundColor = ConsoleColor.Magenta;
+
+            txtBoxUserName = new TextBox(this, LEFT_ALIGN, 2, 20) { Visible = true };
+            lblUserName = new Label(this, "U:", txtBoxUserName) { Visible = true };
             this.Add(txtBoxUserName);
+            this.Add(lblUserName);
 
-            txtBoxPassword = new TextBox(this, 3, 4, 5) { Visible = true };
+            txtBoxPassword = new TextBox(this, LEFT_ALIGN, 4, 20) { Visible = true };
+            lblPassword = new Label(this, "P:", txtBoxPassword) { Visible = true };
             this.Add(txtBoxPassword);
+            this.Add(lblPassword);
 
-            btnOkay = new Button(this, "OK", 3, 6, Button.ButtonDecoration.AngleBracket) { Visible = true };
+            btnOkay = new Button(this, "OK", LEFT_ALIGN, 6, Button.ButtonDecoration.AngleBracket) { Visible = true };
             btnOkay.OkayEvent += btnOkay_OkayEvent;
             this.Add(btnOkay);
         }

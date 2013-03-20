@@ -20,13 +20,14 @@ namespace DotNetHack
         [STAThread]
         static void Main(string[] args)
         {
-            /**
+
             TTransport transport = new TSocket("localhost", 9090);
             TProtocol protocol = new TBinaryProtocol(transport);
-            DNHService.Client client = new DNHService.Client(protocol);
+            /**
+DNHService.Client client = new DNHService.Client(protocol);
 
-            transport.Open();
-            transport.Close();**/
+transport.Open();
+transport.Close();**/
 
             UI.Instance.Run(new LoginWindow());
         }

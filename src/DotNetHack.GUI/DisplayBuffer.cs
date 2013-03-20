@@ -78,6 +78,40 @@ namespace DotNetHack.GUI
         public ConsoleColor ForegroundColor { get; set; }
 
         /// <summary>
+        /// GetEnumerator will return an enumerator into the raw-buffer.
+        /// Note that relative location information is not passed along.
+        /// This is useful for batch operations like updating color or symbols
+        /// </summary>
+        /// <returns></returns>
+        public void IterateOver(Action<Glyph[,], int, int> action)
+        {
+            for (int y = 0; y < Height; ++y)
+            {
+                for (int x = 0; x < Width; ++x)
+                {
+                    action(Buffer, x, y);
+                }
+            }
+        }
+
+        /// <summary>
+        /// BulkColorUpdate
+        /// </summary>
+        /// <param name="colorScheme">the color scheme to update</param>
+        public void BulkColorUpdate(IColorScheme colorScheme)
+        {
+            IterateOver((Glyph[,] buf, int x, int y) => 
+            {
+                buf[x, y] = new Glyph(Buffer[x, y].G, colorScheme.ForegroundColor, colorScheme.BackgroundColor); 
+            });
+
+            if (!Invalidated)
+            {
+                Invalidate();
+            }
+        }
+
+        /// <summary>
         /// Write
         /// </summary>
         /// <param name="c">the character to write</param>

@@ -18,8 +18,6 @@ namespace DotNetHack.GUI
         public MenuBar(Window parent, params Menu.MenuItem[] items)
             : base("", parent.Location.X + 2, parent.Location.Y, 0, 0)
         {
-            Parent = parent;
-
             int x = 1;
 
             foreach (var m in items)
@@ -49,10 +47,5 @@ namespace DotNetHack.GUI
 
             Console.ResetCursorPosition();
         }
-
-        /// <summary>
-        /// Parent
-        /// </summary>
-        Window Parent { get; set; }
     }
 }

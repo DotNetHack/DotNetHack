@@ -103,6 +103,8 @@ namespace DotNetHack.GUI
 
         /// <summary>
         /// Traverse widgets given a root widget
+        /// - The widget location is temporarily shifted relative to the parent widget.
+        /// - The predicate if passed is used otherwise skipped.
         /// </summary>
         /// <param name="action">the action to take for each</param>
         /// <param name="root">the root widget to start at</param>
@@ -118,13 +120,19 @@ namespace DotNetHack.GUI
                 {
                     lock (w)
                     {
-                        w.Location.X += w.Parent.Location.X;
-                        w.Location.Y += w.Parent.Location.Y;
+                        if (w.Parent != null)
+                        {
+                            w.Location.X += w.Parent.Location.X;
+                            w.Location.Y += w.Parent.Location.Y;
+                        }
 
                         action(w);
 
-                        w.Location.X -= w.Parent.Location.X;
-                        w.Location.Y -= w.Parent.Location.Y;
+                        if (w.Parent != null)
+                        {
+                            w.Location.X -= w.Parent.Location.X;
+                            w.Location.Y -= w.Parent.Location.Y;
+                        }
                     }
                 }
 

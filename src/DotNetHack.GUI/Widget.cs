@@ -68,7 +68,7 @@ namespace DotNetHack.GUI
 
             // TODO: Keyboard events only fired from root widget
             // this needs to be moved.
-            if (WidgetID <= 1 || Parent == null)
+            if (WidgetID < 1)
             {
                 GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
             }

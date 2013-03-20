@@ -19,34 +19,34 @@ using Thrift.Transport;
 #if !SILVERLIGHT
 [Serializable]
 #endif
-public partial class DNHPacket : TBase
+public partial class DNHAuthResponse : TBase
 {
-  private int _uid;
-  private string _data;
+  private int _ID;
+  private string _Message;
 
-  public int Uid
+  public int ID
   {
     get
     {
-      return _uid;
+      return _ID;
     }
     set
     {
-      __isset.uid = true;
-      this._uid = value;
+      __isset.ID = true;
+      this._ID = value;
     }
   }
 
-  public string Data
+  public string Message
   {
     get
     {
-      return _data;
+      return _Message;
     }
     set
     {
-      __isset.data = true;
-      this._data = value;
+      __isset.Message = true;
+      this._Message = value;
     }
   }
 
@@ -56,11 +56,11 @@ public partial class DNHPacket : TBase
   [Serializable]
   #endif
   public struct Isset {
-    public bool uid;
-    public bool data;
+    public bool ID;
+    public bool Message;
   }
 
-  public DNHPacket() {
+  public DNHAuthResponse() {
   }
 
   public void Read (TProtocol iprot)
@@ -77,14 +77,14 @@ public partial class DNHPacket : TBase
       {
         case 1:
           if (field.Type == TType.I32) {
-            Uid = iprot.ReadI32();
+            ID = iprot.ReadI32();
           } else { 
             TProtocolUtil.Skip(iprot, field.Type);
           }
           break;
         case 2:
           if (field.Type == TType.String) {
-            Data = iprot.ReadString();
+            Message = iprot.ReadString();
           } else { 
             TProtocolUtil.Skip(iprot, field.Type);
           }
@@ -99,23 +99,23 @@ public partial class DNHPacket : TBase
   }
 
   public void Write(TProtocol oprot) {
-    TStruct struc = new TStruct("DNHPacket");
+    TStruct struc = new TStruct("DNHAuthResponse");
     oprot.WriteStructBegin(struc);
     TField field = new TField();
-    if (__isset.uid) {
-      field.Name = "uid";
+    if (__isset.ID) {
+      field.Name = "ID";
       field.Type = TType.I32;
       field.ID = 1;
       oprot.WriteFieldBegin(field);
-      oprot.WriteI32(Uid);
+      oprot.WriteI32(ID);
       oprot.WriteFieldEnd();
     }
-    if (Data != null && __isset.data) {
-      field.Name = "data";
+    if (Message != null && __isset.Message) {
+      field.Name = "Message";
       field.Type = TType.String;
       field.ID = 2;
       oprot.WriteFieldBegin(field);
-      oprot.WriteString(Data);
+      oprot.WriteString(Message);
       oprot.WriteFieldEnd();
     }
     oprot.WriteFieldStop();
@@ -123,11 +123,11 @@ public partial class DNHPacket : TBase
   }
 
   public override string ToString() {
-    StringBuilder sb = new StringBuilder("DNHPacket(");
-    sb.Append("Uid: ");
-    sb.Append(Uid);
-    sb.Append(",Data: ");
-    sb.Append(Data);
+    StringBuilder sb = new StringBuilder("DNHAuthResponse(");
+    sb.Append("ID: ");
+    sb.Append(ID);
+    sb.Append(",Message: ");
+    sb.Append(Message);
     sb.Append(")");
     return sb.ToString();
   }

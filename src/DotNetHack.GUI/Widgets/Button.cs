@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DotNetHack.GUI.Events;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -64,16 +65,21 @@ namespace DotNetHack.GUI.Widgets
         /// <param name="e"></param>
         void Button_KeyboardEvent(object sender, Events.GUIKeyboardEventArgs e)
         {
-            if (OkayCallback != null)
+            switch (e.ConsoleKeyInfo.Key)
             {
-                OkayCallback();
+                default:
+                    break;
+                case ConsoleKey.Enter:
+                    if (OkayEvent != null)
+                        OkayEvent(this, new GUIEventArgs());
+                    break;
             }
         }
 
         /// <summary>
-        /// Okay
+        /// OkayEvent
         /// </summary>
-        public Action OkayCallback { get; set; }
+        public event EventHandler<GUIEventArgs> OkayEvent;
 
         /// <summary>
         /// Show

@@ -153,6 +153,16 @@ namespace DotNetHack.GUI
         /// </summary>
         public static Size ScreenSize { get { return consoleSize; } }
 
+        /// <summary>
+        /// Return the screen center relative to the passed size
+        /// </summary>
+        /// <param name="size">the size</param>
+        /// <returns>the screen center +/- 1</returns>
+        public static Point SizeToScreenCenter(Size size)
+        {
+            return new Point(GUI.ScreenWidth / 2 - size.Width / 2, GUI.ScreenHeight / 2 - size.Height / 2);
+        }
+
         #region Cursor State Stack
 
         /// <summary>

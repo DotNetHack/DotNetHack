@@ -31,6 +31,18 @@ namespace DotNetHack.GUI
         /// <summary>
         /// Create a new Widget
         /// </summary>
+        /// <param name="text">the text</param>
+        /// <param name="location">the location</param>
+        /// <param name="size">the size</param>
+        public Widget(string text, Point location, Size size)
+            : this(text, location.X, location.Y, size.Width, size.Height)
+        {
+
+        }
+
+        /// <summary>
+        /// Create a new Widget
+        /// </summary>
         /// <param name="text">the text for the widget</param>
         /// <param name="x">x-coordinate</param>
         /// <param name="y">y-coordinate</param>

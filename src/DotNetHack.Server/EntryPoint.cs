@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,51 +24,51 @@ namespace DotNetHack.Server
         }
 
         /// <summary>
-        /// sendPacket
-        /// </summary>
-        /// <param name="packet"></param>
-        public void sendPacket(DNHPacket packet)
-        {
-            Console.WriteLine(packet);
-            Packets.Enqueue(packet);
-        }
-
-        /// <summary>
-        /// retrievePacket
-        /// </summary>
-        /// <param name="uid"></param>
-        /// <returns></returns>
-        public DNHPacket retrievePacket(int uid)
-        {
-            Console.WriteLine(uid);
-            return new DNHPacket() 
-            {
-                Uid = 0,
-                Data = "",
-            };
-        }
-
-        /// <summary>
-        /// authenticate
+        /// Authenticate
         /// </summary>
         /// <param name="userName">the user name</param>
-        /// <param name="password">the password</param>
-        /// <returns>the identifier</returns>
-        public int authenticate(string userName, string password)
+        /// <param name="passwordHash">the password hash</param>
+        /// <returns>an auth response object containing -1 on auth failure</returns>
+        DNHAuthResponse DNHService.Iface.Authenticate(string userName, string passwordHash)
         {
-            using (var connection = new SqlConnection())
+            DNHAuthResponse retVal = new DNHAuthResponse() 
             {
-                connection.Open();
+                ID = -1,
+                Message = "",
+            };
 
+            try
+            {
+                using (var dbConn = new SqlConnection(Properties.Settings.Default.DSN))
+                {
+                    dbConn.Open();
+
+                    const string sqlText = "SELECT [ID] FROM [User] WHERE [Name] = @Name AND [PasswordHash] = @PasswordHash";
+
+                    using (SqlCommand cmd = new SqlCommand(sqlText, dbConn))
+                    {
+                        cmd.Parameters.AddWithValue("@Name", userName);
+                        cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
+
+                        using (var dr = cmd.ExecuteReader(System.Data.CommandBehavior.SingleRow))
+                        {
+                            if (!dr.Read())
+                            {
+                                retVal.Message = "Invalid username / password";
+                            }
+
+                            retVal.ID = (int)dr[0];
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                retVal.Message = ex.Message;
             }
 
-            return 0;
+            return retVal;
         }
-
-        /// <summary>
-        /// packets
-        /// </summary>
-        Queue<DNHPacket> Packets = new Queue<DNHPacket>(1024);
     }
 
     /// <summary>
@@ -82,7 +83,7 @@ namespace DotNetHack.Server
             DNHService.Processor processor = new DNHService.Processor(handler);
 
             TServerTransport serverTransport = new TServerSocket(9090);
-            TServer server = server = new TThreadPoolServer(processor, serverTransport);
+            TServer server = new TThreadPoolServer(processor, serverTransport);
 
             Console.WriteLine("Starting the server...");
             server.Serve();

@@ -24,11 +24,17 @@ namespace DotNetHack.GUI
 
             foreach (var m in items)
             {
-                Widgets.Add(new Button(m.Name, parent.Location.X + x, parent.Location.Y) 
+                var tmpMenuButton = new Button(m.Name, parent.Location.X + x, parent.Location.Y)
                 {
                     Visible = true,
-                    OkayCallback = m.MAction,
-                });
+                };
+
+                tmpMenuButton.OkayEvent += (object sender, Events.GUIEventArgs e) => 
+                {
+                    m.MAction();
+                };
+
+                Widgets.Add(tmpMenuButton);
 
                 x += m.Name.Length + 3;
             }

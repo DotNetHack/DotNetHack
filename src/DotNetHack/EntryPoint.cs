@@ -20,21 +20,15 @@ namespace DotNetHack
         [STAThread]
         static void Main(string[] args)
         {
+            /**
             TTransport transport = new TSocket("localhost", 9090);
             TProtocol protocol = new TBinaryProtocol(transport);
             DNHService.Client client = new DNHService.Client(protocol);
 
             transport.Open();
+            transport.Close();**/
 
-            client.sendPacket(new DNHPacket() { });
-
-            GameEngine = new Engine.GameEngine(
-#if DEBUG
-                Engine.GameEngine.GameEngineFlags.Debug
-#endif
-                );
-
-            UI.Instance.Run(new MainWindow());
+            UI.Instance.Run(new LoginWindow());
         }
 
         /// <summary>

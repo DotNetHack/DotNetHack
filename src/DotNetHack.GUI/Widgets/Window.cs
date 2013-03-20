@@ -14,11 +14,12 @@ namespace DotNetHack.GUI.Widgets
     public class Window : Widget
     {
         /// <summary>
-        /// Window
+        /// Creates a centered root level window
         /// </summary>
-        /// <param name="text"></param>
+        /// <param name="text">the text</param>
+        /// <param name="size">the size</param>
         public Window(string text, Size size)
-            : base(text, 0, 0, size.Width, size.Height)
+            : base(text, GUI.SizeToScreenCenter(size), size)
         {
             KeyboardEvent += Window_KeyboardEvent;
         }

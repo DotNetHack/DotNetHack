@@ -4,5 +4,5 @@ struct DNHAuthResponse {
 }
 
 service DNHService {
-	DNHAuthResponse Authenticate(1: string userName, 2: string passwordHash)
+	i32 Authenticate(1: string userName, 2: string passwordHash)
 }

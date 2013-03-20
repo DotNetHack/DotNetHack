@@ -63,7 +63,6 @@ namespace DotNetHack
             // Add an okay button to this window
             buttonOkay = new Button("Okay", 5, 7);
             buttonOkay.Visible = true;
-            buttonOkay.OkayCallback = () => { };
             buttonOkay.KeyboardEvent += buttonOkay_KeyboardEvent;
             this.Add(buttonOkay);
 

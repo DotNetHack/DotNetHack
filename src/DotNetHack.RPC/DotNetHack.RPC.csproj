@@ -42,7 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DNHPacket.cs" />
+    <Compile Include="DNHAuthResponse.cs" />
     <Compile Include="DNHService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

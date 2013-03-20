@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetHack.GUI.Interfaces
+namespace DotNetHack.GUI.Events
 {
     /// <summary>
-    /// IHasLocation
+    /// GUIEventArgs
     /// </summary>
-    public interface IHasLocation
+    public class GUIEventArgs : EventArgs
     {
-        Point Location { get; set; }
     }
 }

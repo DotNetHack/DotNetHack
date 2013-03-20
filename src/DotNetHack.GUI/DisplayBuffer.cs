@@ -1,6 +1,7 @@
 ﻿using DotNetHack.GUI.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace DotNetHack.GUI
     /// <summary>
     /// DisplayBuffer
     /// </summary>
+    [DebuggerDisplay("({Width}, {Height})")]
     public class DisplayBuffer : IDimensional, IColorScheme
     {
         /// <summary>
@@ -32,6 +34,7 @@ namespace DotNetHack.GUI
             Buffer = new Glyph[dimension.Width + 1, dimension.Height + 1];
             CursorLocation = new Point(0, 0);
             ForegroundColor = ConsoleColor.White;
+            Invalidate();
         }
 
         /// <summary>
@@ -42,7 +45,7 @@ namespace DotNetHack.GUI
         /// <returns>A glyph</returns>
         public Glyph this[int x, int y]
         {
-            get { return Buffer[x, y]; }
+            get { Invalidate();  return Buffer[x, y]; }
             set { Buffer[x, y] = value; }
         }
 
@@ -53,7 +56,7 @@ namespace DotNetHack.GUI
         /// <returns>A glyph</returns>
         public Glyph this[IPoint p]
         {
-            get { return Buffer[p.X, p.Y]; }
+            get { Invalidate(); return Buffer[p.X, p.Y]; }
             set { Buffer[p.X, p.Y] = value; }
         }
 
@@ -80,7 +83,10 @@ namespace DotNetHack.GUI
         /// <param name="c">the character to write</param>
         public void Write(char c)
         {
-            this[CursorLocation.X, CursorLocation.Y] = new Glyph(c, ForegroundColor, BackgroundColor);
+            if (CursorLocation.X + 1 > Width)
+                return;
+
+            this[CursorLocation.X++, CursorLocation.Y] = new Glyph(c, ForegroundColor, BackgroundColor);
         }
 
         /// <summary>
@@ -91,8 +97,16 @@ namespace DotNetHack.GUI
         {
             s.ToList().ForEach(ch => {
                 Write(ch);
-                CursorLocation.X++;
             });
+        }
+
+        /// <summary>
+        /// ResetCursorPosition
+        /// </summary>
+        public void ResetCursorPosition()
+        {
+            CursorLocation.X = 0;
+            CursorLocation.Y = 0;
         }
 
         /// <summary>
@@ -102,6 +116,26 @@ namespace DotNetHack.GUI
         {
             CursorLocation.X = x;
             CursorLocation.Y = y;
+        }
+
+        /// <summary>
+        /// SetCursorLocation
+        /// </summary>
+        /// <param name="l">Cursor location</param>
+        public void SetCursorPosition(IHasLocation l)
+        {
+            CursorLocation.Y = l.Location.Y;
+            CursorLocation.X = l.Location.X;
+        }
+
+        /// <summary>
+        /// SetCursorPosition
+        /// </summary>
+        /// <param name="p"></param>
+        public void SetCursorPosition(IPoint p)
+        {
+            CursorLocation.Y = p.Y;
+            CursorLocation.X = p.X;
         }
 
         /// <summary>
@@ -153,5 +187,27 @@ namespace DotNetHack.GUI
         /// Height
         /// </summary>
         public int Height { get { return Size.Height; } }
+
+        /// <summary>
+        /// A display buffer may be "invalidated" when something in it's backing store changes. 
+        /// This property could also be called "Dirty"
+        /// </summary>
+        public bool Invalidated { get; private set; }
+
+        /// <summary>
+        /// Invalidation of a display buffer may be 'forced' using this method.
+        /// </summary>
+        public void Invalidate()
+        {
+            Invalidated = true;
+        }
+
+        /// <summary>
+        /// Validates this display buffer
+        /// </summary>
+        public void Validate()
+        {
+            Invalidated = false;
+        }
     }
 }

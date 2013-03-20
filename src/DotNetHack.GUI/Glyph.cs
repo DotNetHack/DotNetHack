@@ -11,7 +11,7 @@ namespace DotNetHack.GUI
     /// Glyph
     /// </summary>
     [DebuggerDisplay("{G} {FG} {BG}")]
-    public struct Glyph
+    public struct Glyph : IEquatable<Glyph>
     {
         /// <summary>
         /// Creates a new glyph
@@ -55,5 +55,75 @@ namespace DotNetHack.GUI
         /// The character symbol for this glyph
         /// </summary>
         public char G { get { return g; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Glyph other)
+        {
+            if (other == null)
+                return false;
+            return this == other;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+
+            return obj is Glyph && Equals((Glyph)obj);
+        }
+
+        /// <summary>
+        /// GetHashCode
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int retVal = G.GetHashCode();
+                retVal = (retVal ^ 397) + FG.GetHashCode();
+                retVal = (retVal ^ 397) + BG.GetHashCode();
+                return retVal;
+            }
+        }
+
+        /// <summary>
+        /// ==
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator ==(Glyph a, Glyph b)
+        {
+            return a.G.Equals(b.G) && a.FG.Equals(b.FG) && a.BG.Equals(b.BG);
+        }
+
+        /// <summary>
+        /// !=
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool operator !=(Glyph a, Glyph b)
+        {
+            return !(a == b);
+        }
+
+        /// <summary>
+        /// ToString
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return G.ToString();
+        }
     }
 }

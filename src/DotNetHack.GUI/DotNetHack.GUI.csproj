@@ -40,7 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\GUIProperty.cs" />
+    <Compile Include="ColorScheme.cs" />
     <Compile Include="DisplayBuffer.cs" />
+    <Compile Include="Events\GUIEventArgs.cs" />
+    <Compile Include="Events\GUIKeyboardEventArgs.cs" />
+    <Compile Include="Events\GUIProgressBarEventArgs.cs" />
     <Compile Include="Glyph.cs" />
     <Compile Include="GUI.cs" />
     <Compile Include="Interfaces\IColorScheme.cs" />
@@ -49,13 +53,20 @@
     <Compile Include="Interfaces\IPoint.cs" />
     <Compile Include="Interfaces\IRectangle.cs" />
     <Compile Include="Interfaces\IScreenRegion.cs" />
+    <Compile Include="Widgets\MenuBar.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Size.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="Widget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Widgets\Button.cs" />
+    <Compile Include="Widgets\Label.cs" />
+    <Compile Include="Widgets\Menu.cs" />
+    <Compile Include="Widgets\MessageBox.cs" />
+    <Compile Include="Widgets\Panel.cs" />
     <Compile Include="Widgets\ProgressBar.cs" />
+    <Compile Include="Widgets\StatusBar.cs" />
+    <Compile Include="Widgets\TextBox.cs" />
     <Compile Include="Widgets\Window.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -21,8 +21,8 @@ namespace DotNetHack.GUI.Widgets
         /// <summary>
         /// Create a new button
         /// </summary>
-        public Button(String text, int x, int y, ButtonDecoration decor = ButtonDecoration.SquareBracket)
-            : base(text, x, y, text.Length + 2, 1)
+        public Button(Widget parent, String text, int x, int y, ButtonDecoration decor = ButtonDecoration.SquareBracket)
+            : base(text, x, y, text.Length + 2, 1, parent)
         {
             this.decoration = decor;
 

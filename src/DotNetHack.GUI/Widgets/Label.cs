@@ -15,7 +15,7 @@ namespace DotNetHack.GUI.Widgets
         /// Label
         /// </summary>
         /// <param name="text"></param>
-        public Label(string text)
+        public Label(Widget parent, string text)
             : base(text)
         {
 

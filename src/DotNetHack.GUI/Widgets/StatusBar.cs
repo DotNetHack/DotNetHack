@@ -15,7 +15,7 @@ namespace DotNetHack.GUI.Widgets
         public StatusBar(Window parent)
             : base("", 0, parent.Height, parent.Width, 1)
         {
-            Widgets.Add(new Label("testing 1234"));
+            Widgets.Add(new Label(parent, "testing 1234"));
             Console.BackgroundColor = ConsoleColor.White;
         }
 

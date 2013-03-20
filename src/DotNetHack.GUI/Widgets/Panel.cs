@@ -19,7 +19,7 @@ namespace DotNetHack.GUI.Widgets
         /// <param name="y">y-coordinate</param>
         /// <param name="width">the width of this panel</param>
         /// <param name="height">the height of this panel</param>
-        public Panel(int x, int y, int width, int height)
+        public Panel(Widget parent, int x, int y, int width, int height)
             : base(x, y, width, height)
         { }
 

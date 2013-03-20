@@ -17,8 +17,8 @@ namespace DotNetHack.GUI.Widgets
         /// <summary>
         /// Creates a new instance of <c>ProgressBar</c>
         /// </summary>
-        public ProgressBar(string text)
-            : this(text, 1, 1) { }
+        public ProgressBar(Widget parent, string text)
+            : this(parent, text, 1, 1) { }
 
         /// <summary>
         /// Creates a new instance of <see cref="ProgressBar"/>
@@ -26,8 +26,8 @@ namespace DotNetHack.GUI.Widgets
         /// <param name="text">The inner text</param>
         /// <param name="x">x-coordinate</param>
         /// <param name="y">y-coordinate</param>
-        public ProgressBar(string text, int x, int y, double v = 0.0)
-            : base(text, x, y, DefaultWidth, 1)
+        public ProgressBar(Widget parent, string text, int x, int y, double v = 0.0)
+            : base(text, x, y, DefaultWidth, 1, parent)
         {
             Value = v;
 

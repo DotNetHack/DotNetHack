@@ -34,8 +34,8 @@ namespace DotNetHack.GUI
         /// <param name="text">the text</param>
         /// <param name="location">the location</param>
         /// <param name="size">the size</param>
-        public Widget(string text, Point location, Size size)
-            : this(text, location.X, location.Y, size.Width, size.Height)
+        public Widget(string text, Point location, Size size, Widget parent = null)
+            : this(text, location.X, location.Y, size.Width, size.Height, parent)
         {
 
         }
@@ -48,7 +48,7 @@ namespace DotNetHack.GUI
         /// <param name="y">y-coordinate</param>
         /// <param name="width">the widget of the widget</param>
         /// <param name="height">the height of the widget</param>
-        public Widget(string text, int x, int y, int width, int height)
+        public Widget(string text, int x, int y, int width, int height, Widget parent = null)
         {
             WidgetID = creationOrder++;
 
@@ -63,9 +63,12 @@ namespace DotNetHack.GUI
             // Most widgets are not selectable by default
             IsSelectable = false;
 
+            // The parent widget
+            Parent = parent;
+
             // TODO: Keyboard events only fired from root widget
             // this needs to be moved.
-            if (WidgetID <= 1)
+            if (WidgetID <= 1 || Parent == null)
             {
                 GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
             }
@@ -77,16 +80,16 @@ namespace DotNetHack.GUI
         /// </summary>
         /// <param name="text">the text to initialize the widget with</param>
         /// <param name="region">the screen region for the widget</param>
-        public Widget(string text, IScreenRegion region)
-            : this(text, region.Location.X, region.Location.Y, region.Width, region.Height)
+        public Widget(string text, IScreenRegion region, Widget parent = null)
+            : this(text, region.Location.X, region.Location.Y, region.Width, region.Height, parent)
         { }
 
         /// <summary>
         /// Create a new Widget
         /// </summary>
         /// <param name="text">the text to initialize the widget with</param>
-        public Widget(string text)
-            : this(text, 0, 0, 0, 0) { }
+        public Widget(string text, Widget parent = null)
+            : this(text, 0, 0, 0, 0, parent) { }
 
         /// <summary>
         /// Create a new widget without text
@@ -95,8 +98,8 @@ namespace DotNetHack.GUI
         /// <param name="y">y-coordinate</param>
         /// <param name="width">the widget of the widget</param>
         /// <param name="height">the height of the widget</param>
-        public Widget(int x, int y, int width, int height)
-            : this("", x, y, width, height) { }
+        public Widget(int x, int y, int width, int height, Widget parent = null)
+            : this("", x, y, width, height, parent) { }
 
         /// <summary>
         /// Traverse widgets given a root widget
@@ -113,7 +116,16 @@ namespace DotNetHack.GUI
             {
                 if (predicate == null || (predicate != null && predicate(w)))
                 {
-                    action(w);
+                    lock (w)
+                    {
+                        w.Location.X += w.Parent.Location.X;
+                        w.Location.Y += w.Parent.Location.Y;
+
+                        action(w);
+
+                        w.Location.X -= w.Parent.Location.X;
+                        w.Location.Y -= w.Parent.Location.Y;
+                    }
                 }
 
                 if (w.Widgets != null && w.Widgets.Count > 0)
@@ -267,6 +279,11 @@ namespace DotNetHack.GUI
         /// WidgetID
         /// </summary>
         public int WidgetID { get; private set; }
+
+        /// <summary>
+        /// The parent widget
+        /// </summary>
+        public Widget Parent { get; private set; }
 
         #region Widget Selection
 

@@ -19,8 +19,8 @@ namespace DotNetHack.GUI.Widgets
         /// </summary>
         /// <param name="label"></param>
         /// <param name="inputMaxLength"></param>
-        public TextBox(int x, int y, int inputMaxLength) 
-            : base("", x, y, inputMaxLength, 1)
+        public TextBox(Widget parent, int x, int y, int inputMaxLength)
+            : base("", x, y, inputMaxLength, 1, parent)
         {
             MaxLength = inputMaxLength;
             EnableSelection();
@@ -54,7 +54,7 @@ namespace DotNetHack.GUI.Widgets
                         return;
 
                     AddNewChar(tmpChar);
-                    
+
                     break;
 
                 case ConsoleKey.Backspace:
@@ -62,7 +62,8 @@ namespace DotNetHack.GUI.Widgets
                     break;
 
                 case ConsoleKey.Enter:
-                    OnEntered(Text);
+                    if (OnEntered != null)
+                        OnEntered(Text);
                     break;
             }
         }

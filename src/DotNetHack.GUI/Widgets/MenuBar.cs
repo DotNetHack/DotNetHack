@@ -24,7 +24,7 @@ namespace DotNetHack.GUI
 
             foreach (var m in items)
             {
-                var tmpMenuButton = new Button(m.Name, parent.Location.X + x, parent.Location.Y)
+                var tmpMenuButton = new Button(parent, m.Name, parent.Location.X + x, parent.Location.Y)
                 {
                     Visible = true,
                 };

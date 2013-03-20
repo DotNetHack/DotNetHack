@@ -18,8 +18,8 @@ namespace DotNetHack.GUI.Widgets
         /// </summary>
         /// <param name="text">the text</param>
         /// <param name="size">the size</param>
-        public Window(string text, Size size)
-            : base(text, GUI.SizeToScreenCenter(size), size)
+        public Window(string text, Size size, Widget parent = null)
+            : base(text, GUI.SizeToScreenCenter(size), size, parent)
         {
             KeyboardEvent += Window_KeyboardEvent;
         }

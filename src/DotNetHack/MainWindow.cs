@@ -32,7 +32,7 @@ namespace DotNetHack
         /// MainWidget
         /// </summary>
         public MainWindow()
-            : base("DotNetHack", new Size(GUI.GUI.ScreenSize.Width - 1, GUI.GUI.ScreenSize.Height - 1))
+            : base("DotNetHack", new Size(GUI.GUI.ScreenSize.Width - 1, GUI.GUI.ScreenSize.Height - 1), null)
         {
             KeyboardEvent += MainWidget_KeyboardEvent;
         }
@@ -56,18 +56,18 @@ namespace DotNetHack
             base.InitializeWidget();
 
             // create new progress bar
-            progressBar = new ProgressBar("Testing", 5, 5);
+            progressBar = new ProgressBar(this, "Testing", 5, 5);
             progressBar.Visible = true;
             this.Add(progressBar);
 
             // Add an okay button to this window
-            buttonOkay = new Button("Okay", 5, 7);
+            buttonOkay = new Button(this, "Okay", 5, 7);
             buttonOkay.Visible = true;
             buttonOkay.KeyboardEvent += buttonOkay_KeyboardEvent;
             this.Add(buttonOkay);
 
             // add a text box to this window
-            txtBox = new TextBox(5, 9, 15);
+            txtBox = new TextBox(this, 5, 9, 15);
             txtBox.Visible = true;
             txtBox.OnEntered = (string s) => { };
             this.Add(txtBox);

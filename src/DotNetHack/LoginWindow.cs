@@ -16,8 +16,19 @@ namespace DotNetHack
         /// Creates a new LoginWindow
         /// </summary>
         public LoginWindow()
-            : base("DNH Login", new GUI.Size(64, 12))
+            : base("DNH Login", new GUI.Size(20, 20))
         {
+            KeyboardEvent += LoginWindow_KeyboardEvent;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void LoginWindow_KeyboardEvent(object sender, GUI.Events.GUIKeyboardEventArgs e)
+        {
+
         }
 
         /// <summary>
@@ -42,13 +53,13 @@ namespace DotNetHack
         {
             base.InitializeWidget();
 
-            txtBoxUserName = new TextBox(3, 3, 32) { Visible = true };
+            txtBoxUserName = new TextBox(this, 3, 2, 5) { Visible = true };
             this.Add(txtBoxUserName);
 
-            txtBoxPassword = new TextBox(3, 5, 32) { Visible = true };
+            txtBoxPassword = new TextBox(this, 3, 4, 5) { Visible = true };
             this.Add(txtBoxPassword);
 
-            btnOkay = new Button("OK", 3, 7, Button.ButtonDecoration.AngleBracket) { Visible = true };
+            btnOkay = new Button(this, "OK", 3, 6, Button.ButtonDecoration.AngleBracket) { Visible = true };
             btnOkay.OkayEvent += btnOkay_OkayEvent;
             this.Add(btnOkay);
         }

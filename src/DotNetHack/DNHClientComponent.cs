@@ -13,7 +13,7 @@ namespace DotNetHack.ExperimentalGUI
     [DebuggerDisplay("{HostName}:{Port}")]
     [ToolboxItem(true)]
     [Description("DotNetHack Client Compoennt")]
-    public partial class DNHClientComponent : Component, IDisposable, DNHService.Iface
+    public partial class DNHClientComponent : Component, IDisposable, DNHService.Iface, IComponent
     {
         /// <summary>
         /// client
@@ -31,24 +31,14 @@ namespace DotNetHack.ExperimentalGUI
         private readonly TProtocol protocol;
 
         /// <summary>
-        /// hostName
-        /// </summary>
-        private readonly string hostName = "localhost";
-
-        /// <summary>
         /// The host name
         /// </summary>
-        public string HostName { get { return hostName; } }
+        public string HostName { get; set; }
 
         /// <summary>
         /// The port
         /// </summary>
-        public int Port { get { return port; } }
-
-        /// <summary>
-        /// port
-        /// </summary>
-        private readonly int port = 9090;
+        public int Port { get; set; }
 
         /// <summary>
         /// DNHClientComponent
@@ -57,7 +47,7 @@ namespace DotNetHack.ExperimentalGUI
         {
             InitializeComponent();
 
-            transport = new TSocket(hostName, port);
+            transport = new TSocket(HostName, Port);
             protocol = new TBinaryProtocol(transport);
             client = new DNHService.Client(protocol);
         }

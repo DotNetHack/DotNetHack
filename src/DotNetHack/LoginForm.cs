@@ -34,34 +34,25 @@ namespace DotNetHack
         /// <param name="e">event args</param>
         private void buttonAuthenticate_Click(object sender, EventArgs e)
         {
-            // TODO: pull hostname and port
-            using (DNHClient client = new DNHClient("localhost", 9090))
+            try
             {
-                try
-                {
-                    client.Open();
+                dnhClientComponent.Open();
+                var authResponse = dnhClientComponent.Authenticate(textBoxUserName.Text, (textBoxUserName.Text + maskedTextBoxPassword.Text).ToHashString());
 
-                    var authResponse = client.Authenticate(textBoxUserName.Text, (textBoxUserName.Text + maskedTextBoxPassword.Text).ToHashString());
-
-                    if (authResponse.ID < 0)
-                    {
-                        buttonAuthenticate.ForeColor = Color.Red;
-                        toolStripStatusLabel.Text = authResponse.Message;
-                    }
-                    else
-                    {
-                        buttonAuthenticate.ForeColor = Color.Green;
-                        toolStripStatusLabel.Text = "Success!";
-
-                        var frmMain = new MainForm();
-                    }
-                }
-                catch (Exception ex)
+                if (authResponse.ID < 0)
                 {
                     buttonAuthenticate.ForeColor = Color.Red;
-                    toolStripStatusLabel.Text = ex.Message;
+                    toolStripStatusLabel.Text = authResponse.Message;
+                }
+                else
+                {
+                    buttonAuthenticate.ForeColor = Color.Green;
+                    toolStripStatusLabel.Text = "Success!";
+
+                    var frmMain = new MainForm(authResponse.ID);
                 }
             }
+            finally { dnhClientComponent.Close(); }
         }
 
         /// <summary>

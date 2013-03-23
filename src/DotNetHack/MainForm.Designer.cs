@@ -28,23 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.components = new System.ComponentModel.Container();
+            this.statusStripMain = new System.Windows.Forms.StatusStrip();
+            this.dnhClient = new DotNetHack.ExperimentalGUI.DNHClientComponent(this.components);
             this.SuspendLayout();
             // 
-            // statusStrip1
+            // statusStripMain
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 390);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(692, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStripMain.Location = new System.Drawing.Point(0, 390);
+            this.statusStripMain.Name = "statusStripMain";
+            this.statusStripMain.Size = new System.Drawing.Size(692, 22);
+            this.statusStripMain.TabIndex = 0;
+            this.statusStripMain.Text = "statusStrip1";
+            // 
+            // dnhClient
+            // 
+            this.dnhClient.HostName = "localhost";
+            this.dnhClient.Port = 9090;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(692, 412);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusStripMain);
             this.Name = "MainForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -55,7 +62,8 @@
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStripMain;
+        private ExperimentalGUI.DNHClientComponent dnhClient;
     }
 }
 

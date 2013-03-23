@@ -18,7 +18,7 @@ namespace DotNetHack
         /// <summary>
         /// MainForm
         /// </summary>
-        public MainForm()
+        public MainForm(int userId)
         {
             InitializeComponent();
         }

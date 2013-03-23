@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.statusStripLogin = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBarLogin = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -35,6 +36,7 @@
             this.tableLayoutPanelLogin = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBoxDNHLogo = new System.Windows.Forms.PictureBox();
             this.groupBoxAuthentication = new System.Windows.Forms.GroupBox();
+            this.buttonExit = new System.Windows.Forms.Button();
             this.buttonAuthenticate = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,7 +44,7 @@
             this.textBoxUserName = new System.Windows.Forms.TextBox();
             this.groupBoxChangeLog = new System.Windows.Forms.GroupBox();
             this.richTextBoxChangeLog = new System.Windows.Forms.RichTextBox();
-            this.buttonExit = new System.Windows.Forms.Button();
+            this.dnhClientComponent = new DotNetHack.ExperimentalGUI.DNHClientComponent(this.components);
             this.statusStripLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanelLogin.SuspendLayout();
@@ -105,7 +107,6 @@
             // 
             this.tableLayoutPanelLogin.SetColumnSpan(this.pictureBoxDNHLogo, 2);
             this.pictureBoxDNHLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxDNHLogo.Image = global::DotNetHack.ExperimentalGUI.Properties.Resources.logoDotNetHack;
             this.pictureBoxDNHLogo.Location = new System.Drawing.Point(3, 3);
             this.pictureBoxDNHLogo.Name = "pictureBoxDNHLogo";
             this.pictureBoxDNHLogo.Size = new System.Drawing.Size(698, 176);
@@ -129,6 +130,17 @@
             this.groupBoxAuthentication.TabIndex = 0;
             this.groupBoxAuthentication.TabStop = false;
             this.groupBoxAuthentication.Text = "Authentication";
+            // 
+            // buttonExit
+            // 
+            this.buttonExit.ForeColor = System.Drawing.Color.Brown;
+            this.buttonExit.Location = new System.Drawing.Point(130, 70);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(58, 24);
+            this.buttonExit.TabIndex = 5;
+            this.buttonExit.Text = "Exit";
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
             // buttonAuthenticate
             // 
@@ -196,16 +208,10 @@
             this.richTextBoxChangeLog.TabIndex = 0;
             this.richTextBoxChangeLog.Text = "";
             // 
-            // buttonExit
+            // dnhClientComponent
             // 
-            this.buttonExit.ForeColor = System.Drawing.Color.Brown;
-            this.buttonExit.Location = new System.Drawing.Point(130, 70);
-            this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(58, 24);
-            this.buttonExit.TabIndex = 5;
-            this.buttonExit.Text = "Exit";
-            this.buttonExit.UseVisualStyleBackColor = true;
-            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
+            this.dnhClientComponent.HostName = "localhost";
+            this.dnhClientComponent.Port = 9090;
             // 
             // LoginForm
             // 
@@ -253,5 +259,6 @@
         private System.Windows.Forms.GroupBox groupBoxChangeLog;
         private System.Windows.Forms.RichTextBox richTextBoxChangeLog;
         private System.Windows.Forms.Button buttonExit;
+        private ExperimentalGUI.DNHClientComponent dnhClientComponent;
     }
 }

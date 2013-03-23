@@ -12,7 +12,7 @@ using Thrift.Protocol;
 using Thrift.Transport;
 using DotNetHack.RPC;
 
-namespace DotNetHack.ExperimentalGUI
+namespace DotNetHack
 {
     /// <summary>
     /// LoginForm

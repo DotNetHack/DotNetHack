@@ -1,4 +1,4 @@
-﻿namespace DotNetHack.ExperimentalGUI
+﻿namespace DotNetHack
 {
     partial class MainForm
     {

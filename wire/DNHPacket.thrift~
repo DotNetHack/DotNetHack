@@ -3,6 +3,11 @@ struct DNHAuthResponse {
 	2: string Message
 }
 
+struct DNHPacket {
+	1: i32 ID,
+	2: string Data
+}
+
 service DNHService {
-	i32 Authenticate(1: string userName, 2: string passwordHash)
+	DNHAuthResponse Authenticate(1: string userName, 2: string passwordHash)
 }

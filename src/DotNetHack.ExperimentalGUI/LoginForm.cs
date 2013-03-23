@@ -30,8 +30,8 @@ namespace DotNetHack.ExperimentalGUI
         /// <summary>
         /// Authentication operation. On success spawns the main form and passes along the user identifier.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
         private void buttonAuthenticate_Click(object sender, EventArgs e)
         {
             // TODO: pull hostname and port
@@ -65,8 +65,8 @@ namespace DotNetHack.ExperimentalGUI
         /// <summary>
         /// The exit button for this undecorated form
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
         private void buttonExit_Click(object sender, EventArgs e)
         {
             Close();

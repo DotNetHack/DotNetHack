@@ -20,7 +20,7 @@ namespace DotNetHack.Server
         /// </summary>
         public DNHPacketHandler()
         {
-            LogCallback += Console.Write;
+            LogCallback += Console.WriteLine;
         }
 
         public Action<String> LogCallback { get; set; }

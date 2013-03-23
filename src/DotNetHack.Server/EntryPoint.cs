@@ -20,8 +20,10 @@ namespace DotNetHack.Server
         /// </summary>
         public DNHPacketHandler()
         {
-
+            LogCallback += Console.Write;
         }
+
+        public Action<String> LogCallback { get; set; }
 
         /// <summary>
         /// Authenticate
@@ -31,6 +33,8 @@ namespace DotNetHack.Server
         /// <returns>an auth response object containing -1 on auth failure</returns>
         DNHAuthResponse DNHService.Iface.Authenticate(string userName, string passwordHash)
         {
+            LogCallback(string.Format("Authenticating {0}", userName));
+
             DNHAuthResponse retVal = new DNHAuthResponse() 
             {
                 ID = -1,
@@ -56,8 +60,10 @@ namespace DotNetHack.Server
                             {
                                 retVal.Message = "Invalid username / password";
                             }
-
-                            retVal.ID = (int)dr[0];
+                            else
+                            {
+                                retVal.ID = (int)dr[0];
+                            }
                         }
                     }
                 }

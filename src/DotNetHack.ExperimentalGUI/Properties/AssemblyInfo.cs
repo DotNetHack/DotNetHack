@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DotNetHack")]
+[assembly: AssemblyTitle("DotNetHack.ExperimentalGUI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DotNetHack")]
+[assembly: AssemblyProduct("DotNetHack.ExperimentalGUI")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("fb545c8e-cf5e-4d32-954c-b866c178d200")]
+[assembly: Guid("76539435-f9e4-4b84-8b34-dda34cd7a05a")]
 
 // Version information for an assembly consists of the following four values:
 //

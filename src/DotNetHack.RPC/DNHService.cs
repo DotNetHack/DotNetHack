@@ -17,20 +17,10 @@ using Thrift.Transport;
 
 public partial class DNHService {
   public interface Iface {
-    int authenticate(string userName, string password);
+    DNHAuthResponse Authenticate(string userName, string passwordHash);
     #if SILVERLIGHT
-    IAsyncResult Begin_authenticate(AsyncCallback callback, object state, string userName, string password);
-    int End_authenticate(IAsyncResult asyncResult);
-    #endif
-    void sendPacket(DNHPacket packet);
-    #if SILVERLIGHT
-    IAsyncResult Begin_sendPacket(AsyncCallback callback, object state, DNHPacket packet);
-    void End_sendPacket(IAsyncResult asyncResult);
-    #endif
-    DNHPacket retrievePacket(int uid);
-    #if SILVERLIGHT
-    IAsyncResult Begin_retrievePacket(AsyncCallback callback, object state, int uid);
-    DNHPacket End_retrievePacket(IAsyncResult asyncResult);
+    IAsyncResult Begin_Authenticate(AsyncCallback callback, object state, string userName, string passwordHash);
+    DNHAuthResponse End_Authenticate(IAsyncResult asyncResult);
     #endif
   }
 
@@ -61,41 +51,41 @@ public partial class DNHService {
 
     
     #if SILVERLIGHT
-    public IAsyncResult Begin_authenticate(AsyncCallback callback, object state, string userName, string password)
+    public IAsyncResult Begin_Authenticate(AsyncCallback callback, object state, string userName, string passwordHash)
     {
-      return send_authenticate(callback, state, userName, password);
+      return send_Authenticate(callback, state, userName, passwordHash);
     }
 
-    public int End_authenticate(IAsyncResult asyncResult)
+    public DNHAuthResponse End_Authenticate(IAsyncResult asyncResult)
     {
       oprot_.Transport.EndFlush(asyncResult);
-      return recv_authenticate();
+      return recv_Authenticate();
     }
 
     #endif
 
-    public int authenticate(string userName, string password)
+    public DNHAuthResponse Authenticate(string userName, string passwordHash)
     {
       #if !SILVERLIGHT
-      send_authenticate(userName, password);
-      return recv_authenticate();
+      send_Authenticate(userName, passwordHash);
+      return recv_Authenticate();
 
       #else
-      var asyncResult = Begin_authenticate(null, null, userName, password);
-      return End_authenticate(asyncResult);
+      var asyncResult = Begin_Authenticate(null, null, userName, passwordHash);
+      return End_Authenticate(asyncResult);
 
       #endif
     }
     #if SILVERLIGHT
-    public IAsyncResult send_authenticate(AsyncCallback callback, object state, string userName, string password)
+    public IAsyncResult send_Authenticate(AsyncCallback callback, object state, string userName, string passwordHash)
     #else
-    public void send_authenticate(string userName, string password)
+    public void send_Authenticate(string userName, string passwordHash)
     #endif
     {
-      oprot_.WriteMessageBegin(new TMessage("authenticate", TMessageType.Call, seqid_));
-      authenticate_args args = new authenticate_args();
+      oprot_.WriteMessageBegin(new TMessage("Authenticate", TMessageType.Call, seqid_));
+      Authenticate_args args = new Authenticate_args();
       args.UserName = userName;
-      args.Password = password;
+      args.PasswordHash = passwordHash;
       args.Write(oprot_);
       oprot_.WriteMessageEnd();
       #if SILVERLIGHT
@@ -105,7 +95,7 @@ public partial class DNHService {
       #endif
     }
 
-    public int recv_authenticate()
+    public DNHAuthResponse recv_Authenticate()
     {
       TMessage msg = iprot_.ReadMessageBegin();
       if (msg.Type == TMessageType.Exception) {
@@ -113,134 +103,13 @@ public partial class DNHService {
         iprot_.ReadMessageEnd();
         throw x;
       }
-      authenticate_result result = new authenticate_result();
+      Authenticate_result result = new Authenticate_result();
       result.Read(iprot_);
       iprot_.ReadMessageEnd();
       if (result.__isset.success) {
         return result.Success;
       }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "authenticate failed: unknown result");
-    }
-
-    
-    #if SILVERLIGHT
-    public IAsyncResult Begin_sendPacket(AsyncCallback callback, object state, DNHPacket packet)
-    {
-      return send_sendPacket(callback, state, packet);
-    }
-
-    public void End_sendPacket(IAsyncResult asyncResult)
-    {
-      oprot_.Transport.EndFlush(asyncResult);
-      recv_sendPacket();
-    }
-
-    #endif
-
-    public void sendPacket(DNHPacket packet)
-    {
-      #if !SILVERLIGHT
-      send_sendPacket(packet);
-      recv_sendPacket();
-
-      #else
-      var asyncResult = Begin_sendPacket(null, null, packet);
-      End_sendPacket(asyncResult);
-
-      #endif
-    }
-    #if SILVERLIGHT
-    public IAsyncResult send_sendPacket(AsyncCallback callback, object state, DNHPacket packet)
-    #else
-    public void send_sendPacket(DNHPacket packet)
-    #endif
-    {
-      oprot_.WriteMessageBegin(new TMessage("sendPacket", TMessageType.Call, seqid_));
-      sendPacket_args args = new sendPacket_args();
-      args.Packet = packet;
-      args.Write(oprot_);
-      oprot_.WriteMessageEnd();
-      #if SILVERLIGHT
-      return oprot_.Transport.BeginFlush(callback, state);
-      #else
-      oprot_.Transport.Flush();
-      #endif
-    }
-
-    public void recv_sendPacket()
-    {
-      TMessage msg = iprot_.ReadMessageBegin();
-      if (msg.Type == TMessageType.Exception) {
-        TApplicationException x = TApplicationException.Read(iprot_);
-        iprot_.ReadMessageEnd();
-        throw x;
-      }
-      sendPacket_result result = new sendPacket_result();
-      result.Read(iprot_);
-      iprot_.ReadMessageEnd();
-      return;
-    }
-
-    
-    #if SILVERLIGHT
-    public IAsyncResult Begin_retrievePacket(AsyncCallback callback, object state, int uid)
-    {
-      return send_retrievePacket(callback, state, uid);
-    }
-
-    public DNHPacket End_retrievePacket(IAsyncResult asyncResult)
-    {
-      oprot_.Transport.EndFlush(asyncResult);
-      return recv_retrievePacket();
-    }
-
-    #endif
-
-    public DNHPacket retrievePacket(int uid)
-    {
-      #if !SILVERLIGHT
-      send_retrievePacket(uid);
-      return recv_retrievePacket();
-
-      #else
-      var asyncResult = Begin_retrievePacket(null, null, uid);
-      return End_retrievePacket(asyncResult);
-
-      #endif
-    }
-    #if SILVERLIGHT
-    public IAsyncResult send_retrievePacket(AsyncCallback callback, object state, int uid)
-    #else
-    public void send_retrievePacket(int uid)
-    #endif
-    {
-      oprot_.WriteMessageBegin(new TMessage("retrievePacket", TMessageType.Call, seqid_));
-      retrievePacket_args args = new retrievePacket_args();
-      args.Uid = uid;
-      args.Write(oprot_);
-      oprot_.WriteMessageEnd();
-      #if SILVERLIGHT
-      return oprot_.Transport.BeginFlush(callback, state);
-      #else
-      oprot_.Transport.Flush();
-      #endif
-    }
-
-    public DNHPacket recv_retrievePacket()
-    {
-      TMessage msg = iprot_.ReadMessageBegin();
-      if (msg.Type == TMessageType.Exception) {
-        TApplicationException x = TApplicationException.Read(iprot_);
-        iprot_.ReadMessageEnd();
-        throw x;
-      }
-      retrievePacket_result result = new retrievePacket_result();
-      result.Read(iprot_);
-      iprot_.ReadMessageEnd();
-      if (result.__isset.success) {
-        return result.Success;
-      }
-      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "retrievePacket failed: unknown result");
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "Authenticate failed: unknown result");
     }
 
   }
@@ -248,9 +117,7 @@ public partial class DNHService {
     public Processor(Iface iface)
     {
       iface_ = iface;
-      processMap_["authenticate"] = authenticate_Process;
-      processMap_["sendPacket"] = sendPacket_Process;
-      processMap_["retrievePacket"] = retrievePacket_Process;
+      processMap_["Authenticate"] = Authenticate_Process;
     }
 
     protected delegate void ProcessFunction(int seqid, TProtocol iprot, TProtocol oprot);
@@ -283,40 +150,14 @@ public partial class DNHService {
       return true;
     }
 
-    public void authenticate_Process(int seqid, TProtocol iprot, TProtocol oprot)
+    public void Authenticate_Process(int seqid, TProtocol iprot, TProtocol oprot)
     {
-      authenticate_args args = new authenticate_args();
+      Authenticate_args args = new Authenticate_args();
       args.Read(iprot);
       iprot.ReadMessageEnd();
-      authenticate_result result = new authenticate_result();
-      result.Success = iface_.authenticate(args.UserName, args.Password);
-      oprot.WriteMessageBegin(new TMessage("authenticate", TMessageType.Reply, seqid)); 
-      result.Write(oprot);
-      oprot.WriteMessageEnd();
-      oprot.Transport.Flush();
-    }
-
-    public void sendPacket_Process(int seqid, TProtocol iprot, TProtocol oprot)
-    {
-      sendPacket_args args = new sendPacket_args();
-      args.Read(iprot);
-      iprot.ReadMessageEnd();
-      sendPacket_result result = new sendPacket_result();
-      iface_.sendPacket(args.Packet);
-      oprot.WriteMessageBegin(new TMessage("sendPacket", TMessageType.Reply, seqid)); 
-      result.Write(oprot);
-      oprot.WriteMessageEnd();
-      oprot.Transport.Flush();
-    }
-
-    public void retrievePacket_Process(int seqid, TProtocol iprot, TProtocol oprot)
-    {
-      retrievePacket_args args = new retrievePacket_args();
-      args.Read(iprot);
-      iprot.ReadMessageEnd();
-      retrievePacket_result result = new retrievePacket_result();
-      result.Success = iface_.retrievePacket(args.Uid);
-      oprot.WriteMessageBegin(new TMessage("retrievePacket", TMessageType.Reply, seqid)); 
+      Authenticate_result result = new Authenticate_result();
+      result.Success = iface_.Authenticate(args.UserName, args.PasswordHash);
+      oprot.WriteMessageBegin(new TMessage("Authenticate", TMessageType.Reply, seqid)); 
       result.Write(oprot);
       oprot.WriteMessageEnd();
       oprot.Transport.Flush();
@@ -328,10 +169,10 @@ public partial class DNHService {
   #if !SILVERLIGHT
   [Serializable]
   #endif
-  public partial class authenticate_args : TBase
+  public partial class Authenticate_args : TBase
   {
     private string _userName;
-    private string _password;
+    private string _passwordHash;
 
     public string UserName
     {
@@ -346,16 +187,16 @@ public partial class DNHService {
       }
     }
 
-    public string Password
+    public string PasswordHash
     {
       get
       {
-        return _password;
+        return _passwordHash;
       }
       set
       {
-        __isset.password = true;
-        this._password = value;
+        __isset.passwordHash = true;
+        this._passwordHash = value;
       }
     }
 
@@ -366,10 +207,10 @@ public partial class DNHService {
     #endif
     public struct Isset {
       public bool userName;
-      public bool password;
+      public bool passwordHash;
     }
 
-    public authenticate_args() {
+    public Authenticate_args() {
     }
 
     public void Read (TProtocol iprot)
@@ -393,7 +234,7 @@ public partial class DNHService {
             break;
           case 2:
             if (field.Type == TType.String) {
-              Password = iprot.ReadString();
+              PasswordHash = iprot.ReadString();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
@@ -408,7 +249,7 @@ public partial class DNHService {
     }
 
     public void Write(TProtocol oprot) {
-      TStruct struc = new TStruct("authenticate_args");
+      TStruct struc = new TStruct("Authenticate_args");
       oprot.WriteStructBegin(struc);
       TField field = new TField();
       if (UserName != null && __isset.userName) {
@@ -419,12 +260,12 @@ public partial class DNHService {
         oprot.WriteString(UserName);
         oprot.WriteFieldEnd();
       }
-      if (Password != null && __isset.password) {
-        field.Name = "password";
+      if (PasswordHash != null && __isset.passwordHash) {
+        field.Name = "passwordHash";
         field.Type = TType.String;
         field.ID = 2;
         oprot.WriteFieldBegin(field);
-        oprot.WriteString(Password);
+        oprot.WriteString(PasswordHash);
         oprot.WriteFieldEnd();
       }
       oprot.WriteFieldStop();
@@ -432,11 +273,11 @@ public partial class DNHService {
     }
 
     public override string ToString() {
-      StringBuilder sb = new StringBuilder("authenticate_args(");
+      StringBuilder sb = new StringBuilder("Authenticate_args(");
       sb.Append("UserName: ");
       sb.Append(UserName);
-      sb.Append(",Password: ");
-      sb.Append(Password);
+      sb.Append(",PasswordHash: ");
+      sb.Append(PasswordHash);
       sb.Append(")");
       return sb.ToString();
     }
@@ -447,11 +288,11 @@ public partial class DNHService {
   #if !SILVERLIGHT
   [Serializable]
   #endif
-  public partial class authenticate_result : TBase
+  public partial class Authenticate_result : TBase
   {
-    private int _success;
+    private DNHAuthResponse _success;
 
-    public int Success
+    public DNHAuthResponse Success
     {
       get
       {
@@ -473,317 +314,7 @@ public partial class DNHService {
       public bool success;
     }
 
-    public authenticate_result() {
-    }
-
-    public void Read (TProtocol iprot)
-    {
-      TField field;
-      iprot.ReadStructBegin();
-      while (true)
-      {
-        field = iprot.ReadFieldBegin();
-        if (field.Type == TType.Stop) { 
-          break;
-        }
-        switch (field.ID)
-        {
-          case 0:
-            if (field.Type == TType.I32) {
-              Success = iprot.ReadI32();
-            } else { 
-              TProtocolUtil.Skip(iprot, field.Type);
-            }
-            break;
-          default: 
-            TProtocolUtil.Skip(iprot, field.Type);
-            break;
-        }
-        iprot.ReadFieldEnd();
-      }
-      iprot.ReadStructEnd();
-    }
-
-    public void Write(TProtocol oprot) {
-      TStruct struc = new TStruct("authenticate_result");
-      oprot.WriteStructBegin(struc);
-      TField field = new TField();
-
-      if (this.__isset.success) {
-        field.Name = "Success";
-        field.Type = TType.I32;
-        field.ID = 0;
-        oprot.WriteFieldBegin(field);
-        oprot.WriteI32(Success);
-        oprot.WriteFieldEnd();
-      }
-      oprot.WriteFieldStop();
-      oprot.WriteStructEnd();
-    }
-
-    public override string ToString() {
-      StringBuilder sb = new StringBuilder("authenticate_result(");
-      sb.Append("Success: ");
-      sb.Append(Success);
-      sb.Append(")");
-      return sb.ToString();
-    }
-
-  }
-
-
-  #if !SILVERLIGHT
-  [Serializable]
-  #endif
-  public partial class sendPacket_args : TBase
-  {
-    private DNHPacket _packet;
-
-    public DNHPacket Packet
-    {
-      get
-      {
-        return _packet;
-      }
-      set
-      {
-        __isset.packet = true;
-        this._packet = value;
-      }
-    }
-
-
-    public Isset __isset;
-    #if !SILVERLIGHT
-    [Serializable]
-    #endif
-    public struct Isset {
-      public bool packet;
-    }
-
-    public sendPacket_args() {
-    }
-
-    public void Read (TProtocol iprot)
-    {
-      TField field;
-      iprot.ReadStructBegin();
-      while (true)
-      {
-        field = iprot.ReadFieldBegin();
-        if (field.Type == TType.Stop) { 
-          break;
-        }
-        switch (field.ID)
-        {
-          case 1:
-            if (field.Type == TType.Struct) {
-              Packet = new DNHPacket();
-              Packet.Read(iprot);
-            } else { 
-              TProtocolUtil.Skip(iprot, field.Type);
-            }
-            break;
-          default: 
-            TProtocolUtil.Skip(iprot, field.Type);
-            break;
-        }
-        iprot.ReadFieldEnd();
-      }
-      iprot.ReadStructEnd();
-    }
-
-    public void Write(TProtocol oprot) {
-      TStruct struc = new TStruct("sendPacket_args");
-      oprot.WriteStructBegin(struc);
-      TField field = new TField();
-      if (Packet != null && __isset.packet) {
-        field.Name = "packet";
-        field.Type = TType.Struct;
-        field.ID = 1;
-        oprot.WriteFieldBegin(field);
-        Packet.Write(oprot);
-        oprot.WriteFieldEnd();
-      }
-      oprot.WriteFieldStop();
-      oprot.WriteStructEnd();
-    }
-
-    public override string ToString() {
-      StringBuilder sb = new StringBuilder("sendPacket_args(");
-      sb.Append("Packet: ");
-      sb.Append(Packet== null ? "<null>" : Packet.ToString());
-      sb.Append(")");
-      return sb.ToString();
-    }
-
-  }
-
-
-  #if !SILVERLIGHT
-  [Serializable]
-  #endif
-  public partial class sendPacket_result : TBase
-  {
-
-    public sendPacket_result() {
-    }
-
-    public void Read (TProtocol iprot)
-    {
-      TField field;
-      iprot.ReadStructBegin();
-      while (true)
-      {
-        field = iprot.ReadFieldBegin();
-        if (field.Type == TType.Stop) { 
-          break;
-        }
-        switch (field.ID)
-        {
-          default: 
-            TProtocolUtil.Skip(iprot, field.Type);
-            break;
-        }
-        iprot.ReadFieldEnd();
-      }
-      iprot.ReadStructEnd();
-    }
-
-    public void Write(TProtocol oprot) {
-      TStruct struc = new TStruct("sendPacket_result");
-      oprot.WriteStructBegin(struc);
-
-      oprot.WriteFieldStop();
-      oprot.WriteStructEnd();
-    }
-
-    public override string ToString() {
-      StringBuilder sb = new StringBuilder("sendPacket_result(");
-      sb.Append(")");
-      return sb.ToString();
-    }
-
-  }
-
-
-  #if !SILVERLIGHT
-  [Serializable]
-  #endif
-  public partial class retrievePacket_args : TBase
-  {
-    private int _uid;
-
-    public int Uid
-    {
-      get
-      {
-        return _uid;
-      }
-      set
-      {
-        __isset.uid = true;
-        this._uid = value;
-      }
-    }
-
-
-    public Isset __isset;
-    #if !SILVERLIGHT
-    [Serializable]
-    #endif
-    public struct Isset {
-      public bool uid;
-    }
-
-    public retrievePacket_args() {
-    }
-
-    public void Read (TProtocol iprot)
-    {
-      TField field;
-      iprot.ReadStructBegin();
-      while (true)
-      {
-        field = iprot.ReadFieldBegin();
-        if (field.Type == TType.Stop) { 
-          break;
-        }
-        switch (field.ID)
-        {
-          case 1:
-            if (field.Type == TType.I32) {
-              Uid = iprot.ReadI32();
-            } else { 
-              TProtocolUtil.Skip(iprot, field.Type);
-            }
-            break;
-          default: 
-            TProtocolUtil.Skip(iprot, field.Type);
-            break;
-        }
-        iprot.ReadFieldEnd();
-      }
-      iprot.ReadStructEnd();
-    }
-
-    public void Write(TProtocol oprot) {
-      TStruct struc = new TStruct("retrievePacket_args");
-      oprot.WriteStructBegin(struc);
-      TField field = new TField();
-      if (__isset.uid) {
-        field.Name = "uid";
-        field.Type = TType.I32;
-        field.ID = 1;
-        oprot.WriteFieldBegin(field);
-        oprot.WriteI32(Uid);
-        oprot.WriteFieldEnd();
-      }
-      oprot.WriteFieldStop();
-      oprot.WriteStructEnd();
-    }
-
-    public override string ToString() {
-      StringBuilder sb = new StringBuilder("retrievePacket_args(");
-      sb.Append("Uid: ");
-      sb.Append(Uid);
-      sb.Append(")");
-      return sb.ToString();
-    }
-
-  }
-
-
-  #if !SILVERLIGHT
-  [Serializable]
-  #endif
-  public partial class retrievePacket_result : TBase
-  {
-    private DNHPacket _success;
-
-    public DNHPacket Success
-    {
-      get
-      {
-        return _success;
-      }
-      set
-      {
-        __isset.success = true;
-        this._success = value;
-      }
-    }
-
-
-    public Isset __isset;
-    #if !SILVERLIGHT
-    [Serializable]
-    #endif
-    public struct Isset {
-      public bool success;
-    }
-
-    public retrievePacket_result() {
+    public Authenticate_result() {
     }
 
     public void Read (TProtocol iprot)
@@ -800,7 +331,7 @@ public partial class DNHService {
         {
           case 0:
             if (field.Type == TType.Struct) {
-              Success = new DNHPacket();
+              Success = new DNHAuthResponse();
               Success.Read(iprot);
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
@@ -816,7 +347,7 @@ public partial class DNHService {
     }
 
     public void Write(TProtocol oprot) {
-      TStruct struc = new TStruct("retrievePacket_result");
+      TStruct struc = new TStruct("Authenticate_result");
       oprot.WriteStructBegin(struc);
       TField field = new TField();
 
@@ -835,7 +366,7 @@ public partial class DNHService {
     }
 
     public override string ToString() {
-      StringBuilder sb = new StringBuilder("retrievePacket_result(");
+      StringBuilder sb = new StringBuilder("Authenticate_result(");
       sb.Append("Success: ");
       sb.Append(Success== null ? "<null>" : Success.ToString());
       sb.Append(")");

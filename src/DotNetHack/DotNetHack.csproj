@@ -66,6 +66,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MapViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MapViewControl.Designer.cs">
+      <DependentUpon>MapViewControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DNHClientComponent.resx">
       <DependentUpon>DNHClientComponent.cs</DependentUpon>
@@ -75,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapViewControl.resx">
+      <DependentUpon>MapViewControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -37,7 +37,7 @@
             // 
             this.statusStripMain.Location = new System.Drawing.Point(0, 390);
             this.statusStripMain.Name = "statusStripMain";
-            this.statusStripMain.Size = new System.Drawing.Size(692, 22);
+            this.statusStripMain.Size = new System.Drawing.Size(913, 22);
             this.statusStripMain.TabIndex = 0;
             this.statusStripMain.Text = "statusStrip1";
             // 
@@ -50,10 +50,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(692, 412);
+            this.ClientSize = new System.Drawing.Size(913, 412);
             this.Controls.Add(this.statusStripMain);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "DotNetHack";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

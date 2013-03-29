@@ -64,5 +64,15 @@ namespace DotNetHack
         {
             Close();
         }
+
+        /// <summary>
+        /// LoginForm_Load
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

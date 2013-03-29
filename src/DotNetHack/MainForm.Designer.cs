@@ -1,4 +1,5 @@
-﻿namespace DotNetHack
+﻿using DotNetHack.Components;
+namespace DotNetHack
 {
     partial class MainForm
     {
@@ -30,7 +31,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
-            this.dnhClient = new DotNetHack.ExperimentalGUI.DNHClientComponent(this.components);
+            this.dnhClient = new DotNetHack.Components.DNHClientComponent(this.components);
             this.SuspendLayout();
             // 
             // statusStripMain
@@ -63,7 +64,7 @@
         #endregion
 
         private System.Windows.Forms.StatusStrip statusStripMain;
-        private ExperimentalGUI.DNHClientComponent dnhClient;
+        private DNHClientComponent dnhClient;
     }
 }
 

@@ -44,7 +44,7 @@
             this.textBoxUserName = new System.Windows.Forms.TextBox();
             this.groupBoxChangeLog = new System.Windows.Forms.GroupBox();
             this.richTextBoxChangeLog = new System.Windows.Forms.RichTextBox();
-            this.dnhClientComponent = new DotNetHack.ExperimentalGUI.DNHClientComponent(this.components);
+            this.dnhClientComponent = new DotNetHack.Components.DNHClientComponent(this.components);
             this.statusStripLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanelLogin.SuspendLayout();
@@ -261,6 +261,6 @@
         private System.Windows.Forms.GroupBox groupBoxChangeLog;
         private System.Windows.Forms.RichTextBox richTextBoxChangeLog;
         private System.Windows.Forms.Button buttonExit;
-        private ExperimentalGUI.DNHClientComponent dnhClientComponent;
+        private Components.DNHClientComponent dnhClientComponent;
     }
 }

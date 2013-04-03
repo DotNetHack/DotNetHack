@@ -19,7 +19,11 @@ namespace DotNetHack
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+#if DEBUG
+            Application.Run(new MainForm(0));
+#else
             Application.Run(new LoginForm());
+#endif
         }
     }
 }

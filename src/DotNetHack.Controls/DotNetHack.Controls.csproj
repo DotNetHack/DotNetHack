@@ -32,6 +32,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,7 +41,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InventoryItemControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InventoryItemControl.Designer.cs">
+      <DependentUpon>InventoryItemControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InventoryViewControl.Designer.cs">
+      <DependentUpon>InventoryViewControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MapViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MapViewControl.Designer.cs">
+      <DependentUpon>MapViewControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="InventoryItemControl.resx">
+      <DependentUpon>InventoryItemControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryViewControl.resx">
+      <DependentUpon>InventoryViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapViewControl.resx">
+      <DependentUpon>MapViewControl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

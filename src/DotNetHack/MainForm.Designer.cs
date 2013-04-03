@@ -38,10 +38,12 @@ namespace DotNetHack
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageInventory = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.inventoryViewControl1 = new DotNetHack.Shared.Controls.InventoryViewControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
+            this.tabPageInventory.SuspendLayout();
             this.SuspendLayout();
             // 
             // dnhClient
@@ -91,6 +93,7 @@ namespace DotNetHack
             // 
             // tabPageInventory
             // 
+            this.tabPageInventory.Controls.Add(this.inventoryViewControl1);
             this.tabPageInventory.Location = new System.Drawing.Point(4, 22);
             this.tabPageInventory.Name = "tabPageInventory";
             this.tabPageInventory.Padding = new System.Windows.Forms.Padding(3);
@@ -109,6 +112,14 @@ namespace DotNetHack
             this.tabPage1.Text = "Equipment";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // inventoryViewControl1
+            // 
+            this.inventoryViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inventoryViewControl1.Location = new System.Drawing.Point(3, 3);
+            this.inventoryViewControl1.Name = "inventoryViewControl1";
+            this.inventoryViewControl1.Size = new System.Drawing.Size(230, 334);
+            this.inventoryViewControl1.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -125,6 +136,7 @@ namespace DotNetHack
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
+            this.tabPageInventory.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,6 +151,7 @@ namespace DotNetHack
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageInventory;
         private System.Windows.Forms.TabPage tabPage1;
+        private Shared.Controls.InventoryViewControl inventoryViewControl1;
     }
 }
 

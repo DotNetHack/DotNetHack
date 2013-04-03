@@ -13,16 +13,16 @@ namespace DotNetHack.Shared.Controls
     /// <summary>
     /// InventoryItemControl
     /// </summary>
-    public partial class InventoryItemControl : UserControl
+    public partial class IconControl : UserControl
     {
         /// <summary>
         /// InventoryItemControl
         /// </summary>
-        public InventoryItemControl()
+        public IconControl(int xCoord, int yCoord)
         {
             InitializeComponent();
 
-
+            pictureBoxImage.Image = Util.GetTile(xCoord, yCoord);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace DotNetHack.Shared.Controls
         /// <param name="e"></param>
         private void InventoryViewControl_Load(object sender, EventArgs e)
         {
-            Controls.Add(new InventoryItemControl());
+            flowLayoutPanelInventory.Controls.Add(new IconControl(0, 0) { Visible = true });   
         }
 
         /// <summary>

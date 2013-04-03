@@ -96,6 +96,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DotNetHack.Core\DotNetHack.Core.csproj">
+      <Project>{cab13655-ae02-43b6-b1ab-64c25560324c}</Project>
+      <Name>DotNetHack.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DotNetHack.Shared\DotNetHack.Shared.csproj">
       <Project>{f532610a-3d12-4a3d-8052-85cb965042a8}</Project>
       <Name>DotNetHack.Shared</Name>

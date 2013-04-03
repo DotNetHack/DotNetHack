@@ -42,7 +42,7 @@ namespace DotNetHack.Editor
         MapEditor _mapEditor = new MapEditor() { Visible = true, TopLevel = false };
 
         /// <summary>
-        /// 
+        /// splitContainerEditorMain_SplitterMoved
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -63,6 +63,18 @@ namespace DotNetHack.Editor
         private void Editor_Load(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// tileMappingToolStripMenuItem_Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tileMappingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TileEditor frmTileEditor = new TileEditor();
+
+            frmTileEditor.Show();
         }
     }
 }

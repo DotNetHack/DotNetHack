@@ -1,4 +1,5 @@
-﻿using DotNetHack.Core.Game.World;
+﻿using DotNetHack.Core.Game.Tiles;
+using DotNetHack.Core.Game.World;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DotNetHack.Editor.Forms
+namespace DotNetHack.Editor
 {
     /// <summary>
     /// TileEditor

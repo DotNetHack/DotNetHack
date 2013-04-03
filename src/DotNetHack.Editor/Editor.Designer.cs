@@ -39,6 +39,7 @@
             this.eDITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vIEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mapEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tileMappingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEditorMain)).BeginInit();
             this.splitContainerEditorMain.Panel1.SuspendLayout();
             this.splitContainerEditorMain.Panel2.SuspendLayout();
@@ -88,7 +89,6 @@
             // 
             // flowLayoutPanelEditorMain
             // 
-            this.flowLayoutPanelEditorMain.Cursor = System.Windows.Forms.Cursors.Default;
             this.flowLayoutPanelEditorMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelEditorMain.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanelEditorMain.Name = "flowLayoutPanelEditorMain";
@@ -137,7 +137,8 @@
             // vIEWToolStripMenuItem
             // 
             this.vIEWToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mapEditorToolStripMenuItem});
+            this.mapEditorToolStripMenuItem,
+            this.tileMappingToolStripMenuItem});
             this.vIEWToolStripMenuItem.Name = "vIEWToolStripMenuItem";
             this.vIEWToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.vIEWToolStripMenuItem.Text = "View";
@@ -149,6 +150,14 @@
             this.mapEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.mapEditorToolStripMenuItem.Text = "Map Editor";
             this.mapEditorToolStripMenuItem.Click += new System.EventHandler(this.mapEditorToolStripMenuItem_Click);
+            // 
+            // tileMappingToolStripMenuItem
+            // 
+            this.tileMappingToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tileMappingToolStripMenuItem.Name = "tileMappingToolStripMenuItem";
+            this.tileMappingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tileMappingToolStripMenuItem.Text = "Tile Mapping";
+            this.tileMappingToolStripMenuItem.Click += new System.EventHandler(this.tileMappingToolStripMenuItem_Click);
             // 
             // Editor
             // 
@@ -190,6 +199,7 @@
         private System.Windows.Forms.ToolStripMenuItem eDITToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem vIEWToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mapEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tileMappingToolStripMenuItem;
 
     }
 }

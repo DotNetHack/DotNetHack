@@ -37,8 +37,8 @@ namespace DotNetHack
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageInventory = new System.Windows.Forms.TabPage();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.inventoryViewControl1 = new DotNetHack.Shared.Controls.InventoryViewControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -102,6 +102,14 @@ namespace DotNetHack
             this.tabPageInventory.Text = "Inventory";
             this.tabPageInventory.UseVisualStyleBackColor = true;
             // 
+            // inventoryViewControl1
+            // 
+            this.inventoryViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inventoryViewControl1.Location = new System.Drawing.Point(3, 3);
+            this.inventoryViewControl1.Name = "inventoryViewControl1";
+            this.inventoryViewControl1.Size = new System.Drawing.Size(230, 334);
+            this.inventoryViewControl1.TabIndex = 0;
+            // 
             // tabPage1
             // 
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -111,14 +119,6 @@ namespace DotNetHack
             this.tabPage1.TabIndex = 1;
             this.tabPage1.Text = "Equipment";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // inventoryViewControl1
-            // 
-            this.inventoryViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.inventoryViewControl1.Location = new System.Drawing.Point(3, 3);
-            this.inventoryViewControl1.Name = "inventoryViewControl1";
-            this.inventoryViewControl1.Size = new System.Drawing.Size(230, 334);
-            this.inventoryViewControl1.TabIndex = 0;
             // 
             // MainForm
             // 

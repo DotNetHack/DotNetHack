@@ -1,4 +1,5 @@
-﻿using DotNetHack.Components;
+﻿
+using DotNetHack.Shared.Components;
 namespace DotNetHack
 {
     partial class MainForm
@@ -30,7 +31,7 @@ namespace DotNetHack
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.dnhClient = new DotNetHack.Components.DNHClientComponent(this.components);
+            this.dnhClient = new DotNetHack.Shared.Components.DNHClientComponent(this.components);
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();

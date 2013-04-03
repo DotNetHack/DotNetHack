@@ -87,13 +87,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotNetHack.Components\DotNetHack.Components.csproj">
-      <Project>{6c7e876c-aa6a-4228-a8d9-4442ae03fa1a}</Project>
-      <Name>DotNetHack.Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DotNetHack.Controls\DotNetHack.Controls.csproj">
-      <Project>{2ac29a28-304a-4383-b237-28f67915eac1}</Project>
-      <Name>DotNetHack.Controls</Name>
+    <ProjectReference Include="..\DotNetHack.Shared\DotNetHack.Shared.csproj">
+      <Project>{f532610a-3d12-4a3d-8052-85cb965042a8}</Project>
+      <Name>DotNetHack.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

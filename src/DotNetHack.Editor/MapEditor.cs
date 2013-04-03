@@ -1,4 +1,4 @@
-﻿using DotNetHack.Controls;
+﻿using DotNetHack.Shared.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -104,14 +104,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotNetHack.Components\DotNetHack.Components.csproj">
-      <Project>{6c7e876c-aa6a-4228-a8d9-4442ae03fa1a}</Project>
-      <Name>DotNetHack.Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DotNetHack.Controls\DotNetHack.Controls.csproj">
-      <Project>{2ac29a28-304a-4383-b237-28f67915eac1}</Project>
-      <Name>DotNetHack.Controls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DotNetHack.RPC\DotNetHack.RPC.csproj">
       <Project>{b45fec7a-3c56-440d-ad61-e3bd2a7e0433}</Project>
       <Name>DotNetHack.RPC</Name>

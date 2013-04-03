@@ -1,4 +1,4 @@
-﻿namespace DotNetHack.Controls
+﻿namespace DotNetHack.Shared.Controls
 {
     partial class MapViewControl
     {

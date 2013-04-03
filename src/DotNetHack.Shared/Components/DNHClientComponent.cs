@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Thrift.Protocol;
 using Thrift.Transport;
 
-namespace DotNetHack.Components
+namespace DotNetHack.Shared.Components
 {
     [DebuggerDisplay("{HostName}:{Port}")]
     [ToolboxItem(true)]

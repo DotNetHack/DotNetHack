@@ -74,6 +74,8 @@
     <Compile Include="Forms\About.designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="Objects\MappedTile.cs" />
+    <Compile Include="Objects\TileMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -91,7 +93,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
@@ -121,9 +123,17 @@
     <None Include="Resources\X11tiles-32-32.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DotNetHack.Core\DotNetHack.Core.csproj">
+      <Project>{cab13655-ae02-43b6-b1ab-64c25560324c}</Project>
+      <Name>DotNetHack.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DotNetHack.RPC\DotNetHack.RPC.csproj">
       <Project>{b45fec7a-3c56-440d-ad61-e3bd2a7e0433}</Project>
       <Name>DotNetHack.RPC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotNetHack.Serialization\DotNetHack.Serialization.csproj">
+      <Project>{fc69ff51-f478-4488-aa58-b01662550fd4}</Project>
+      <Name>DotNetHack.Serialization</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

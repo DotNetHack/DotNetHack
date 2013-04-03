@@ -58,11 +58,11 @@
       <DependentUpon>MapEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TileEditor.cs">
+    <Compile Include="TileSetEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TileEditor.designer.cs">
-      <DependentUpon>TileEditor.cs</DependentUpon>
+    <Compile Include="TileSetEditor.Designer.cs">
+      <DependentUpon>TileSetEditor.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Editor.resx">
       <DependentUpon>Editor.cs</DependentUpon>
@@ -79,8 +79,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="TileEditor.resx">
-      <DependentUpon>TileEditor.cs</DependentUpon>
+    <EmbeddedResource Include="TileSetEditor.resx">
+      <DependentUpon>TileSetEditor.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

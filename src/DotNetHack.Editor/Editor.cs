@@ -72,9 +72,6 @@ namespace DotNetHack.Editor
         /// <param name="e"></param>
         private void tileMappingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TileEditor frmTileEditor = new TileEditor();
-
-            frmTileEditor.Show();
         }
     }
 }

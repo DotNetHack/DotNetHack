@@ -4,19 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetHack
+namespace DotNetHack.Engine.Interfaces
 {
     /// <summary>
-    /// EntryPoint
+    /// GameEngine
     /// </summary>
-    class EntryPoint
+    public interface IGameEngineController
     {
         /// <summary>
-        /// Main
+        /// The game engine to control
         /// </summary>
-        /// <param name="args"></param>
-        static void Main(string[] args)
-        {
-        }
+        GameEngine Engine { get; set; }
     }
 }

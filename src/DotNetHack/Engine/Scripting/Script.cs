@@ -4,19 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNetHack
+namespace DotNetHack.Engine.Scripting
 {
     /// <summary>
-    /// EntryPoint
+    /// Script
     /// </summary>
-    class EntryPoint
+    public sealed class Script
     {
         /// <summary>
-        /// Main
+        /// Script
         /// </summary>
-        /// <param name="args"></param>
-        static void Main(string[] args)
+        public Script()
         {
+
         }
+
+        /// <summary>
+        /// CodeSet
+        /// </summary>
+        public string CodeSet { get; set; }
     }
 }

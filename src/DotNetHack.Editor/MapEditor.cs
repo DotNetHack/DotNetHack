@@ -45,5 +45,15 @@ namespace DotNetHack.Editor
         {
             toolStripStatusLabelLocation.Text = e.Location.ToString();
         }
+
+        /// <summary>
+        /// mapViewControl_Load
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void mapViewControl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -30,26 +30,28 @@ namespace DotNetHack
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.dnhClient = new DotNetHack.Shared.Components.DNHClientComponent(this.components);
             this.statusStripMain = new System.Windows.Forms.StatusStrip();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageInventory = new System.Windows.Forms.TabPage();
-            this.inventoryViewControl = new DotNetHack.Shared.Controls.InventoryViewControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.inventoryViewControl = new DotNetHack.Shared.Controls.InventoryViewControl();
+            this.mapViewControlMain = new DotNetHack.Shared.Controls.MapViewControl();
+            this.chatControlMain = new DotNetHack.Shared.Controls.ChatControlMain();
+            this.dnhClient = new DotNetHack.Shared.Components.DNHClientComponent();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageInventory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dnhClient
-            // 
-            this.dnhClient.HostName = "localhost";
-            this.dnhClient.Port = 9090;
             // 
             // statusStripMain
             // 
@@ -76,6 +78,10 @@ namespace DotNetHack
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.tabControlMain);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(913, 366);
             this.splitContainer1.SplitterDistance = 244;
             this.splitContainer1.TabIndex = 2;
@@ -102,6 +108,34 @@ namespace DotNetHack
             this.tabPageInventory.Text = "Inventory";
             this.tabPageInventory.UseVisualStyleBackColor = true;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(236, 340);
+            this.tabPage1.TabIndex = 1;
+            this.tabPage1.Text = "Equipment";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.mapViewControlMain);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.chatControlMain);
+            this.splitContainer2.Size = new System.Drawing.Size(665, 366);
+            this.splitContainer2.SplitterDistance = 297;
+            this.splitContainer2.TabIndex = 0;
+            // 
             // inventoryViewControl
             // 
             this.inventoryViewControl.AllowDrop = true;
@@ -112,15 +146,26 @@ namespace DotNetHack
             this.inventoryViewControl.Size = new System.Drawing.Size(230, 334);
             this.inventoryViewControl.TabIndex = 0;
             // 
-            // tabPage1
+            // mapViewControlMain
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(236, 340);
-            this.tabPage1.TabIndex = 1;
-            this.tabPage1.Text = "Equipment";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.mapViewControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapViewControlMain.Location = new System.Drawing.Point(0, 0);
+            this.mapViewControlMain.Name = "mapViewControlMain";
+            this.mapViewControlMain.Size = new System.Drawing.Size(665, 297);
+            this.mapViewControlMain.TabIndex = 1;
+            // 
+            // chatControlMain
+            // 
+            this.chatControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chatControlMain.Location = new System.Drawing.Point(0, 0);
+            this.chatControlMain.Name = "chatControlMain";
+            this.chatControlMain.Size = new System.Drawing.Size(665, 65);
+            this.chatControlMain.TabIndex = 0;
+            // 
+            // dnhClient
+            // 
+            this.dnhClient.HostName = "localhost";
+            this.dnhClient.Port = 9090;
             // 
             // MainForm
             // 
@@ -135,10 +180,15 @@ namespace DotNetHack
             this.Text = "DotNetHack";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabPageInventory.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,6 +204,9 @@ namespace DotNetHack
         private System.Windows.Forms.TabPage tabPageInventory;
         private System.Windows.Forms.TabPage tabPage1;
         private Shared.Controls.InventoryViewControl inventoryViewControl;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private Shared.Controls.MapViewControl mapViewControlMain;
+        private Shared.Controls.ChatControlMain chatControlMain;
     }
 }
 

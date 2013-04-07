@@ -50,6 +50,18 @@
     <Compile Include="Components\DNHClientComponent.Designer.cs">
       <DependentUpon>DNHClientComponent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ChatChannel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ChatChannel.Designer.cs">
+      <DependentUpon>ChatChannel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChatControlMain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ChatControlMain.Designer.cs">
+      <DependentUpon>ChatControlMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IconControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -101,6 +113,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Components\DNHClientComponent.resx">
       <DependentUpon>DNHClientComponent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ChatChannel.resx">
+      <DependentUpon>ChatChannel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ChatControlMain.resx">
+      <DependentUpon>ChatControlMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\IconControl.resx">
       <DependentUpon>IconControl.cs</DependentUpon>

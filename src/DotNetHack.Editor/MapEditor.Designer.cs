@@ -96,8 +96,8 @@
             // splitContainerSub1.Panel1
             // 
             this.splitContainerSub1.Panel1.Controls.Add(this.mapViewControl);
-            this.splitContainerSub1.Size = new System.Drawing.Size(424, 364);
-            this.splitContainerSub1.SplitterDistance = 297;
+            this.splitContainerSub1.Size = new System.Drawing.Size(464, 364);
+            this.splitContainerSub1.SplitterDistance = 306;
             this.splitContainerSub1.TabIndex = 0;
             // 
             // mapViewControl
@@ -105,9 +105,10 @@
             this.mapViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mapViewControl.Location = new System.Drawing.Point(0, 0);
             this.mapViewControl.Name = "mapViewControl";
-            this.mapViewControl.Size = new System.Drawing.Size(424, 297);
+            this.mapViewControl.Size = new System.Drawing.Size(464, 306);
             this.mapViewControl.TabIndex = 0;
             this.mapViewControl.LocationChangedEvent += new System.EventHandler<DotNetHack.Shared.Events.LocationChangedEventArgs>(this.mapViewControl_LocationChangedEvent);
+            this.mapViewControl.Load += new System.EventHandler(this.mapViewControl_Load);
             // 
             // splitContainerMapEditorMain
             // 
@@ -119,7 +120,7 @@
             // 
             this.splitContainerMapEditorMain.Panel2.Controls.Add(this.splitContainerSub1);
             this.splitContainerMapEditorMain.Size = new System.Drawing.Size(641, 364);
-            this.splitContainerMapEditorMain.SplitterDistance = 213;
+            this.splitContainerMapEditorMain.SplitterDistance = 173;
             this.splitContainerMapEditorMain.TabIndex = 2;
             // 
             // MapEditor

@@ -51,17 +51,6 @@ namespace DotNetHack.Shared.Controls
                     buffered.Graphics.DrawLine(new Pen(Color.White), x, 0, x, Height);
                 }
 
-                // Create string to draw.
-                const string drawString = "Sample Text";
-                var drawFont = new Font("Arial", 16);
-                var drawBrush = new SolidBrush(Color.White);
-
-                // Set format of string.
-                var drawFormat = new StringFormat { FormatFlags = StringFormatFlags.DirectionVertical };
-
-                // Draw string to screen.
-                buffered.Graphics.DrawString(drawString, drawFont, drawBrush, 10, 10, drawFormat);
-
                 buffered.Render();
                 buffered.Render(CreateGraphics());
             }

@@ -20,6 +20,8 @@ namespace DotNetHack
         /// </summary>
         public MainForm(int userId)
         {
+            _userId = userId;
+
             InitializeComponent();
         }
 
@@ -30,12 +32,11 @@ namespace DotNetHack
         /// <param name="e"></param>
         private void MainForm_Load(object sender, EventArgs e)
         {
-
         }
 
-        private void toolStripContainer1_ContentPanel_Load(object sender, EventArgs e)
-        {
-
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        private readonly int _userId;
     }
 }

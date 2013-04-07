@@ -68,6 +68,7 @@
     <Compile Include="Controls\MapViewControl.Designer.cs">
       <DependentUpon>MapViewControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Events\LocationChangedEventArgs.cs" />
     <Compile Include="Forms\About.cs">
       <SubType>Form</SubType>
     </Compile>

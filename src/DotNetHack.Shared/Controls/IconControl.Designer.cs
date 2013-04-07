@@ -39,7 +39,7 @@
             // 
             this.contextMenuStripIcon.Name = "contextMenuStripInventoryItem";
             this.contextMenuStripIcon.ShowImageMargin = false;
-            this.contextMenuStripIcon.Size = new System.Drawing.Size(36, 4);
+            this.contextMenuStripIcon.Size = new System.Drawing.Size(128, 26);
             // 
             // toolTipIcon
             // 
@@ -58,6 +58,7 @@
             // 
             // IconControl
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;

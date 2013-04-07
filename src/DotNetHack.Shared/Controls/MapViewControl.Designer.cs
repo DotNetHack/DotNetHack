@@ -38,6 +38,7 @@
             this.Size = new System.Drawing.Size(298, 257);
             this.Load += new System.EventHandler(this.MapViewControl_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MapViewControl_Paint);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MapViewControl_KeyUp);
             this.ResumeLayout(false);
 
         }

@@ -57,5 +57,14 @@ namespace DotNetHack.Core.Game.World
                 this.Y == other.Y &&
                 this.Z == other.Z;
         }
+
+        /// <summary>
+        /// ToString
+        /// </summary>
+        /// <returns>a string representation of this location</returns>
+        public override string ToString()
+        {
+            return string.Format("({0},{1},{2})", X, Y, Z);
+        }
     }
 }

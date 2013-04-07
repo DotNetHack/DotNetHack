@@ -35,5 +35,41 @@ namespace DotNetHack.Editor.Properties {
                 this["RecentTileSets"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int X {
+            get {
+                return ((int)(this["X"]));
+            }
+            set {
+                this["X"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Y {
+            get {
+                return ((int)(this["Y"]));
+            }
+            set {
+                this["Y"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Z {
+            get {
+                return ((int)(this["Z"]));
+            }
+            set {
+                this["Z"] = value;
+            }
+        }
     }
 }

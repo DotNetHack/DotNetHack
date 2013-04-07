@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.splitContainerInventoryPanel = new System.Windows.Forms.SplitContainer();
             this.textBoxFilter = new System.Windows.Forms.TextBox();
             this.flowLayoutPanelInventory = new System.Windows.Forms.FlowLayoutPanel();
@@ -82,6 +83,7 @@
             // 
             // iconControl1
             // 
+            this.iconControl1.AllowDrop = true;
             this.iconControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.iconControl1.Location = new System.Drawing.Point(3, 3);
             this.iconControl1.Name = "iconControl1";

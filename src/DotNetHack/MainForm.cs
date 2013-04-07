@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DotNetHack.Settings;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,8 +36,29 @@ namespace DotNetHack
         }
 
         /// <summary>
-        /// 
+        /// the user id
         /// </summary>
         private readonly int _userId;
+
+        /// <summary>
+        /// MainForm_KeyUp
+        /// </summary>
+        /// <param name="sender">event sender</param>
+        /// <param name="e">event args</param>
+        private void MainForm_KeyUp(object sender, KeyEventArgs e)
+        {
+           
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frmOptions = new Options.Options();
+            frmOptions.Show();
+        }
     }
 }

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Shared", "DotNet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Editor", "DotNetHack.Editor\DotNetHack.Editor.csproj", "{9CC61F40-0FFD-4C04-A688-E338024AACFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Settings", "DotNetHack.Settings\DotNetHack.Settings.csproj", "{87739DD5-BEDD-48A1-8023-1D051F884965}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{9CC61F40-0FFD-4C04-A688-E338024AACFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CC61F40-0FFD-4C04-A688-E338024AACFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CC61F40-0FFD-4C04-A688-E338024AACFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87739DD5-BEDD-48A1-8023-1D051F884965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87739DD5-BEDD-48A1-8023-1D051F884965}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87739DD5-BEDD-48A1-8023-1D051F884965}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87739DD5-BEDD-48A1-8023-1D051F884965}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

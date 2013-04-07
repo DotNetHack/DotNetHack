@@ -30,7 +30,6 @@
         {
             this.richTextBoxChat = new System.Windows.Forms.RichTextBox();
             this.textBoxChat = new System.Windows.Forms.TextBox();
-            this.dnhClientComponent = new DotNetHack.Shared.Components.DNHClientComponent();
             this.SuspendLayout();
             // 
             // richTextBoxChat
@@ -51,11 +50,6 @@
             this.textBoxChat.Size = new System.Drawing.Size(150, 20);
             this.textBoxChat.TabIndex = 4;
             // 
-            // dnhClientComponent
-            // 
-            this.dnhClientComponent.HostName = null;
-            this.dnhClientComponent.Port = 0;
-            // 
             // ChatChannel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -72,6 +66,5 @@
 
         private System.Windows.Forms.RichTextBox richTextBoxChat;
         private System.Windows.Forms.TextBox textBoxChat;
-        private Components.DNHClientComponent dnhClientComponent;
     }
 }

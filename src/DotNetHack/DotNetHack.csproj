@@ -108,6 +108,10 @@
       <Project>{b45fec7a-3c56-440d-ad61-e3bd2a7e0433}</Project>
       <Name>DotNetHack.RPC</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DotNetHack.Settings\DotNetHack.Settings.csproj">
+      <Project>{87739dd5-bedd-48a1-8023-1d051f884965}</Project>
+      <Name>DotNetHack.Settings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DotNetHack.Shared\DotNetHack.Shared.csproj">
       <Project>{f532610a-3d12-4a3d-8052-85cb965042a8}</Project>
       <Name>DotNetHack.Shared</Name>

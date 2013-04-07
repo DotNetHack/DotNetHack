@@ -37,7 +37,7 @@ namespace DotNetHack
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageInventory = new System.Windows.Forms.TabPage();
-            this.inventoryViewControl1 = new DotNetHack.Shared.Controls.InventoryViewControl();
+            this.inventoryViewControl = new DotNetHack.Shared.Controls.InventoryViewControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -93,7 +93,7 @@ namespace DotNetHack
             // 
             // tabPageInventory
             // 
-            this.tabPageInventory.Controls.Add(this.inventoryViewControl1);
+            this.tabPageInventory.Controls.Add(this.inventoryViewControl);
             this.tabPageInventory.Location = new System.Drawing.Point(4, 22);
             this.tabPageInventory.Name = "tabPageInventory";
             this.tabPageInventory.Padding = new System.Windows.Forms.Padding(3);
@@ -102,13 +102,15 @@ namespace DotNetHack
             this.tabPageInventory.Text = "Inventory";
             this.tabPageInventory.UseVisualStyleBackColor = true;
             // 
-            // inventoryViewControl1
+            // inventoryViewControl
             // 
-            this.inventoryViewControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.inventoryViewControl1.Location = new System.Drawing.Point(3, 3);
-            this.inventoryViewControl1.Name = "inventoryViewControl1";
-            this.inventoryViewControl1.Size = new System.Drawing.Size(230, 334);
-            this.inventoryViewControl1.TabIndex = 0;
+            this.inventoryViewControl.AllowDrop = true;
+            this.inventoryViewControl.AutoScroll = true;
+            this.inventoryViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.inventoryViewControl.Location = new System.Drawing.Point(3, 3);
+            this.inventoryViewControl.Name = "inventoryViewControl";
+            this.inventoryViewControl.Size = new System.Drawing.Size(230, 334);
+            this.inventoryViewControl.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -151,7 +153,7 @@ namespace DotNetHack
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageInventory;
         private System.Windows.Forms.TabPage tabPage1;
-        private Shared.Controls.InventoryViewControl inventoryViewControl1;
+        private Shared.Controls.InventoryViewControl inventoryViewControl;
     }
 }
 

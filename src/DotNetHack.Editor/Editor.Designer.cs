@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Tile Set");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("DNH", new System.Windows.Forms.TreeNode[] {
+            treeNode3});
             this.splitContainerEditorMain = new System.Windows.Forms.SplitContainer();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageToolbox = new System.Windows.Forms.TabPage();
@@ -40,6 +43,9 @@
             this.vIEWToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mapEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tileMappingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPagePAK = new System.Windows.Forms.TabPage();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEditorMain)).BeginInit();
             this.splitContainerEditorMain.Panel1.SuspendLayout();
             this.splitContainerEditorMain.Panel2.SuspendLayout();
@@ -47,6 +53,7 @@
             this.tabControlMain.SuspendLayout();
             this.statusStripEditorMain.SuspendLayout();
             this.menuStripEditorMain.SuspendLayout();
+            this.tabPagePAK.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainerEditorMain
@@ -65,11 +72,11 @@
             this.splitContainerEditorMain.Size = new System.Drawing.Size(674, 387);
             this.splitContainerEditorMain.SplitterDistance = 203;
             this.splitContainerEditorMain.TabIndex = 2;
-            this.splitContainerEditorMain.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainerEditorMain_SplitterMoved);
             // 
             // tabControlMain
             // 
             this.tabControlMain.Controls.Add(this.tabPageToolbox);
+            this.tabControlMain.Controls.Add(this.tabPagePAK);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Location = new System.Drawing.Point(0, 0);
             this.tabControlMain.Name = "tabControlMain";
@@ -103,7 +110,8 @@
             // statusStripEditorMain
             // 
             this.statusStripEditorMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripProgressBarEditorMain});
+            this.toolStripProgressBarEditorMain,
+            this.toolStripStatusLabel});
             this.statusStripEditorMain.Location = new System.Drawing.Point(0, 411);
             this.statusStripEditorMain.Name = "statusStripEditorMain";
             this.statusStripEditorMain.Size = new System.Drawing.Size(674, 22);
@@ -159,6 +167,38 @@
             this.tileMappingToolStripMenuItem.Text = "Tile Mapping";
             this.tileMappingToolStripMenuItem.Click += new System.EventHandler(this.tileMappingToolStripMenuItem_Click);
             // 
+            // tabPagePAK
+            // 
+            this.tabPagePAK.Controls.Add(this.treeView1);
+            this.tabPagePAK.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePAK.Name = "tabPagePAK";
+            this.tabPagePAK.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePAK.Size = new System.Drawing.Size(195, 361);
+            this.tabPagePAK.TabIndex = 1;
+            this.tabPagePAK.Text = "PAK";
+            this.tabPagePAK.UseVisualStyleBackColor = true;
+            // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.Location = new System.Drawing.Point(3, 3);
+            this.treeView1.Name = "treeView1";
+            treeNode3.Name = "NodeTileSet";
+            treeNode3.Text = "Tile Set";
+            treeNode3.ToolTipText = "The tileset for this PAK";
+            treeNode4.Name = "root";
+            treeNode4.Text = "DNH";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode4});
+            this.treeView1.Size = new System.Drawing.Size(189, 355);
+            this.treeView1.TabIndex = 0;
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel.Text = "Ready";
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -181,6 +221,7 @@
             this.statusStripEditorMain.PerformLayout();
             this.menuStripEditorMain.ResumeLayout(false);
             this.menuStripEditorMain.PerformLayout();
+            this.tabPagePAK.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -200,6 +241,9 @@
         private System.Windows.Forms.ToolStripMenuItem vIEWToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mapEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tileMappingToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPagePAK;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
 
     }
 }

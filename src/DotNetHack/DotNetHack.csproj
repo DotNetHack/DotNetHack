@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>0e5cca4e-60cc-4d7c-b446-a4431bfe4214</ProjectGuid>
+    <ProjectGuid>{7544665A-8E32-454A-9898-9E41681EF673}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DotNetHack</RootNamespace>
@@ -41,11 +41,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="DNHObject.cs" />
+    <Compile Include="Engine\GameEngine.cs" />
+    <Compile Include="Engine\GameEngineFlags.cs" />
+    <Compile Include="Engine\Interfaces\IGameEngineController.cs" />
+    <Compile Include="Engine\Scripting\Script.cs" />
+    <Compile Include="Engine\Scripting\ScriptLoader.cs" />
+    <Compile Include="Model\GameModel.cs" />
+    <Compile Include="Model\Overlay.cs" />
+    <Compile Include="Model\ISubstrateAccessor.cs" />
+    <Compile Include="UserInterface\GUIModel.cs" />
+    <Compile Include="UserInterface\MainWindow.cs" />
+    <Compile Include="UserInterface\SubstrateDisplayModel.cs" />
+    <Compile Include="Util\Persisted.cs" />
+    <Compile Include="EntryPoint.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\Substrate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DotNetGUI\src\DotNetGUI.csproj">
+      <Project>{aecd8e0a-6100-4aad-9126-f2e1f4ede31b}</Project>
+      <Name>DotNetGUI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

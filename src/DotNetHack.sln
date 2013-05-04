@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Serialization", "DotNetHack.Serialization\DotNetHack.Serialization.csproj", "{FC69FF51-F478-4488-AA58-B01662550FD4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Engine", "DotNetHack.GameEngine\DotNetHack.Engine.csproj", "{443149D6-6951-4231-9A5A-18E79C5DFD22}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Server", "DotNetHack.Server\DotNetHack.Server.csproj", "{F791EEFC-F539-41E4-91D5-A465F89D13A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.RPC", "DotNetHack.RPC\DotNetHack.RPC.csproj", "{B45FEC7A-3C56-440D-AD61-E3BD2A7E0433}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack", "DotNetHack\DotNetHack.csproj", "{7544665A-8E32-454A-9898-9E41681EF673}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetGUI", "..\..\DotNetGUI\src\DotNetGUI.csproj", "{AECD8E0A-6100-4AAD-9126-F2E1F4EDE31B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,14 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FC69FF51-F478-4488-AA58-B01662550FD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC69FF51-F478-4488-AA58-B01662550FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC69FF51-F478-4488-AA58-B01662550FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC69FF51-F478-4488-AA58-B01662550FD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{443149D6-6951-4231-9A5A-18E79C5DFD22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{443149D6-6951-4231-9A5A-18E79C5DFD22}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{443149D6-6951-4231-9A5A-18E79C5DFD22}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{443149D6-6951-4231-9A5A-18E79C5DFD22}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F791EEFC-F539-41E4-91D5-A465F89D13A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F791EEFC-F539-41E4-91D5-A465F89D13A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F791EEFC-F539-41E4-91D5-A465F89D13A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -31,6 +23,14 @@ Global
 		{B45FEC7A-3C56-440D-AD61-E3BD2A7E0433}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B45FEC7A-3C56-440D-AD61-E3BD2A7E0433}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B45FEC7A-3C56-440D-AD61-E3BD2A7E0433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7544665A-8E32-454A-9898-9E41681EF673}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7544665A-8E32-454A-9898-9E41681EF673}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7544665A-8E32-454A-9898-9E41681EF673}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7544665A-8E32-454A-9898-9E41681EF673}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AECD8E0A-6100-4AAD-9126-F2E1F4EDE31B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AECD8E0A-6100-4AAD-9126-F2E1F4EDE31B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AECD8E0A-6100-4AAD-9126-F2E1F4EDE31B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AECD8E0A-6100-4AAD-9126-F2E1F4EDE31B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿using DotNetHack.Core.Game;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,6 @@ namespace DotNetHack.Engine
         public GameEngine(GameEngineFlags flags)
         {
             Flags = flags;
-            State = GameState.New();
         }
 
         #region Methods
@@ -59,7 +58,6 @@ namespace DotNetHack.Engine
         /// <param name="e">event args</param>
         public void Update(object sender, EventArgs e)
         {
-            State.Update();
         }
 
         #endregion
@@ -158,11 +156,6 @@ namespace DotNetHack.Engine
         /// The flags.
         /// </value>
         public GameEngineFlags Flags { get; private set; }
-
-        /// <summary>
-        /// GameState
-        /// </summary>
-        public GameState State { get; set; }
 
         #endregion
     }

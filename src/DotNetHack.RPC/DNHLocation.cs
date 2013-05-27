@@ -19,34 +19,48 @@ using Thrift.Transport;
 #if !SILVERLIGHT
 [Serializable]
 #endif
-public partial class DNHAuthResponse : TBase
+public partial class DNHLocation : TBase
 {
-  private int _ID;
-  private string _Message;
+  private int _X;
+  private int _Y;
+  private int _Z;
 
-  public int ID
+  public int X
   {
     get
     {
-      return _ID;
+      return _X;
     }
     set
     {
-      __isset.ID = true;
-      this._ID = value;
+      __isset.X = true;
+      this._X = value;
     }
   }
 
-  public string Message
+  public int Y
   {
     get
     {
-      return _Message;
+      return _Y;
     }
     set
     {
-      __isset.Message = true;
-      this._Message = value;
+      __isset.Y = true;
+      this._Y = value;
+    }
+  }
+
+  public int Z
+  {
+    get
+    {
+      return _Z;
+    }
+    set
+    {
+      __isset.Z = true;
+      this._Z = value;
     }
   }
 
@@ -56,11 +70,12 @@ public partial class DNHAuthResponse : TBase
   [Serializable]
   #endif
   public struct Isset {
-    public bool ID;
-    public bool Message;
+    public bool X;
+    public bool Y;
+    public bool Z;
   }
 
-  public DNHAuthResponse() {
+  public DNHLocation() {
   }
 
   public void Read (TProtocol iprot)
@@ -77,14 +92,21 @@ public partial class DNHAuthResponse : TBase
       {
         case 1:
           if (field.Type == TType.I32) {
-            ID = iprot.ReadI32();
+            X = iprot.ReadI32();
           } else { 
             TProtocolUtil.Skip(iprot, field.Type);
           }
           break;
         case 2:
-          if (field.Type == TType.String) {
-            Message = iprot.ReadString();
+          if (field.Type == TType.I32) {
+            Y = iprot.ReadI32();
+          } else { 
+            TProtocolUtil.Skip(iprot, field.Type);
+          }
+          break;
+        case 3:
+          if (field.Type == TType.I32) {
+            Z = iprot.ReadI32();
           } else { 
             TProtocolUtil.Skip(iprot, field.Type);
           }
@@ -99,23 +121,31 @@ public partial class DNHAuthResponse : TBase
   }
 
   public void Write(TProtocol oprot) {
-    TStruct struc = new TStruct("DNHAuthResponse");
+    TStruct struc = new TStruct("DNHLocation");
     oprot.WriteStructBegin(struc);
     TField field = new TField();
-    if (__isset.ID) {
-      field.Name = "ID";
+    if (__isset.X) {
+      field.Name = "X";
       field.Type = TType.I32;
       field.ID = 1;
       oprot.WriteFieldBegin(field);
-      oprot.WriteI32(ID);
+      oprot.WriteI32(X);
       oprot.WriteFieldEnd();
     }
-    if (Message != null && __isset.Message) {
-      field.Name = "Message";
-      field.Type = TType.String;
+    if (__isset.Y) {
+      field.Name = "Y";
+      field.Type = TType.I32;
       field.ID = 2;
       oprot.WriteFieldBegin(field);
-      oprot.WriteString(Message);
+      oprot.WriteI32(Y);
+      oprot.WriteFieldEnd();
+    }
+    if (__isset.Z) {
+      field.Name = "Z";
+      field.Type = TType.I32;
+      field.ID = 3;
+      oprot.WriteFieldBegin(field);
+      oprot.WriteI32(Z);
       oprot.WriteFieldEnd();
     }
     oprot.WriteFieldStop();
@@ -123,11 +153,13 @@ public partial class DNHAuthResponse : TBase
   }
 
   public override string ToString() {
-    StringBuilder sb = new StringBuilder("DNHAuthResponse(");
-    sb.Append("ID: ");
-    sb.Append(ID);
-    sb.Append(",Message: ");
-    sb.Append(Message);
+    StringBuilder sb = new StringBuilder("DNHLocation(");
+    sb.Append("X: ");
+    sb.Append(X);
+    sb.Append(",Y: ");
+    sb.Append(Y);
+    sb.Append(",Z: ");
+    sb.Append(Z);
     sb.Append(")");
     return sb.ToString();
   }

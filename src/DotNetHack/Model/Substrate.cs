@@ -22,6 +22,20 @@ namespace DotNetHack.Model
             ItemOverlay = new Overlay<Stack<DNHObject>>(this, w, h, d);
             MapOverlay = new Overlay<DNHObject>(this, w, h, d);
             NPCOverlay = new Overlay<Stack<DNHObject>>(this, w, h, d);
+
+            Width = w;
+            Height = h;
+            Depth = d;
+        }
+
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public int Depth { get; set; }
+
+        public bool InBounds(int x, int y, int z)
+        {
+            return x > 0 && y > 0 && z > 0 &&
+                x < Width && y < Height && z < Depth;
         }
 
         /// <summary>

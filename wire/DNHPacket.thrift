@@ -1,10 +1,3 @@
-
-enum CommandType {
-  MOVE = 1,
-  USE = 2,
-  ATTACK = 3
-}
-
 /**
  *  bool        Boolean, one byte
  *  byte        Signed byte
@@ -18,20 +11,21 @@ enum CommandType {
  *  set<t1>     Set of unique elements of one type
  */
 
-struct DNHObject {
-	1: i32 ObjectID
+enum CommandType {
+  MOVE = 1,
+  USE = 2,
+  ATTACK = 3
+}
+
+struct DNHActionResult {
+	1: bool Success
 }
 
 struct DNHLocation {
-	1: i32 X,
+	1: i32 X, 
 	2: i32 Y,
 	3: i32 Z
 }
-
-struct DNHGameState {
-	
-}
-
 
 /**
  * Description: This packet contains a user identifier and some raw data.
@@ -42,13 +36,10 @@ struct DNHPacket {
 }
 
 /**
- * Description: The response for authentication
+ * Description: The core DNh service.
  */
-struct DNHAuthResponse {
-	1: i32 ID,
-	2: string Message
-}
-
 service DNHService {
-	DNHAuthResponse Authenticate(1: string userName, 2: string passwordHash)
+	DNHActionResult MoveTo(1: i32 playerId, i32 x, i32 y, i32 z),
+	DNHActionResult Pickup(1: i32 playerId),
+	DNHActionResult DropItem(1: i32 playerId, 2: i32 itemId),
 }

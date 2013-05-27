@@ -12,10 +12,15 @@ namespace DotNetHack.Model
     public class GameModel
     {
         /// <summary>
+        /// Parameterless constructor
+        /// </summary>
+        public GameModel()
+        {
+        }
+
+        /// <summary>
         /// Substrate
         /// </summary>
        public Substrate Substrate { get; set; }
-
-
     }
 }

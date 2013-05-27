@@ -1,10 +1,13 @@
-﻿using DotNetHack.Model;
+﻿using DotNetHack.Engine;
+using DotNetHack.Model;
 using DotNetHack.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Thrift.Protocol;
+using Thrift.Transport;
 
 namespace DotNetHack
 {
@@ -13,6 +16,8 @@ namespace DotNetHack
     /// </summary>
     class EntryPoint
     {
+
+
         /// <summary>
         /// Main
         /// </summary>
@@ -21,20 +26,17 @@ namespace DotNetHack
         static void Main(string[] args)
         {
             var gameModel = new GameModel();
-            
-            DotNetGUI.GUI.Instance.Run(new MainWindow(gameModel));
+            var gameEngine = new GameEngine(GameEngine.GameEngineFlags.Debug);
+            var frmMain = new MainWindow(gameModel, gameEngine);
+            frmMain.InitializeWidget();
+            DotNetGUI.GUI.Instance.Run(frmMain);
 
 
-          //  frmMainWindow.Show();
+            //  frmMainWindow.Show();
 
 
-           // Console.ReadKey();
-         //   DotNetHack.Serialization.Persisted.Write(substrate, "map.dat");
-
-
-
-     
-            
+            // Console.ReadKey();
+            //   DotNetHack.Serialization.Persisted.Write(substrate, "map.dat");
 
         }
     }

@@ -39,6 +39,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Thrift, Version=0.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Thrift.0.9.0.0\lib\net35\Thrift.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DNHObject.cs" />
@@ -47,10 +51,14 @@
     <Compile Include="Engine\Interfaces\IGameEngineController.cs" />
     <Compile Include="Engine\Scripting\Script.cs" />
     <Compile Include="Engine\Scripting\ScriptLoader.cs" />
+    <Compile Include="Events\DNHActionEventArgs.cs" />
+    <Compile Include="Events\DNHEventArgs.cs" />
+    <Compile Include="Events\DNHMoveEventArgs.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\Location.cs" />
     <Compile Include="Model\Overlay.cs" />
     <Compile Include="Model\ISubstrateAccessor.cs" />
+    <Compile Include="Model\Substrate.cs" />
     <Compile Include="UserInterface\GUIModel.cs" />
     <Compile Include="UserInterface\MainWindow.cs" />
     <Compile Include="UserInterface\SubstrateDisplayModel.cs" />
@@ -58,17 +66,22 @@
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\Substrate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\DotNetGUI\src\DotNetGUI.csproj">
       <Project>{aecd8e0a-6100-4aad-9126-f2e1f4ede31b}</Project>
       <Name>DotNetGUI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DotNetHack.RPC\DotNetHack.RPC.csproj">
+      <Project>{b45fec7a-3c56-440d-ad61-e3bd2a7e0433}</Project>
+      <Name>DotNetHack.RPC</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

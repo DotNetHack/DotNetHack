@@ -12,5 +12,11 @@ namespace DotNetHack
     public class DNHObject
     {
         public DNHObject() { }
+        public DNHObject(int id)
+        {
+            ID = id;
+        }
+
+        public int ID { get; set; }
     }
 }

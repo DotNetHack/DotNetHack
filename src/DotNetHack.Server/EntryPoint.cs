@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DotNetHack.Model;
+using DotNetHack.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
@@ -16,64 +18,47 @@ namespace DotNetHack.Server
     public class DNHPacketHandler : DNHService.Iface
     {
         /// <summary>
+        /// GameModel
+        /// </summary>
+        internal static GameModel GameModel { get; set; }
+
+        /// <summary>
+        /// DNHPacketHandler
+        /// </summary>
+        static DNHPacketHandler()
+        {
+            if (File.Exists(@"c:\DNH.dat"))
+                GameModel = @"c:\DNH.dat".Read<GameModel>();
+            else
+            {
+                GameModel = new GameModel();
+                GameModel.Write(@"c:\DNH.dat");
+            }
+        }
+
+        /// <summary>
         /// DNHPacketHandler
         /// </summary>
         public DNHPacketHandler()
         {
-            LogCallback += Console.WriteLine;
+
         }
 
-        public Action<String> LogCallback { get; set; }
-
-        /// <summary>
-        /// Authenticate
-        /// </summary>
-        /// <param name="userName">the user name</param>
-        /// <param name="passwordHash">the password hash</param>
-        /// <returns>an auth response object containing -1 on auth failure</returns>
-        DNHAuthResponse DNHService.Iface.Authenticate(string userName, string passwordHash)
+        public DNHActionResult MoveTo(int playerId, int x, int y, int z)
         {
-            LogCallback(string.Format("Authenticating {0}", userName));
+            Console.WriteLine("{0},{1},{2}", x, y, z);
 
-            DNHAuthResponse retVal = new DNHAuthResponse() 
-            {
-                ID = -1,
-                Message = "",
-            };
+            return new DNHActionResult();
+        }
 
-            try
-            {
-                using (var dbConn = new SqlConnection(Properties.Settings.Default.DSN))
-                {
-                    dbConn.Open();
+        public DNHActionResult Pickup(int playerId)
+        {
+            throw new NotImplementedException();
+        }
 
-                    const string sqlText = "SELECT [ID] FROM [User] WHERE [Name] = @Name AND [PasswordHash] = @PasswordHash";
-
-                    using (SqlCommand cmd = new SqlCommand(sqlText, dbConn))
-                    {
-                        cmd.Parameters.AddWithValue("@Name", userName);
-                        cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
-
-                        using (var dr = cmd.ExecuteReader(System.Data.CommandBehavior.SingleRow))
-                        {
-                            if (!dr.Read())
-                            {
-                                retVal.Message = "Invalid username / password";
-                            }
-                            else
-                            {
-                                retVal.ID = (int)dr[0];
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                retVal.Message = ex.Message;
-            }
-
-            return retVal;
+        public DNHActionResult DropItem(int playerId, int itemId)
+        {
+            throw new NotImplementedException();
         }
     }
 

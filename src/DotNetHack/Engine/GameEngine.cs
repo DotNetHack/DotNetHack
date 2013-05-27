@@ -1,9 +1,12 @@
 ﻿
+using DotNetHack.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Thrift.Protocol;
+using Thrift.Transport;
 
 namespace DotNetHack.Engine
 {
@@ -20,10 +23,25 @@ namespace DotNetHack.Engine
     public partial class GameEngine : IDisposable
     {
         /// <summary>
+        /// transport
+        /// </summary>
+        private readonly TSocket transport;
+
+        /// <summary>
+        /// client
+        /// </summary>
+        private readonly DNHService.Client client;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DotNetHack.Engine.GameEngine"/> class.
         /// </summary>
         public GameEngine(GameEngineFlags flags)
         {
+            transport = new TSocket("localhost", 9090);
+            transport.Open();
+
+            client = new DNHService.Client(new TBinaryProtocol(transport));
+
             Flags = flags;
         }
 
@@ -68,13 +86,13 @@ namespace DotNetHack.Engine
         /// <param name="startCallback">Start callback</param>
         /// <param name="stopCallback">Stop callback</param>
         /// <returns><see cref="GameEngine"/> for chaining.</returns>
-        public GameEngine RegisterStartStopCallbacks(System.Action startCallback, System.Action stopCallback) 
+        public GameEngine RegisterStartStopCallbacks(System.Action startCallback, System.Action stopCallback)
         {
             if (startCallback == null && stopCallback == null)
             {
                 throw new ArgumentException("GameEngine::StartCallback and GameEngine::StopCallback cannot be set to null.");
             }
-            else if (startCallback == null || stopCallback == null) 
+            else if (startCallback == null || stopCallback == null)
             {
                 if (startCallback == null)
                 {
@@ -109,7 +127,7 @@ namespace DotNetHack.Engine
         /// </summary>
         /// <param name="stopCallback">The method called on GameEngine.Stop()</param>
         /// <returns><see cref="GameEngine"/> for chaining.</returns>
-        public GameEngine RegisterStopCallback(System.Action aStopCallback) 
+        public GameEngine RegisterStopCallback(System.Action aStopCallback)
         {
             if (aStopCallback == null)
             {
@@ -128,7 +146,10 @@ namespace DotNetHack.Engine
         /// </summary>
         public void Dispose()
         {
-
+            if (transport != null && transport.IsOpen)
+            {
+                transport.Close();
+            }
         }
 
         #endregion
@@ -156,6 +177,27 @@ namespace DotNetHack.Engine
         /// The flags.
         /// </value>
         public GameEngineFlags Flags { get; private set; }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// MoveEvent
+        /// </summary>
+        public event EventHandler<DNHMoveEventArgs> MoveEvent;
+
+        /// <summary>
+        /// OnMoveEvent
+        /// </summary>
+        /// <param name="e"></param>
+        public void OnMoveEvent(DNHMoveEventArgs e)
+        {
+            if (e == null)
+                return;
+
+            var result = client.MoveTo(0, e.ToLocation.X, e.ToLocation.Y, e.ToLocation.Z);
+        }
 
         #endregion
     }

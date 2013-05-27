@@ -65,6 +65,10 @@
       <Project>{b45fec7a-3c56-440d-ad61-e3bd2a7e0433}</Project>
       <Name>DotNetHack.RPC</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DotNetHack\DotNetHack.csproj">
+      <Project>{7544665a-8e32-454a-9898-9e41681ef673}</Project>
+      <Name>DotNetHack</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

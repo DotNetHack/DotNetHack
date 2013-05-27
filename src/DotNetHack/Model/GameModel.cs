@@ -15,5 +15,7 @@ namespace DotNetHack.Model
         /// Substrate
         /// </summary>
        public Substrate Substrate { get; set; }
+
+
     }
 }

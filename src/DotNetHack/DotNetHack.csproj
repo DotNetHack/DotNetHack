@@ -48,6 +48,7 @@
     <Compile Include="Engine\Scripting\Script.cs" />
     <Compile Include="Engine\Scripting\ScriptLoader.cs" />
     <Compile Include="Model\GameModel.cs" />
+    <Compile Include="Model\Location.cs" />
     <Compile Include="Model\Overlay.cs" />
     <Compile Include="Model\ISubstrateAccessor.cs" />
     <Compile Include="UserInterface\GUIModel.cs" />

@@ -24,32 +24,32 @@ using Thrift.Transport;
 #endif
 public partial class DNHPacket : TBase
 {
-  private int _ID;
-  private string _Data;
+  private long _seq;
+  private string _RawData;
 
-  public int ID
+  public long Seq
   {
     get
     {
-      return _ID;
+      return _seq;
     }
     set
     {
-      __isset.ID = true;
-      this._ID = value;
+      __isset.seq = true;
+      this._seq = value;
     }
   }
 
-  public string Data
+  public string RawData
   {
     get
     {
-      return _Data;
+      return _RawData;
     }
     set
     {
-      __isset.Data = true;
-      this._Data = value;
+      __isset.RawData = true;
+      this._RawData = value;
     }
   }
 
@@ -59,8 +59,8 @@ public partial class DNHPacket : TBase
   [Serializable]
   #endif
   public struct Isset {
-    public bool ID;
-    public bool Data;
+    public bool seq;
+    public bool RawData;
   }
 
   public DNHPacket() {
@@ -79,15 +79,15 @@ public partial class DNHPacket : TBase
       switch (field.ID)
       {
         case 1:
-          if (field.Type == TType.I32) {
-            ID = iprot.ReadI32();
+          if (field.Type == TType.I64) {
+            Seq = iprot.ReadI64();
           } else { 
             TProtocolUtil.Skip(iprot, field.Type);
           }
           break;
         case 2:
           if (field.Type == TType.String) {
-            Data = iprot.ReadString();
+            RawData = iprot.ReadString();
           } else { 
             TProtocolUtil.Skip(iprot, field.Type);
           }
@@ -105,20 +105,20 @@ public partial class DNHPacket : TBase
     TStruct struc = new TStruct("DNHPacket");
     oprot.WriteStructBegin(struc);
     TField field = new TField();
-    if (__isset.ID) {
-      field.Name = "ID";
-      field.Type = TType.I32;
+    if (__isset.seq) {
+      field.Name = "seq";
+      field.Type = TType.I64;
       field.ID = 1;
       oprot.WriteFieldBegin(field);
-      oprot.WriteI32(ID);
+      oprot.WriteI64(Seq);
       oprot.WriteFieldEnd();
     }
-    if (Data != null && __isset.Data) {
-      field.Name = "Data";
+    if (RawData != null && __isset.RawData) {
+      field.Name = "RawData";
       field.Type = TType.String;
       field.ID = 2;
       oprot.WriteFieldBegin(field);
-      oprot.WriteString(Data);
+      oprot.WriteString(RawData);
       oprot.WriteFieldEnd();
     }
     oprot.WriteFieldStop();
@@ -127,10 +127,10 @@ public partial class DNHPacket : TBase
 
   public override string ToString() {
     StringBuilder sb = new StringBuilder("DNHPacket(");
-    sb.Append("ID: ");
-    sb.Append(ID);
-    sb.Append(",Data: ");
-    sb.Append(Data);
+    sb.Append("Seq: ");
+    sb.Append(Seq);
+    sb.Append(",RawData: ");
+    sb.Append(RawData);
     sb.Append(")");
     return sb.ToString();
   }

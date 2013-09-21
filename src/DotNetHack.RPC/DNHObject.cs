@@ -19,62 +19,80 @@ using Thrift.Transport;
 #if !SILVERLIGHT
 [Serializable]
 #endif
-public partial class DNHActionResult : TBase
+public partial class DNHObject : TBase
 {
-  private long _seq;
-  private bool _success;
-  private DNHGameState _gameState;
-  private int _playerID;
+  private int _id;
+  private ObjectType _type;
+  private int _x;
+  private int _y;
+  private int _z;
 
-  public long Seq
+  public int Id
   {
     get
     {
-      return _seq;
+      return _id;
     }
     set
     {
-      __isset.seq = true;
-      this._seq = value;
+      __isset.id = true;
+      this._id = value;
     }
   }
 
-  public bool Success
+  /// <summary>
+  /// 
+  /// <seealso cref="ObjectType"/>
+  /// </summary>
+  public ObjectType Type
   {
     get
     {
-      return _success;
+      return _type;
     }
     set
     {
-      __isset.success = true;
-      this._success = value;
+      __isset.type = true;
+      this._type = value;
     }
   }
 
-  public DNHGameState GameState
+  public int X
   {
     get
     {
-      return _gameState;
+      return _x;
     }
     set
     {
-      __isset.gameState = true;
-      this._gameState = value;
+      __isset.x = true;
+      this._x = value;
     }
   }
 
-  public int PlayerID
+  public int Y
   {
     get
     {
-      return _playerID;
+      return _y;
     }
     set
     {
-      __isset.playerID = true;
-      this._playerID = value;
+      __isset.y = true;
+      this._y = value;
+    }
+  }
+
+  public int Z
+  {
+    get
+    {
+      return _z;
+    }
+    set
+    {
+      __isset.z = true;
+      this._z = value;
     }
   }
 
@@ -84,13 +102,14 @@ public partial class DNHActionResult : TBase
   [Serializable]
   #endif
   public struct Isset {
-    public bool seq;
-    public bool success;
-    public bool gameState;
-    public bool playerID;
+    public bool id;
+    public bool type;
+    public bool x;
+    public bool y;
+    public bool z;
   }
 
-  public DNHActionResult() {
+  public DNHObject() {
   }
 
   public void Read (TProtocol iprot)
@@ -106,30 +125,36 @@ public partial class DNHActionResult : TBase
       switch (field.ID)
       {
         case 1:
-          if (field.Type == TType.I64) {
-            Seq = iprot.ReadI64();
+          if (field.Type == TType.I32) {
+            Id = iprot.ReadI32();
           } else { 
             TProtocolUtil.Skip(iprot, field.Type);
           }
           break;
         case 2:
-          if (field.Type == TType.Bool) {
-            Success = iprot.ReadBool();
+          if (field.Type == TType.I32) {
+            Type = (ObjectType)iprot.ReadI32();
           } else { 
             TProtocolUtil.Skip(iprot, field.Type);
           }
           break;
         case 3:
-          if (field.Type == TType.Struct) {
-            GameState = new DNHGameState();
-            GameState.Read(iprot);
+          if (field.Type == TType.I32) {
+            X = iprot.ReadI32();
           } else { 
             TProtocolUtil.Skip(iprot, field.Type);
           }
           break;
         case 4:
           if (field.Type == TType.I32) {
-            PlayerID = iprot.ReadI32();
+            Y = iprot.ReadI32();
+          } else { 
+            TProtocolUtil.Skip(iprot, field.Type);
+          }
+          break;
+        case 5:
+          if (field.Type == TType.I32) {
+            Z = iprot.ReadI32();
           } else { 
             TProtocolUtil.Skip(iprot, field.Type);
           }
@@ -144,39 +169,47 @@ public partial class DNHActionResult : TBase
   }
 
   public void Write(TProtocol oprot) {
-    TStruct struc = new TStruct("DNHActionResult");
+    TStruct struc = new TStruct("DNHObject");
     oprot.WriteStructBegin(struc);
     TField field = new TField();
-    if (__isset.seq) {
-      field.Name = "seq";
-      field.Type = TType.I64;
+    if (__isset.id) {
+      field.Name = "id";
+      field.Type = TType.I32;
       field.ID = 1;
       oprot.WriteFieldBegin(field);
-      oprot.WriteI64(Seq);
+      oprot.WriteI32(Id);
       oprot.WriteFieldEnd();
     }
-    if (__isset.success) {
-      field.Name = "success";
-      field.Type = TType.Bool;
+    if (__isset.type) {
+      field.Name = "type";
+      field.Type = TType.I32;
       field.ID = 2;
       oprot.WriteFieldBegin(field);
-      oprot.WriteBool(Success);
+      oprot.WriteI32((int)Type);
       oprot.WriteFieldEnd();
     }
-    if (GameState != null && __isset.gameState) {
-      field.Name = "gameState";
-      field.Type = TType.Struct;
+    if (__isset.x) {
+      field.Name = "x";
+      field.Type = TType.I32;
       field.ID = 3;
       oprot.WriteFieldBegin(field);
-      GameState.Write(oprot);
+      oprot.WriteI32(X);
       oprot.WriteFieldEnd();
     }
-    if (__isset.playerID) {
-      field.Name = "playerID";
+    if (__isset.y) {
+      field.Name = "y";
       field.Type = TType.I32;
       field.ID = 4;
       oprot.WriteFieldBegin(field);
-      oprot.WriteI32(PlayerID);
+      oprot.WriteI32(Y);
+      oprot.WriteFieldEnd();
+    }
+    if (__isset.z) {
+      field.Name = "z";
+      field.Type = TType.I32;
+      field.ID = 5;
+      oprot.WriteFieldBegin(field);
+      oprot.WriteI32(Z);
       oprot.WriteFieldEnd();
     }
     oprot.WriteFieldStop();
@@ -184,15 +217,17 @@ public partial class DNHActionResult : TBase
   }
 
   public override string ToString() {
-    StringBuilder sb = new StringBuilder("DNHActionResult(");
-    sb.Append("Seq: ");
-    sb.Append(Seq);
-    sb.Append(",Success: ");
-    sb.Append(Success);
-    sb.Append(",GameState: ");
-    sb.Append(GameState== null ? "<null>" : GameState.ToString());
-    sb.Append(",PlayerID: ");
-    sb.Append(PlayerID);
+    StringBuilder sb = new StringBuilder("DNHObject(");
+    sb.Append("Id: ");
+    sb.Append(Id);
+    sb.Append(",Type: ");
+    sb.Append(Type);
+    sb.Append(",X: ");
+    sb.Append(X);
+    sb.Append(",Y: ");
+    sb.Append(Y);
+    sb.Append(",Z: ");
+    sb.Append(Z);
     sb.Append(")");
     return sb.ToString();
   }

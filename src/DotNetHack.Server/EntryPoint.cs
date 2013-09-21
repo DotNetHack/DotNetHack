@@ -1,5 +1,5 @@
-﻿using DotNetHack.Model;
-using DotNetHack.Serialization;
+﻿using DotNetHack.Core.Game;
+using DotNetHack.Core.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -18,37 +18,40 @@ namespace DotNetHack.Server
     public class DNHPacketHandler : DNHService.Iface
     {
         /// <summary>
-        /// GameModel
+        /// gameState
         /// </summary>
-        internal static GameModel GameModel { get; set; }
-
-        /// <summary>
-        /// DNHPacketHandler
-        /// </summary>
-        static DNHPacketHandler()
-        {
-            if (File.Exists(@"c:\DNH.dat"))
-                GameModel = @"c:\DNH.dat".Read<GameModel>();
-            else
-            {
-                GameModel = new GameModel();
-                GameModel.Write(@"c:\DNH.dat");
-            }
-        }
+        DNHGameState gameState = new DNHGameState();
 
         /// <summary>
         /// DNHPacketHandler
         /// </summary>
         public DNHPacketHandler()
         {
-
+            gameState.Objects = new List<DNHObject>();
         }
 
         public DNHActionResult MoveTo(int playerId, int x, int y, int z)
         {
-            Console.WriteLine("{0},{1},{2}", x, y, z);
+            Console.WriteLine(playerId + ": {0},{1},{2}", x, y, z);
 
-            return new DNHActionResult();
+            var player = gameState.Objects.FirstOrDefault(o => o.Id == playerId);
+
+            if (player == null)
+            {
+                return new DNHActionResult() { Success = false };
+            }
+
+            player.X = x;
+            player.Y = y;
+            player.Z = z;
+
+            return new DNHActionResult()
+            {
+                GameState = gameState,
+                Seq = DateTime.Now.Ticks,
+                Success = true,
+                PlayerID = playerId,
+            };
         }
 
         public DNHActionResult Pickup(int playerId)
@@ -59,6 +62,47 @@ namespace DotNetHack.Server
         public DNHActionResult DropItem(int playerId, int itemId)
         {
             throw new NotImplementedException();
+        }
+
+        public DNHActionResult Login(string name, string hash)
+        {
+            Console.WriteLine("Login: " + name);
+
+            if (!_players.ContainsKey(name))
+            {
+                _players.Add(name, players);
+
+                gameState.Objects.Add(new DNHObject() { Type = ObjectType.PLAYER, Id = players, X = 5, Y = 5, Z = 5 });
+
+                players++;
+            }
+
+            return new DNHActionResult()
+            {
+                GameState = gameState,
+                PlayerID = _players[name],
+                Seq = DateTime.Now.Ticks,
+                Success = true,
+            };
+        }
+
+        private int players = 0;
+        private readonly Dictionary<string, int> _players = new Dictionary<string, int>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerId"></param>
+        /// <returns></returns>
+        public DNHActionResult Update(int playerId)
+        {
+            return new DNHActionResult()
+            {
+                GameState = gameState,
+                PlayerID = playerId,
+                Seq = DateTime.Now.Ticks,
+                Success = true,
+            };
         }
     }
 

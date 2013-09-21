@@ -1,10 +1,10 @@
 ﻿using DotNetGUI;
-using DotNetHack.Engine;
-using DotNetHack.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DotNetHack.UserInterface
@@ -15,17 +15,44 @@ namespace DotNetHack.UserInterface
     public class MainWindow : DotNetGUI.Widgets.Window
     {
         /// <summary>
+        /// 
+        /// </summary>
+        DNHClient client = new DNHClient();
+
+        /// <summary>
         /// MainWindow
         /// </summary>
-        public MainWindow(GameModel model, GameEngine engine)
+        public MainWindow()
             : base("DotNetHack", DotNetGUI.GUI.ScreenSize)
         {
-            GameEngine = engine;
-            GUIModel = new GUIModel(this, model);
-            GUI.Instance.KeyboardCallback += Instance_KeyboardCallbacka;
+            System.Console.WriteLine("UserName: ");
+            client.Login(System.Console.ReadLine());
+
+            var p = client.GameState.Objects.FirstOrDefault(o => o.Id == client.PlayerID);
+
+            X = p.X;
+            Y = p.Y;
+            Z = p.Z;
+
+            GUI.Instance.KeyboardCallback += Instance_KeyboardCallback;
+
+            ThreadPool.QueueUserWorkItem((object o) => {
+                while (true)
+                {
+                    client.Update();
+
+                    Refresh();
+                    Show();
+                    Thread.Sleep(1000);
+                }
+            });
         }
 
-        void Instance_KeyboardCallbacka(ConsoleKeyInfo obj)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        void Instance_KeyboardCallback(ConsoleKeyInfo obj)
         {
             switch (obj.Key)
             {
@@ -49,9 +76,13 @@ namespace DotNetHack.UserInterface
                     break;
             }
 
-            GameEngine.OnMoveEvent(new Events.DNHMoveEventArgs(
-                new DNHLocation() { X = X, Y = Y, Z = Z },
-                new DNHLocation() { X = X, Y = Y, Z = Z }));
+            
+            if (!client.MoveTo(X, Y, Z))
+            {
+                Debugger.Break();
+            }
+
+            Show();
         }
 
 
@@ -61,6 +92,14 @@ namespace DotNetHack.UserInterface
         public override void Show()
         {
             base.Show();
+
+            foreach (var o in client.GameState.Objects)
+            {
+                System.Console.SetCursorPosition(o.X, o.Y);
+                System.Console.Write('@');
+            }
+
+            Console.Invalidate();
         }
 
         int X;
@@ -71,11 +110,6 @@ namespace DotNetHack.UserInterface
         /// This display model
         /// </summary>
         public GUIModel GUIModel { get; private set; }
-
-        /// <summary>
-        /// GameEngine
-        /// </summary>
-        public GameEngine GameEngine { get; private set; }
 
         /// <summary>
         /// InitializeWidget

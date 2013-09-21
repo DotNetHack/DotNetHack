@@ -9,6 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack", "DotNetHack\Do
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetGUI", "..\..\DotNetGUI\src\DotNetGUI.csproj", "{AECD8E0A-6100-4AAD-9126-F2E1F4EDE31B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{21519261-0920-441E-8242-21BB4DADDE3D}"
+	ProjectSection(SolutionItems) = preProject
+		..\build.bat = ..\build.bat
+		..\wire\DNHPacket.thrift = ..\wire\DNHPacket.thrift
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetHack.Core", "DotNetHack.Core\DotNetHack.Core.csproj", "{CAB13655-AE02-43B6-B1AB-64C25560324C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +39,10 @@ Global
 		{AECD8E0A-6100-4AAD-9126-F2E1F4EDE31B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AECD8E0A-6100-4AAD-9126-F2E1F4EDE31B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AECD8E0A-6100-4AAD-9126-F2E1F4EDE31B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAB13655-AE02-43B6-B1AB-64C25560324C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAB13655-AE02-43B6-B1AB-64C25560324C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAB13655-AE02-43B6-B1AB-64C25560324C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAB13655-AE02-43B6-B1AB-64C25560324C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -61,6 +61,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DotNetHack.Core\DotNetHack.Core.csproj">
+      <Project>{cab13655-ae02-43b6-b1ab-64c25560324c}</Project>
+      <Name>DotNetHack.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DotNetHack.RPC\DotNetHack.RPC.csproj">
       <Project>{b45fec7a-3c56-440d-ad61-e3bd2a7e0433}</Project>
       <Name>DotNetHack.RPC</Name>

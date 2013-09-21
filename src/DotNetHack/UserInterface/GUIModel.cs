@@ -1,6 +1,6 @@
 ﻿using DotNetGUI;
 using DotNetGUI.Interfaces;
-using DotNetHack.Model;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,21 +14,6 @@ namespace DotNetHack.UserInterface
     /// </summary>
     public class GUIModel
     {
-        /// <summary>
-        /// SubstrateDisplayModel
-        /// </summary>
-        public SubstrateDisplayModel SubstrateDisplayModel { get; private set; }
-
-        /// <summary>
-        /// GUIModel
-        /// </summary>
-        /// <param name="displayOrderer"></param>
-        public GUIModel(Widget parent, GameModel displayOrderer)
-        {
-            _viewDimensions = parent.Size;
-
-            SubstrateDisplayModel = new SubstrateDisplayModel(displayOrderer.Substrate);
-        }
 
         /// <summary>
         /// The viewport dimensions

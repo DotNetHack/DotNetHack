@@ -86,7 +86,9 @@ namespace DotNetHack.Core.Game
                 : base()
             {
                 if (aGameState == null)
+                {
                     throw new ArgumentException("GameState cannot be set to null.");
+                }
 
                 GameState = aGameState;
             }
@@ -94,7 +96,7 @@ namespace DotNetHack.Core.Game
             /// <summary>
             /// GameState
             /// </summary>
-            GameState GameState { get; set; }
+            public GameState GameState { get; set; }
         }
 
         /// <summary>

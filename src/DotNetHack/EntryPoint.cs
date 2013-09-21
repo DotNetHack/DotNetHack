@@ -1,5 +1,4 @@
-﻿using DotNetHack.Engine;
-using DotNetHack.Model;
+﻿
 using DotNetHack.UserInterface;
 using System;
 using System.Collections.Generic;
@@ -16,8 +15,6 @@ namespace DotNetHack
     /// </summary>
     class EntryPoint
     {
-
-
         /// <summary>
         /// Main
         /// </summary>
@@ -25,19 +22,10 @@ namespace DotNetHack
         [STAThread]
         static void Main(string[] args)
         {
-            var gameModel = new GameModel();
-            var gameEngine = new GameEngine(GameEngine.GameEngineFlags.Debug);
-            var frmMain = new MainWindow(gameModel, gameEngine);
+
+            var frmMain = new MainWindow();
             frmMain.InitializeWidget();
             DotNetGUI.GUI.Instance.Run(frmMain);
-
-
-            //  frmMainWindow.Show();
-
-
-            // Console.ReadKey();
-            //   DotNetHack.Serialization.Persisted.Write(substrate, "map.dat");
-
         }
     }
 }

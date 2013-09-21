@@ -35,6 +35,16 @@ public partial class DNHService {
     IAsyncResult Begin_DropItem(AsyncCallback callback, object state, int playerId, int itemId);
     DNHActionResult End_DropItem(IAsyncResult asyncResult);
     #endif
+    DNHActionResult Login(string name, string hash);
+    #if SILVERLIGHT
+    IAsyncResult Begin_Login(AsyncCallback callback, object state, string name, string hash);
+    DNHActionResult End_Login(IAsyncResult asyncResult);
+    #endif
+    DNHActionResult Update(int playerId);
+    #if SILVERLIGHT
+    IAsyncResult Begin_Update(AsyncCallback callback, object state, int playerId);
+    DNHActionResult End_Update(IAsyncResult asyncResult);
+    #endif
   }
 
   /// <summary>
@@ -255,6 +265,131 @@ public partial class DNHService {
       throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "DropItem failed: unknown result");
     }
 
+    
+    #if SILVERLIGHT
+    public IAsyncResult Begin_Login(AsyncCallback callback, object state, string name, string hash)
+    {
+      return send_Login(callback, state, name, hash);
+    }
+
+    public DNHActionResult End_Login(IAsyncResult asyncResult)
+    {
+      oprot_.Transport.EndFlush(asyncResult);
+      return recv_Login();
+    }
+
+    #endif
+
+    public DNHActionResult Login(string name, string hash)
+    {
+      #if !SILVERLIGHT
+      send_Login(name, hash);
+      return recv_Login();
+
+      #else
+      var asyncResult = Begin_Login(null, null, name, hash);
+      return End_Login(asyncResult);
+
+      #endif
+    }
+    #if SILVERLIGHT
+    public IAsyncResult send_Login(AsyncCallback callback, object state, string name, string hash)
+    #else
+    public void send_Login(string name, string hash)
+    #endif
+    {
+      oprot_.WriteMessageBegin(new TMessage("Login", TMessageType.Call, seqid_));
+      Login_args args = new Login_args();
+      args.Name = name;
+      args.Hash = hash;
+      args.Write(oprot_);
+      oprot_.WriteMessageEnd();
+      #if SILVERLIGHT
+      return oprot_.Transport.BeginFlush(callback, state);
+      #else
+      oprot_.Transport.Flush();
+      #endif
+    }
+
+    public DNHActionResult recv_Login()
+    {
+      TMessage msg = iprot_.ReadMessageBegin();
+      if (msg.Type == TMessageType.Exception) {
+        TApplicationException x = TApplicationException.Read(iprot_);
+        iprot_.ReadMessageEnd();
+        throw x;
+      }
+      Login_result result = new Login_result();
+      result.Read(iprot_);
+      iprot_.ReadMessageEnd();
+      if (result.__isset.success) {
+        return result.Success;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "Login failed: unknown result");
+    }
+
+    
+    #if SILVERLIGHT
+    public IAsyncResult Begin_Update(AsyncCallback callback, object state, int playerId)
+    {
+      return send_Update(callback, state, playerId);
+    }
+
+    public DNHActionResult End_Update(IAsyncResult asyncResult)
+    {
+      oprot_.Transport.EndFlush(asyncResult);
+      return recv_Update();
+    }
+
+    #endif
+
+    public DNHActionResult Update(int playerId)
+    {
+      #if !SILVERLIGHT
+      send_Update(playerId);
+      return recv_Update();
+
+      #else
+      var asyncResult = Begin_Update(null, null, playerId);
+      return End_Update(asyncResult);
+
+      #endif
+    }
+    #if SILVERLIGHT
+    public IAsyncResult send_Update(AsyncCallback callback, object state, int playerId)
+    #else
+    public void send_Update(int playerId)
+    #endif
+    {
+      oprot_.WriteMessageBegin(new TMessage("Update", TMessageType.Call, seqid_));
+      Update_args args = new Update_args();
+      args.PlayerId = playerId;
+      args.Write(oprot_);
+      oprot_.WriteMessageEnd();
+      #if SILVERLIGHT
+      return oprot_.Transport.BeginFlush(callback, state);
+      #else
+      oprot_.Transport.Flush();
+      #endif
+    }
+
+    public DNHActionResult recv_Update()
+    {
+      TMessage msg = iprot_.ReadMessageBegin();
+      if (msg.Type == TMessageType.Exception) {
+        TApplicationException x = TApplicationException.Read(iprot_);
+        iprot_.ReadMessageEnd();
+        throw x;
+      }
+      Update_result result = new Update_result();
+      result.Read(iprot_);
+      iprot_.ReadMessageEnd();
+      if (result.__isset.success) {
+        return result.Success;
+      }
+      throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "Update failed: unknown result");
+    }
+
   }
   public class Processor : TProcessor {
     public Processor(Iface iface)
@@ -263,6 +398,8 @@ public partial class DNHService {
       processMap_["MoveTo"] = MoveTo_Process;
       processMap_["Pickup"] = Pickup_Process;
       processMap_["DropItem"] = DropItem_Process;
+      processMap_["Login"] = Login_Process;
+      processMap_["Update"] = Update_Process;
     }
 
     protected delegate void ProcessFunction(int seqid, TProtocol iprot, TProtocol oprot);
@@ -329,6 +466,32 @@ public partial class DNHService {
       DropItem_result result = new DropItem_result();
       result.Success = iface_.DropItem(args.PlayerId, args.ItemId);
       oprot.WriteMessageBegin(new TMessage("DropItem", TMessageType.Reply, seqid)); 
+      result.Write(oprot);
+      oprot.WriteMessageEnd();
+      oprot.Transport.Flush();
+    }
+
+    public void Login_Process(int seqid, TProtocol iprot, TProtocol oprot)
+    {
+      Login_args args = new Login_args();
+      args.Read(iprot);
+      iprot.ReadMessageEnd();
+      Login_result result = new Login_result();
+      result.Success = iface_.Login(args.Name, args.Hash);
+      oprot.WriteMessageBegin(new TMessage("Login", TMessageType.Reply, seqid)); 
+      result.Write(oprot);
+      oprot.WriteMessageEnd();
+      oprot.Transport.Flush();
+    }
+
+    public void Update_Process(int seqid, TProtocol iprot, TProtocol oprot)
+    {
+      Update_args args = new Update_args();
+      args.Read(iprot);
+      iprot.ReadMessageEnd();
+      Update_result result = new Update_result();
+      result.Success = iface_.Update(args.PlayerId);
+      oprot.WriteMessageBegin(new TMessage("Update", TMessageType.Reply, seqid)); 
       result.Write(oprot);
       oprot.WriteMessageEnd();
       oprot.Transport.Flush();
@@ -990,6 +1153,394 @@ public partial class DNHService {
 
     public override string ToString() {
       StringBuilder sb = new StringBuilder("DropItem_result(");
+      sb.Append("Success: ");
+      sb.Append(Success== null ? "<null>" : Success.ToString());
+      sb.Append(")");
+      return sb.ToString();
+    }
+
+  }
+
+
+  #if !SILVERLIGHT
+  [Serializable]
+  #endif
+  public partial class Login_args : TBase
+  {
+    private string _name;
+    private string _hash;
+
+    public string Name
+    {
+      get
+      {
+        return _name;
+      }
+      set
+      {
+        __isset.name = true;
+        this._name = value;
+      }
+    }
+
+    public string Hash
+    {
+      get
+      {
+        return _hash;
+      }
+      set
+      {
+        __isset.hash = true;
+        this._hash = value;
+      }
+    }
+
+
+    public Isset __isset;
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public struct Isset {
+      public bool name;
+      public bool hash;
+    }
+
+    public Login_args() {
+    }
+
+    public void Read (TProtocol iprot)
+    {
+      TField field;
+      iprot.ReadStructBegin();
+      while (true)
+      {
+        field = iprot.ReadFieldBegin();
+        if (field.Type == TType.Stop) { 
+          break;
+        }
+        switch (field.ID)
+        {
+          case 1:
+            if (field.Type == TType.String) {
+              Name = iprot.ReadString();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 2:
+            if (field.Type == TType.String) {
+              Hash = iprot.ReadString();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          default: 
+            TProtocolUtil.Skip(iprot, field.Type);
+            break;
+        }
+        iprot.ReadFieldEnd();
+      }
+      iprot.ReadStructEnd();
+    }
+
+    public void Write(TProtocol oprot) {
+      TStruct struc = new TStruct("Login_args");
+      oprot.WriteStructBegin(struc);
+      TField field = new TField();
+      if (Name != null && __isset.name) {
+        field.Name = "name";
+        field.Type = TType.String;
+        field.ID = 1;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteString(Name);
+        oprot.WriteFieldEnd();
+      }
+      if (Hash != null && __isset.hash) {
+        field.Name = "hash";
+        field.Type = TType.String;
+        field.ID = 2;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteString(Hash);
+        oprot.WriteFieldEnd();
+      }
+      oprot.WriteFieldStop();
+      oprot.WriteStructEnd();
+    }
+
+    public override string ToString() {
+      StringBuilder sb = new StringBuilder("Login_args(");
+      sb.Append("Name: ");
+      sb.Append(Name);
+      sb.Append(",Hash: ");
+      sb.Append(Hash);
+      sb.Append(")");
+      return sb.ToString();
+    }
+
+  }
+
+
+  #if !SILVERLIGHT
+  [Serializable]
+  #endif
+  public partial class Login_result : TBase
+  {
+    private DNHActionResult _success;
+
+    public DNHActionResult Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+
+    public Isset __isset;
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public struct Isset {
+      public bool success;
+    }
+
+    public Login_result() {
+    }
+
+    public void Read (TProtocol iprot)
+    {
+      TField field;
+      iprot.ReadStructBegin();
+      while (true)
+      {
+        field = iprot.ReadFieldBegin();
+        if (field.Type == TType.Stop) { 
+          break;
+        }
+        switch (field.ID)
+        {
+          case 0:
+            if (field.Type == TType.Struct) {
+              Success = new DNHActionResult();
+              Success.Read(iprot);
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          default: 
+            TProtocolUtil.Skip(iprot, field.Type);
+            break;
+        }
+        iprot.ReadFieldEnd();
+      }
+      iprot.ReadStructEnd();
+    }
+
+    public void Write(TProtocol oprot) {
+      TStruct struc = new TStruct("Login_result");
+      oprot.WriteStructBegin(struc);
+      TField field = new TField();
+
+      if (this.__isset.success) {
+        if (Success != null) {
+          field.Name = "Success";
+          field.Type = TType.Struct;
+          field.ID = 0;
+          oprot.WriteFieldBegin(field);
+          Success.Write(oprot);
+          oprot.WriteFieldEnd();
+        }
+      }
+      oprot.WriteFieldStop();
+      oprot.WriteStructEnd();
+    }
+
+    public override string ToString() {
+      StringBuilder sb = new StringBuilder("Login_result(");
+      sb.Append("Success: ");
+      sb.Append(Success== null ? "<null>" : Success.ToString());
+      sb.Append(")");
+      return sb.ToString();
+    }
+
+  }
+
+
+  #if !SILVERLIGHT
+  [Serializable]
+  #endif
+  public partial class Update_args : TBase
+  {
+    private int _playerId;
+
+    public int PlayerId
+    {
+      get
+      {
+        return _playerId;
+      }
+      set
+      {
+        __isset.playerId = true;
+        this._playerId = value;
+      }
+    }
+
+
+    public Isset __isset;
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public struct Isset {
+      public bool playerId;
+    }
+
+    public Update_args() {
+    }
+
+    public void Read (TProtocol iprot)
+    {
+      TField field;
+      iprot.ReadStructBegin();
+      while (true)
+      {
+        field = iprot.ReadFieldBegin();
+        if (field.Type == TType.Stop) { 
+          break;
+        }
+        switch (field.ID)
+        {
+          case 1:
+            if (field.Type == TType.I32) {
+              PlayerId = iprot.ReadI32();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          default: 
+            TProtocolUtil.Skip(iprot, field.Type);
+            break;
+        }
+        iprot.ReadFieldEnd();
+      }
+      iprot.ReadStructEnd();
+    }
+
+    public void Write(TProtocol oprot) {
+      TStruct struc = new TStruct("Update_args");
+      oprot.WriteStructBegin(struc);
+      TField field = new TField();
+      if (__isset.playerId) {
+        field.Name = "playerId";
+        field.Type = TType.I32;
+        field.ID = 1;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteI32(PlayerId);
+        oprot.WriteFieldEnd();
+      }
+      oprot.WriteFieldStop();
+      oprot.WriteStructEnd();
+    }
+
+    public override string ToString() {
+      StringBuilder sb = new StringBuilder("Update_args(");
+      sb.Append("PlayerId: ");
+      sb.Append(PlayerId);
+      sb.Append(")");
+      return sb.ToString();
+    }
+
+  }
+
+
+  #if !SILVERLIGHT
+  [Serializable]
+  #endif
+  public partial class Update_result : TBase
+  {
+    private DNHActionResult _success;
+
+    public DNHActionResult Success
+    {
+      get
+      {
+        return _success;
+      }
+      set
+      {
+        __isset.success = true;
+        this._success = value;
+      }
+    }
+
+
+    public Isset __isset;
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public struct Isset {
+      public bool success;
+    }
+
+    public Update_result() {
+    }
+
+    public void Read (TProtocol iprot)
+    {
+      TField field;
+      iprot.ReadStructBegin();
+      while (true)
+      {
+        field = iprot.ReadFieldBegin();
+        if (field.Type == TType.Stop) { 
+          break;
+        }
+        switch (field.ID)
+        {
+          case 0:
+            if (field.Type == TType.Struct) {
+              Success = new DNHActionResult();
+              Success.Read(iprot);
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          default: 
+            TProtocolUtil.Skip(iprot, field.Type);
+            break;
+        }
+        iprot.ReadFieldEnd();
+      }
+      iprot.ReadStructEnd();
+    }
+
+    public void Write(TProtocol oprot) {
+      TStruct struc = new TStruct("Update_result");
+      oprot.WriteStructBegin(struc);
+      TField field = new TField();
+
+      if (this.__isset.success) {
+        if (Success != null) {
+          field.Name = "Success";
+          field.Type = TType.Struct;
+          field.ID = 0;
+          oprot.WriteFieldBegin(field);
+          Success.Write(oprot);
+          oprot.WriteFieldEnd();
+        }
+      }
+      oprot.WriteFieldStop();
+      oprot.WriteStructEnd();
+    }
+
+    public override string ToString() {
+      StringBuilder sb = new StringBuilder("Update_result(");
       sb.Append("Success: ");
       sb.Append(Success== null ? "<null>" : Success.ToString());
       sb.Append(")");

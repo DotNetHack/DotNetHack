@@ -45,26 +45,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DNHObject.cs" />
-    <Compile Include="Engine\GameEngine.cs" />
-    <Compile Include="Engine\GameEngineFlags.cs" />
-    <Compile Include="Engine\Interfaces\IGameEngineController.cs" />
-    <Compile Include="Engine\Scripting\Script.cs" />
-    <Compile Include="Engine\Scripting\ScriptLoader.cs" />
-    <Compile Include="Events\DNHActionEventArgs.cs" />
-    <Compile Include="Events\DNHEventArgs.cs" />
-    <Compile Include="Events\DNHMoveEventArgs.cs" />
-    <Compile Include="Model\GameModel.cs" />
-    <Compile Include="Model\Location.cs" />
-    <Compile Include="Model\Overlay.cs" />
-    <Compile Include="Model\ISubstrateAccessor.cs" />
-    <Compile Include="Model\Substrate.cs" />
+    <Compile Include="DNHClient.cs" />
     <Compile Include="UserInterface\GUIModel.cs" />
     <Compile Include="UserInterface\MainWindow.cs" />
-    <Compile Include="UserInterface\SubstrateDisplayModel.cs" />
-    <Compile Include="Util\Persisted.cs" />
     <Compile Include="EntryPoint.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +59,10 @@
     <ProjectReference Include="..\..\..\DotNetGUI\src\DotNetGUI.csproj">
       <Project>{aecd8e0a-6100-4aad-9126-f2e1f4ede31b}</Project>
       <Name>DotNetGUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DotNetHack.Core\DotNetHack.Core.csproj">
+      <Project>{cab13655-ae02-43b6-b1ab-64c25560324c}</Project>
+      <Name>DotNetHack.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\DotNetHack.RPC\DotNetHack.RPC.csproj">
       <Project>{b45fec7a-3c56-440d-ad61-e3bd2a7e0433}</Project>

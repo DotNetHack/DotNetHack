@@ -17,8 +17,30 @@ enum CommandType {
   ATTACK = 3
 }
 
+enum ObjectType {
+	ITEM,
+	ACTOR,
+	PLAYER
+}
+
+struct DNHObject { 
+	1: i32 id,
+	2: ObjectType type
+	3: i32 x,
+	4: i32 y,
+	5: i32 z
+}
+
+struct DNHGameState { 
+	1: i64 seq,
+	2: list<DNHObject> objects
+}
+
 struct DNHActionResult {
-	1: bool Success
+	1: i64 seq,
+	2: bool success,
+	3: DNHGameState gameState
+	4: i32 playerID
 }
 
 struct DNHLocation {
@@ -31,8 +53,8 @@ struct DNHLocation {
  * Description: This packet contains a user identifier and some raw data.
  */
 struct DNHPacket {
-	1: i32 ID,
-	2: string Data
+	1: i64 seq,
+	2: string RawData
 }
 
 /**
@@ -42,4 +64,13 @@ service DNHService {
 	DNHActionResult MoveTo(1: i32 playerId, i32 x, i32 y, i32 z),
 	DNHActionResult Pickup(1: i32 playerId),
 	DNHActionResult DropItem(1: i32 playerId, 2: i32 itemId),
+	DNHActionResult Login(1: string name, 2: string hash),
+	DNHActionResult Update(1: i32 playerId);
+}
+
+/**
+ * Description: Service for pushing back information
+ */
+service DNHPushService {
+	DNHActionResult Callback(1: DNHPacket packet);
 }

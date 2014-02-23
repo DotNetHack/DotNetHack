@@ -1,0 +1,13 @@
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\bin\Debug\Server.CoreLib.Test.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\bin\Debug\Server.CoreLib.Test.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\bin\Debug\DotNetHack.RPC.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\bin\Debug\DotNetHack.Server.CoreLib.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\bin\Debug\DotNetHack.Serialization.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\bin\Debug\Thrift.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\bin\Debug\DotNetHack.Server.CoreLib.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\bin\Debug\DotNetHack.RPC.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\bin\Debug\DotNetHack.Serialization.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\bin\Debug\Thrift.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\obj\Debug\Server.CoreLib.Test.csprojResolveAssemblyReference.cache
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\obj\Debug\Server.CoreLib.Test.dll
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Test\Server.CoreLib.Test\obj\Debug\Server.CoreLib.Test.pdb

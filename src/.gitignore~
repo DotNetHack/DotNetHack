@@ -1,5 +1,9 @@
 # GitIgnore for IOneContactImport
 # (c) 2012
+InterlinkONE.ContactImport/bin
+InterlinkONE.ContactImport/obj
+InterlinkONE.ContactImport.Installer/Debug
+InterlinkONE.ContactImport.Installer/Release
 */obj
 */bin/*.*
 */bin/**/*

@@ -49,6 +49,26 @@ namespace DotNetHack.RPC
       IAsyncResult Begin_Attack(AsyncCallback callback, object state, Session session, TargetSelector target);
       ActionResult End_Attack(IAsyncResult asyncResult);
       #endif
+      ActionResult Open(Session session, TargetSelector target);
+      #if SILVERLIGHT
+      IAsyncResult Begin_Open(AsyncCallback callback, object state, Session session, TargetSelector target);
+      ActionResult End_Open(IAsyncResult asyncResult);
+      #endif
+      ActionResult Close(Session session, TargetSelector target);
+      #if SILVERLIGHT
+      IAsyncResult Begin_Close(AsyncCallback callback, object state, Session session, TargetSelector target);
+      ActionResult End_Close(IAsyncResult asyncResult);
+      #endif
+      List<Spell> MySpells(Session session, string expression);
+      #if SILVERLIGHT
+      IAsyncResult Begin_MySpells(AsyncCallback callback, object state, Session session, string expression);
+      List<Spell> End_MySpells(IAsyncResult asyncResult);
+      #endif
+      List<Item> MyItems(Session session, string expression);
+      #if SILVERLIGHT
+      IAsyncResult Begin_MyItems(AsyncCallback callback, object state, Session session, string expression);
+      List<Item> End_MyItems(IAsyncResult asyncResult);
+      #endif
     }
 
     public class Client : IDisposable, Iface {
@@ -486,6 +506,258 @@ namespace DotNetHack.RPC
         throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "Attack failed: unknown result");
       }
 
+      
+      #if SILVERLIGHT
+      public IAsyncResult Begin_Open(AsyncCallback callback, object state, Session session, TargetSelector target)
+      {
+        return send_Open(callback, state, session, target);
+      }
+
+      public ActionResult End_Open(IAsyncResult asyncResult)
+      {
+        oprot_.Transport.EndFlush(asyncResult);
+        return recv_Open();
+      }
+
+      #endif
+
+      public ActionResult Open(Session session, TargetSelector target)
+      {
+        #if !SILVERLIGHT
+        send_Open(session, target);
+        return recv_Open();
+
+        #else
+        var asyncResult = Begin_Open(null, null, session, target);
+        return End_Open(asyncResult);
+
+        #endif
+      }
+      #if SILVERLIGHT
+      public IAsyncResult send_Open(AsyncCallback callback, object state, Session session, TargetSelector target)
+      #else
+      public void send_Open(Session session, TargetSelector target)
+      #endif
+      {
+        oprot_.WriteMessageBegin(new TMessage("Open", TMessageType.Call, seqid_));
+        Open_args args = new Open_args();
+        args.Session = session;
+        args.Target = target;
+        args.Write(oprot_);
+        oprot_.WriteMessageEnd();
+        #if SILVERLIGHT
+        return oprot_.Transport.BeginFlush(callback, state);
+        #else
+        oprot_.Transport.Flush();
+        #endif
+      }
+
+      public ActionResult recv_Open()
+      {
+        TMessage msg = iprot_.ReadMessageBegin();
+        if (msg.Type == TMessageType.Exception) {
+          TApplicationException x = TApplicationException.Read(iprot_);
+          iprot_.ReadMessageEnd();
+          throw x;
+        }
+        Open_result result = new Open_result();
+        result.Read(iprot_);
+        iprot_.ReadMessageEnd();
+        if (result.__isset.success) {
+          return result.Success;
+        }
+        throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "Open failed: unknown result");
+      }
+
+      
+      #if SILVERLIGHT
+      public IAsyncResult Begin_Close(AsyncCallback callback, object state, Session session, TargetSelector target)
+      {
+        return send_Close(callback, state, session, target);
+      }
+
+      public ActionResult End_Close(IAsyncResult asyncResult)
+      {
+        oprot_.Transport.EndFlush(asyncResult);
+        return recv_Close();
+      }
+
+      #endif
+
+      public ActionResult Close(Session session, TargetSelector target)
+      {
+        #if !SILVERLIGHT
+        send_Close(session, target);
+        return recv_Close();
+
+        #else
+        var asyncResult = Begin_Close(null, null, session, target);
+        return End_Close(asyncResult);
+
+        #endif
+      }
+      #if SILVERLIGHT
+      public IAsyncResult send_Close(AsyncCallback callback, object state, Session session, TargetSelector target)
+      #else
+      public void send_Close(Session session, TargetSelector target)
+      #endif
+      {
+        oprot_.WriteMessageBegin(new TMessage("Close", TMessageType.Call, seqid_));
+        Close_args args = new Close_args();
+        args.Session = session;
+        args.Target = target;
+        args.Write(oprot_);
+        oprot_.WriteMessageEnd();
+        #if SILVERLIGHT
+        return oprot_.Transport.BeginFlush(callback, state);
+        #else
+        oprot_.Transport.Flush();
+        #endif
+      }
+
+      public ActionResult recv_Close()
+      {
+        TMessage msg = iprot_.ReadMessageBegin();
+        if (msg.Type == TMessageType.Exception) {
+          TApplicationException x = TApplicationException.Read(iprot_);
+          iprot_.ReadMessageEnd();
+          throw x;
+        }
+        Close_result result = new Close_result();
+        result.Read(iprot_);
+        iprot_.ReadMessageEnd();
+        if (result.__isset.success) {
+          return result.Success;
+        }
+        throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "Close failed: unknown result");
+      }
+
+      
+      #if SILVERLIGHT
+      public IAsyncResult Begin_MySpells(AsyncCallback callback, object state, Session session, string expression)
+      {
+        return send_MySpells(callback, state, session, expression);
+      }
+
+      public List<Spell> End_MySpells(IAsyncResult asyncResult)
+      {
+        oprot_.Transport.EndFlush(asyncResult);
+        return recv_MySpells();
+      }
+
+      #endif
+
+      public List<Spell> MySpells(Session session, string expression)
+      {
+        #if !SILVERLIGHT
+        send_MySpells(session, expression);
+        return recv_MySpells();
+
+        #else
+        var asyncResult = Begin_MySpells(null, null, session, expression);
+        return End_MySpells(asyncResult);
+
+        #endif
+      }
+      #if SILVERLIGHT
+      public IAsyncResult send_MySpells(AsyncCallback callback, object state, Session session, string expression)
+      #else
+      public void send_MySpells(Session session, string expression)
+      #endif
+      {
+        oprot_.WriteMessageBegin(new TMessage("MySpells", TMessageType.Call, seqid_));
+        MySpells_args args = new MySpells_args();
+        args.Session = session;
+        args.Expression = expression;
+        args.Write(oprot_);
+        oprot_.WriteMessageEnd();
+        #if SILVERLIGHT
+        return oprot_.Transport.BeginFlush(callback, state);
+        #else
+        oprot_.Transport.Flush();
+        #endif
+      }
+
+      public List<Spell> recv_MySpells()
+      {
+        TMessage msg = iprot_.ReadMessageBegin();
+        if (msg.Type == TMessageType.Exception) {
+          TApplicationException x = TApplicationException.Read(iprot_);
+          iprot_.ReadMessageEnd();
+          throw x;
+        }
+        MySpells_result result = new MySpells_result();
+        result.Read(iprot_);
+        iprot_.ReadMessageEnd();
+        if (result.__isset.success) {
+          return result.Success;
+        }
+        throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "MySpells failed: unknown result");
+      }
+
+      
+      #if SILVERLIGHT
+      public IAsyncResult Begin_MyItems(AsyncCallback callback, object state, Session session, string expression)
+      {
+        return send_MyItems(callback, state, session, expression);
+      }
+
+      public List<Item> End_MyItems(IAsyncResult asyncResult)
+      {
+        oprot_.Transport.EndFlush(asyncResult);
+        return recv_MyItems();
+      }
+
+      #endif
+
+      public List<Item> MyItems(Session session, string expression)
+      {
+        #if !SILVERLIGHT
+        send_MyItems(session, expression);
+        return recv_MyItems();
+
+        #else
+        var asyncResult = Begin_MyItems(null, null, session, expression);
+        return End_MyItems(asyncResult);
+
+        #endif
+      }
+      #if SILVERLIGHT
+      public IAsyncResult send_MyItems(AsyncCallback callback, object state, Session session, string expression)
+      #else
+      public void send_MyItems(Session session, string expression)
+      #endif
+      {
+        oprot_.WriteMessageBegin(new TMessage("MyItems", TMessageType.Call, seqid_));
+        MyItems_args args = new MyItems_args();
+        args.Session = session;
+        args.Expression = expression;
+        args.Write(oprot_);
+        oprot_.WriteMessageEnd();
+        #if SILVERLIGHT
+        return oprot_.Transport.BeginFlush(callback, state);
+        #else
+        oprot_.Transport.Flush();
+        #endif
+      }
+
+      public List<Item> recv_MyItems()
+      {
+        TMessage msg = iprot_.ReadMessageBegin();
+        if (msg.Type == TMessageType.Exception) {
+          TApplicationException x = TApplicationException.Read(iprot_);
+          iprot_.ReadMessageEnd();
+          throw x;
+        }
+        MyItems_result result = new MyItems_result();
+        result.Read(iprot_);
+        iprot_.ReadMessageEnd();
+        if (result.__isset.success) {
+          return result.Success;
+        }
+        throw new TApplicationException(TApplicationException.ExceptionType.MissingResult, "MyItems failed: unknown result");
+      }
+
     }
     public class Processor : TProcessor {
       public Processor(Iface iface)
@@ -497,6 +769,10 @@ namespace DotNetHack.RPC
         processMap_["Quaff"] = Quaff_Process;
         processMap_["Wield"] = Wield_Process;
         processMap_["Attack"] = Attack_Process;
+        processMap_["Open"] = Open_Process;
+        processMap_["Close"] = Close_Process;
+        processMap_["MySpells"] = MySpells_Process;
+        processMap_["MyItems"] = MyItems_Process;
       }
 
       protected delegate void ProcessFunction(int seqid, TProtocol iprot, TProtocol oprot);
@@ -602,6 +878,58 @@ namespace DotNetHack.RPC
         Attack_result result = new Attack_result();
         result.Success = iface_.Attack(args.Session, args.Target);
         oprot.WriteMessageBegin(new TMessage("Attack", TMessageType.Reply, seqid)); 
+        result.Write(oprot);
+        oprot.WriteMessageEnd();
+        oprot.Transport.Flush();
+      }
+
+      public void Open_Process(int seqid, TProtocol iprot, TProtocol oprot)
+      {
+        Open_args args = new Open_args();
+        args.Read(iprot);
+        iprot.ReadMessageEnd();
+        Open_result result = new Open_result();
+        result.Success = iface_.Open(args.Session, args.Target);
+        oprot.WriteMessageBegin(new TMessage("Open", TMessageType.Reply, seqid)); 
+        result.Write(oprot);
+        oprot.WriteMessageEnd();
+        oprot.Transport.Flush();
+      }
+
+      public void Close_Process(int seqid, TProtocol iprot, TProtocol oprot)
+      {
+        Close_args args = new Close_args();
+        args.Read(iprot);
+        iprot.ReadMessageEnd();
+        Close_result result = new Close_result();
+        result.Success = iface_.Close(args.Session, args.Target);
+        oprot.WriteMessageBegin(new TMessage("Close", TMessageType.Reply, seqid)); 
+        result.Write(oprot);
+        oprot.WriteMessageEnd();
+        oprot.Transport.Flush();
+      }
+
+      public void MySpells_Process(int seqid, TProtocol iprot, TProtocol oprot)
+      {
+        MySpells_args args = new MySpells_args();
+        args.Read(iprot);
+        iprot.ReadMessageEnd();
+        MySpells_result result = new MySpells_result();
+        result.Success = iface_.MySpells(args.Session, args.Expression);
+        oprot.WriteMessageBegin(new TMessage("MySpells", TMessageType.Reply, seqid)); 
+        result.Write(oprot);
+        oprot.WriteMessageEnd();
+        oprot.Transport.Flush();
+      }
+
+      public void MyItems_Process(int seqid, TProtocol iprot, TProtocol oprot)
+      {
+        MyItems_args args = new MyItems_args();
+        args.Read(iprot);
+        iprot.ReadMessageEnd();
+        MyItems_result result = new MyItems_result();
+        result.Success = iface_.MyItems(args.Session, args.Expression);
+        oprot.WriteMessageBegin(new TMessage("MyItems", TMessageType.Reply, seqid)); 
         result.Write(oprot);
         oprot.WriteMessageEnd();
         oprot.Transport.Flush();
@@ -1909,6 +2237,886 @@ namespace DotNetHack.RPC
         StringBuilder sb = new StringBuilder("Attack_result(");
         sb.Append("Success: ");
         sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class Open_args : TBase
+    {
+      private Session _session;
+      private TargetSelector _target;
+
+      public Session Session
+      {
+        get
+        {
+          return _session;
+        }
+        set
+        {
+          __isset.session = true;
+          this._session = value;
+        }
+      }
+
+      public TargetSelector Target
+      {
+        get
+        {
+          return _target;
+        }
+        set
+        {
+          __isset.target = true;
+          this._target = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool session;
+        public bool target;
+      }
+
+      public Open_args() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.Struct) {
+                Session = new Session();
+                Session.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.Struct) {
+                Target = new TargetSelector();
+                Target.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("Open_args");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+        if (Session != null && __isset.session) {
+          field.Name = "session";
+          field.Type = TType.Struct;
+          field.ID = 1;
+          oprot.WriteFieldBegin(field);
+          Session.Write(oprot);
+          oprot.WriteFieldEnd();
+        }
+        if (Target != null && __isset.target) {
+          field.Name = "target";
+          field.Type = TType.Struct;
+          field.ID = 2;
+          oprot.WriteFieldBegin(field);
+          Target.Write(oprot);
+          oprot.WriteFieldEnd();
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("Open_args(");
+        sb.Append("Session: ");
+        sb.Append(Session== null ? "<null>" : Session.ToString());
+        sb.Append(",Target: ");
+        sb.Append(Target== null ? "<null>" : Target.ToString());
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class Open_result : TBase
+    {
+      private ActionResult _success;
+
+      public ActionResult Success
+      {
+        get
+        {
+          return _success;
+        }
+        set
+        {
+          __isset.success = true;
+          this._success = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool success;
+      }
+
+      public Open_result() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.Struct) {
+                Success = new ActionResult();
+                Success.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("Open_result");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+
+        if (this.__isset.success) {
+          if (Success != null) {
+            field.Name = "Success";
+            field.Type = TType.Struct;
+            field.ID = 0;
+            oprot.WriteFieldBegin(field);
+            Success.Write(oprot);
+            oprot.WriteFieldEnd();
+          }
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("Open_result(");
+        sb.Append("Success: ");
+        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class Close_args : TBase
+    {
+      private Session _session;
+      private TargetSelector _target;
+
+      public Session Session
+      {
+        get
+        {
+          return _session;
+        }
+        set
+        {
+          __isset.session = true;
+          this._session = value;
+        }
+      }
+
+      public TargetSelector Target
+      {
+        get
+        {
+          return _target;
+        }
+        set
+        {
+          __isset.target = true;
+          this._target = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool session;
+        public bool target;
+      }
+
+      public Close_args() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.Struct) {
+                Session = new Session();
+                Session.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.Struct) {
+                Target = new TargetSelector();
+                Target.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("Close_args");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+        if (Session != null && __isset.session) {
+          field.Name = "session";
+          field.Type = TType.Struct;
+          field.ID = 1;
+          oprot.WriteFieldBegin(field);
+          Session.Write(oprot);
+          oprot.WriteFieldEnd();
+        }
+        if (Target != null && __isset.target) {
+          field.Name = "target";
+          field.Type = TType.Struct;
+          field.ID = 2;
+          oprot.WriteFieldBegin(field);
+          Target.Write(oprot);
+          oprot.WriteFieldEnd();
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("Close_args(");
+        sb.Append("Session: ");
+        sb.Append(Session== null ? "<null>" : Session.ToString());
+        sb.Append(",Target: ");
+        sb.Append(Target== null ? "<null>" : Target.ToString());
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class Close_result : TBase
+    {
+      private ActionResult _success;
+
+      public ActionResult Success
+      {
+        get
+        {
+          return _success;
+        }
+        set
+        {
+          __isset.success = true;
+          this._success = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool success;
+      }
+
+      public Close_result() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.Struct) {
+                Success = new ActionResult();
+                Success.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("Close_result");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+
+        if (this.__isset.success) {
+          if (Success != null) {
+            field.Name = "Success";
+            field.Type = TType.Struct;
+            field.ID = 0;
+            oprot.WriteFieldBegin(field);
+            Success.Write(oprot);
+            oprot.WriteFieldEnd();
+          }
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("Close_result(");
+        sb.Append("Success: ");
+        sb.Append(Success== null ? "<null>" : Success.ToString());
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class MySpells_args : TBase
+    {
+      private Session _session;
+      private string _expression;
+
+      public Session Session
+      {
+        get
+        {
+          return _session;
+        }
+        set
+        {
+          __isset.session = true;
+          this._session = value;
+        }
+      }
+
+      public string Expression
+      {
+        get
+        {
+          return _expression;
+        }
+        set
+        {
+          __isset.expression = true;
+          this._expression = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool session;
+        public bool expression;
+      }
+
+      public MySpells_args() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.Struct) {
+                Session = new Session();
+                Session.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.String) {
+                Expression = iprot.ReadString();
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("MySpells_args");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+        if (Session != null && __isset.session) {
+          field.Name = "session";
+          field.Type = TType.Struct;
+          field.ID = 1;
+          oprot.WriteFieldBegin(field);
+          Session.Write(oprot);
+          oprot.WriteFieldEnd();
+        }
+        if (Expression != null && __isset.expression) {
+          field.Name = "expression";
+          field.Type = TType.String;
+          field.ID = 2;
+          oprot.WriteFieldBegin(field);
+          oprot.WriteString(Expression);
+          oprot.WriteFieldEnd();
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("MySpells_args(");
+        sb.Append("Session: ");
+        sb.Append(Session== null ? "<null>" : Session.ToString());
+        sb.Append(",Expression: ");
+        sb.Append(Expression);
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class MySpells_result : TBase
+    {
+      private List<Spell> _success;
+
+      public List<Spell> Success
+      {
+        get
+        {
+          return _success;
+        }
+        set
+        {
+          __isset.success = true;
+          this._success = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool success;
+      }
+
+      public MySpells_result() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.List) {
+                {
+                  Success = new List<Spell>();
+                  TList _list36 = iprot.ReadListBegin();
+                  for( int _i37 = 0; _i37 < _list36.Count; ++_i37)
+                  {
+                    Spell _elem38 = new Spell();
+                    _elem38 = new Spell();
+                    _elem38.Read(iprot);
+                    Success.Add(_elem38);
+                  }
+                  iprot.ReadListEnd();
+                }
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("MySpells_result");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+
+        if (this.__isset.success) {
+          if (Success != null) {
+            field.Name = "Success";
+            field.Type = TType.List;
+            field.ID = 0;
+            oprot.WriteFieldBegin(field);
+            {
+              oprot.WriteListBegin(new TList(TType.Struct, Success.Count));
+              foreach (Spell _iter39 in Success)
+              {
+                _iter39.Write(oprot);
+              }
+              oprot.WriteListEnd();
+            }
+            oprot.WriteFieldEnd();
+          }
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("MySpells_result(");
+        sb.Append("Success: ");
+        sb.Append(Success);
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class MyItems_args : TBase
+    {
+      private Session _session;
+      private string _expression;
+
+      public Session Session
+      {
+        get
+        {
+          return _session;
+        }
+        set
+        {
+          __isset.session = true;
+          this._session = value;
+        }
+      }
+
+      public string Expression
+      {
+        get
+        {
+          return _expression;
+        }
+        set
+        {
+          __isset.expression = true;
+          this._expression = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool session;
+        public bool expression;
+      }
+
+      public MyItems_args() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 1:
+              if (field.Type == TType.Struct) {
+                Session = new Session();
+                Session.Read(iprot);
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            case 2:
+              if (field.Type == TType.String) {
+                Expression = iprot.ReadString();
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("MyItems_args");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+        if (Session != null && __isset.session) {
+          field.Name = "session";
+          field.Type = TType.Struct;
+          field.ID = 1;
+          oprot.WriteFieldBegin(field);
+          Session.Write(oprot);
+          oprot.WriteFieldEnd();
+        }
+        if (Expression != null && __isset.expression) {
+          field.Name = "expression";
+          field.Type = TType.String;
+          field.ID = 2;
+          oprot.WriteFieldBegin(field);
+          oprot.WriteString(Expression);
+          oprot.WriteFieldEnd();
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("MyItems_args(");
+        sb.Append("Session: ");
+        sb.Append(Session== null ? "<null>" : Session.ToString());
+        sb.Append(",Expression: ");
+        sb.Append(Expression);
+        sb.Append(")");
+        return sb.ToString();
+      }
+
+    }
+
+
+    #if !SILVERLIGHT
+    [Serializable]
+    #endif
+    public partial class MyItems_result : TBase
+    {
+      private List<Item> _success;
+
+      public List<Item> Success
+      {
+        get
+        {
+          return _success;
+        }
+        set
+        {
+          __isset.success = true;
+          this._success = value;
+        }
+      }
+
+
+      public Isset __isset;
+      #if !SILVERLIGHT
+      [Serializable]
+      #endif
+      public struct Isset {
+        public bool success;
+      }
+
+      public MyItems_result() {
+      }
+
+      public void Read (TProtocol iprot)
+      {
+        TField field;
+        iprot.ReadStructBegin();
+        while (true)
+        {
+          field = iprot.ReadFieldBegin();
+          if (field.Type == TType.Stop) { 
+            break;
+          }
+          switch (field.ID)
+          {
+            case 0:
+              if (field.Type == TType.List) {
+                {
+                  Success = new List<Item>();
+                  TList _list40 = iprot.ReadListBegin();
+                  for( int _i41 = 0; _i41 < _list40.Count; ++_i41)
+                  {
+                    Item _elem42 = new Item();
+                    _elem42 = new Item();
+                    _elem42.Read(iprot);
+                    Success.Add(_elem42);
+                  }
+                  iprot.ReadListEnd();
+                }
+              } else { 
+                TProtocolUtil.Skip(iprot, field.Type);
+              }
+              break;
+            default: 
+              TProtocolUtil.Skip(iprot, field.Type);
+              break;
+          }
+          iprot.ReadFieldEnd();
+        }
+        iprot.ReadStructEnd();
+      }
+
+      public void Write(TProtocol oprot) {
+        TStruct struc = new TStruct("MyItems_result");
+        oprot.WriteStructBegin(struc);
+        TField field = new TField();
+
+        if (this.__isset.success) {
+          if (Success != null) {
+            field.Name = "Success";
+            field.Type = TType.List;
+            field.ID = 0;
+            oprot.WriteFieldBegin(field);
+            {
+              oprot.WriteListBegin(new TList(TType.Struct, Success.Count));
+              foreach (Item _iter43 in Success)
+              {
+                _iter43.Write(oprot);
+              }
+              oprot.WriteListEnd();
+            }
+            oprot.WriteFieldEnd();
+          }
+        }
+        oprot.WriteFieldStop();
+        oprot.WriteStructEnd();
+      }
+
+      public override string ToString() {
+        StringBuilder sb = new StringBuilder("MyItems_result(");
+        sb.Append("Success: ");
+        sb.Append(Success);
         sb.Append(")");
         return sb.ToString();
       }

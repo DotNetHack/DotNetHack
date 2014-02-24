@@ -26,7 +26,9 @@ namespace DotNetHack.RPC
     private Session _session;
     private string _message;
     private Sound _sound;
+    private THashSet<Sound> _activeAmbient;
     private GameState _gameState;
+    private Player _player;
 
     public Session Session
     {
@@ -67,6 +69,19 @@ namespace DotNetHack.RPC
       }
     }
 
+    public THashSet<Sound> ActiveAmbient
+    {
+      get
+      {
+        return _activeAmbient;
+      }
+      set
+      {
+        __isset.activeAmbient = true;
+        this._activeAmbient = value;
+      }
+    }
+
     public GameState GameState
     {
       get
@@ -80,6 +95,19 @@ namespace DotNetHack.RPC
       }
     }
 
+    public Player Player
+    {
+      get
+      {
+        return _player;
+      }
+      set
+      {
+        __isset.player = true;
+        this._player = value;
+      }
+    }
+
 
     public Isset __isset;
     #if !SILVERLIGHT
@@ -89,7 +117,9 @@ namespace DotNetHack.RPC
       public bool session;
       public bool message;
       public bool sound;
+      public bool activeAmbient;
       public bool gameState;
+      public bool player;
     }
 
     public ActionResult() {
@@ -131,9 +161,35 @@ namespace DotNetHack.RPC
             }
             break;
           case 4:
+            if (field.Type == TType.Set) {
+              {
+                ActiveAmbient = new THashSet<Sound>();
+                TSet _set32 = iprot.ReadSetBegin();
+                for( int _i33 = 0; _i33 < _set32.Count; ++_i33)
+                {
+                  Sound _elem34 = new Sound();
+                  _elem34 = new Sound();
+                  _elem34.Read(iprot);
+                  ActiveAmbient.Add(_elem34);
+                }
+                iprot.ReadSetEnd();
+              }
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 5:
             if (field.Type == TType.Struct) {
               GameState = new GameState();
               GameState.Read(iprot);
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 6:
+            if (field.Type == TType.Struct) {
+              Player = new Player();
+              Player.Read(iprot);
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
@@ -175,12 +231,35 @@ namespace DotNetHack.RPC
         Sound.Write(oprot);
         oprot.WriteFieldEnd();
       }
+      if (ActiveAmbient != null && __isset.activeAmbient) {
+        field.Name = "activeAmbient";
+        field.Type = TType.Set;
+        field.ID = 4;
+        oprot.WriteFieldBegin(field);
+        {
+          oprot.WriteSetBegin(new TSet(TType.Struct, ActiveAmbient.Count));
+          foreach (Sound _iter35 in ActiveAmbient)
+          {
+            _iter35.Write(oprot);
+          }
+          oprot.WriteSetEnd();
+        }
+        oprot.WriteFieldEnd();
+      }
       if (GameState != null && __isset.gameState) {
         field.Name = "gameState";
         field.Type = TType.Struct;
-        field.ID = 4;
+        field.ID = 5;
         oprot.WriteFieldBegin(field);
         GameState.Write(oprot);
+        oprot.WriteFieldEnd();
+      }
+      if (Player != null && __isset.player) {
+        field.Name = "player";
+        field.Type = TType.Struct;
+        field.ID = 6;
+        oprot.WriteFieldBegin(field);
+        Player.Write(oprot);
         oprot.WriteFieldEnd();
       }
       oprot.WriteFieldStop();
@@ -195,8 +274,12 @@ namespace DotNetHack.RPC
       sb.Append(Message);
       sb.Append(",Sound: ");
       sb.Append(Sound== null ? "<null>" : Sound.ToString());
+      sb.Append(",ActiveAmbient: ");
+      sb.Append(ActiveAmbient);
       sb.Append(",GameState: ");
       sb.Append(GameState== null ? "<null>" : GameState.ToString());
+      sb.Append(",Player: ");
+      sb.Append(Player== null ? "<null>" : Player.ToString());
       sb.Append(")");
       return sb.ToString();
     }

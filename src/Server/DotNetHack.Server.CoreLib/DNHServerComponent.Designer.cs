@@ -1,6 +1,6 @@
 ﻿namespace DotNetHack.Server.CoreLib
 {
-    partial class DNHServer
+    partial class DNHServerComponent
     {
         /// <summary>
         /// Required designer variable.

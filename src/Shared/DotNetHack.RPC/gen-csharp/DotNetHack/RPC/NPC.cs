@@ -28,6 +28,8 @@ namespace DotNetHack.RPC
     private Location _location;
     private List<Effect> _effects;
     private StatusEffectType _status;
+    private NPCType _npcType;
+    private List<Item> _inventory;
 
     public string Name
     {
@@ -98,6 +100,36 @@ namespace DotNetHack.RPC
       }
     }
 
+    /// <summary>
+    /// 
+    /// <seealso cref="NPCType"/>
+    /// </summary>
+    public NPCType NpcType
+    {
+      get
+      {
+        return _npcType;
+      }
+      set
+      {
+        __isset.npcType = true;
+        this._npcType = value;
+      }
+    }
+
+    public List<Item> Inventory
+    {
+      get
+      {
+        return _inventory;
+      }
+      set
+      {
+        __isset.inventory = true;
+        this._inventory = value;
+      }
+    }
+
 
     public Isset __isset;
     #if !SILVERLIGHT
@@ -109,6 +141,8 @@ namespace DotNetHack.RPC
       public bool location;
       public bool effects;
       public bool status;
+      public bool npcType;
+      public bool inventory;
     }
 
     public NPC() {
@@ -152,13 +186,13 @@ namespace DotNetHack.RPC
             if (field.Type == TType.List) {
               {
                 Effects = new List<Effect>();
-                TList _list4 = iprot.ReadListBegin();
-                for( int _i5 = 0; _i5 < _list4.Count; ++_i5)
+                TList _list12 = iprot.ReadListBegin();
+                for( int _i13 = 0; _i13 < _list12.Count; ++_i13)
                 {
-                  Effect _elem6 = new Effect();
-                  _elem6 = new Effect();
-                  _elem6.Read(iprot);
-                  Effects.Add(_elem6);
+                  Effect _elem14 = new Effect();
+                  _elem14 = new Effect();
+                  _elem14.Read(iprot);
+                  Effects.Add(_elem14);
                 }
                 iprot.ReadListEnd();
               }
@@ -169,6 +203,31 @@ namespace DotNetHack.RPC
           case 5:
             if (field.Type == TType.I32) {
               Status = (StatusEffectType)iprot.ReadI32();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 6:
+            if (field.Type == TType.I32) {
+              NpcType = (NPCType)iprot.ReadI32();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 7:
+            if (field.Type == TType.List) {
+              {
+                Inventory = new List<Item>();
+                TList _list15 = iprot.ReadListBegin();
+                for( int _i16 = 0; _i16 < _list15.Count; ++_i16)
+                {
+                  Item _elem17 = new Item();
+                  _elem17 = new Item();
+                  _elem17.Read(iprot);
+                  Inventory.Add(_elem17);
+                }
+                iprot.ReadListEnd();
+              }
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
@@ -217,9 +276,9 @@ namespace DotNetHack.RPC
         oprot.WriteFieldBegin(field);
         {
           oprot.WriteListBegin(new TList(TType.Struct, Effects.Count));
-          foreach (Effect _iter7 in Effects)
+          foreach (Effect _iter18 in Effects)
           {
-            _iter7.Write(oprot);
+            _iter18.Write(oprot);
           }
           oprot.WriteListEnd();
         }
@@ -231,6 +290,29 @@ namespace DotNetHack.RPC
         field.ID = 5;
         oprot.WriteFieldBegin(field);
         oprot.WriteI32((int)Status);
+        oprot.WriteFieldEnd();
+      }
+      if (__isset.npcType) {
+        field.Name = "npcType";
+        field.Type = TType.I32;
+        field.ID = 6;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteI32((int)NpcType);
+        oprot.WriteFieldEnd();
+      }
+      if (Inventory != null && __isset.inventory) {
+        field.Name = "inventory";
+        field.Type = TType.List;
+        field.ID = 7;
+        oprot.WriteFieldBegin(field);
+        {
+          oprot.WriteListBegin(new TList(TType.Struct, Inventory.Count));
+          foreach (Item _iter19 in Inventory)
+          {
+            _iter19.Write(oprot);
+          }
+          oprot.WriteListEnd();
+        }
         oprot.WriteFieldEnd();
       }
       oprot.WriteFieldStop();
@@ -249,6 +331,10 @@ namespace DotNetHack.RPC
       sb.Append(Effects);
       sb.Append(",Status: ");
       sb.Append(Status);
+      sb.Append(",NpcType: ");
+      sb.Append(NpcType);
+      sb.Append(",Inventory: ");
+      sb.Append(Inventory);
       sb.Append(")");
       return sb.ToString();
     }

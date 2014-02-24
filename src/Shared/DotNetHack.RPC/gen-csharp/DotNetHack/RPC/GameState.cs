@@ -25,8 +25,7 @@ namespace DotNetHack.RPC
   {
     private List<Player> _players;
     private List<NPC> _npcs;
-    private List<Sound> _activeAmbient;
-    private List<Message> _messages;
+    private List<Message> _broadcast;
 
     public List<Player> Players
     {
@@ -54,29 +53,16 @@ namespace DotNetHack.RPC
       }
     }
 
-    public List<Sound> ActiveAmbient
+    public List<Message> Broadcast
     {
       get
       {
-        return _activeAmbient;
+        return _broadcast;
       }
       set
       {
-        __isset.activeAmbient = true;
-        this._activeAmbient = value;
-      }
-    }
-
-    public List<Message> Messages
-    {
-      get
-      {
-        return _messages;
-      }
-      set
-      {
-        __isset.messages = true;
-        this._messages = value;
+        __isset.broadcast = true;
+        this._broadcast = value;
       }
     }
 
@@ -88,8 +74,7 @@ namespace DotNetHack.RPC
     public struct Isset {
       public bool players;
       public bool npcs;
-      public bool activeAmbient;
-      public bool messages;
+      public bool broadcast;
     }
 
     public GameState() {
@@ -111,13 +96,13 @@ namespace DotNetHack.RPC
             if (field.Type == TType.List) {
               {
                 Players = new List<Player>();
-                TList _list8 = iprot.ReadListBegin();
-                for( int _i9 = 0; _i9 < _list8.Count; ++_i9)
+                TList _list20 = iprot.ReadListBegin();
+                for( int _i21 = 0; _i21 < _list20.Count; ++_i21)
                 {
-                  Player _elem10 = new Player();
-                  _elem10 = new Player();
-                  _elem10.Read(iprot);
-                  Players.Add(_elem10);
+                  Player _elem22 = new Player();
+                  _elem22 = new Player();
+                  _elem22.Read(iprot);
+                  Players.Add(_elem22);
                 }
                 iprot.ReadListEnd();
               }
@@ -129,31 +114,13 @@ namespace DotNetHack.RPC
             if (field.Type == TType.List) {
               {
                 Npcs = new List<NPC>();
-                TList _list11 = iprot.ReadListBegin();
-                for( int _i12 = 0; _i12 < _list11.Count; ++_i12)
+                TList _list23 = iprot.ReadListBegin();
+                for( int _i24 = 0; _i24 < _list23.Count; ++_i24)
                 {
-                  NPC _elem13 = new NPC();
-                  _elem13 = new NPC();
-                  _elem13.Read(iprot);
-                  Npcs.Add(_elem13);
-                }
-                iprot.ReadListEnd();
-              }
-            } else { 
-              TProtocolUtil.Skip(iprot, field.Type);
-            }
-            break;
-          case 3:
-            if (field.Type == TType.List) {
-              {
-                ActiveAmbient = new List<Sound>();
-                TList _list14 = iprot.ReadListBegin();
-                for( int _i15 = 0; _i15 < _list14.Count; ++_i15)
-                {
-                  Sound _elem16 = new Sound();
-                  _elem16 = new Sound();
-                  _elem16.Read(iprot);
-                  ActiveAmbient.Add(_elem16);
+                  NPC _elem25 = new NPC();
+                  _elem25 = new NPC();
+                  _elem25.Read(iprot);
+                  Npcs.Add(_elem25);
                 }
                 iprot.ReadListEnd();
               }
@@ -164,14 +131,14 @@ namespace DotNetHack.RPC
           case 4:
             if (field.Type == TType.List) {
               {
-                Messages = new List<Message>();
-                TList _list17 = iprot.ReadListBegin();
-                for( int _i18 = 0; _i18 < _list17.Count; ++_i18)
+                Broadcast = new List<Message>();
+                TList _list26 = iprot.ReadListBegin();
+                for( int _i27 = 0; _i27 < _list26.Count; ++_i27)
                 {
-                  Message _elem19 = new Message();
-                  _elem19 = new Message();
-                  _elem19.Read(iprot);
-                  Messages.Add(_elem19);
+                  Message _elem28 = new Message();
+                  _elem28 = new Message();
+                  _elem28.Read(iprot);
+                  Broadcast.Add(_elem28);
                 }
                 iprot.ReadListEnd();
               }
@@ -199,9 +166,9 @@ namespace DotNetHack.RPC
         oprot.WriteFieldBegin(field);
         {
           oprot.WriteListBegin(new TList(TType.Struct, Players.Count));
-          foreach (Player _iter20 in Players)
+          foreach (Player _iter29 in Players)
           {
-            _iter20.Write(oprot);
+            _iter29.Write(oprot);
           }
           oprot.WriteListEnd();
         }
@@ -214,39 +181,24 @@ namespace DotNetHack.RPC
         oprot.WriteFieldBegin(field);
         {
           oprot.WriteListBegin(new TList(TType.Struct, Npcs.Count));
-          foreach (NPC _iter21 in Npcs)
+          foreach (NPC _iter30 in Npcs)
           {
-            _iter21.Write(oprot);
+            _iter30.Write(oprot);
           }
           oprot.WriteListEnd();
         }
         oprot.WriteFieldEnd();
       }
-      if (ActiveAmbient != null && __isset.activeAmbient) {
-        field.Name = "activeAmbient";
-        field.Type = TType.List;
-        field.ID = 3;
-        oprot.WriteFieldBegin(field);
-        {
-          oprot.WriteListBegin(new TList(TType.Struct, ActiveAmbient.Count));
-          foreach (Sound _iter22 in ActiveAmbient)
-          {
-            _iter22.Write(oprot);
-          }
-          oprot.WriteListEnd();
-        }
-        oprot.WriteFieldEnd();
-      }
-      if (Messages != null && __isset.messages) {
-        field.Name = "messages";
+      if (Broadcast != null && __isset.broadcast) {
+        field.Name = "broadcast";
         field.Type = TType.List;
         field.ID = 4;
         oprot.WriteFieldBegin(field);
         {
-          oprot.WriteListBegin(new TList(TType.Struct, Messages.Count));
-          foreach (Message _iter23 in Messages)
+          oprot.WriteListBegin(new TList(TType.Struct, Broadcast.Count));
+          foreach (Message _iter31 in Broadcast)
           {
-            _iter23.Write(oprot);
+            _iter31.Write(oprot);
           }
           oprot.WriteListEnd();
         }
@@ -262,10 +214,8 @@ namespace DotNetHack.RPC
       sb.Append(Players);
       sb.Append(",Npcs: ");
       sb.Append(Npcs);
-      sb.Append(",ActiveAmbient: ");
-      sb.Append(ActiveAmbient);
-      sb.Append(",Messages: ");
-      sb.Append(Messages);
+      sb.Append(",Broadcast: ");
+      sb.Append(Broadcast);
       sb.Append(")");
       return sb.ToString();
     }

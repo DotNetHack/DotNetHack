@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using DotNetHack.RPC;
-using DotNetHack.Serialization;
 
-namespace DotNetHack.Server.CoreLib
+namespace DotNetHack.Serialization
 {
     /// <summary>
     /// XmlStore

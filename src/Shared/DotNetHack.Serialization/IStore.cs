@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DotNetHack.Server.CoreLib
+namespace DotNetHack.Serialization
 {
     /// <summary>
     /// IStore

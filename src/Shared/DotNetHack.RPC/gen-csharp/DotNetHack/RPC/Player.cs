@@ -26,9 +26,12 @@ namespace DotNetHack.RPC
     private int _id;
     private string _name;
     private Location _location;
-    private int _health;
     private List<Effect> _effects;
     private StatusEffectType _status;
+    private Race _race;
+    private Role _role;
+    private List<DamageDescriptor> _damage;
+    private List<Item> _inventory;
 
     public int Id
     {
@@ -69,19 +72,6 @@ namespace DotNetHack.RPC
       }
     }
 
-    public int Health
-    {
-      get
-      {
-        return _health;
-      }
-      set
-      {
-        __isset.health = true;
-        this._health = value;
-      }
-    }
-
     public List<Effect> Effects
     {
       get
@@ -112,6 +102,66 @@ namespace DotNetHack.RPC
       }
     }
 
+    /// <summary>
+    /// 
+    /// <seealso cref="Race"/>
+    /// </summary>
+    public Race Race
+    {
+      get
+      {
+        return _race;
+      }
+      set
+      {
+        __isset.race = true;
+        this._race = value;
+      }
+    }
+
+    /// <summary>
+    /// 
+    /// <seealso cref="Role"/>
+    /// </summary>
+    public Role Role
+    {
+      get
+      {
+        return _role;
+      }
+      set
+      {
+        __isset.role = true;
+        this._role = value;
+      }
+    }
+
+    public List<DamageDescriptor> Damage
+    {
+      get
+      {
+        return _damage;
+      }
+      set
+      {
+        __isset.damage = true;
+        this._damage = value;
+      }
+    }
+
+    public List<Item> Inventory
+    {
+      get
+      {
+        return _inventory;
+      }
+      set
+      {
+        __isset.inventory = true;
+        this._inventory = value;
+      }
+    }
+
 
     public Isset __isset;
     #if !SILVERLIGHT
@@ -121,9 +171,12 @@ namespace DotNetHack.RPC
       public bool id;
       public bool name;
       public bool location;
-      public bool health;
       public bool effects;
       public bool status;
+      public bool race;
+      public bool role;
+      public bool damage;
+      public bool inventory;
     }
 
     public Player() {
@@ -164,13 +217,6 @@ namespace DotNetHack.RPC
             }
             break;
           case 4:
-            if (field.Type == TType.I32) {
-              Health = iprot.ReadI32();
-            } else { 
-              TProtocolUtil.Skip(iprot, field.Type);
-            }
-            break;
-          case 5:
             if (field.Type == TType.List) {
               {
                 Effects = new List<Effect>();
@@ -188,9 +234,59 @@ namespace DotNetHack.RPC
               TProtocolUtil.Skip(iprot, field.Type);
             }
             break;
-          case 6:
+          case 5:
             if (field.Type == TType.I32) {
               Status = (StatusEffectType)iprot.ReadI32();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 6:
+            if (field.Type == TType.I32) {
+              Race = (Race)iprot.ReadI32();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 7:
+            if (field.Type == TType.I32) {
+              Role = (Role)iprot.ReadI32();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 8:
+            if (field.Type == TType.List) {
+              {
+                Damage = new List<DamageDescriptor>();
+                TList _list3 = iprot.ReadListBegin();
+                for( int _i4 = 0; _i4 < _list3.Count; ++_i4)
+                {
+                  DamageDescriptor _elem5 = new DamageDescriptor();
+                  _elem5 = new DamageDescriptor();
+                  _elem5.Read(iprot);
+                  Damage.Add(_elem5);
+                }
+                iprot.ReadListEnd();
+              }
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 9:
+            if (field.Type == TType.List) {
+              {
+                Inventory = new List<Item>();
+                TList _list6 = iprot.ReadListBegin();
+                for( int _i7 = 0; _i7 < _list6.Count; ++_i7)
+                {
+                  Item _elem8 = new Item();
+                  _elem8 = new Item();
+                  _elem8.Read(iprot);
+                  Inventory.Add(_elem8);
+                }
+                iprot.ReadListEnd();
+              }
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
@@ -232,24 +328,16 @@ namespace DotNetHack.RPC
         Location.Write(oprot);
         oprot.WriteFieldEnd();
       }
-      if (__isset.health) {
-        field.Name = "health";
-        field.Type = TType.I32;
-        field.ID = 4;
-        oprot.WriteFieldBegin(field);
-        oprot.WriteI32(Health);
-        oprot.WriteFieldEnd();
-      }
       if (Effects != null && __isset.effects) {
         field.Name = "effects";
         field.Type = TType.List;
-        field.ID = 5;
+        field.ID = 4;
         oprot.WriteFieldBegin(field);
         {
           oprot.WriteListBegin(new TList(TType.Struct, Effects.Count));
-          foreach (Effect _iter3 in Effects)
+          foreach (Effect _iter9 in Effects)
           {
-            _iter3.Write(oprot);
+            _iter9.Write(oprot);
           }
           oprot.WriteListEnd();
         }
@@ -258,9 +346,55 @@ namespace DotNetHack.RPC
       if (__isset.status) {
         field.Name = "status";
         field.Type = TType.I32;
-        field.ID = 6;
+        field.ID = 5;
         oprot.WriteFieldBegin(field);
         oprot.WriteI32((int)Status);
+        oprot.WriteFieldEnd();
+      }
+      if (__isset.race) {
+        field.Name = "race";
+        field.Type = TType.I32;
+        field.ID = 6;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteI32((int)Race);
+        oprot.WriteFieldEnd();
+      }
+      if (__isset.role) {
+        field.Name = "role";
+        field.Type = TType.I32;
+        field.ID = 7;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteI32((int)Role);
+        oprot.WriteFieldEnd();
+      }
+      if (Damage != null && __isset.damage) {
+        field.Name = "damage";
+        field.Type = TType.List;
+        field.ID = 8;
+        oprot.WriteFieldBegin(field);
+        {
+          oprot.WriteListBegin(new TList(TType.Struct, Damage.Count));
+          foreach (DamageDescriptor _iter10 in Damage)
+          {
+            _iter10.Write(oprot);
+          }
+          oprot.WriteListEnd();
+        }
+        oprot.WriteFieldEnd();
+      }
+      if (Inventory != null && __isset.inventory) {
+        field.Name = "inventory";
+        field.Type = TType.List;
+        field.ID = 9;
+        oprot.WriteFieldBegin(field);
+        {
+          oprot.WriteListBegin(new TList(TType.Struct, Inventory.Count));
+          foreach (Item _iter11 in Inventory)
+          {
+            _iter11.Write(oprot);
+          }
+          oprot.WriteListEnd();
+        }
         oprot.WriteFieldEnd();
       }
       oprot.WriteFieldStop();
@@ -275,12 +409,18 @@ namespace DotNetHack.RPC
       sb.Append(Name);
       sb.Append(",Location: ");
       sb.Append(Location== null ? "<null>" : Location.ToString());
-      sb.Append(",Health: ");
-      sb.Append(Health);
       sb.Append(",Effects: ");
       sb.Append(Effects);
       sb.Append(",Status: ");
       sb.Append(Status);
+      sb.Append(",Race: ");
+      sb.Append(Race);
+      sb.Append(",Role: ");
+      sb.Append(Role);
+      sb.Append(",Damage: ");
+      sb.Append(Damage);
+      sb.Append(",Inventory: ");
+      sb.Append(Inventory);
       sb.Append(")");
       return sb.ToString();
     }

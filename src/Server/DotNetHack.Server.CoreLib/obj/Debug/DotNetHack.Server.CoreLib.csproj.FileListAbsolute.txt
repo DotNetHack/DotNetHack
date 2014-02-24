@@ -9,3 +9,4 @@ C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server.Co
 C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server.CoreLib\obj\Debug\DotNetHack.Server.CoreLib.csprojResolveAssemblyReference.cache
 C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server.CoreLib\obj\Debug\DotNetHack.Server.CoreLib.dll
 C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server.CoreLib\obj\Debug\DotNetHack.Server.CoreLib.pdb
+C:\Users\Pete Jensen\Documents\GitHub\DotNetHack\src\Server\DotNetHack.Server.CoreLib\bin\Debug\System.Linq.Dynamic.dll

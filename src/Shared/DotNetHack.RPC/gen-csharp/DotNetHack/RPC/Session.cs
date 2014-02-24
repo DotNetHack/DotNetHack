@@ -26,6 +26,7 @@ namespace DotNetHack.RPC
     private int _id;
     private long _seq;
     private int _playerId;
+    private long _startTime;
 
     public int Id
     {
@@ -66,6 +67,19 @@ namespace DotNetHack.RPC
       }
     }
 
+    public long StartTime
+    {
+      get
+      {
+        return _startTime;
+      }
+      set
+      {
+        __isset.startTime = true;
+        this._startTime = value;
+      }
+    }
+
 
     public Isset __isset;
     #if !SILVERLIGHT
@@ -75,6 +89,7 @@ namespace DotNetHack.RPC
       public bool id;
       public bool seq;
       public bool playerId;
+      public bool startTime;
     }
 
     public Session() {
@@ -109,6 +124,13 @@ namespace DotNetHack.RPC
           case 3:
             if (field.Type == TType.I32) {
               PlayerId = iprot.ReadI32();
+            } else { 
+              TProtocolUtil.Skip(iprot, field.Type);
+            }
+            break;
+          case 4:
+            if (field.Type == TType.I64) {
+              StartTime = iprot.ReadI64();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
@@ -150,6 +172,14 @@ namespace DotNetHack.RPC
         oprot.WriteI32(PlayerId);
         oprot.WriteFieldEnd();
       }
+      if (__isset.startTime) {
+        field.Name = "startTime";
+        field.Type = TType.I64;
+        field.ID = 4;
+        oprot.WriteFieldBegin(field);
+        oprot.WriteI64(StartTime);
+        oprot.WriteFieldEnd();
+      }
       oprot.WriteFieldStop();
       oprot.WriteStructEnd();
     }
@@ -162,6 +192,8 @@ namespace DotNetHack.RPC
       sb.Append(Seq);
       sb.Append(",PlayerId: ");
       sb.Append(PlayerId);
+      sb.Append(",StartTime: ");
+      sb.Append(StartTime);
       sb.Append(")");
       return sb.ToString();
     }

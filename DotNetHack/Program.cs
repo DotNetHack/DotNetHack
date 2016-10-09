@@ -12,18 +12,17 @@ using System.Xml.Serialization;
 namespace ConsoleApplication58
 {
     /// <summary>
-    /// 
+    /// The entry point for DotNetHack
     /// </summary>
     public static class EntryPoint
     {
         static void Main(string[] args)
         {
-            const string cTempMainPak = @"c:\temp\main.pak";
+            const string cTempMainPak = "Main.pak";
 
             new Engine(cTempMainPak).Run();
         }
     }
-
 
     /// <summary>
     /// 
@@ -461,6 +460,9 @@ namespace ConsoleApplication58
         /// </value>
         public bool EditMode { get; set; }
 
+        /// <summary>
+        /// Run
+        /// </summary>
         public void Run()
         {
             LoadMap(MapId);
@@ -477,6 +479,10 @@ namespace ConsoleApplication58
             }
         }
 
+        /// <summary>
+        /// The keyboard callback for the game engine
+        /// </summary>
+        /// <param name="state">The state object for the callback</param>
         private void KeyboardCallback(object state)
         {
             while (!done)

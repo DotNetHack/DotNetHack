@@ -1,0 +1,783 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TileSet>
+    <TileDef Id="Grass">
+      <Glyph G="▓" FG="Black" BG="Green" />
+      <Attributes>
+        <Attribute Name="IsPassable">
+          <Value xsi:type="xsd:boolean">true</Value>
+        </Attribute>
+      </Attributes>
+      <EditorCommand ConsoleKey="G" Modifiers="" />
+      <ScriptBlock><![CDATA[]]></ScriptBlock>
+    </TileDef>
+    <TileDef Id="Wall">
+      <Glyph G="█" FG="Gray" BG="Black" />
+      <Attributes>
+        <Attribute Name="IsPassable">
+          <Value xsi:type="xsd:boolean">false</Value>
+        </Attribute>
+      </Attributes>
+      <EditorCommand ConsoleKey="W" Modifiers="" />
+      <ScriptBlock><![CDATA[]]></ScriptBlock>
+    </TileDef>
+    <TileDef Id="Water">
+      <Glyph G="≈" FG="Blue" BG="White" />
+      <Attributes>
+        <Attribute Name="IsPassable">
+          <Value xsi:type="xsd:boolean">false</Value>
+        </Attribute>
+      </Attributes>
+      <EditorCommand ConsoleKey="W" Modifiers="Alt" />
+      <ScriptBlock><![CDATA[]]></ScriptBlock>
+    </TileDef>
+    <TileDef Id="Mountain">
+      <Glyph G="^" FG="Red" BG="DarkRed" />
+      <Attributes>
+        <Attribute Name="IsPassable">
+          <Value xsi:type="xsd:boolean">false</Value>
+        </Attribute>
+      </Attributes>
+      <EditorCommand ConsoleKey="M" Modifiers="" />
+      <ScriptBlock><![CDATA[]]></ScriptBlock>
+    </TileDef>
+  </TileSet>
+  <Items>
+    <ItemDef Id="Rusted Shortsword">
+      <Glyph G="/" FG="Gray" BG="Black" />
+      <Attributes>
+        <Attribute Name="Weight">
+          <Value xsi:type="xsd:decimal">3.2</Value>
+        </Attribute>
+      </Attributes>
+      <Events OnDip="RustedShortsword_DipEvent" />
+      <ScriptBlock><![CDATA[function RustedShortsword_DipEvent(sender, args) { }]]></ScriptBlock>
+    </ItemDef>
+  </Items>
+  <Maps>
+    <MapDef Id="M0">
+      <StartLocation X="1" Y="1" Z="0" />
+      <MapTiles>
+        <MapTile TileId="Wall" X="0" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="1" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="1" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="1" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="2" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="3" Y="2" Z="0">
+          <Items>
+            <string>Rusted Shortsword</string>
+          </Items>
+        </MapTile>
+        <MapTile TileId="Grass" X="3" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="2" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="2" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="1" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="3" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="2" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="2" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="2" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="2" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="3" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="3" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="3" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="4" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="4" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="4" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="4" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="5" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="5" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="5" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="5" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="6" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="6" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="6" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="6" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="6" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="5" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="4" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="4" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="5" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="6" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="1" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="1" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="2" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="3" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="4" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="5" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="6" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="7" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="7" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="7" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="7" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="7" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="7" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="7" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="8" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="8" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="8" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="8" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="8" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="8" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="8" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="9" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="9" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="9" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="9" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="9" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="9" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="9" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="1" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="1" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="0" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="0" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="0" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="0" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="0" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="0" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="0" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="9" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="7" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="8" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="10" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="10" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="10" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="10" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="10" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="10" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="10" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="10" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="11" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="11" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="11" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="11" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="11" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="11" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="11" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="11" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="12" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="12" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="12" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="12" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="12" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="12" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="12" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="12" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="13" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="14" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="14" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="14" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="14" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="14" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="14" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="14" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="13" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="13" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="13" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="13" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="13" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="13" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="15" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="15" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="15" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="15" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="15" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="15" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="15" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="16" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="17" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="18" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="18" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="17" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="16" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="16" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="16" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="16" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="16" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="16" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="17" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="17" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="17" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="17" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="17" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="18" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="18" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="18" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="18" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="18" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="7" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="8" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="6" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="9" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="10" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="12" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="12" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="13" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="13" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="13" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="14" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="15" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="15" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="14" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="16" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="11" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="9" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="9" Y="11" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="10" Y="11" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="10" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="11" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="8" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="7" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="14" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="9" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="11" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="12" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="17" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="17" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="16" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="20" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="21" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="19" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="10" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="13" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="14" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="15" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="16" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="17" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="18" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="19" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="19" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="20" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="21" Y="1" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="21" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="21" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="22" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="4" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="3" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="3" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="22" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="23" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="22" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="22" Y="4" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="22" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="19" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="20" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="20" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="19" Y="7" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="1" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="2" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="2" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="1" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="2" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="1" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="3" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="4" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="4" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="5" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="5" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="6" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="7" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="8" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="19" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="20" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="21" Y="5" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="22" Y="6" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="20" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="19" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="19" Y="3" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="20" Y="2" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="5" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Water" X="6" Y="10" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="18" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="18" Y="9" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Grass" X="8" Y="11" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="7" Y="11" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="7" Y="12" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="8" Y="12" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="9" Y="12" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Mountain" X="10" Y="12" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="3" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="4" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="5" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="6" Y="0" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="0" Y="8" Z="0">
+          <Items />
+        </MapTile>
+        <MapTile TileId="Wall" X="0" Y="9" Z="0">
+          <Items />
+        </MapTile>
+      </MapTiles>
+    </MapDef>
+  </Maps>
+</Package>

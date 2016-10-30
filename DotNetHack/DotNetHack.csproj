@@ -43,14 +43,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Actor.cs" />
+    <Compile Include="Definitions\Attribute.cs" />
+    <Compile Include="Definitions\AttributeCollection.cs" />
+    <Compile Include="Definitions\DefCollection.cs" />
+    <Compile Include="Definitions\IDef.cs" />
+    <Compile Include="Definitions\ItemDef.cs" />
+    <Compile Include="Definitions\ItemDefs.cs" />
+    <Compile Include="Definitions\MapDef.cs" />
+    <Compile Include="Definitions\MapDefs.cs" />
+    <Compile Include="Display.cs" />
+    <Compile Include="DisplayBuffer.cs" />
+    <Compile Include="Editor.cs" />
+    <Compile Include="EditorCommand.cs" />
+    <Compile Include="Engine.cs" />
+    <Compile Include="Core\Item.cs" />
+    <Compile Include="Core\MapTile.cs" />
+    <Compile Include="Definitions\Package.cs" />
+    <Compile Include="Core\Map.cs" />
+    <Compile Include="Definitions\EventCollection.cs" />
+    <Compile Include="Core\Glyph.cs" />
+    <Compile Include="Core\ILocation.cs" />
+    <Compile Include="Core\Location.cs" />
+    <Compile Include="Core\Id.cs" />
+    <Compile Include="Core\IHasLocation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Definitions\TileDef.cs" />
+    <Compile Include="Core\Tile.cs" />
+    <Compile Include="Definitions\TileSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Main.pak">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Editor\" />
+    <Folder Include="Screen\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

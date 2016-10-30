@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace DotNetHack
+namespace DotNetHack.Tools
 {
     /// <summary>
     /// Editor

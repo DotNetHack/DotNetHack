@@ -52,10 +52,10 @@
     <Compile Include="Definitions\ItemDefs.cs" />
     <Compile Include="Definitions\MapDef.cs" />
     <Compile Include="Definitions\MapDefs.cs" />
-    <Compile Include="Display.cs" />
-    <Compile Include="DisplayBuffer.cs" />
-    <Compile Include="Editor.cs" />
-    <Compile Include="EditorCommand.cs" />
+    <Compile Include="GUI\Display.cs" />
+    <Compile Include="GUI\DisplayBuffer.cs" />
+    <Compile Include="Tools\Editor.cs" />
+    <Compile Include="Tools\EditorCommand.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Core\Item.cs" />
     <Compile Include="Core\MapTile.cs" />
@@ -79,10 +79,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Editor\" />
-    <Folder Include="Screen\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

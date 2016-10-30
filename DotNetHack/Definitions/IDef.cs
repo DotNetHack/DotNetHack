@@ -1,4 +1,5 @@
 ﻿using DotNetHack.Core;
+using DotNetHack.Tools;
 
 namespace DotNetHack.Definitions
 {

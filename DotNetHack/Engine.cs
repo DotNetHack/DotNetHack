@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading;
 using DotNetHack.Core;
 using DotNetHack.Definitions;
+using DotNetHack.GUI;
+using DotNetHack.Tools;
 
 namespace DotNetHack
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace DotNetHack
+namespace DotNetHack.GUI
 {
     /// <summary>
     /// Display

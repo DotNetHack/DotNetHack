@@ -1,4 +1,4 @@
-﻿namespace DotNetHack
+﻿namespace DotNetHack.GUI
 {
     /// <summary>
     /// A display buffer

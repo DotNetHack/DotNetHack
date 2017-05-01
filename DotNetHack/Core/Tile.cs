@@ -26,7 +26,7 @@ namespace DotNetHack.Core
             Id = tileDef.Id;
             Glyph = tileDef.Glyph;
 
-            var attrIsPassable = tileDef.Attributes.SingleOrDefault(s => s.Name == "IsPassable");
+            var attrIsPassable = tileDef.Attributes["IsPassable"]; //.SingleOrDefault(s => s.Name == "");
 
             if (attrIsPassable != null)
             {

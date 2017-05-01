@@ -4,7 +4,7 @@
     <TileDef Id="Grass">
       <Glyph G="▓" FG="Black" BG="Green" />
       <Attributes>
-        <Attribute Name="IsPassable">
+        <Attribute Id="IsPassable">
           <Value xsi:type="xsd:boolean">true</Value>
         </Attribute>
       </Attributes>
@@ -14,7 +14,7 @@
     <TileDef Id="Wall">
       <Glyph G="█" FG="Gray" BG="Black" />
       <Attributes>
-        <Attribute Name="IsPassable">
+        <Attribute Id="IsPassable">
           <Value xsi:type="xsd:boolean">false</Value>
         </Attribute>
       </Attributes>
@@ -24,7 +24,7 @@
     <TileDef Id="Water">
       <Glyph G="≈" FG="Blue" BG="White" />
       <Attributes>
-        <Attribute Name="IsPassable">
+        <Attribute Id="IsPassable">
           <Value xsi:type="xsd:boolean">false</Value>
         </Attribute>
       </Attributes>
@@ -34,7 +34,7 @@
     <TileDef Id="Mountain">
       <Glyph G="^" FG="Red" BG="DarkRed" />
       <Attributes>
-        <Attribute Name="IsPassable">
+        <Attribute Id="IsPassable">
           <Value xsi:type="xsd:boolean">false</Value>
         </Attribute>
       </Attributes>
@@ -46,7 +46,7 @@
     <ItemDef Id="Rusted Shortsword">
       <Glyph G="/" FG="Gray" BG="Black" />
       <Attributes>
-        <Attribute Name="Weight">
+        <Attribute Id="Weight">
           <Value xsi:type="xsd:decimal">3.2</Value>
         </Attribute>
       </Attributes>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using System.Xml.Serialization;
+using DotNetHack.Core;
 using DotNetHack.Tools;
 
 namespace DotNetHack.Definitions
@@ -24,6 +25,7 @@ namespace DotNetHack.Definitions
         /// The glyph.
         /// </value>
         public Glyph Glyph { get; set; }
+
         /// <summary>
         /// Gets or sets the events.
         /// </summary>
@@ -31,6 +33,7 @@ namespace DotNetHack.Definitions
         /// The events.
         /// </value>
         public EventCollection Events { get; set; }
+
         /// <summary>
         /// Gets or sets the attributes.
         /// </summary>

@@ -4,9 +4,30 @@ using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using DotNetHack.Core;
 
 namespace DotNetHack.Definitions
 {
+    // ******************************
+    // ** alternative event schema **
+    // ******************************
+    // 
+    //    public class EColl : IdCollection<Event>
+    //    {
+    //        
+    //    }
+    //
+    //    [Serializable]
+    //    public class Event : Id
+    //    {
+    //        [XmlAttribute]
+    //        public string Id { get; set; }
+    //
+    //        [XmlElement]
+    //        public string ScriptBlock { get; set; }
+    //    }
+
+
     [Serializable]
     public sealed class EventCollection : IXmlSerializable
     {

@@ -4,5 +4,5 @@ using System.Collections.Generic;
 namespace DotNetHack.Definitions
 {
     [Serializable]
-    public class AttributeCollection : List<Attribute> { }
+    public class AttributeCollection : IdCollection<Attribute> { }
 }

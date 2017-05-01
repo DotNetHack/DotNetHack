@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DotNetHack.Core;
 
-namespace DotNetHack.Core
+namespace DotNetHack.Definitions
 {
     [Serializable]
-    public class MapTile : ILocation
+    public class MapTile : ILocation, IHasLocation
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MapTile"/> class.
@@ -71,5 +72,29 @@ namespace DotNetHack.Core
         /// </value>
         [XmlArray]
         public List<string> Items { get; set; }
+
+        #region Implementation of IHasLocation
+
+        /// <summary>
+        /// Gets or sets the location.
+        /// </summary>
+        /// <value>
+        /// The location.
+        /// </value>
+        public Location Location
+        {
+            get
+            {
+                return new Location(X, Y, Z);
+            }
+            set
+            {
+                X = value.X;
+                Y = value.Y;
+                Z = value.Z;
+            }
+        }
+
+        #endregion
     }
 }

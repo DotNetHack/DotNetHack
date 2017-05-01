@@ -57,7 +57,7 @@ namespace DotNetHack.Definitions
         /// The type.
         /// </value>
         [XmlArray]
-        public List<MapTile> MapTiles { get; set; }
+        public LocationIndexedCollection<MapTile> MapTiles { get; set; }
 
         /// <summary>
         /// Gets the specified x.
@@ -66,7 +66,7 @@ namespace DotNetHack.Definitions
         /// <returns></returns>
         public MapTile Get(ILocation location)
         {
-            return MapTiles.SingleOrDefault(s => s.X == location.X && s.Y == location.Y && s.Z == location.Z);
+            return MapTiles[location];
         }
 
         /// <summary>

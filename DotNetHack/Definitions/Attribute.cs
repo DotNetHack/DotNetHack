@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Xml.Serialization;
+using DotNetHack.Core;
 
 namespace DotNetHack.Definitions
 {
+
     /// <summary>
     /// Attribute
     /// </summary>
     [Serializable]
-    public sealed class Attribute
+    public sealed class Attribute : Id
     {
         /// <summary>
         /// Gets or sets the name.
@@ -16,7 +18,7 @@ namespace DotNetHack.Definitions
         /// The name.
         /// </value>
         [XmlAttribute]
-        public string Name { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets or sets the value.

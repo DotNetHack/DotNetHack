@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Serialization;
+using DotNetHack.Core;
 
 namespace DotNetHack.Definitions
 {
     [Serializable]
-    public class Package
+    public class Package : Id
     {
         /// <summary>
         /// Gets or sets the identifier.

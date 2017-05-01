@@ -50,6 +50,7 @@
     <Compile Include="Definitions\IDef.cs" />
     <Compile Include="Definitions\ItemDef.cs" />
     <Compile Include="Definitions\ItemDefs.cs" />
+    <Compile Include="Definitions\LocationIndexedCollection.cs" />
     <Compile Include="Definitions\MapDef.cs" />
     <Compile Include="Definitions\MapDefs.cs" />
     <Compile Include="GUI\Display.cs" />
@@ -58,7 +59,7 @@
     <Compile Include="Tools\EditorCommand.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Core\Item.cs" />
-    <Compile Include="Core\MapTile.cs" />
+    <Compile Include="Definitions\MapTile.cs" />
     <Compile Include="Definitions\Package.cs" />
     <Compile Include="Core\Map.cs" />
     <Compile Include="Definitions\EventCollection.cs" />

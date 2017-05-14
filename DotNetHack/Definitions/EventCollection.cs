@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
@@ -29,7 +30,7 @@ namespace DotNetHack.Definitions
 
 
     [Serializable]
-    public sealed class EventCollection : IXmlSerializable
+    public sealed class EventCollection : IXmlSerializable, IEnumerable<KeyValuePair<string, string>>
     {
         private readonly Dictionary<string, string> _events
             = new Dictionary<string, string>();
@@ -119,6 +120,28 @@ namespace DotNetHack.Definitions
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// An enumerator that can be used to iterate through the collection.
+        /// </returns>
+        public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
+        {
+            return ((IEnumerable<KeyValuePair<string, string>>) _events).GetEnumerator();
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+        /// </returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         #endregion

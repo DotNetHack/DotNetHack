@@ -55,6 +55,7 @@
     <Compile Include="Definitions\MapDefs.cs" />
     <Compile Include="GUI\Display.cs" />
     <Compile Include="GUI\DisplayBuffer.cs" />
+    <Compile Include="ScriptEngine.cs" />
     <Compile Include="Tools\Editor.cs" />
     <Compile Include="Tools\EditorCommand.cs" />
     <Compile Include="Engine.cs" />

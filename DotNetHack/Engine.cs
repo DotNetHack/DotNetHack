@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using DotNetHack.Core;
 using DotNetHack.Definitions;
@@ -30,6 +31,7 @@ namespace DotNetHack
             FileName = fileName;
             Package = Package.Load(fileName);
             Editor = new Editor(this);
+            ScriptEngine = new ScriptEngine(this);
         }
 
         /// <summary>
@@ -63,6 +65,14 @@ namespace DotNetHack
         /// The display.
         /// </value>
         public Display Display { get; set; } = new Display(Console.WindowWidth - 1, Console.WindowHeight - 1);
+
+        /// <summary>
+        /// Gets or sets the item factory.
+        /// </summary>
+        /// <value>
+        /// The item factory.
+        /// </value>
+        public ScriptEngine ScriptEngine { get; }
 
         /// <summary>
         /// Gets or sets the map identifier.
@@ -135,6 +145,32 @@ namespace DotNetHack
         /// </summary>
         public void Run()
         {
+            #region TODO
+
+            ScriptEngine.Compile();
+
+            var scriptContextType = ScriptEngine.Assembly.ExportedTypes.Single();
+            var scriptContextCtor = scriptContextType.GetConstructor(new[] { typeof(Engine) });
+            if (scriptContextCtor == null) throw new InvalidOperationException("missing .ctor");
+            var scriptContext = scriptContextCtor.Invoke(new object[] { this });
+
+            foreach (var item in Package.Items)
+            {
+                foreach (var eventMapping in item.Events)
+                {
+                    var eventId = eventMapping.Key;
+                    var methodName = eventMapping.Value;
+
+                    var scriptMethod = scriptContextType.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+                    scriptMethod.Invoke(scriptContext, new object[] { this, EventArgs.Empty });
+                }
+            }
+
+            var itemDef = Package.Items["Rusted Shortsword"];
+            var tmp = new Item(itemDef);
+
+            #endregion
+
             LoadMap(MapId);
 
             ThreadPool.QueueUserWorkItem(KeyboardCallback);

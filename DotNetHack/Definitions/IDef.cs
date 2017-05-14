@@ -3,10 +3,29 @@ using DotNetHack.Tools;
 
 namespace DotNetHack.Definitions
 {
+    public interface IScripted : Id
+    {
+        /// <summary>
+        /// Gets or sets the script block.
+        /// </summary>
+        /// <value>
+        /// The script block.
+        /// </value>
+        string ScriptBlock { get; set; }
+
+        /// <summary>
+        /// Gets or sets the events.
+        /// </summary>
+        /// <value>
+        /// The events.
+        /// </value>
+        EventCollection Events { get; set; }
+    }
+
     /// <summary>
     /// IDef
     /// </summary>
-    public interface IDef : Id
+    public interface IDef : Id, IScripted
     {
         /// <summary>
         /// Gets or sets the glyph.
@@ -22,7 +41,7 @@ namespace DotNetHack.Definitions
         /// <value>
         /// The events.
         /// </value>
-        EventCollection Events { get; set; }
+        // EventCollection Events { get; set; }
 
         /// <summary>
         /// Gets or sets the attributes.
@@ -39,13 +58,5 @@ namespace DotNetHack.Definitions
         /// The editor command.
         /// </value>
         EditorCommand EditorCommand { get; set; }
-
-        /// <summary>
-        /// Gets or sets the script block.
-        /// </summary>
-        /// <value>
-        /// The script block.
-        /// </value>
-        string ScriptBlock { get; set; }
     }
 }

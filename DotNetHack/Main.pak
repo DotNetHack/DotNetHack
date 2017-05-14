@@ -51,7 +51,12 @@
         </Attribute>
       </Attributes>
       <Events OnDip="RustedShortsword_DipEvent" />
-      <ScriptBlock><![CDATA[function RustedShortsword_DipEvent(sender, args) { }]]></ScriptBlock>
+      <ScriptBlock><![CDATA[
+        // this event occurs when the shortsword is dipped into something
+        public void RustedShortsword_DipEvent(object sender, EventArgs e) {
+          Console.WriteLine("Success!");
+        }
+      ]]></ScriptBlock>
     </ItemDef>
   </Items>
   <Maps>

@@ -11,6 +11,21 @@
       <EditorCommand ConsoleKey="G" Modifiers="" />
       <ScriptBlock><![CDATA[]]></ScriptBlock>
     </TileDef>
+    <TileDef Id="SpikeTrap">
+      <Glyph G="^" FG="Magenta" BG="Black" />
+      <Attributes>
+        <Attribute Id="BaseDamage">
+          <Value xsi:type="xsd:int">10</Value>
+        </Attribute>
+      </Attributes>
+      <Events EnterEvent="SpikeTrap_EnterEvent" />
+      <ScriptBlock>
+        <![CDATA[
+        public void SpikeTrap_EnterEvent(object sender, TileEventArgs e) {
+          Console.WriteLine("Spike trap triggered!");
+        }
+      ]]></ScriptBlock>
+    </TileDef>
     <TileDef Id="Wall">
       <Glyph G="█" FG="Gray" BG="Black" />
       <Attributes>
@@ -128,7 +143,7 @@
         <MapTile TileId="Grass" X="4" Y="3" Z="0">
           <Items />
         </MapTile>
-        <MapTile TileId="Wall" X="4" Y="4" Z="0">
+        <MapTile TileId="SpikeTrap" X="4" Y="4" Z="0">
           <Items />
         </MapTile>
         <MapTile TileId="Grass" X="5" Y="1" Z="0">

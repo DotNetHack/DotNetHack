@@ -2,6 +2,7 @@ using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using DotNetHack.Definitions;
@@ -12,35 +13,12 @@ namespace DotNetHack
     /// <summary>
     /// ScriptEngine
     /// </summary>
-    public class ScriptEngine
+    public static class ScriptEngine
     {
-        /// <summary>
-        /// Gets the engine.
-        /// </summary>
-        /// <value>
-        /// The engine.
-        /// </value>
-        public Engine Engine { get; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ScriptEngine"/> class.
-        /// </summary>
-        /// <param name="engine">The engine.</param>
-        /// <exception cref="ArgumentNullException">engine</exception>
-        public ScriptEngine(Engine engine)
-        {
-            if (engine == null)
-            {
-                throw new ArgumentNullException(nameof(engine));
-            }
-
-            Engine = engine;
-        }
-
         /// <summary>
         /// The compiler parameters
         /// </summary>
-        private readonly CompilerParameters compilerParameters = new CompilerParameters
+        private static readonly CompilerParameters compilerParameters = new CompilerParameters
         {
             GenerateExecutable = false,
             GenerateInMemory = true,
@@ -52,9 +30,9 @@ namespace DotNetHack
         /// <summary>
         /// Compiles this instance.
         /// </summary>
-        public void Compile()
+        public static void Compile(Engine engine)
         {
-            var scriptBlock = GenerateCode();
+            var scriptBlock = GenerateCode(engine);
 
             using (var provider = new CSharpCodeProvider())
             {
@@ -63,11 +41,44 @@ namespace DotNetHack
 
                 var compilerResults = provider.CompileAssemblyFromSource(compilerParameters, scriptBlock);
 
-                OnBuildErrorEvent(new BuildEventArgs(scriptBlock, compilerResults));
+                OnBuildEvent(new BuildEventArgs(scriptBlock, compilerResults));
 
                 Assembly = compilerResults.CompiledAssembly;
             }
+
+            _scriptContextType = Assembly.ExportedTypes.Single();
+
+            var scriptContextCtor = _scriptContextType.GetConstructor(new[] { typeof(Engine) });
+            if (scriptContextCtor == null) throw new InvalidOperationException("missing .ctor");
+
+            ScriptContext = scriptContextCtor.Invoke(new object[] { engine });
         }
+
+        /// <summary>
+        /// Gets the scripted method.
+        /// </summary>
+        /// <param name="methodName">Name of the method.</param>
+        /// <returns></returns>
+        public static MethodInfo GetScriptMethod(string methodName)
+        {
+            return _scriptContextType.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+        }
+
+        /// <summary>
+        /// Gets the type of the script context.
+        /// </summary>
+        /// <value>
+        /// The type of the script context.
+        /// </value>
+        private static Type _scriptContextType;
+
+        /// <summary>
+        /// Gets the script context.
+        /// </summary>
+        /// <value>
+        /// The script context.
+        /// </value>
+        public static object ScriptContext { get; private set; }
 
         /// <summary>
         /// Gets or sets the assembly.
@@ -75,21 +86,14 @@ namespace DotNetHack
         /// <value>
         /// The assembly.
         /// </value>
-        public Assembly Assembly { get; set; }
+        public static Assembly Assembly { get; private set; }
 
-        /// <summary>
-        /// Raises the <see cref="E:BuildErrorEvent" /> event.
-        /// </summary>
-        /// <param name="e">The <see cref="BuildEventArgs"/> instance containing the event data.</param>
-        protected virtual void OnBuildErrorEvent(BuildEventArgs e)
-        {
-            BuildErrorEvent?.Invoke(this, e);
-        }
+
 
         /// <summary>
         /// Occurs when [build error event].
         /// </summary>
-        public event EventHandler<BuildEventArgs> BuildErrorEvent;
+        public static event EventHandler<BuildEventArgs> BuildEvent;
 
         /// <summary>
         /// BuildEventArgs
@@ -129,7 +133,7 @@ namespace DotNetHack
         /// Generates the code.
         /// </summary>
         /// <returns></returns>
-        private string GenerateCode()
+        private static string GenerateCode(Engine engine)
         {
             var codeBlock = new StringBuilder();
 
@@ -144,7 +148,8 @@ namespace DotNetHack
             codeBlock.AppendLine("\tEngine = engine;");
             codeBlock.AppendLine("}");
 
-            AppendScriptSection("items", codeBlock, Engine.Package.Items);
+            AppendScriptSection("tiles", codeBlock, engine.Package.TileSet);
+            AppendScriptSection("items", codeBlock, engine.Package.Items);
 
             codeBlock.AppendLine("}");
 
@@ -165,6 +170,7 @@ namespace DotNetHack
         {
             "System",
             "DotNetHack",
+            "DotNetHack.Core",
         };
 
         /// <summary>
@@ -183,6 +189,15 @@ namespace DotNetHack
             }
 
             codeBlock.AppendLine("\t#endregion");
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:BuildErrorEvent" /> event.
+        /// </summary>
+        /// <param name="e">The <see cref="BuildEventArgs"/> instance containing the event data.</param>
+        private static void OnBuildEvent(BuildEventArgs e)
+        {
+            BuildEvent?.Invoke(null, e);
         }
     }
 }

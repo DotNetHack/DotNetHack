@@ -31,8 +31,10 @@ namespace DotNetHack
             FileName = fileName;
             Package = Package.Load(fileName);
             Editor = new Editor(this);
-            ScriptEngine = new ScriptEngine(this);
+            TileFactory = new TileFactory(this);
         }
+
+        public TileFactory TileFactory { get; }
 
         /// <summary>
         /// Gets or sets the editor.
@@ -67,14 +69,6 @@ namespace DotNetHack
         public Display Display { get; set; } = new Display(Console.WindowWidth - 1, Console.WindowHeight - 1);
 
         /// <summary>
-        /// Gets or sets the item factory.
-        /// </summary>
-        /// <value>
-        /// The item factory.
-        /// </value>
-        public ScriptEngine ScriptEngine { get; }
-
-        /// <summary>
         /// Gets or sets the map identifier.
         /// </summary>
         /// <value>
@@ -106,18 +100,13 @@ namespace DotNetHack
 
                         if (mapTile == null) continue;
 
-                        var tileDef = Package.TileSet[mapTile.TileId];
+                        Map[tmpLoc] = TileFactory.Get(mapTile.TileId);
 
-                        if (tileDef != null)
+                        foreach (var itemId in mapTile.Items)
                         {
-                            Map[tmpLoc] = new Tile(tileDef);
+                            var itemDef = Package.Items[itemId];
 
-                            foreach (var itemId in mapTile.Items)
-                            {
-                                var itemDef = Package.Items[itemId];
-
-                                Map[tmpLoc].Items.Push(new Item(itemDef));
-                            }
+                            Map[tmpLoc].Items.Push(new Item(itemDef));
                         }
                     }
                 }
@@ -145,32 +134,8 @@ namespace DotNetHack
         /// </summary>
         public void Run()
         {
-            #region TODO
-
-            ScriptEngine.Compile();
-
-            var scriptContextType = ScriptEngine.Assembly.ExportedTypes.Single();
-            var scriptContextCtor = scriptContextType.GetConstructor(new[] { typeof(Engine) });
-            if (scriptContextCtor == null) throw new InvalidOperationException("missing .ctor");
-            var scriptContext = scriptContextCtor.Invoke(new object[] { this });
-
-            foreach (var item in Package.Items)
-            {
-                foreach (var eventMapping in item.Events)
-                {
-                    var eventId = eventMapping.Key;
-                    var methodName = eventMapping.Value;
-
-                    var scriptMethod = scriptContextType.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-                    scriptMethod.Invoke(scriptContext, new object[] { this, EventArgs.Empty });
-                }
-            }
-
-            var itemDef = Package.Items["Rusted Shortsword"];
-            var tmp = new Item(itemDef);
-
-            #endregion
-
+            ScriptEngine.Compile(this);
+            
             LoadMap(MapId);
 
             ThreadPool.QueueUserWorkItem(KeyboardCallback);
@@ -224,6 +189,8 @@ namespace DotNetHack
                 if (Map[tmpLocation].IsPassable)
                 {
                     Player.Location = tmpLocation;
+
+                    Map[tmpLocation].Enter(Player);
                 }
             }
         }
@@ -268,5 +235,81 @@ namespace DotNetHack
         /// The done boolean
         /// </summary>
         private bool _done;
+    }
+
+    public abstract class ObjectFactory<TDef, TObj> where TDef : IDef where TObj : class
+    {
+        /// <summary>
+        /// The definitions that this object factory will use to build the objects.
+        /// </summary>
+        private readonly IdCollection<TDef> _definitions;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectFactory{TDef, TObj}"/> class.
+        /// </summary>
+        /// <param name="engine">The engine.</param>
+        /// <param name="definitions">The definitions.</param>
+        protected ObjectFactory(Engine engine, IdCollection<TDef> definitions)
+        {
+            _definitions = definitions;
+            Engine = engine;
+        }
+
+        /// <summary>
+        /// Gets the engine.
+        /// </summary>
+        /// <value>
+        /// The engine.
+        /// </value>
+        public Engine Engine { get; }
+
+        /// <summary>
+        /// Gets the specified object identifier.
+        /// </summary>
+        /// <param name="objId">The object identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException">missing .ctor</exception>
+        public TObj Get(string objId)
+        {
+            var def = _definitions[objId];
+
+            var objType = typeof(TObj);
+            var ctor = objType.GetConstructor(new[] { typeof(TDef) });
+            if (ctor == null) throw new InvalidOperationException("missing .ctor");
+            var obj = ctor.Invoke(new object[] { def });
+
+            if (def.Events != null)
+            {
+                foreach (var e in def.Events)
+                {
+                    var objEvent = objType.GetEvent(e.Key);
+                    Type tDelegate = objEvent.EventHandlerType;
+                    MethodInfo miHandler = ScriptEngine.ScriptContext.GetType()
+                        .GetMethod(e.Value, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+                    Delegate d = Delegate.CreateDelegate(tDelegate, ScriptEngine.ScriptContext, miHandler);
+                    MethodInfo addHandler = objEvent.GetAddMethod();
+                    addHandler.Invoke(obj, new object[] {d});
+                }
+            }
+
+            return obj as TObj;
+        }
+    }
+
+    /// <summary>
+    /// The <see cref="TileFactory"/> supports creating tiles on the fly.
+    /// </summary>
+    /// <seealso>
+    ///     <cref>DotNetHack.ObjectFactory{DotNetHack.Definitions.TileDef, DotNetHack.Core.Tile}</cref>
+    /// </seealso>
+    public sealed class TileFactory : ObjectFactory<TileDef, Tile>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TileFactory"/> class.
+        /// </summary>
+        /// <param name="engine">The engine.</param>
+        public TileFactory(Engine engine)
+            : base(engine, engine.Package.TileSet)
+        { }
     }
 }
